@@ -20,7 +20,7 @@ function App () {
 
       <Router>
         <AppBar position='static' color='transparent'>
-          <Tabs variant='scrollable' scrollButtons='auto'>
+          <Tabs value={false} variant='scrollable' scrollButtons='auto'>
             <Tab label='Home' component={Link} to='/' />
             <Tab label='Other Example Page' component={Link} to='/example' />
           </Tabs>
