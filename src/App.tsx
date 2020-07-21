@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
-function App() {
+import Home from './components/Home'
+import ExamplePage from './components/ExamplePage'
+import NotFound from './components/NotFound'
+
+import { AppBar, Tabs, Tab } from '@material-ui/core'
+
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Helmet>
+        <meta
+          name='keywords'
+          content='C4C,code,for,community,code4community,codeforcommunity,northeastern,boston'
+        />
+      </Helmet>
+
+      <Router>
+        <AppBar position='static' color='transparent'>
+          <Tabs variant='scrollable' scrollButtons='auto'>
+            <Tab label='Home' component={Link} to='/' />
+            <Tab label='Other Example Page' component={Link} to='/example' />
+          </Tabs>
+        </AppBar>
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/example' exact component={ExamplePage} />
+          <Route path='*' exact component={NotFound} />
+        </Switch>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
