@@ -10,7 +10,7 @@ function Home () {
         <meta name='description' content='Description for the Home page' />
       </Helmet>
       <Box my={4}>
-        <Box height='12em'>
+        <Box mb={5}>
           <Typography variant='h2'>Frontend Scaffold</Typography>
           <Typography variant='h4'>
             The scaffold for C4C frontend projects.
@@ -28,7 +28,7 @@ function Home () {
           alignItems='center'
           spacing={2}
         >
-          <Grid item xs>
+          <Grid item sm>
             <Typography variant='h6'>Subheading1</Typography>
             <Typography variant='body1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -41,7 +41,7 @@ function Home () {
               lobortis feugiat vivamus at augue eget.{' '}
             </Typography>
           </Grid>
-          <Grid item xs>
+          <Grid item sm>
             <Typography variant='h6'>Subheading2</Typography>
             <Typography variant='body1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -54,7 +54,7 @@ function Home () {
               lobortis feugiat vivamus at augue eget.{' '}
             </Typography>{' '}
           </Grid>
-          <Grid item xs>
+          <Grid item sm>
             <Typography variant='h6'>Subheading3</Typography>
             <Typography variant='body1'>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
