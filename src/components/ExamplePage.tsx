@@ -11,7 +11,7 @@ import {
   Button
 } from '@material-ui/core'
 
-const ExamplePage = () => {
+const ExamplePage: React.FC = () => {
   return (
     <Container maxWidth='md'>
       <Helmet>

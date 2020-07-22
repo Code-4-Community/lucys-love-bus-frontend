@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet'
 
 import { Container, Box, Typography } from '@material-ui/core'
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <Container maxWidth='md'>
       <Helmet>

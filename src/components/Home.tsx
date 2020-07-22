@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { Container, Box, Typography, Grid } from '@material-ui/core'
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <Container maxWidth='md'>
       <Helmet>

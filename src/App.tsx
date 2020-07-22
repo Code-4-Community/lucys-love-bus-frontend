@@ -8,7 +8,7 @@ import NotFound from './components/NotFound'
 
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <>
       <Helmet>
