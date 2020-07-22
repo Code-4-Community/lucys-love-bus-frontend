@@ -10,7 +10,8 @@ import {
   CardActions,
   Button
 } from '@material-ui/core'
-function ExamplePage () {
+
+const ExamplePage = () => {
   return (
     <Container maxWidth='md'>
       <Helmet>
@@ -31,22 +32,27 @@ function ExamplePage () {
           Hey, this is example text size body2.
         </Typography>
 
-        <br />
-        <Paper>
-          <Typography variant='body1'>This is on a piece of paper</Typography>
-        </Paper>
-        <br />
-        <Card>
-          <CardContent>
-            <Typography variant='body2' gutterBottom>
-              This is the content of a card.
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size='small'>Card Button</Button>
-          </CardActions>
-        </Card>
-        <br />
+        <Box my={2}>
+          <Paper>
+            <Box padding={2}>
+              <Typography variant='body1'>
+                This is on a piece of paper.
+              </Typography>
+            </Box>
+          </Paper>
+        </Box>
+        <Box my={2}>
+          <Card>
+            <CardContent>
+              <Typography variant='body2' gutterBottom>
+                This is the content of a card.
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button size='small'>Card Button</Button>
+            </CardActions>
+          </Card>
+        </Box>
         <Button variant='contained' color='primary'>
           Primary
         </Button>

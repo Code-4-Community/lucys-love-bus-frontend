@@ -8,9 +8,9 @@ import NotFound from './components/NotFound'
 
 import { AppBar, Tabs, Tab } from '@material-ui/core'
 
-function App () {
+const App = () => {
   return (
-    <div>
+    <>
       <Helmet>
         <meta
           name='keywords'
@@ -31,7 +31,7 @@ function App () {
           <Route path='*' exact component={NotFound} />
         </Switch>
       </Router>
-    </div>
+    </>
   )
 }
 

@@ -1,13 +1,9 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 
-import {
-  Container,
-  Box,
-  Typography,
+import { Container, Box, Typography } from '@material-ui/core'
 
-} from '@material-ui/core'
-function NotFound () {
+const NotFound = () => {
   return (
     <Container maxWidth='md'>
       <Helmet>
