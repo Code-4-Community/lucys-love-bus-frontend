@@ -1,36 +1,36 @@
-import React from 'react'
-import { Helmet } from 'react-helmet'
-import { Container, Box, Typography, Grid } from '@material-ui/core'
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Container, Box, Typography, Grid } from '@material-ui/core';
 
 const Home: React.FC = () => {
   return (
-    <Container maxWidth='md'>
+    <Container maxWidth="md">
       <Helmet>
         <title>Home</title>
-        <meta name='description' content='Description for the Home page' />
+        <meta name="description" content="Description for the Home page" />
       </Helmet>
       <Box my={4}>
         <Box mb={5}>
-          <Typography variant='h2'>Frontend Scaffold</Typography>
-          <Typography variant='h4'>
+          <Typography variant="h2">Frontend Scaffold</Typography>
+          <Typography variant="h4">
             The scaffold for C4C frontend projects.
           </Typography>
 
-          <Typography variant='subtitle2' gutterBottom>
+          <Typography variant="subtitle2" gutterBottom>
             Using React+Typescript and Material UI. Routing using React Router,
             and SEO with React Helmet.
           </Typography>
         </Box>
         <Grid
           container
-          direction='row'
-          justify='center'
-          alignItems='flex-start'
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
           spacing={2}
         >
           <Grid item sm>
-            <Typography variant='h6'>Subheading1</Typography>
-            <Typography variant='body1'>
+            <Typography variant="h6">Subheading1</Typography>
+            <Typography variant="body1">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Feugiat nisl pretium fusce id velit ut tortor pretium. Nulla
@@ -42,8 +42,8 @@ const Home: React.FC = () => {
             </Typography>
           </Grid>
           <Grid item sm>
-            <Typography variant='h6'>Subheading2</Typography>
-            <Typography variant='body1'>
+            <Typography variant="h6">Subheading2</Typography>
+            <Typography variant="body1">
               Interdum consectetur libero id faucibus nisl tincidunt eget nullam
               non. Eu non diam phasellus vestibulum lorem sed risus ultricies
               tristique. Enim praesent elementum facilisis leo. Quisque egestas
@@ -55,8 +55,8 @@ const Home: React.FC = () => {
             </Typography>{' '}
           </Grid>
           <Grid item sm>
-            <Typography variant='h6'>Subheading3</Typography>
-            <Typography variant='body1'>
+            <Typography variant="h6">Subheading3</Typography>
+            <Typography variant="body1">
               Non pulvinar neque laoreet suspendisse interdum consectetur. Proin
               nibh nisl condimentum id venenatis a condimentum. Neque gravida in
               fermentum et sollicitudin ac orci. Condimentum lacinia quis vel
@@ -70,7 +70,7 @@ const Home: React.FC = () => {
         </Grid>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
