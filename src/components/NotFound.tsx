@@ -18,7 +18,7 @@ const NotFound: React.FC = () => {
 
         <Typography variant="body1">
           Double check your URL, or click on one of the links above to navigate
-          to a diffrent page.
+          to a different page.
         </Typography>
       </Box>
     </Container>
