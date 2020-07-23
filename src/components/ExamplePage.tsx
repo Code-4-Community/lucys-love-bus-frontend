@@ -71,6 +71,9 @@ const ExamplePage: React.FC = () => {
         <Button variant="contained" color="primary">
           Primary
         </Button>
+        <Button variant="contained" color="secondary">
+          Secondary
+        </Button>
       </Box>
     </Container>
   );
