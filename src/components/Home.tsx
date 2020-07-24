@@ -11,9 +11,7 @@ const Home: React.FC = () => {
       </Helmet>
       <Box my={4}>
         <Box mb={5}>
-          <Typography variant="h2">
-            Frontend Scaffold
-          </Typography>
+          <Typography variant="h2">Frontend Scaffold</Typography>
           <Typography variant="h4">
             The scaffold for C4C frontend projects.
           </Typography>
