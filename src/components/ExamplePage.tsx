@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Box,
@@ -11,7 +12,20 @@ import {
   Button,
 } from '@material-ui/core';
 
+const useStyles = makeStyles({
+  paper: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    border: 0,
+    borderRadius: 3,
+    height: '4em',
+    width: '16em',
+    padding: '1em',
+    color: 'white',
+  },
+});
+
 const ExamplePage: React.FC = () => {
+  const classes = useStyles();
   return (
     <Container maxWidth="md">
       <Helmet>
@@ -33,12 +47,13 @@ const ExamplePage: React.FC = () => {
         </Typography>
 
         <Box my={2}>
-          <Paper>
-            <Box padding={2}>
-              <Typography variant="body1">
-                This is on a piece of paper.
-              </Typography>
-            </Box>
+          <Paper className={classes.paper}>
+            <Typography variant="body1">
+              This is on a piece of paper.
+            </Typography>
+            <Typography variant="body1">
+              And its styled with MUI's CSS-in-JS!
+            </Typography>
           </Paper>
         </Box>
         <Box my={2}>
@@ -55,6 +70,9 @@ const ExamplePage: React.FC = () => {
         </Box>
         <Button variant="contained" color="primary">
           Primary
+        </Button>
+        <Button variant="contained" color="secondary">
+          Secondary
         </Button>
       </Box>
     </Container>
