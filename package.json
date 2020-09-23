@@ -30,7 +30,8 @@
     "lint": "tslint -p . -c tslint.json && eslint ./src/**/*.tsx",
     "lint-fix": "tslint --fix -p . -c tslint.json && eslint --fix ./src/**/*.tsx",
     "prettier": "prettier --check './src/**/*.{js,jsx,ts,tsx,json,scss}'",
-    "prettier-fix": "prettier --write './src/**/*.{js,jsx,ts,tsx,json,scss}'"
+    "prettier-fix": "prettier --write './src/**/*.{js,jsx,ts,tsx,json,scss}'",
+    "type-check": "tsc"
   },
   "browserslist": {
     "production": [
