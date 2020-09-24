@@ -14,8 +14,8 @@ export default createMuiTheme({
       // contrastText: will be calculated to contrast with palette.primary.main
     },
     text: {
-      //primary: '',
-      //secondary: ''
+      // primary: '',
+      // secondary: ''
     },
   },
   typography: {

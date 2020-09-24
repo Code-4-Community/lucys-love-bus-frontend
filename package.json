@@ -27,8 +27,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src/**/*.tsx",
-    "fix": "eslint ./src/**/*.tsx --fix"
+    "lint": "tslint -p . -c tslint.json && eslint ./src/**/*.tsx",
+    "lint-fix": "tslint --fix -p . -c tslint.json && eslint --fix ./src/**/*.tsx",
+    "prettier": "prettier --check './src/**/*.{js,jsx,ts,tsx,json,scss}'",
+    "prettier-fix": "prettier --write './src/**/*.{js,jsx,ts,tsx,json,scss}'",
+    "type-check": "tsc"
   },
   "browserslist": {
     "production": [
@@ -50,6 +53,8 @@
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.1.4",
     "prettier": "^2.0.5",
-    "redux-devtools": "^3.5.0"
+    "redux-devtools": "^3.5.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0"
   }
 }

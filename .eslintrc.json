@@ -16,7 +16,8 @@
     "prettier/prettier": [
       "error",
       {
-        "singleQuote": true
+        "singleQuote": true,
+        "endOfLine":"auto"
       }
     ],
     "react/no-unescaped-entities": 0
