@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     example: {
       color: 'red',
     },
-  })
+  }),
 );
 
 const Template: React.FC = () => {
