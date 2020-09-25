@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Container, Box, Paper } from '@material-ui/core';
 
 /*
@@ -10,11 +10,12 @@ Otherwise, use <Box> components where possible for inline styling.
 Every page must have a Helmet tag for SEO purposes.
 */
 
-const useStyles = makeStyles({
-  example: {
-    color: 'red',
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    example: {
+      color: 'red',
+    },
+}));
 
 const Template: React.FC = () => {
   const classes = useStyles();
