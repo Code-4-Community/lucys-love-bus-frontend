@@ -1,13 +1,29 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
+  const location = useLocation();
+  const path = location.pathname;
+
+  function pathnameToKey(path : String) {
+    switch(path) {
+      case '/':
+        return "1";
+      case '/block-template':
+        return "2";
+      case '/grid-template':
+        return "3";
+      default:
+        return "1";
+    }
+  }
+
   return (
     <Header>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[pathnameToKey(path)]}>
         <Menu.Item
           key="1"
           onClick={() => {
