@@ -26,7 +26,7 @@ const App: React.FC = () => {
       </Helmet>
 
       <Router>
-        <Layout>
+        <Layout className="app-flex-container">
           <NavBar />
           <Content className="content-padding">
             <div className="content-inner-container">
