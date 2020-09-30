@@ -6,24 +6,28 @@ const { Header, Footer, Sider, Content } = Layout;
 const NavBar: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
-  const path = location.pathname;
+  const path: string = location.pathname;
 
-  function pathnameToKey(path : String) {
-    switch(path) {
+  function pathnameToKey(pathname: string) {
+    switch (pathname) {
       case '/':
-        return "1";
+        return '1';
       case '/block-template':
-        return "2";
+        return '2';
       case '/grid-template':
-        return "3";
+        return '3';
       default:
-        return "1";
+        return '1';
     }
   }
 
   return (
     <Header>
-      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={[pathnameToKey(path)]}>
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={[pathnameToKey(path)]}
+      >
         <Menu.Item
           key="1"
           onClick={() => {
