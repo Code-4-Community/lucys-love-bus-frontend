@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './template.less';
 import { Row, Col, Typography } from 'antd';
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 /*
 Template for future page components.
 
@@ -52,7 +52,7 @@ const Template: React.FC = () => {
               careful here.
             </Paragraph>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
             <Title level={3}>flexibility in design.</Title>
             <Paragraph>
               In general you probably want some padding to contain your grid if

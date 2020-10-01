@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-const { Header, Footer, Sider, Content } = Layout;
+const { Header } = Layout;
 
 const NavBar: React.FC = () => {
   const history = useHistory();

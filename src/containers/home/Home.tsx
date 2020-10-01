@@ -4,14 +4,7 @@ import './home.less';
 import { Typography } from 'antd';
 const { Title } = Typography;
 
-/*
-Template for future page components.
-
-AntD Components:
-https://ant.design/components/overview/
-*/
-
-const Template: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <>
       <Helmet>
@@ -31,4 +24,4 @@ const Template: React.FC = () => {
   );
 };
 
-export default Template;
+export default Home;
