@@ -2,35 +2,45 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import Home from './components/Home';
-import ExamplePage from './components/ExamplePage';
-import NotFound from './components/NotFound';
+// Import antd stylesheets
+import 'antd/dist/antd.css';
+import './App.less';
+import Home from './containers/home/Home';
+import BlockTemplate from './containers/template-1-col-block/Template';
+import GridTemplate from './containers/template-24-col-grid/Template';
+
+import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
-
-import { ThemeProvider } from '@material-ui/core';
-
-import theme from './theme';
+import Footer from './components/Footer';
+import { Layout } from 'antd';
+const { Content } = Layout;
 
 const App: React.FC = () => {
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Helmet>
-          <meta
-            name="keywords"
-            content="C4C,code,for,community,code4community,codeforcommunity,northeastern,boston"
-          />
-        </Helmet>
+      <Helmet>
+        <meta
+          name="keywords"
+          content="C4C,code,for,community,code4community,codeforcommunity,northeastern,boston"
+        />
+      </Helmet>
 
-        <Router>
+      <Router>
+        <Layout className="app-flex-container">
           <NavBar />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/example" exact component={ExamplePage} />
-            <Route path="*" exact component={NotFound} />
-          </Switch>
-        </Router>
-      </ThemeProvider>
+          <Content className="content-padding">
+            <div className="content-inner-container">
+              <Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/block-template" exact component={BlockTemplate} />
+                <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="*" exact component={NotFound} />
+              </Switch>
+            </div>
+          </Content>
+          <Footer />
+        </Layout>
+      </Router>
     </>
   );
 };
