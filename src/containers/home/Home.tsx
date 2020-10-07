@@ -7,13 +7,7 @@ const { Title } = Typography;
 
 const Home: React.FC = () => {
   const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password }).then((r) =>
-      console.log(r),
-    );
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    login({ email: values.username, password: values.password })
   };
 
   return (
@@ -34,7 +28,6 @@ const Home: React.FC = () => {
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             label="Username"
