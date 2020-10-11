@@ -16,6 +16,8 @@ const NavBar: React.FC = () => {
         return '2';
       case '/grid-template':
         return '3';
+      case '/signup-pf-p1':
+        return '4';
       default:
         return '1';
     }
@@ -51,6 +53,14 @@ const NavBar: React.FC = () => {
           }}
         >
           Grid Template
+        </Menu.Item>
+        <Menu.Item
+            key="4"
+            onClick={() => {
+              history.push('/signup-pf-p1');
+            }}
+        >
+          SignUp1
         </Menu.Item>
       </Menu>
     </Header>
