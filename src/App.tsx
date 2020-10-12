@@ -33,9 +33,9 @@ const App: React.FC = () => {
             <div className="content-inner-container">
               <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/signup" exact component={Signup} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="/signup" exact component={Signup} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
