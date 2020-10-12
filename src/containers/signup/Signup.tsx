@@ -82,7 +82,7 @@ const Signup: React.FC = () => {
           </Form.Item>
 
           <Paragraph>
-            Already have an account? Log in <Link to="/" component={Typography.Link}>here</Link>!
+            Already have an account? Log in <Link to="/login" component={Typography.Link}>here</Link>!
           </Paragraph>
 
           <Form.Item>

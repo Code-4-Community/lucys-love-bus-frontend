@@ -7,6 +7,7 @@ import 'antd/dist/antd.css';
 import './App.less';
 import Home from './containers/home/Home';
 import Signup from './containers/signup/Signup';
+import Login from './containers/login/Login';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
