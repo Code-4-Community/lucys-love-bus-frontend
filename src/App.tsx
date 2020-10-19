@@ -8,6 +8,8 @@ import './App.less';
 import Home from './containers/home/Home';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
+import SignupConfirmationPF from './containers/signup-confirmation/signup-confirmation-pf';
+import SignupConfirmationGM from './containers/signup-confirmation/signup-confirmation-gm';
 
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
@@ -34,6 +36,8 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="/signup-confirmation-gm" exact component={SignupConfirmationGM} />
+                <Route path="/signup-confirmation-pf" exact component={SignupConfirmationPF} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
