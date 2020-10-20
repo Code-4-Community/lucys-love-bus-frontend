@@ -22,7 +22,7 @@ const SignupForm: React.FC = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}
       >
-        <div>
+        <div style={{ marginBottom: '20px' }}>
         <Form.Item
             label="First Name"
             name="firstName"
@@ -42,23 +42,31 @@ const SignupForm: React.FC = () => {
         </Form.Item>
         </div>
 
-      <Radio.Group
-          style={{ margin: '16px 0px' }}>
-          <Radio style={radioStyle} value={1}>
-            He/Him
-          </Radio>
-          <Radio style={radioStyle} value={2}>
-            She/Her
-          </Radio>
-          <Radio style={radioStyle} value={4}>
-            They/Them
-          </Radio>
-        </Radio.Group>
+      <Form.Item 
+        label="Pronouns"
+        name="pronouns"
+        rules={[{ required: true, message: 'Please select your pronouns' }]}
+      >
+        <Radio.Group>
+            <Radio style={radioStyle} value={1}>
+              He/Him
+            </Radio>
+            <Radio style={radioStyle} value={2}>
+              She/Her
+            </Radio>
+            <Radio style={radioStyle} value={4}>
+              They/Them
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Please input your email'}]}
+          rules={[{ 
+            required: true, 
+            type: "email",
+            message: 'Please input a valid email address',}]}
         >
           <Input placeholder="Email"/>
         </Form.Item>
@@ -66,9 +74,14 @@ const SignupForm: React.FC = () => {
         <Form.Item
           label="Phone Number"
           name="phoneNumber"
-          rules={[{ required: true, message: 'Please input your phone number'}]}
+          rules={[{ 
+            required: true, 
+            pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/), 
+            message: 'Please input a valid ten-digit phone number'}]}
+            style={{ width: 'calc(50% - 8px)'}}
         >
-          <Input placeholder="Phone Number"/>
+          <Input 
+            placeholder="Phone Number"/>
         </Form.Item>
 
         <Form.Item label="Address">
@@ -87,14 +100,20 @@ const SignupForm: React.FC = () => {
           </Form.Item>
           <Form.Item
               name="state"
-              rules={[{ required: true, message: 'Please input state'}]}
+              rules={[{ 
+                required: true,  
+                pattern: new RegExp(/^[A-Za-z]{2}/),
+                message: 'Please input valid two-digit state abbreviation'}]}
               style={{ display: 'inline-block', width: 'calc(33% - 8px)', margin: '0 8px 0px 0px' }}
           >
             <Input placeholder="State"/>
           </Form.Item>
           <Form.Item
               name="zip"
-              rules={[{ required: true, message: 'Please input zip code'}]}
+              rules={[{ 
+                required: true, 
+                pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){5}$/), 
+                message: 'Please input a valid five-digit zip code'}]}
               style={{ display: 'inline-block', width: 'calc(33%)'}}
           >
             <Input placeholder="Zip Code"/>
@@ -120,6 +139,43 @@ const SignupForm: React.FC = () => {
             name="otherNotes"
         >
           <TextArea rows={3} placeholder="Other Notes"/>
+        </Form.Item>
+
+        <Form.Item
+              label="Create Password">
+          <Form.Item
+              name="password"
+              style={{ width: 'calc(50% - 8px)'}}
+              hasFeedback
+              rules={[{ 
+                required: true, 
+                pattern: new RegExp(/^(?=.*\d).{8,20}$/), 
+                message: 'Password must be 8-20 characters, containing at least one digit'}]}
+          >
+            <Input.Password placeholder="Password"/>
+          </Form.Item>
+          <Form.Item
+              name="confirm-password"
+              dependencies={['password']}
+              style={{ width: 'calc(50% - 8px)'}}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: 'Passwords must match!'
+                },
+                ({ getFieldValue }) => ({
+                  validator(rule, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject('This password does not match!');
+                  },
+                }),
+              ]}
+          >
+            <Input.Password placeholder="Confirm Password"/>
+          </Form.Item>
         </Form.Item>
 
         <Form.Item label="Upload Profile Picture">
