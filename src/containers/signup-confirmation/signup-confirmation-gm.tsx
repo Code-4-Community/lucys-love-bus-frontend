@@ -2,17 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './signup-confirmation.less';
 import { Typography } from 'antd';
-import { Link } from 'react-router-dom';
 import SignupConfirmation from '../../components/SignupConfirmation';
 
 const { Title, Text, Paragraph } = Typography;
-
-/*
-Template for future page components.
-
-AntD Components:
-https://ant.design/components/overview/
-*/
 
 const SignupConfirmationGM: React.FC = () => {
   return (
