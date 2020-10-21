@@ -13,7 +13,6 @@ const SignupConfirmation: React.FC = () => {
         marginBottom: '15px',
         marginTop: '6px',
         fontSize: '18px',
-        labelSize: '30px',
     };
 
     const radioStyle = {
@@ -30,7 +29,7 @@ const SignupConfirmation: React.FC = () => {
             onFinish={onFinish}
             requiredMark={false}
         >
-            <div style={{marginTop: '42px',
+            <div style={{marginTop: '36px',
                 fontSize: '18px',}}>
                 <Form.Item
                     name="check1"
@@ -68,7 +67,7 @@ const SignupConfirmation: React.FC = () => {
                 </Form.Item>
             </div>
 
-            <div style={{marginTop: '42px',
+            <div style={{marginTop: '36px',
                     fontSize: '18px',}}>
                 <p className="photoRelease">
                     <strong>Photo/Video Release</strong><br/>
@@ -115,7 +114,9 @@ const SignupConfirmation: React.FC = () => {
                 <Form.Item
                     label="Date of Signature"
                     name="dateOfSignature"
-                    rules={[{ required: true, message: 'Please input the date of signature' }]}
+                    rules={[{ required: true,
+                                message: 'Please input the date of signature',
+                                pattern: new RegExp(/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/),}]}
                     style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
                 >
                     <Input style={inputStyle} placeholder="MM/DD/YYYY"/>
@@ -123,14 +124,13 @@ const SignupConfirmation: React.FC = () => {
             </div>
 
             <div className="button-div"
-                style={{
-                    marginTop: '60px',
-                    alignItems: 'center',
-                    display: 'inline-block',
-                }}>
+                 style={{
+                     marginTop: '60px',
+                     alignItems: 'center',
+                 }}>
                 <Form.Item>
-                    <Button type="primary"
-                            style={{
+                    <Button style={{
+                                display: 'inline-block',
                                 margin: '0 8px',
                                 width: '195px',
                                 height: '45px',
@@ -142,7 +142,8 @@ const SignupConfirmation: React.FC = () => {
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit"
-                            style={{display: 'inline-block',
+                            style={{
+                                display: 'inline-block',
                                 margin: '0 8px',
                                 width: '195px',
                                 height: '45px',
