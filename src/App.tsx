@@ -13,6 +13,7 @@ import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import { Layout } from 'antd';
+import Modals from './containers/modals/Modals';
 const { Content } = Layout;
 
 const App: React.FC = () => {
@@ -34,6 +35,7 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="/modals" exact component={Modals} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
