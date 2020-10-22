@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import './signup-gm.less';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import SignupForm from '../../components/SignupForm';
+import SignupForm from '../../components/SignupForm/SignupForm';
 
 const { Title, Paragraph } = Typography;
 

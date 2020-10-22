@@ -1,15 +1,10 @@
 import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
+import './signup-form.less';
 
 const SignupForm: React.FC = () => {
   const onFinish = (values: any) => {
     // send data to redux
-  };
-
-  const radioStyle = {
-    display: 'block',
-    height: '30px',
-    lineHeight: '30px',
   };
 
   const { Dragger } = Upload;
@@ -22,12 +17,11 @@ const SignupForm: React.FC = () => {
           initialValues={{ remember: true }}
           onFinish={onFinish}
       >
-        <div style={{ marginBottom: '20px' }}>
         <Form.Item
             label="First Name"
             name="firstName"
+            className="inline-block-half"
             rules={[{ required: true, message: 'Please input your first name' }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
         >
           <Input placeholder="First Name"/>
         </Form.Item>
@@ -35,37 +29,37 @@ const SignupForm: React.FC = () => {
         <Form.Item
             label="Last Name"
             name="lastName"
+            className="inline-block-half"
             rules={[{ required: true, message: 'Please input your last name' }]}
-            style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
         >
           <Input placeholder="Last Name"/>
         </Form.Item>
-        </div>
 
-      <Form.Item 
-        label="Pronouns"
-        name="pronouns"
-        rules={[{ required: true, message: 'Please select your pronouns' }]}
-      >
-        <Radio.Group>
-            <Radio style={radioStyle} value={1}>
-              He/Him
-            </Radio>
-            <Radio style={radioStyle} value={2}>
-              She/Her
-            </Radio>
-            <Radio style={radioStyle} value={4}>
-              They/Them
-            </Radio>
-          </Radio.Group>
+
+        <Form.Item
+          label="Pronouns"
+          name="pronouns"
+          rules={[{ required: true, message: 'Please select your pronouns' }]}
+        >
+          <Radio.Group>
+              <Radio className="radio-item" value={1}>
+                He/Him
+              </Radio>
+              <Radio className="radio-item" value={2}>
+                She/Her
+              </Radio>
+              <Radio className="radio-item" value={4}>
+                They/Them
+              </Radio>
+            </Radio.Group>
         </Form.Item>
 
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ 
-            required: true, 
-            type: "email",
+          rules={[{
+            required: true,
+            type: 'email',
             message: 'Please input a valid email address',}]}
         >
           <Input placeholder="Email"/>
@@ -74,51 +68,51 @@ const SignupForm: React.FC = () => {
         <Form.Item
           label="Phone Number"
           name="phoneNumber"
-          rules={[{ 
-            required: true, 
-            pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/), 
+          className="inline-block-half"
+          rules={[{
+            required: true,
+            pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
             message: 'Please input a valid ten-digit phone number'}]}
-            style={{ width: 'calc(50% - 8px)'}}
         >
-          <Input 
+          <Input
             placeholder="Phone Number"/>
         </Form.Item>
 
-        <Form.Item label="Address">
           <Form.Item
               name="address"
+              label="Address"
+              className="stacked-inputs"
               rules={[{ required: true, message: 'Please input your address'}]}
           >
             <Input placeholder="Address"/>
           </Form.Item>
           <Form.Item
               name="city"
+              className="inline-block-third"
               rules={[{ required: true, message: 'Please input city'}]}
-              style={{ display: 'inline-block', width: 'calc(33% - 8px)', margin: '0px 8px 0px 0px' }}
           >
             <Input placeholder="City"/>
           </Form.Item>
           <Form.Item
               name="state"
-              rules={[{ 
-                required: true,  
+              className="inline-block-third"
+              rules={[{
+                required: true,
                 pattern: new RegExp(/^[A-Za-z]{2}/),
                 message: 'Please input valid two-digit state abbreviation'}]}
-              style={{ display: 'inline-block', width: 'calc(33% - 8px)', margin: '0 8px 0px 0px' }}
           >
             <Input placeholder="State"/>
           </Form.Item>
           <Form.Item
               name="zip"
-              rules={[{ 
-                required: true, 
-                pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){5}$/), 
+              className="inline-block-third"
+              rules={[{
+                required: true,
+                pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){5}$/),
                 message: 'Please input a valid five-digit zip code'}]}
-              style={{ display: 'inline-block', width: 'calc(33%)'}}
           >
             <Input placeholder="Zip Code"/>
           </Form.Item>
-        </Form.Item>
 
         <Form.Item
             label="Allergies (if applicable)"
@@ -142,14 +136,13 @@ const SignupForm: React.FC = () => {
         </Form.Item>
 
         <Form.Item
-              label="Create Password">
-          <Form.Item
               name="password"
-              style={{ width: 'calc(50% - 8px)'}}
+              label="Create Password"
+              className="block-half stacked-inputs"
               hasFeedback
-              rules={[{ 
-                required: true, 
-                pattern: new RegExp(/^(?=.*\d).{8,20}$/), 
+              rules={[{
+                required: true,
+                pattern: new RegExp(/^(?=.*\d).{8,20}$/),
                 message: 'Password must be 8-20 characters, containing at least one digit'}]}
           >
             <Input.Password placeholder="Password"/>
@@ -157,7 +150,7 @@ const SignupForm: React.FC = () => {
           <Form.Item
               name="confirm-password"
               dependencies={['password']}
-              style={{ width: 'calc(50% - 8px)'}}
+              className="block-half"
               hasFeedback
               rules={[
                 {
@@ -176,7 +169,6 @@ const SignupForm: React.FC = () => {
           >
             <Input.Password placeholder="Confirm Password"/>
           </Form.Item>
-        </Form.Item>
 
         <Form.Item label="Upload Profile Picture">
           <Dragger>
