@@ -32,8 +32,8 @@
     "test": "craco test",
     "lint": "tslint -p . -c tslint.json && eslint ./src/**/*.tsx",
     "lint-fix": "tslint --fix -p . -c tslint.json && eslint --fix ./src/**/*.tsx",
-    "prettier": "prettier --check ./src/**/*.{js,jsx,ts,tsx,json,less}",
-    "prettier-fix": "prettier --write ./src/**/*.{js,jsx,ts,tsx,json,less}",
+    "prettier": "prettier --check ./src/**/*.{ts,tsx,less}",
+    "prettier-fix": "prettier --write ./src/**/*.{ts,tsx,less}",
     "type-check": "tsc"
   },
   "browserslist": {
