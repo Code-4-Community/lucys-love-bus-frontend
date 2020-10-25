@@ -6,20 +6,6 @@ const SignupConfirmation: React.FC = () => {
         // send data to redux
     };
 
-    const inputStyle = {
-        borderRadius: '5px',
-        height: '48px',
-        backgroundColor: '#E5E5E5',
-        marginBottom: '15px',
-        marginTop: '6px',
-        fontSize: '18px',
-    };
-
-    const radioStyle = {
-        display: 'block',
-        height: '30px',
-        lineHeight: '30px',
-    };
 
     return (
         <Form
@@ -29,8 +15,7 @@ const SignupConfirmation: React.FC = () => {
             onFinish={onFinish}
             requiredMark={false}
         >
-            <div style={{marginTop: '36px',
-                fontSize: '18px',}}>
+            <div className="checkbox-div">
                 <Form.Item
                     name="check1"
                     rules={[{ required: true, message: 'Please check all boxes' }]}
@@ -67,9 +52,8 @@ const SignupConfirmation: React.FC = () => {
                 </Form.Item>
             </div>
 
-            <div style={{marginTop: '36px',
-                    fontSize: '18px',}}>
-                <p className="photoRelease">
+            <div className="photo-release-div">
+                <p>
                     <strong>Photo/Video Release</strong><br/>
                     Do you authorize the use and reproduction by Lucy’s Love Bus of any and all photographs
                     and any other audio-visual materials taken of me for promotional material, educational
@@ -81,11 +65,11 @@ const SignupConfirmation: React.FC = () => {
 
                 <Form.Item name="photoRelease"
                            rules={[{ required: true, message: 'Please select one option.'}]}>
-                    <Radio.Group className="photo-release-radio">
-                        <Radio value={1} style={radioStyle}>
+                    <Radio.Group>
+                        <Radio value={1} className="radio-style">
                             I consent to photo/video release
                         </Radio>
-                        <Radio value={2} style={radioStyle}>
+                        <Radio value={2} className="radio-style">
                             I do not consent to photo/video release
                         </Radio>
                     </Radio.Group>
@@ -97,18 +81,18 @@ const SignupConfirmation: React.FC = () => {
                     label="Head of Family Name"
                     name="headOfFamilyName"
                     rules={[{ required: true, message: 'Please input the name of the head of the family' }]}
-                    style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
+                    className="input-item"
                 >
-                    <Input style={inputStyle} placeholder="Head of Family Name"/>
+                    <Input className="input-style" placeholder="Head of Family Name"/>
                 </Form.Item>
 
                 <Form.Item
                     label="Head of Family Initials"
                     name="headOfFamilyInitials"
                     rules={[{ required: true, message: 'Please input head of family\'s initials'}]}
-                    style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
+                    className="input-item"
                 >
-                    <Input style={inputStyle} placeholder="Head of Family Initials"/>
+                    <Input className="input-style" placeholder="Head of Family Initials"/>
                 </Form.Item>
 
                 <Form.Item
@@ -117,38 +101,22 @@ const SignupConfirmation: React.FC = () => {
                     rules={[{ required: true,
                                 message: 'Please input the date of signature',
                                 pattern: new RegExp(/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/),}]}
-                    style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px 0px 0px' }}
+                    className="input-item"
                 >
-                    <Input style={inputStyle} placeholder="MM/DD/YYYY"/>
+                    <Input className="input-style" placeholder="MM/DD/YYYY"/>
                 </Form.Item>
             </div>
 
-            <div className="button-div"
-                 style={{
-                     marginTop: '60px',
-                     alignItems: 'center',
-                 }}>
+            <div className="button-div">
                 <Form.Item>
-                    <Button style={{
-                                display: 'inline-block',
-                                margin: '0 8px',
-                                width: '195px',
-                                height: '45px',
-                                borderRadius: '5px',
-                                background: '#C5C5C5',}}>
+                    <Button className="back-button">
                         Back
                     </Button>
                 </Form.Item>
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit"
-                            style={{
-                                display: 'inline-block',
-                                margin: '0 8px',
-                                width: '195px',
-                                height: '45px',
-                                borderRadius: '5px',
-                                background: '#505050',}}>
+                            className="submit-button">
                         Submit Request
                     </Button>
                 </Form.Item>
