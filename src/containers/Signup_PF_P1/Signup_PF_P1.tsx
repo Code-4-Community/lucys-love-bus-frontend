@@ -2,10 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './Signup_PF_P1.less';
 import { Typography } from 'antd';
-import { Link } from 'react-router-dom';
-import SignupForm from '../../components/SignupForm';
+import SignupForm from '../../components/SignupForm/SignupForm';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 /*
 Template for future page components.
@@ -23,21 +22,21 @@ const Signup_PF_P1: React.FC = () => {
           <meta name="description" content="Description goes here." />
         </Helmet>
         <div className="content-container">
-          {/*
-          Place relevant components in here
-        */}
-          <Title>Registering as a Participating Family</Title>
-          <Paragraph>Participating Families have early access to view events and are eligible to
+
+          <div className= "title">
+            <Title level={5}>SIGN UP</Title>
+            <Title level={3}>Registering as a Participating Family</Title>
+            <Paragraph>Participating Families have early access to view events and are eligible to
             attend free of charge. After creating an account, your request will be reviewed
-            by a member of our administration.
-            *the following information will be associated with your account details</Paragraph>
+            by a member of our administration.</Paragraph>
+            <Paragraph>*the following information will be associated with your
+            account details</Paragraph>
+          </div>
 
-          <SignupForm></SignupForm>
+          <Title level={5}>Account Owner Details</Title>
 
-          <Link to="/" component={Typography.Link}>
-            Also remember that you should link like this to make use of React
-            Router!
-          </Link>
+          <SignupForm> </SignupForm>
+
         </div>
       </>
   );
