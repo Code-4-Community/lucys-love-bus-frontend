@@ -1,7 +1,5 @@
 import tokenService from './token';
-import {
-  requestInterceptor,
-} from './axios';
+import requestInterceptor from './axios';
 
 describe('Request Interceptor Tests', () => {
   it('properly applies the access token when one exists in storage', () => {
