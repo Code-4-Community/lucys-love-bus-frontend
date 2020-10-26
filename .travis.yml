@@ -7,7 +7,5 @@ script:
   - npm run test
   - npm run build
   - npm run type-check
-jobs:
-  include:
-  - stage: Produce Coverage
-    script: npm run test --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+after_success: 
+  - npm run coveralls
