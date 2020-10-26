@@ -28,7 +28,6 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "test-coveralls": "craco test --coverage && coveralls < coverage/lcov.info",
     "lint": "tslint -p . -c tslint.json && eslint ./src/**/*.tsx",
     "lint-fix": "tslint --fix -p . -c tslint.json && eslint --fix ./src/**/*.tsx",
     "prettier": "prettier --check ./src/**/*.{js,jsx,ts,tsx,json,less}",
