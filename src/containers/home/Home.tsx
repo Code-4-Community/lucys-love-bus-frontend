@@ -17,9 +17,6 @@ const Home: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <div className="content-container">
-        {/*
-          Place relevant components in here
-        */}
         <Title>Code4Community Frontend Scaffold</Title>
         <Title level={3}>
           Built with React.js, Typescript, and AntD components.
@@ -43,10 +40,6 @@ const Home: React.FC = () => {
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
             <Input.Password />
-          </Form.Item>
-
-          <Form.Item name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item>

@@ -18,9 +18,6 @@ const Login: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <div className="content-container">
-        {/*
-          Place relevant components in here
-        */}
         <Title>Login</Title>
         <Form
           name="basic"
@@ -41,10 +38,6 @@ const Login: React.FC = () => {
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
             <Input.Password />
-          </Form.Item>
-
-          <Form.Item name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Paragraph>
