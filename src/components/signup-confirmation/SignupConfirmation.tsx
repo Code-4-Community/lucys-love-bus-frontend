@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {Button, Checkbox, Form, Input, Radio} from 'antd';
+import './SignupConfirmation.less';
 
 const SignupConfirmation: React.FC = () => {
     const onFinish = (values: any) => {
         // send data to redux
-    };
+    }
 
 
     return (
         <Form
             name="basic"
             layout="vertical"
-            initialValues={{ remember: true, }}
             onFinish={onFinish}
             requiredMark={false}
         >
             <div className="checkbox-div">
                 <Form.Item
                     name="check1"
-                    rules={[{ required: true, message: 'Please check all boxes' }]}
+                    rules={[{required: true, message: 'Please check all boxes' }]}
                     style={{ display: 'inline-block', }}
                 >
                     <Checkbox>
@@ -64,7 +64,8 @@ const SignupConfirmation: React.FC = () => {
                 </p>
 
                 <Form.Item name="photoRelease"
-                           rules={[{ required: true, message: 'Please select one option.'}]}>
+                           rules={[{ required: true,
+                                        message: 'Please select one option.'}]}>
                     <Radio.Group>
                         <Radio value={1} className="radio-style">
                             I consent to photo/video release
@@ -80,7 +81,8 @@ const SignupConfirmation: React.FC = () => {
                 <Form.Item
                     label="Head of Family Name"
                     name="headOfFamilyName"
-                    rules={[{ required: true, message: 'Please input the name of the head of the family' }]}
+                    rules={[{ required: true,
+                                message: 'Please input the name of the head of the family' }]}
                     className="input-item"
                 >
                     <Input className="input-style" placeholder="Head of Family Name"/>
@@ -89,7 +91,8 @@ const SignupConfirmation: React.FC = () => {
                 <Form.Item
                     label="Head of Family Initials"
                     name="headOfFamilyInitials"
-                    rules={[{ required: true, message: 'Please input head of family\'s initials'}]}
+                    rules={[{ required: true,
+                                message: 'Please input head of family\'s initials'}]}
                     className="input-item"
                 >
                     <Input className="input-style" placeholder="Head of Family Initials"/>
@@ -100,7 +103,7 @@ const SignupConfirmation: React.FC = () => {
                     name="dateOfSignature"
                     rules={[{ required: true,
                                 message: 'Please input the date of signature',
-                                pattern: new RegExp(/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](19|20)\d\d/),}]}
+                                pattern: new RegExp(/(0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])[- \/.](20)\d\d/),}]}
                     className="input-item"
                 >
                     <Input className="input-style" placeholder="MM/DD/YYYY"/>
