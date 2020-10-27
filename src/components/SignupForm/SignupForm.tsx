@@ -2,8 +2,26 @@ import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
 import './signup-form.less';
 
+interface SignupData {
+  firstName: string;
+  lastName: string;
+  pronouns: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  allergies?: string;
+  diagnosis?: string;
+  otherNotes?: string;
+  password: string;
+  profilePicture?: object;
+}
+
+
 const SignupForm: React.FC = () => {
-  const onFinish = (values: any) => {
+  const onFinish = (values: SignupData) => {
     // send data to redux
   };
 
@@ -42,13 +60,13 @@ const SignupForm: React.FC = () => {
           rules={[{ required: true, message: 'Please select your pronouns' }]}
         >
           <Radio.Group>
-              <Radio className="radio-item" value={1}>
+              <Radio className="radio-item" value={'he/him'}>
                 He/Him
               </Radio>
-              <Radio className="radio-item" value={2}>
+              <Radio className="radio-item" value={'she/her'}>
                 She/Her
               </Radio>
-              <Radio className="radio-item" value={4}>
+              <Radio className="radio-item" value={'they/them'}>
                 They/Them
               </Radio>
             </Radio.Group>
