@@ -8,7 +8,7 @@ const { Title, Paragraph } = Typography;
 
 const Login: React.FC = () => {
   const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password })
+    login({ email: values.username, password: values.password });
   };
 
   return (
@@ -48,11 +48,19 @@ const Login: React.FC = () => {
           </Form.Item>
 
           <Paragraph>
-            Need an account? Sign up <Link to="/signup" component={Typography.Link}>here</Link>!
+            Need an account? Sign up{' '}
+            <Link to="/signup" component={Typography.Link}>
+              here
+            </Link>
+            !
           </Paragraph>
 
           <Paragraph>
-            Forgot your password? Click <Link to="/" component={Typography.Link}>here</Link> to reset it.
+            Forgot your password? Click{' '}
+            <Link to="/" component={Typography.Link}>
+              here
+            </Link>{' '}
+            to reset it.
           </Paragraph>
 
           <Form.Item>

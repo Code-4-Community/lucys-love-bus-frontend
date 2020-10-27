@@ -14,7 +14,7 @@ const Signup: React.FC = () => {
       email: values.email,
       password: values.password,
       firstName: values.firstName,
-      lastName: values.lastName
+      lastName: values.lastName,
     });
   };
 
@@ -29,10 +29,7 @@ const Signup: React.FC = () => {
           Place relevant components in here
         */}
         <Title>Sign Up</Title>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-        >
+        <Form name="basic" onFinish={onFinish}>
           <Form.Item
             label="First Name"
             name="firstName"
@@ -82,7 +79,11 @@ const Signup: React.FC = () => {
           </Form.Item>
 
           <Paragraph>
-            Already have an account? Log in <Link to="/login" component={Typography.Link}>here</Link>!
+            Already have an account? Log in{' '}
+            <Link to="/login" component={Typography.Link}>
+              here
+            </Link>
+            !
           </Paragraph>
 
           <Form.Item>
