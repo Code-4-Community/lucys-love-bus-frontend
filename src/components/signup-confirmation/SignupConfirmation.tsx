@@ -2,11 +2,20 @@ import React, {useState} from 'react';
 import {Button, Checkbox, Form, Input, Radio} from 'antd';
 import './SignupConfirmation.less';
 
+interface SignupConfirmationPage {
+    check1: boolean;
+    check2: boolean;
+    check3: boolean;
+    photoRelease: number;
+    headOfFamilyName: string;
+    headOfFamilyInitials: string;
+    dateOfSignature: string;
+}
+
 const SignupConfirmation: React.FC = () => {
-    const onFinish = (values: any) => {
+    const onFinish = (values: SignupConfirmationPage) => {
         // send data to redux
     }
-
 
     return (
         <Form
@@ -18,7 +27,7 @@ const SignupConfirmation: React.FC = () => {
             <div className="checkbox-div">
                 <Form.Item
                     name="check1"
-                    rules={[{required: true, message: 'Please check all boxes' }]}
+                    rules={[{ required: true, message: 'Please check all boxes', }]}
                     style={{ display: 'inline-block', }}
                 >
                     <Checkbox>
@@ -30,7 +39,7 @@ const SignupConfirmation: React.FC = () => {
 
                 <Form.Item
                     name="check2"
-                    rules={[{ required: true, message: 'Please check all boxes' }]}
+                    rules={[{ required: true, message: 'Please check all boxes', }]}
                     style={{ display: 'inline-block'}}
                 >
                     <Checkbox>
@@ -40,7 +49,7 @@ const SignupConfirmation: React.FC = () => {
 
                 <Form.Item
                     name="check3"
-                    rules={[{ required: true, message: 'Please check all boxes' }]}
+                    rules={[{ required: true, message: 'Please check all boxes', }]}
                     style={{ display: 'inline-block'}}
                 >
                     <Checkbox>
@@ -124,7 +133,6 @@ const SignupConfirmation: React.FC = () => {
                     </Button>
                 </Form.Item>
             </div>
-
         </Form>
     );
 };
