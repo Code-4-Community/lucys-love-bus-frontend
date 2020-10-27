@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const userMenu = (
     <Menu>
@@ -24,10 +24,10 @@ const NavBar: React.FC = () => {
     <Row align="middle">
       <Col flex={1}>
         <Link to="/">
-          <Image 
-            className="llbLogo" 
-            src={"https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png"} 
-            alt={"LLB Logo"}
+          <Image
+            className="llbLogo"
+            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'}
+            alt={'LLB Logo'}
           />
         </Link>
       </Col>
@@ -36,14 +36,14 @@ const NavBar: React.FC = () => {
         <Text className="llbText" strong>
           Lucy's Love Bus
         </Text>
-        <br/>
+        <br />
         <Text strong>
           Event Registration
         </Text>
       </Col>
 
       <Col flex={3}>
-        <Button 
+        <Button
           type="link"
           onClick={() => {
             history.push('/');
@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
         >
           Home
         </Button>
-        <Button 
+        <Button
           type="link"
           onClick={() => {
             history.push('/block-template');
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
         >
           Upcoming Events
         </Button>
-        <Button 
+        <Button
           type="link"
           onClick={() => {
             history.push('/grid-template');
@@ -70,7 +70,7 @@ const NavBar: React.FC = () => {
       </Col>
 
       <div>
-        {authenticated ? 
+        {authenticated ?
           <Col flex={3}>
             <Dropdown overlay={userMenu}>
               <Button className="userDropdown">
@@ -78,10 +78,10 @@ const NavBar: React.FC = () => {
               </Button>
             </Dropdown>
           </Col>
-        : <Col flex={3}>
+          : <Col flex={3}>
             <div className="loginAndSignupBtns">
-              <Button 
-                type="link" 
+              <Button
+                type="link"
                 className="loginBtn"
                 onClick={() => {
                   history.push('/login');
@@ -89,7 +89,7 @@ const NavBar: React.FC = () => {
               >
                 Login
               </Button>
-              <Button 
+              <Button
                 className="signUpBtn"
                 onClick={() => {
                   history.push('/signup');
