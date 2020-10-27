@@ -23,7 +23,6 @@ const Home: React.FC = () => {
         </Title>
         <Form
           name="basic"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
         >
           <Form.Item
