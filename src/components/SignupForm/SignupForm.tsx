@@ -2,8 +2,25 @@ import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
 import './signup-form.less'
 
+interface SignupData {
+  firstName: string;
+  lastName: string;
+  pronouns: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  allergies?: string;
+  diagnosis?: string;
+  otherNotes?: string;
+  password: string;
+  profilePicture?: object;
+}
+
 const SignupForm: React.FC = () => {
-  const onFinish = () => {
+  const onFinish = (values: SignupData) => {
     // send data to redux
   };
 
