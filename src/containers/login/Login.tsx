@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import './login.less';
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
 import { Link } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
@@ -19,10 +19,7 @@ const Login: React.FC = () => {
       </Helmet>
       <div className="content-container">
         <Title>Login</Title>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-        >
+        <Form name="basic" onFinish={onFinish}>
           <Form.Item
             label="Username"
             name="username"

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import './home.less';
-import { Button, Checkbox, Form, Input, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
 const { Title } = Typography;
 
@@ -21,10 +21,7 @@ const Home: React.FC = () => {
         <Title level={3}>
           Built with React.js, Typescript, and AntD components.
         </Title>
-        <Form
-          name="basic"
-          onFinish={onFinish}
-        >
+        <Form name="basic" onFinish={onFinish}>
           <Form.Item
             label="Username"
             name="username"
