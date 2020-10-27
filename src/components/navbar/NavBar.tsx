@@ -9,7 +9,7 @@ const { Text } = Typography;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
-  const [authenticated, setAuthenticated] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const userMenu = (
     <Menu>
@@ -81,7 +81,6 @@ const NavBar: React.FC = () => {
           : <Col flex={3}>
             <div className="loginAndSignupBtns">
               <Button
-                type="link"
                 className="loginBtn"
                 onClick={() => {
                   history.push('/login');
