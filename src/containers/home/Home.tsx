@@ -7,7 +7,7 @@ const { Title } = Typography;
 
 const Home: React.FC = () => {
   const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password })
+    login({ email: values.username, password: values.password });
   };
 
   return (
