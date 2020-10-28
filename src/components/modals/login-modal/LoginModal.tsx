@@ -10,39 +10,49 @@ interface LoginModalProps {
   hide: () => void;
 }
 
-const renderContent = (currentPage: string, switchToForgotPasswordPage: () => void,
-                       switchToPasswordResetPage: () => void) => {
-    switch(currentPage) {
-        case 'login':
-            return <LoginContent switchToForgotPasswordPage={switchToForgotPasswordPage}/>;
-        case 'forgotPassword':
-            return <ForgotPasswordContent switchToConfirmationPage={switchToPasswordResetPage}/>
-        case 'passwordReset':
-            return <PasswordResetContent/>;
-    }
-}
+const renderContent = (
+  currentPage: string,
+  switchToForgotPasswordPage: () => void,
+  switchToPasswordResetPage: () => void,
+) => {
+  switch (currentPage) {
+    case 'login':
+      return (
+        <LoginContent switchToForgotPasswordPage={switchToForgotPasswordPage} />
+      );
+    case 'forgotPassword':
+      return (
+        <ForgotPasswordContent
+          switchToConfirmationPage={switchToPasswordResetPage}
+        />
+      );
+    case 'passwordReset':
+      return <PasswordResetContent />;
+  }
+};
 
 const LoginModal = (props: LoginModalProps) => {
-    const [currentPage, setPage] = useState('login');
+  const [currentPage, setPage] = useState('login');
 
-    const setToForgotPasswordPage = () => {
-        setPage('forgotPassword')
-    }
+  const setToForgotPasswordPage = () => {
+    setPage('forgotPassword');
+  };
 
-    const setToPasswordResetPage = () => {
-        setPage('passwordReset')
-    }
+  const setToPasswordResetPage = () => {
+    setPage('passwordReset');
+  };
 
-    return (
-        <div className="modal">
-            <Modal
-            visible={props.isShowing}
-            footer={null}
-            onCancel={props.hide}>
-                {renderContent(currentPage, setToForgotPasswordPage, setToPasswordResetPage)}
-            </Modal>
-        </div>
-    )
+  return (
+    <div className="modal">
+      <Modal visible={props.isShowing} footer={null} onCancel={props.hide}>
+        {renderContent(
+          currentPage,
+          setToForgotPasswordPage,
+          setToPasswordResetPage,
+        )}
+      </Modal>
+    </div>
+  );
 };
 
 export default LoginModal;
