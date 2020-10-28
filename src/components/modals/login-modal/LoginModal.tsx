@@ -12,9 +12,9 @@ interface LoginModalProps {
   hide: () => void;
 }
 
-const renderContent = (currentScreen: string, switchToForgotPasswordPage: () => void,
+const renderContent = (currentPage: string, switchToForgotPasswordPage: () => void,
                        switchToPasswordResetPage: () => void) => {
-    switch(currentScreen) {
+    switch(currentPage) {
         case 'login':
             return <LoginContent switchToForgotPasswordPage={switchToForgotPasswordPage}/>;
         case 'forgotPassword':
