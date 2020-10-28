@@ -17,11 +17,18 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
+### `npm run check`
+
+Runs all 3 lint and fix commands below, **REQUIRED BEFORE MERGE**.
+
 ### `npm run lint-fix`
+
 To lint and fix your files (required before merge).
 
 ### `npm run prettier-fix`
+
 To lint and fix your files (required before merge).
 
 ### `npm run type-check`
+
 Type checks your code (required before merge).
