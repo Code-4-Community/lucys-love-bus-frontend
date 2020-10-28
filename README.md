@@ -2,6 +2,9 @@
 
 This is the React.js frontend for our event registration app made for Lucy's Bus's Sajini Center.
 
+[![Build Status](https://travis-ci.org/Code-4-Community/lucys-love-bus-frontend.svg?branch=master)](https://travis-ci.org/Code-4-Community/lucys-love-bus-frontend)
+
+[![Coverage Status](https://coveralls.io/repos/github/Code-4-Community/lucys-love-bus-frontend/badge.svg?branch=master)](https://coveralls.io/github/Code-4-Community/lucys-love-bus-frontend?branch=master)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

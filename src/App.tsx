@@ -6,10 +6,11 @@ import { Helmet } from 'react-helmet';
 import 'antd/dist/antd.css';
 import './App.less';
 import Home from './containers/home/Home';
+import SignupGM from './containers/signup-gm/SignupGM';
+import Signup from './containers/signup/Signup';
+import Login from './containers/login/Login';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
-import SignupGM from './containers/signup-gm/SignupGM';
-
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -36,6 +37,8 @@ const App: React.FC = () => {
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
                 <Route path="/signup-gm" exact component={SignupGM} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/signup" exact component={Signup} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
