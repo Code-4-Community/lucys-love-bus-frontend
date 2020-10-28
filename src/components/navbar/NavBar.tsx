@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Menu, Dropdown, Image, Typography, Row, Col, Button } from 'antd';
+import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import './navbar.less'
+import './navbar.less';
 
 const { Text } = Typography;
 
@@ -23,24 +23,34 @@ const NavBar: React.FC = () => {
   return (
     <Row align="middle">
       <Col flex={1}>
-        <Link to="/" onClick={() => {history.push('/')}}>
+        <Link
+          to="/"
+          onClick={() => {
+            history.push('/');
+          }}
+        >
           <img
             className="llbLogo"
-            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'}
+            src={
+              'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'
+            }
             alt={'LLB Logo'}
           />
         </Link>
       </Col>
 
       <Col flex={1}>
-        <Link to="/" onClick={() => {history.push('/')}}>
+        <Link
+          to="/"
+          onClick={() => {
+            history.push('/');
+          }}
+        >
           <Text className="llbText" strong>
             Lucy's Love Bus
           </Text>
           <br />
-          <Text strong>
-            Event Registration
-          </Text>
+          <Text strong>Event Registration</Text>
         </Link>
       </Col>
 
@@ -72,7 +82,7 @@ const NavBar: React.FC = () => {
       </Col>
 
       <div>
-        {authenticated ?
+        {authenticated ? (
           <Col flex={3}>
             <Dropdown overlay={userMenu}>
               <Button className="userDropdown">
@@ -80,7 +90,8 @@ const NavBar: React.FC = () => {
               </Button>
             </Dropdown>
           </Col>
-          : <Col flex={3}>
+        ) : (
+          <Col flex={3}>
             <div className="loginAndSignupBtns">
               <Button
                 className="loginBtn"
@@ -100,9 +111,8 @@ const NavBar: React.FC = () => {
               </Button>
             </div>
           </Col>
-        }
+        )}
       </div>
-
     </Row>
   );
 };
