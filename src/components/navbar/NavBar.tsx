@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Menu, Dropdown, Image, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import './navbar.less'
 
 const { Text } = Typography;
@@ -23,25 +22,27 @@ const NavBar: React.FC = () => {
   return (
     <Row align="middle">
       <Col flex={1}>
-        <Link to="/">
+        <a href='/'>
           <img
             className="llbLogo"
-            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'}
+            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_logo.png'}
             alt={'LLB Logo'}
           />
-        </Link>
+        </a>
       </Col>
 
       <Col flex={1}>
-        <Text className="llbText" strong>
-          Lucy's Love Bus
-        </Text>
-        <br />
-        <Text strong>
-          Event Registration
-        </Text>
+        <a href="/">
+          <Text className="llbText" strong>
+            Lucy's Love Bus
+          </Text>
+          <br />
+          <Text strong>
+            Event Registration
+          </Text>
+        </a>
       </Col>
-
+      
       <Col flex={3}>
         <Button
           type="link"
