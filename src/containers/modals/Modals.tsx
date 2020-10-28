@@ -17,15 +17,23 @@ const useModal = () => {
   };
 };
 
+const renderModal = (isShowing: boolean, toggle: () => void) => {
+    return (
+        <LoginModal isShowing={isShowing} hide={toggle}/>
+    )
+}
+
 const Modals: React.FC = () => {
   const { isShowing, toggle } = useModal();
 
   return (
     <>
-      <Button onClick={toggle} type="primary">
+      <Button onClick={toggle} type="primary" className="open-modal-button">
         Open Modal
       </Button>
-      <LoginModal isShowing={isShowing} hide={toggle} />
+      <div>
+          {isShowing ? renderModal(isShowing, toggle) : null}
+      </div>
     </>
   );
 };
