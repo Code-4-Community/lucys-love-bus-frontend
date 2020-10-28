@@ -1,5 +1,5 @@
 import tokenService from './token';
-import requestInterceptor from './axios';
+import { requestInterceptor } from './axios';
 
 describe('Request Interceptor Tests', () => {
   /*
