@@ -8,6 +8,7 @@ import './App.less';
 import Home from './containers/home/Home';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
+import SignupGM from './containers/signup-gm/SignupGM';
 
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
@@ -35,7 +36,8 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
-                <Route path="/modals" exact component={Modals} />
+                <Route path="/signup-gm" exact component={SignupGM} />
+                  <Route path="/modals" exact component={Modals} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>

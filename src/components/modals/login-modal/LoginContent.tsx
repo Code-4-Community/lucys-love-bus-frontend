@@ -8,9 +8,9 @@ interface Props {
 
 const LoginContent: (props: Props) => JSX.Element = (props: Props) => {
   const forgotPasswordLink = (
-    <a onClick={props.switchToForgotPasswordPage} className="page-link">
+    <p onClick={props.switchToForgotPasswordPage} className="page-link">
       here
-    </a>
+    </p>
   );
   const signUpLink = <a className="page-link">here</a>;
 

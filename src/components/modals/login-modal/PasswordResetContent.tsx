@@ -2,7 +2,7 @@ import React from 'react';
 import './password-reset-content.less';
 
 const PasswordResetContent: () => JSX.Element = () => {
-  const resendEmailLink = <a className="page-link">click here</a>;
+  const resendEmailLink = <p className="page-link">click here</p>;
 
   return (
     <p>
