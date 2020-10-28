@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Menu, Dropdown, Image, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import './navbar.less'
 
 const { Text } = Typography;
@@ -22,17 +23,17 @@ const NavBar: React.FC = () => {
   return (
     <Row align="middle">
       <Col flex={1}>
-        <a href='/'>
+        <Link to="/" onClick={() => {history.push('/')}}>
           <img
             className="llbLogo"
-            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_logo.png'}
+            src={'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'}
             alt={'LLB Logo'}
           />
-        </a>
+        </Link>
       </Col>
 
       <Col flex={1}>
-        <a href="/">
+        <Link to="/" onClick={() => {history.push('/')}}>
           <Text className="llbText" strong>
             Lucy's Love Bus
           </Text>
@@ -40,9 +41,9 @@ const NavBar: React.FC = () => {
           <Text strong>
             Event Registration
           </Text>
-        </a>
+        </Link>
       </Col>
-      
+
       <Col flex={3}>
         <Button
           type="link"
