@@ -10,6 +10,7 @@ import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
 import SignupConfirmationPF from './containers/signup-confirmation/SignupConfirmationPF';
 import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirmationGM';
+import SignupGM from './containers/signup-gm/SignupGM';
 
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
@@ -38,6 +39,7 @@ const App: React.FC = () => {
                 <Route path="/grid-template" exact component={GridTemplate} />
                 <Route path="/signup-confirmation-gm" exact component={SignupConfirmationGM} />
                 <Route path="/signup-confirmation-pf" exact component={SignupConfirmationPF} />
+                <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
