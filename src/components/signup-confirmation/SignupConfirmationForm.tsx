@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Button, Checkbox, Form, Input, Radio} from 'antd';
-import './SignupConfirmation.less';
+import './signup-confirmation-form.less';
+import { Typography } from 'antd';
+const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
     check1: boolean;
@@ -12,7 +14,7 @@ interface SignupConfirmationPage {
     dateOfSignature: string;
 }
 
-const SignupConfirmation: React.FC = () => {
+const SignupConfirmationForm: React.FC = () => {
     const onFinish = (values: SignupConfirmationPage) => {
         // send data to redux
     }
@@ -62,7 +64,7 @@ const SignupConfirmation: React.FC = () => {
             </div>
 
             <div className="photo-release-div">
-                <p>
+                <Paragraph>
                     <strong>Photo/Video Release</strong><br/>
                     Do you authorize the use and reproduction by Lucy’s Love Bus of any and all photographs
                     and any other audio-visual materials taken of me for promotional material, educational
@@ -70,7 +72,7 @@ const SignupConfirmation: React.FC = () => {
                     <br/>
                     <br/>
                     <i> <strong> We do not share last names, diagnosis, or hometowns unless given explicit permission in order to protect privacy</strong></i>
-                </p>
+                </Paragraph>
 
                 <Form.Item name="photoRelease"
                            rules={[{ required: true,
@@ -137,4 +139,4 @@ const SignupConfirmation: React.FC = () => {
     );
 };
 
-export default SignupConfirmation;
+export default SignupConfirmationForm;

@@ -8,8 +8,8 @@ import './App.less';
 import Home from './containers/home/Home';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
-import SignupConfirmationPF from './containers/signup-confirmation/signup-confirmation-pf';
-import SignupConfirmationGM from './containers/signup-confirmation/signup-confirmation-gm';
+import SignupConfirmationPF from './containers/signup-confirmation/SignupConfirmationPF';
+import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirmationGM';
 
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
