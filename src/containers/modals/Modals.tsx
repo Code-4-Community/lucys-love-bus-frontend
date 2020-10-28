@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './modals.less';
-import { Row, Col, Typography, Button, Modal } from 'antd';
+import { Button } from 'antd';
 import LoginModal from '../../components/modals/login-modal/LoginModal';
-const { Title, Paragraph } = Typography;
 
 const useModal = () => {
   const [isShowing, setIsShowing] = useState(false);

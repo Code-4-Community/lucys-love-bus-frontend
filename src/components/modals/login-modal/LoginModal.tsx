@@ -1,7 +1,5 @@
-import React, {CSSProperties, useState} from 'react';
-import ReactDOM from 'react-dom';
-import { useHistory, useLocation } from 'react-router-dom';
-import {Button, Form, Input, Layout, Menu, Modal} from 'antd';
+import React, { useState } from 'react';
+import { Modal } from 'antd';
 import './login-modal.less';
 import LoginContent from './LoginContent';
 import ForgotPasswordContent from './ForgotPasswordContent';

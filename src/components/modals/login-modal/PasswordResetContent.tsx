@@ -4,7 +4,7 @@ import './password-reset-content.less'
 
 const PasswordResetContent: () => JSX.Element = () => {
 
-    var resendEmailLink = <a className="page-link">click here</a>
+    const resendEmailLink = <a className="page-link">click here</a>
 
     return (
         <p>
@@ -13,7 +13,7 @@ const PasswordResetContent: () => JSX.Element = () => {
                     Your password reset link is on the way!
                 </div>
                 <div className="password-reset-text">
-                    Keep an eye on your inbox (and check your spam folder as well). If you still haven’t recieved an email, {resendEmailLink} to resend it
+                    Keep an eye on your inbox (and check your spam folder as well). If you still haven’t received an email, {resendEmailLink} to resend it
                 </div>
             </div>
         </p>
