@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import tokenService from './token';
-import { refresh, logout } from './authAPI';
+import { refresh, logout } from './authClient';
 
 const Instance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_DOMAIN,

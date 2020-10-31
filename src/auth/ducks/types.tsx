@@ -33,6 +33,11 @@ export interface SignupRequest {
   readonly lastName: string;
 }
 
+export interface AuthResponse {
+  readonly accessToken: string;
+  readonly refreshToken: string;
+}
+
 export enum API_ROUTE {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',

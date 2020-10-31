@@ -1,6 +1,6 @@
-import { AuthenticationActionTypes, LOGIN, LoginRequest } from './types';
+import { AuthenticationActionTypes, AuthResponse, LOGIN, LoginRequest } from './types';
 
-export const loginUser: (user: LoginRequest) => AuthenticationActionTypes = (
+export const authenticateUser: (user: AuthResponse) => AuthenticationActionTypes = (
   user,
 ) => {
   return {
