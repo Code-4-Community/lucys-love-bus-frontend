@@ -2,19 +2,23 @@ import Axios from './axios';
 import Token from './token';
 import { API_ROUTE, LoginRequest, SignupRequest } from './ducks/types';
 
-export const login = async (user: LoginRequest) =>
+export const login: (user: LoginRequest) => Promise<void> = async (
+  user: LoginRequest,
+) =>
   Axios.post(API_ROUTE.LOGIN, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);
   });
 
-export const signup = async (user: SignupRequest) =>
+export const signup: (user: SignupRequest) => Promise<void> = async (
+  user: SignupRequest,
+) =>
   Axios.post(API_ROUTE.SIGNUP, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);
   });
 
-export const logout = async () =>
+export const logout: () => Promise<void> = async () =>
   Axios.delete(API_ROUTE.LOGIN, {
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
@@ -29,7 +33,7 @@ export const logout = async () =>
       Token.removeRefreshToken();
     });
 
-export const refresh = async () =>
+export const refresh: () => Promise<void> = async () =>
   Axios.post(API_ROUTE.REFRESH, null, {
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
