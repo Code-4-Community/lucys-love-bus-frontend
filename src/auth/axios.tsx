@@ -10,7 +10,7 @@ const Instance: AxiosInstance = axios.create({
   },
 });
 
-const requestInterceptor: (
+export const requestInterceptor: (
   request: AxiosRequestConfig,
 ) => AxiosRequestConfig = (request: AxiosRequestConfig) => {
   // eslint-disable-next-line
@@ -20,11 +20,10 @@ const requestInterceptor: (
 
 Instance.interceptors.request.use(requestInterceptor);
 
-const INVALID_ACCESS_TOKEN: string = 'Given access token is expired or invalid';
+const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
 
 const responseErrorInterceptor: (error: AxiosError) => void = (error) => {
   const originalRequest = error.config;
-  console.log(error);
   if (
     error.code === '401' &&
     error.message === INVALID_ACCESS_TOKEN &&

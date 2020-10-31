@@ -1,6 +1,6 @@
 import Axios from './axios';
 import Token from './token';
-import { API_ROUTE, LoginRequest } from './ducks/types';
+import { API_ROUTE, LoginRequest, SignupRequest } from './ducks/types';
 
 export const login = async (user: LoginRequest) =>
   Axios.post(API_ROUTE.LOGIN, user).then((response) => {
@@ -8,7 +8,7 @@ export const login = async (user: LoginRequest) =>
     Token.setRefreshToken(response.data.refreshToken);
   });
 
-export const signup = async (user: LoginRequest) =>
+export const signup = async (user: SignupRequest) =>
   Axios.post(API_ROUTE.SIGNUP, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);

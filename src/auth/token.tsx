@@ -5,7 +5,6 @@ import { LOCALSTORAGE_TOKEN_KEY, PrivilegeLevel } from './ducks/types';
  * @param {String} key one of LOCALSTORAGE_TOKEN_KEY.ACCESS or REFRESH_LOCALSTORAGE_TOKEN_KEY
  */
 
-
 const getTokenPayload = (key: LOCALSTORAGE_TOKEN_KEY): TokenPayload => {
   const token = localStorage.getItem(key);
   if (!token)

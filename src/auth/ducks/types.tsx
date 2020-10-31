@@ -25,6 +25,14 @@ export interface LoginRequest {
   readonly password: string;
 }
 
+export interface SignupRequest {
+  readonly username: string;
+  readonly email: string;
+  readonly password: string;
+  readonly firstName: string;
+  readonly lastName: string;
+}
+
 export enum API_ROUTE {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
