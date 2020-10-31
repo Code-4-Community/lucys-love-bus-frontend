@@ -20,7 +20,9 @@ interface SignupRequest {
   readonly lastName: string;
 }
 
-export const login: (user: LoginRequest) => Promise<void> = async (user: LoginRequest) =>
+export const login: (user: LoginRequest) => Promise<void> = async (
+  user: LoginRequest,
+) =>
   Axios.post(ROUTES.LOGIN, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);
