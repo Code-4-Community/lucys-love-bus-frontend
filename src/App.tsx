@@ -13,6 +13,7 @@ import SignupGM from './containers/signup-gm/SignupGM';
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import Signup_PF_P1 from './containers/Signup_PF_P1/Signup_PF_P1';
 import { Layout } from 'antd';
 const { Content } = Layout;
 
@@ -35,6 +36,7 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
