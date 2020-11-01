@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
-import './signup-form.less'
+import './PF1-signup-form.less'
 
 interface SignupData {
   firstName: string;
@@ -19,7 +19,7 @@ interface SignupData {
   profilePicture?: object;
 }
 
-const SignupForm: React.FC = () => {
+const PF1SignupForm: React.FC = () => {
   const onFinish = (values: SignupData) => {
     // send data to redux
   };
@@ -204,4 +204,4 @@ const SignupForm: React.FC = () => {
   );
 };
 
-export default SignupForm;
+export default PF1SignupForm;
