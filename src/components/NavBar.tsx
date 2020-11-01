@@ -55,10 +55,10 @@ const NavBar: React.FC = () => {
           Grid Template
         </Menu.Item>
         <Menu.Item
-            key="4"
-            onClick={() => {
-              history.push('/signup-pf-p1');
-            }}
+          key="4"
+          onClick={() => {
+            history.push('/signup-pf-p1');
+          }}
         >
           SignUp1
         </Menu.Item>
