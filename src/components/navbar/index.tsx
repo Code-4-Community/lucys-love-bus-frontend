@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
