@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './settings.less';
 import { Button, Form, Typography } from 'antd';
 import { deleteAccount } from '../../auth/authAPI';
 const { Title } = Typography;
