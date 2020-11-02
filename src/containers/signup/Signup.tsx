@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './signup.less';
 import { Button, Form, Input, Typography } from 'antd';
 import { signup } from '../../auth/authAPI';
 import { Link } from 'react-router-dom';
