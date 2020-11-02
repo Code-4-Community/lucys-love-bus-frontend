@@ -20,6 +20,8 @@ const NavBar: React.FC = () => {
         return '4';
       case '/signup':
         return '5';
+      case '/settings':
+        return '6';
       default:
         return '1';
     }
@@ -71,6 +73,14 @@ const NavBar: React.FC = () => {
           }}
         >
           Sign Up
+        </Menu.Item>
+        <Menu.Item
+          key="6"
+          onClick={() => {
+            history.push('/settings');
+          }}
+        >
+          Settings
         </Menu.Item>
       </Menu>
     </Header>

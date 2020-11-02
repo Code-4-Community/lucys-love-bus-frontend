@@ -5,6 +5,7 @@ enum ROUTES {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
+  DELETE_ACCOUNT = '/api/v1/user',
 }
 
 interface LoginRequest {
@@ -43,6 +44,22 @@ export const logout: () => Promise<void> = async () =>
     },
   })
     .then(() => {
+      Token.removeAccessToken();
+      Token.removeRefreshToken();
+    })
+    .catch(() => {
+      Token.removeAccessToken();
+      Token.removeRefreshToken();
+    });
+
+export const deleteAccount: () => Promise<void> = async () =>
+  Axios.delete(ROUTES.DELETE_ACCOUNT, {
+    headers: {
+      'X-Access-Token': Token.getAccessToken(),
+      'X-Refresh-Token': Token.getRefreshToken(),
+    },
+  })
+    .then((response) => {
       Token.removeAccessToken();
       Token.removeRefreshToken();
     })
