@@ -12,7 +12,8 @@ const LoginContent: (props: Props) => JSX.Element = (props: Props) => {
       here
     </p>
   );
-  const signUpLink = <a className="page-link">here</a>;
+
+  const signUpLink = <a className="page-link">here</a>; // eslint-disable-line no-eval
 
   return (
     <p>
