@@ -33,7 +33,8 @@
     "lint-fix": "tslint --fix -p . -c tslint.json && eslint --fix ./src/**/*.tsx",
     "prettier": "prettier --check ./src/**/*.{js,jsx,ts,tsx,json,less}",
     "prettier-fix": "prettier --write ./src/**/*.{js,jsx,ts,tsx,json,less}",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "check": "npm run lint-fix && npm run prettier-fix && npm run type-check"
   },
   "browserslist": {
     "production": [
