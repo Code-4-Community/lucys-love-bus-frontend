@@ -4,7 +4,7 @@ import './signup-confirmation.less';
 import { Typography } from 'antd';
 import SignupConfirmationForm from '../../components/signup-confirmation/SignupConfirmationForm';
 
-const { Title, Text, Paragraph } = Typography;
+const { Title, Paragraph } = Typography;
 
 const SignupConfirmationGM: React.FC = () => {
   return (
