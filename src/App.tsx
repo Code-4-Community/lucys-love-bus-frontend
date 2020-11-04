@@ -38,8 +38,16 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
-                <Route path="/signup-confirmation-gm" exact component={SignupConfirmationGM} />
-                <Route path="/signup-confirmation-pf" exact component={SignupConfirmationPF} />
+                <Route
+                  path="/signup-confirmation-gm"
+                  exact
+                  component={SignupConfirmationGM}
+                />
+                <Route
+                  path="/signup-confirmation-pf"
+                  exact
+                  component={SignupConfirmationPF}
+                />
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="*" exact component={NotFound} />

@@ -13,16 +13,25 @@ const SignupConfirmationPF: React.FC = () => {
         <title>Signup Confirmation - Participating Family</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-        <div className="content-container">
-            <Title level={5} className="centered-text">SIGN UP</Title>
+      <div className="content-container">
+        <Title level={5} className="centered-text">
+          SIGN UP
+        </Title>
 
-            <Title level={3} className="centered-text"> Registering as a Participating Family</Title>
+        <Title level={3} className="centered-text">
+          {' '}
+          Registering as a Participating Family
+        </Title>
 
-            <Paragraph className="centered-text"> Please carefully read, review, and check the agreement boxes below in order to participate in
-                programs through Lucy’s Love Bus to ensure the safety and comfort of all participants. </Paragraph>
+        <Paragraph className="centered-text">
+          {' '}
+          Please carefully read, review, and check the agreement boxes below in
+          order to participate in programs through Lucy’s Love Bus to ensure the
+          safety and comfort of all participants.{' '}
+        </Paragraph>
 
-            <SignupConfirmationForm> </SignupConfirmationForm>
-        </div>
+        <SignupConfirmationForm> </SignupConfirmationForm>
+      </div>
     </>
   );
 };
