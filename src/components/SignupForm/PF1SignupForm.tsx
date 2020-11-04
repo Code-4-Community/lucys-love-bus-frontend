@@ -16,7 +16,7 @@ interface SignupData {
   diagnosis?: string;
   otherNotes?: string;
   password: string;
-  profilePicture?: object;
+  profilePicture?: any;
 }
 
 const PF1SignupForm: React.FC = () => {
