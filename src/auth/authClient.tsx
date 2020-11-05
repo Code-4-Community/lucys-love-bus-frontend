@@ -20,8 +20,7 @@ const login: (user: LoginRequest) => Promise<TokenResponse> = async (
 
 const signup: (user: SignupRequest) => Promise<TokenResponse> = async (
   user: SignupRequest,
-) =>
-  Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);
+) => Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);
 
 const logout: () => Promise<void> = async () =>
   Axios.delete(API_ROUTE.LOGIN, {
