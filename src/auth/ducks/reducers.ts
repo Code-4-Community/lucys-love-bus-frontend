@@ -15,8 +15,8 @@ const reducers = (
     case AUTHENTICATION_SUCCESS_ACTION:
       return {
         ...state,
-        ...action.payload
-      }
+        ...action.payload,
+      };
     default:
       return state;
   }

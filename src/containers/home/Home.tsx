@@ -8,7 +8,7 @@ const { Title } = Typography;
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    dispatch(login({ username: values.username, password: values.password }))
+    dispatch(login({ username: values.username, password: values.password }));
   };
 
   return (

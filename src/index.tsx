@@ -24,41 +24,41 @@ export interface C4CState {
   authenticationState: UserState;
 }
 
-export type C4CAction =
-  | UserAuthenticationActions
+export type C4CAction = UserAuthenticationActions;
 
 interface ThunkExtraArgs {
-  readonly authClient: AuthClient
+  readonly authClient: AuthClient;
 }
 
 const reducers = combineReducers<C4CState, C4CAction>({
-  authenticationState: userReducer
-})
+  authenticationState: userReducer,
+});
 
 const storeState: C4CState = {
-  authenticationState: initialUserState
-}
+  authenticationState: initialUserState,
+};
 
 const thunkExtraArgs: ThunkExtraArgs = {
-  authClient
-}
+  authClient,
+};
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    trace: true,
-    traceLimit: 25
-  }) : compose
+      trace: true,
+      traceLimit: 25,
+    })
+  : compose;
 
 const enhancer = composeEnhancers(
   applyMiddleware<ThunkDispatch<C4CState, ThunkExtraArgs, C4CAction>>(
-    thunk.withExtraArgument(thunkExtraArgs)
-  )
-)
+    thunk.withExtraArgument(thunkExtraArgs),
+  ),
+);
 
 const store = createStore<C4CState, C4CAction, {}, {}>(
   reducers,
   storeState,
-  enhancer
+  enhancer,
 );
 
 ReactDOM.render(
