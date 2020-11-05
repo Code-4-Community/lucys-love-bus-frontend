@@ -1,20 +1,23 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
-import { signup } from '../../auth/authClient';
 import { Link } from 'react-router-dom';
+import { signup } from '../../auth/ducks/thunks';
+import { useDispatch } from 'react-redux';
 const { Title, Paragraph } = Typography;
 
 const Signup: React.FC = () => {
+  const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    // TODO: what if backend says the values are invalid? need to handle this
-    signup({
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      firstName: values.firstName,
-      lastName: values.lastName,
-    });
+    dispatch(
+      signup({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+      }),
+    );
   };
 
   return (

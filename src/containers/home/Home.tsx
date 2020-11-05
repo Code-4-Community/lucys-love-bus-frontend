@@ -1,12 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
-import { login } from '../../auth/authClient';
+import { useDispatch } from 'react-redux';
+import { login } from '../../auth/ducks/thunks';
 const { Title } = Typography;
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password });
+    dispatch(login({ username: values.username, password: values.password }))
   };
 
   return (

@@ -2,23 +2,23 @@ import Axios from './axios';
 import Token from './token';
 import {
   API_ROUTE,
-  AuthResponse,
+  TokenResponse,
   LoginRequest,
   SignupRequest,
 } from './ducks/types';
 
-interface AuthClient {
-  login: (user: LoginRequest) => Promise<AuthResponse>;
-  signup: (user: SignupRequest) => Promise<AuthResponse>;
+export interface AuthClient {
+  login: (user: LoginRequest) => Promise<TokenResponse>;
+  signup: (user: SignupRequest) => Promise<TokenResponse>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
 }
 
-const login: (user: LoginRequest) => Promise<AuthResponse> = async (
+const login: (user: LoginRequest) => Promise<TokenResponse> = async (
   user: LoginRequest,
 ) => Axios.post(API_ROUTE.LOGIN, user).then((response) => response.data);
 
-const signup: (user: SignupRequest) => Promise<AuthResponse> = async (
+const signup: (user: SignupRequest) => Promise<TokenResponse> = async (
   user: SignupRequest,
 ) =>
   Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);

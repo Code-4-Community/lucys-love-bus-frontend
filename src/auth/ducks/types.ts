@@ -1,27 +1,25 @@
-export interface AuthenticationState {
+import { ThunkAction } from 'redux-thunk';
+import { C4CState, C4CAction } from '../../index';
+import { AuthClient } from '../authClient';
+
+export interface UserState {
   readonly privilegeLevel: PrivilegeLevel;
   readonly userId: number;
 }
 
-export const LOGIN = 'LOGIN'
-export const SIGNUP = 'SIGNUP'
-export const LOGOUT = 'LOGOUT'
-export const REFRESH = 'REFRESH'
-
-interface LoginAction {
-  type: typeof LOGIN
-  payload: LoginRequest
+export interface UserAuthenticationExtraArgs {
+  readonly authClient: AuthClient;
 }
 
-interface SignupAction {
-  type: typeof SIGNUP
-  payload: LoginRequest
-}
-
-export type AuthenticationActionTypes = LoginAction | SignupAction;
+export type UserAuthenticationThunkAction<R> = ThunkAction<
+  R,
+  C4CState,
+  UserAuthenticationExtraArgs,
+  C4CAction
+>;
 
 export interface LoginRequest {
-  readonly email: string;
+  readonly username: string;
   readonly password: string;
 }
 
@@ -33,9 +31,13 @@ export interface SignupRequest {
   readonly lastName: string;
 }
 
-export interface AuthResponse {
+export interface TokenResponse {
   readonly accessToken: string;
   readonly refreshToken: string;
+}
+
+export interface UserAuthenticationFailedResponse {
+  readonly error: any;
 }
 
 export enum API_ROUTE {
