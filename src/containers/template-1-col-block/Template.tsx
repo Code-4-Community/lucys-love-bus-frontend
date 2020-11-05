@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './template.less';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 

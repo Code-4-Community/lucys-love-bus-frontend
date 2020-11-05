@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './login.less';
 import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authClient';
 import { Link } from 'react-router-dom';
