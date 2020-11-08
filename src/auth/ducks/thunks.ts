@@ -8,12 +8,11 @@ import {
   AUTHENTICATION_FAILED_ACTION,
   AUTHENTICATION_SUCCESS_ACTION,
 } from './actions';
-import tokenService from '../token';
 
 export const login = (
   loginRequest: LoginRequest,
 ): UserAuthenticationThunkAction<void> => {
-  return (dispatch, getState, { authClient }): Promise<void> => {
+  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
     return authClient
       .login(loginRequest)
       .then((response: TokenResponse) => {
@@ -39,7 +38,7 @@ export const login = (
 export const signup = (
   signupRequest: SignupRequest,
 ): UserAuthenticationThunkAction<void> => {
-  return (dispatch, getState, { authClient }): Promise<void> => {
+  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
     return authClient
       .signup(signupRequest)
       .then((response) => {

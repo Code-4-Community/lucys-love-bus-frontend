@@ -19,7 +19,7 @@ interface TokenPayload {
   readonly exp: number;
 }
 
-interface TokenService {
+export interface TokenService {
   readonly getAccessToken: () => void;
   readonly setAccessToken: (token: string) => void;
   readonly removeAccessToken: () => void;

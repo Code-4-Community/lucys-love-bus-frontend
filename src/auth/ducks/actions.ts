@@ -1,20 +1,23 @@
-import { UserAuthenticationFailedResponse } from './types';
 import { Action } from 'redux';
 
 export const AUTHENTICATION_SUCCESS_ACTION = 'AUTHENTICATION_SUCCESS';
 export const AUTHENTICATION_FAILED_ACTION = 'AUTHENTICATION_FAILED';
 
-interface UserAuthResponse {
+export interface UserAuthResponse {
   readonly userId: number;
   readonly privilegeLevel: number;
 }
 
-interface AuthenticationSuccess extends Action {
+export interface AuthenticationSuccess extends Action {
   payload: UserAuthResponse;
 }
 
-interface AuthenticationFailed extends Action {
-  payload: UserAuthenticationFailedResponse;
+export interface AuthenticationError {
+  readonly error: any;
+}
+
+export interface AuthenticationFailed extends Action {
+  payload: AuthenticationError;
 }
 
 export type UserAuthenticationActions =

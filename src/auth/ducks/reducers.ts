@@ -1,10 +1,10 @@
-import { UserState } from './types';
+import { NO_USER_ID, PrivilegeLevel, UserState } from './types';
 import { AUTHENTICATION_SUCCESS_ACTION } from './actions';
-import { C4CAction } from '../../index';
+import { C4CAction } from '../../store';
 
 export const initialUserState: UserState = {
-  privilegeLevel: -1,
-  userId: -1,
+  privilegeLevel: PrivilegeLevel.NONE,
+  userId: NO_USER_ID,
 };
 
 const reducers = (

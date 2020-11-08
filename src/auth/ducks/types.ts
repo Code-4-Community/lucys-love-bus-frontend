@@ -1,6 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
-import { C4CState, C4CAction } from '../../index';
+import { C4CState, C4CAction } from '../../store';
 import { AuthClient } from '../authClient';
+import { TokenService } from '../token';
 
 export interface UserState {
   readonly privilegeLevel: PrivilegeLevel;
@@ -9,6 +10,7 @@ export interface UserState {
 
 export interface UserAuthenticationExtraArgs {
   readonly authClient: AuthClient;
+  readonly tokenService: TokenService;
 }
 
 export type UserAuthenticationThunkAction<R> = ThunkAction<
@@ -27,17 +29,12 @@ export interface SignupRequest {
   readonly username: string;
   readonly email: string;
   readonly password: string;
-  readonly firstName: string;
-  readonly lastName: string;
+  readonly fullName: string;
 }
 
 export interface TokenResponse {
   readonly accessToken: string;
   readonly refreshToken: string;
-}
-
-export interface UserAuthenticationFailedResponse {
-  readonly error: any;
 }
 
 export enum API_ROUTE {
@@ -56,3 +53,5 @@ export enum PrivilegeLevel {
   STANDARD = 0,
   ADMIN = 1,
 }
+
+export const NO_USER_ID = -1;
