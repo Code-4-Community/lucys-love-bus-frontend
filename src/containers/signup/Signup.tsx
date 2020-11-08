@@ -14,8 +14,7 @@ const Signup: React.FC = () => {
         username: values.username,
         email: values.email,
         password: values.password,
-        firstName: values.firstName,
-        lastName: values.lastName,
+        fullName: `${values.firstName} ${values.lastName}`,
       }),
     );
   };
