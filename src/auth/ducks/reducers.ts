@@ -1,5 +1,5 @@
 import { NO_USER_ID, PrivilegeLevel, UserState } from './types';
-import { AUTHENTICATION_SUCCESS_ACTION } from './actions';
+import { AUTHENTICATION_SUCCESS_ACTION, AuthenticationSuccess } from './actions';
 import { C4CAction } from '../../store';
 
 export const initialUserState: UserState = {
@@ -15,7 +15,7 @@ const reducers = (
     case AUTHENTICATION_SUCCESS_ACTION:
       return {
         ...state,
-        ...action.payload,
+        ...(action as AuthenticationSuccess).payload,
       };
     default:
       return state;

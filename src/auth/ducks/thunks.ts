@@ -5,7 +5,7 @@ import {
   UserAuthenticationThunkAction,
 } from './types';
 import {
-  AUTHENTICATION_FAILED_ACTION,
+  AUTHENTICATION_FAILED_ACTION, AUTHENTICATION_LOGOUT_ACTION,
   AUTHENTICATION_SUCCESS_ACTION,
 } from './actions';
 
@@ -57,6 +57,27 @@ export const signup = (
           type: AUTHENTICATION_FAILED_ACTION,
           payload: error,
         });
+      });
+  };
+};
+
+export const logout = (): UserAuthenticationThunkAction<void> => {
+  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
+    return authClient
+      .logout()
+      .then(() => {
+        tokenService.removeAccessToken();
+        tokenService.removeRefreshToken();
+        dispatch({
+          type: AUTHENTICATION_LOGOUT_ACTION
+        })
+      })
+      .catch(() => {
+        tokenService.removeAccessToken();
+        tokenService.removeRefreshToken();
+        dispatch({
+          type: AUTHENTICATION_LOGOUT_ACTION
+        })
       });
   };
 };

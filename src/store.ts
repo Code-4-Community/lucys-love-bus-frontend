@@ -11,6 +11,11 @@ export interface C4CState {
   authenticationState: UserState;
 }
 
+export interface Action<T, P> {
+  readonly type: T;
+  readonly payload: P;
+}
+
 export type C4CAction = UserAuthenticationActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs;

@@ -27,15 +27,7 @@ const logout: () => Promise<void> = async () =>
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
     },
-  })
-    .then(() => {
-      Token.removeAccessToken();
-      Token.removeRefreshToken();
-    })
-    .catch(() => {
-      Token.removeAccessToken();
-      Token.removeRefreshToken();
-    });
+  });
 
 const refresh: () => Promise<void> = async () =>
   Axios.post(API_ROUTE.REFRESH, null, {
