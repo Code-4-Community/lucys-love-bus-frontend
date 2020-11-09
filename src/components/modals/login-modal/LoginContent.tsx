@@ -14,7 +14,7 @@ const LoginContent: (props: Props) => JSX.Element = (props: Props) => {
     </Button>
   );
   const signUpLink = <Button className="page-link">here</Button>;
-  
+
   return (
     <div className="content">
       <Text className="title-text">Login to your account</Text>
