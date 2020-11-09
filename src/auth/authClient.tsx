@@ -1,15 +1,20 @@
 import Axios from './axios';
 import Token from './token';
-import { TokenResponse, LoginRequest, SignupRequest } from './ducks/types';
+import {
+  TokenResponse,
+  LoginRequest,
+  SignupRequest,
+  RefreshTokenResponse,
+} from './ducks/types';
 
 export interface AuthClient {
   login: (user: LoginRequest) => Promise<TokenResponse>;
   signup: (user: SignupRequest) => Promise<TokenResponse>;
   logout: () => Promise<void>;
-  refresh: () => Promise<void>;
+  refresh: () => Promise<RefreshTokenResponse>;
 }
 
-enum API_ROUTE {
+export enum API_ROUTE {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
@@ -28,21 +33,14 @@ const logout: () => Promise<void> = async () =>
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
     },
-  });
+  }).then(() => {});
 
-const refresh: () => Promise<void> = async () =>
+const refresh: () => Promise<RefreshTokenResponse> = async () =>
   Axios.post(API_ROUTE.REFRESH, null, {
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
     },
-  })
-    .then((response) => {
-      Token.setAccessToken(response.data.freshAccessToken);
-    })
-    .catch(() => {
-      Token.removeAccessToken();
-      Token.removeAccessToken();
-    });
+  }).then((response) => response.data);
 
 const Client: AuthClient = Object.freeze({
   login,

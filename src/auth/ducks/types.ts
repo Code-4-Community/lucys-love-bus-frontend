@@ -38,6 +38,10 @@ export interface TokenResponse {
   readonly refreshToken: string;
 }
 
+export interface RefreshTokenResponse {
+  readonly freshAccessToken: string;
+}
+
 export enum PrivilegeLevel {
   NONE = -1,
   STANDARD = 0,
