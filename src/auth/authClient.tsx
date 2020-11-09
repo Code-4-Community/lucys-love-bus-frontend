@@ -1,5 +1,4 @@
 import Axios from './axios';
-import Token from './token';
 import {
   TokenResponse,
   LoginRequest,
@@ -10,8 +9,8 @@ import {
 export interface AuthClient {
   login: (user: LoginRequest) => Promise<TokenResponse>;
   signup: (user: SignupRequest) => Promise<TokenResponse>;
-  logout: () => Promise<void>;
-  refresh: () => Promise<RefreshTokenResponse>;
+  logout: (refreshToken: string) => Promise<void>;
+  refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
 }
 
 export enum API_ROUTE {
@@ -20,25 +19,30 @@ export enum API_ROUTE {
   REFRESH = '/api/v1/user/login/refresh/',
 }
 
-const login: (user: LoginRequest) => Promise<TokenResponse> = async (
+const login: (user: LoginRequest) => Promise<TokenResponse> = (
   user: LoginRequest,
 ) => Axios.post(API_ROUTE.LOGIN, user).then((response) => response.data);
 
-const signup: (user: SignupRequest) => Promise<TokenResponse> = async (
+const signup: (user: SignupRequest) => Promise<TokenResponse> = (
   user: SignupRequest,
 ) => Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);
 
-const logout: () => Promise<void> = async () =>
+const logout: (refreshToken: string) => Promise<void> = (
+  refreshToken: string,
+) =>
   Axios.delete(API_ROUTE.LOGIN, {
     headers: {
-      'X-Refresh-Token': Token.getRefreshToken(),
+      'X-Refresh-Token': refreshToken,
     },
-  });
+    // eslint-disable-next-line
+  }).then(() => {});
 
-const refresh: () => Promise<RefreshTokenResponse> = async () =>
+const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
+  refreshToken: string,
+) =>
   Axios.post(API_ROUTE.REFRESH, null, {
     headers: {
-      'X-Refresh-Token': Token.getRefreshToken(),
+      'X-Refresh-Token': refreshToken,
     },
   }).then((response) => response.data);
 

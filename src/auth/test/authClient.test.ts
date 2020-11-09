@@ -4,7 +4,7 @@ import nock from 'nock';
 import axios from '../axios';
 
 const BASE_URL = 'http://localhost';
-axios.defaults.baseURL = BASE_URL;
+// axios.defaults.baseURL = BASE_URL;
 
 describe('Authentication Client Tests', () => {
   describe('Login', () => {
@@ -53,7 +53,11 @@ describe('Authentication Client Tests', () => {
     it('makes the right request', () => {
       nock(BASE_URL).delete(API_ROUTE.LOGIN).reply(200, {});
 
-      expect(AuthClient.logout()).resolves.toEqual({});
+      expect(
+        AuthClient.logout(
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
+        ),
+      ).toEqual(Promise.resolve());
     });
   });
 
@@ -66,7 +70,9 @@ describe('Authentication Client Tests', () => {
 
       nock(BASE_URL).post(API_ROUTE.REFRESH).reply(200, response);
 
-      const result = await AuthClient.refresh();
+      const result = await AuthClient.refresh(
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
+      );
 
       expect(result).toEqual(response);
     });
