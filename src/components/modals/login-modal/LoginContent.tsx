@@ -1,6 +1,7 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react';
 import './login-content.less';
+import Text from 'antd/es/typography/Text';
 
 interface Props {
   switchToForgotPasswordPage: () => void;
@@ -8,38 +9,27 @@ interface Props {
 
 const LoginContent: (props: Props) => JSX.Element = (props: Props) => {
   const forgotPasswordLink = (
-    <p onClick={props.switchToForgotPasswordPage} className="page-link">
+    <Button onClick={props.switchToForgotPasswordPage} className="page-link" type="link">
       here
-    </p>
+    </Button>
   );
-  const signUpLink = <a className="page-link">here</a>;
+  const signUpLink = <Button className="page-link">here</Button>;
 
   return (
-    <p>
-      <div className="content">
-        <div className="title-text">Login to your account</div>
-        <div className="email-field">
-          <Form.Item name="username" rules={[{ required: true }]}>
-            <Input className="input-style" placeholder="Email" />
-          </Form.Item>
-        </div>
-
-        <div className="password-field">
-          <Form.Item name="password" rules={[{ required: true }]}>
-            <Input.Password className="input-style" placeholder="Password" />
-          </Form.Item>
-        </div>
-        <Button className="login-button" type="primary">
-          Sign In
-        </Button>
-        <div className="forgot-password-text">
-          Forgot password? Click {forgotPasswordLink}
-        </div>
-        <div className="sign-up-text">
-          Don’t have an account? Sign up {signUpLink}
-        </div>
-      </div>
-    </p>
+    <div className="content">
+      <Text className="title-text">Login to your account</Text>
+      <Form.Item name="username" rules={[{ required: true }]} className="email-field">
+        <Input className="input-style" placeholder="Email" />
+      </Form.Item>
+      <Form.Item name="password" rules={[{ required: true }]} className="password-field">
+        <Input.Password className="input-style" placeholder="Password" />
+      </Form.Item>
+      <Button className="login-button" type="primary">
+        Sign In
+      </Button>
+      <Text className="forgot-password-text">Forgot password? Click {forgotPasswordLink}</Text>
+      <Text className="sign-up-text">Don’t have an account? Sign up {signUpLink}</Text>
+    </div>
   );
 };
 

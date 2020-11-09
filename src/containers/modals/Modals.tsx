@@ -24,12 +24,12 @@ const Modals: React.FC = () => {
   const { isShowing, toggle } = useModal();
 
   return (
-    <>
+    <div>
       <Button onClick={toggle} type="primary" className="open-modal-button">
         Open Modal
       </Button>
-      <div>{isShowing ? renderModal(isShowing, toggle) : null}</div>
-    </>
+      {isShowing ? renderModal(isShowing, toggle) : null}
+    </div>
   );
 };
 

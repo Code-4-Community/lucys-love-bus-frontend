@@ -22,9 +22,7 @@ const renderContent = (
       );
     case 'forgotPassword':
       return (
-        <ForgotPasswordContent
-          switchToConfirmationPage={switchToPasswordResetPage}
-        />
+        <ForgotPasswordContent switchToConfirmationPage={switchToPasswordResetPage} />
       );
     case 'passwordReset':
       return <PasswordResetContent />;

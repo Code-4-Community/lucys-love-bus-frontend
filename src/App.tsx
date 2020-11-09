@@ -37,7 +37,7 @@ const App: React.FC = () => {
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
                 <Route path="/signup-gm" exact component={SignupGM} />
-                  <Route path="/modals" exact component={Modals} />
+                <Route path="/modals" exact component={Modals} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
