@@ -33,7 +33,7 @@ const logout: () => Promise<void> = async () =>
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
     },
-  }).then(() => {});
+  });
 
 const refresh: () => Promise<RefreshTokenResponse> = async () =>
   Axios.post(API_ROUTE.REFRESH, null, {
