@@ -16,7 +16,7 @@ const NavBar: React.FC = () => {
         return '2';
       case '/grid-template':
         return '3';
-      case '/modals':
+      case '/signup-pf-p1':
         return '4';
       default:
         return '1';
@@ -57,10 +57,10 @@ const NavBar: React.FC = () => {
         <Menu.Item
           key="4"
           onClick={() => {
-            history.push('/modals');
+            history.push('/signup-pf-p1');
           }}
         >
-          Modals
+          SignUp1
         </Menu.Item>
       </Menu>
     </Header>
