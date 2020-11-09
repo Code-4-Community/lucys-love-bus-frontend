@@ -1,10 +1,6 @@
 import Axios from './axios';
 import Token from './token';
-import {
-  TokenResponse,
-  LoginRequest,
-  SignupRequest,
-} from './ducks/types';
+import { TokenResponse, LoginRequest, SignupRequest } from './ducks/types';
 
 export interface AuthClient {
   login: (user: LoginRequest) => Promise<TokenResponse>;
