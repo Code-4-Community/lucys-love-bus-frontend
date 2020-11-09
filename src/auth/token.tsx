@@ -25,10 +25,10 @@ export enum LOCALSTORAGE_TOKEN_KEY {
 }
 
 export interface TokenService {
-  readonly getAccessToken: () => void;
+  readonly getAccessToken: () => string | null;
   readonly setAccessToken: (token: string) => void;
   readonly removeAccessToken: () => void;
-  readonly getRefreshToken: () => void;
+  readonly getRefreshToken: () => string | null;
   readonly setRefreshToken: (token: string) => void;
   readonly removeRefreshToken: () => void;
   readonly getPrivilegeLevel: () => number;

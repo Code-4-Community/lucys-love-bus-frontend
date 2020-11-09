@@ -52,8 +52,13 @@ export const signup = (
 
 export const logout = (): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
+    const refreshToken = tokenService.getRefreshToken();
+    if (refreshToken === null) {
+      dispatch(logoutUser.loaded());
+      return Promise.resolve();
+    }
     return authClient
-      .logout()
+      .logout(refreshToken)
       .then(() => {
         tokenService.removeAccessToken();
         tokenService.removeRefreshToken();
