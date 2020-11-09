@@ -76,17 +76,17 @@ describe('asyncRequest ', () => {
         userId: Math.floor(Math.random()),
         privilegeLevel: PrivilegeLevel.STANDARD,
       };
-      expect(
-        reducer(initialState, actions.loaded(payload)),
-      ).toEqual(AsyncRequestCompleted<UserAuthResponse, Error>(payload));
+      expect(reducer(initialState, actions.loaded(payload))).toEqual(
+        AsyncRequestCompleted<UserAuthResponse, Error>(payload),
+      );
     });
 
     it('does not update on mismatched keys', () => {
       const misMatchedActions = genericAsyncActions<UserAuthResponse, Error>();
 
-      expect(
-        reducer(initialState, misMatchedActions.loading()),
-      ).toEqual(AsyncRequestNotStarted<UserAuthResponse, Error>());
+      expect(reducer(initialState, misMatchedActions.loading())).toEqual(
+        AsyncRequestNotStarted<UserAuthResponse, Error>(),
+      );
     });
   });
 

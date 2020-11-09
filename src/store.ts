@@ -1,4 +1,7 @@
-import { UserAuthenticationExtraArgs, UserAuthenticationReducerState } from './auth/ducks/types';
+import {
+  UserAuthenticationExtraArgs,
+  UserAuthenticationReducerState,
+} from './auth/ducks/types';
 import { UserAuthenticationActions } from './auth/ducks/actions';
 import authClient from './auth/authClient';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
