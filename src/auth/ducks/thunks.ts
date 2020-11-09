@@ -4,9 +4,7 @@ import {
   TokenResponse,
   UserAuthenticationThunkAction,
 } from './types';
-import {
-  authenticateUser, logoutUser,
-} from './actions';
+import { authenticateUser, logoutUser } from './actions';
 
 export const login = (
   loginRequest: LoginRequest,

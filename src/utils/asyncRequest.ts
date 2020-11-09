@@ -188,7 +188,7 @@ export function genericAsyncActions<R, E>(): {
   const loading = (): Action<
     typeof ASYNC_REQUEST_LOADING_ACTION,
     LoadingPayload
-    > => ({
+  > => ({
     type: ASYNC_REQUEST_LOADING_ACTION,
     payload: { key },
   });
@@ -219,7 +219,7 @@ export function generateAsyncRequestReducer<S, R, E>(key: string) {
   const genericReducer: Reducer<
     AsyncRequest<R, E>,
     AsyncRequestAction<any, any>
-    > = (
+  > = (
     state: AsyncRequest<R, E> = AsyncRequestNotStarted<R, E>(),
     action: AsyncRequestAction<any, any>,
   ) => {
