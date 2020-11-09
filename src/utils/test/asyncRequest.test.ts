@@ -10,6 +10,11 @@ import {
   AsyncRequestCompleted,
   rehydrateAsyncRequest,
 } from '../asyncRequest';
+import { UserAuthResponse } from '../../auth/ducks/actions';
+import {
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 
 describe('asyncRequest ', () => {
   describe('genericAsyncActions', () => {
@@ -45,43 +50,43 @@ describe('asyncRequest ', () => {
   });
 
   describe('generateAsyncRequestReducer', () => {
-    const initialState = AsyncRequestNotStarted<Campaign, Error>();
-    const actions = genericAsyncActions<Campaign, Error>();
-    const campaignRequestReducer = generateAsyncRequestReducer<
-      CampaignProductsReducerState,
-      Campaign,
+    const initialState = AsyncRequestNotStarted<UserAuthResponse, Error>();
+    const actions = genericAsyncActions<UserAuthResponse, Error>();
+    const reducer = generateAsyncRequestReducer<
+      UserAuthenticationReducerState,
+      UserAuthResponse,
       Error
     >(actions.key);
 
     it('updates the state for a loading action with given key', () => {
-      expect(campaignRequestReducer(initialState, actions.loading())).toEqual(
-        AsyncRequestLoading<Campaign, Error>(),
+      expect(reducer(initialState, actions.loading())).toEqual(
+        AsyncRequestLoading<UserAuthResponse, Error>(),
       );
     });
 
     it('updates the state for a failed action with given key', () => {
       const e = new Error();
-      expect(campaignRequestReducer(initialState, actions.failed(e))).toEqual(
-        AsyncRequestFailed<Campaign, Error>(e),
+      expect(reducer(initialState, actions.failed(e))).toEqual(
+        AsyncRequestFailed<UserAuthResponse, Error>(e),
       );
     });
 
     it('updates the state for a loaded action with given key', () => {
-      const campaign: Campaign = {
-        campaignName: 'name',
-        campaignId: 1,
+      const payload: UserAuthResponse = {
+        userId: Math.floor(Math.random()),
+        privilegeLevel: PrivilegeLevel.STANDARD,
       };
       expect(
-        campaignRequestReducer(initialState, actions.loaded(campaign)),
-      ).toEqual(AsyncRequestCompleted<Campaign, Error>(campaign));
+        reducer(initialState, actions.loaded(payload)),
+      ).toEqual(AsyncRequestCompleted<UserAuthResponse, Error>(payload));
     });
 
     it('does not update on mismatched keys', () => {
-      const misMatchedActions = genericAsyncActions<Campaign, Error>();
+      const misMatchedActions = genericAsyncActions<UserAuthResponse, Error>();
 
       expect(
-        campaignRequestReducer(initialState, misMatchedActions.loading()),
-      ).toEqual(AsyncRequestNotStarted<Campaign, Error>());
+        reducer(initialState, misMatchedActions.loading()),
+      ).toEqual(AsyncRequestNotStarted<UserAuthResponse, Error>());
     });
   });
 

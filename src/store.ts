@@ -1,4 +1,4 @@
-import { UserAuthenticationExtraArgs, UserState } from './auth/ducks/types';
+import { UserAuthenticationExtraArgs, UserAuthenticationReducerState } from './auth/ducks/types';
 import { UserAuthenticationActions } from './auth/ducks/actions';
 import authClient from './auth/authClient';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import tokenService from './auth/token';
 
 export interface C4CState {
-  authenticationState: UserState;
+  authenticationState: UserAuthenticationReducerState;
 }
 
 export interface Action<T, P> {
