@@ -65,10 +65,10 @@ const NavBar: React.FC = () => {
           SignUp1
         </Menu.Item>
         <Menu.Item
-            key="5"
-            onClick={() => {
-              history.push('/modals');
-            }}
+          key="5"
+          onClick={() => {
+            history.push('/modals');
+          }}
         >
           Modals
         </Menu.Item>
