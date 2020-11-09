@@ -31,10 +31,8 @@ const NavBar: React.FC = () => {
         >
           <img
             className="llbLogo"
-            src={
-              'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'
-            }
-            alt={'LLB Logo'}
+            src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png"
+            alt="LLB Logo"
           />
         </Link>
       </Col>
