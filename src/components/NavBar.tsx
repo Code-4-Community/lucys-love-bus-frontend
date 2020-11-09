@@ -70,7 +70,7 @@ const NavBar: React.FC = () => {
               history.push('/modals');
             }}
         >
-          SignUp1
+          Modals
         </Menu.Item>
       </Menu>
     </Header>
