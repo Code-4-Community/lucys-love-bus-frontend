@@ -1,4 +1,4 @@
-import { LOCALSTORAGE_TOKEN_KEY, PrivilegeLevel } from './ducks/types';
+import { PrivilegeLevel } from './ducks/types';
 
 /**
  * Returns a JWT Payload from localstorage OR falsy value if there is no valid token
@@ -17,6 +17,11 @@ interface TokenPayload {
   readonly privilegeLevel: PrivilegeLevel;
   readonly userId: number;
   readonly exp: number;
+}
+
+export enum LOCALSTORAGE_TOKEN_KEY {
+  ACCESS = 'access_token',
+  REFRESH = 'refresh_token',
 }
 
 export interface TokenService {

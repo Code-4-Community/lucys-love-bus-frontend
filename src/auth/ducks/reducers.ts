@@ -1,21 +1,38 @@
-import { NO_USER_ID, PrivilegeLevel, UserState } from './types';
-import { AUTHENTICATION_SUCCESS_ACTION, AuthenticationSuccess } from './actions';
+import { UserAuthenticationReducerState } from './types';
+import { authenticateUser, UserAuthResponse } from './actions';
 import { C4CAction } from '../../store';
+import {
+  ASYNC_REQUEST_FAILED_ACTION,
+  ASYNC_REQUEST_LOADED_ACTION,
+  ASYNC_REQUEST_LOADING_ACTION,
+  AsyncRequestNotStarted,
+  generateAsyncRequestReducer,
+} from '../../utils/asyncRequest';
 
-export const initialUserState: UserState = {
-  privilegeLevel: PrivilegeLevel.NONE,
-  userId: NO_USER_ID,
+export const initialUserState: UserAuthenticationReducerState = {
+  userAuthenticationDetails: AsyncRequestNotStarted<UserAuthResponse, void>(),
 };
 
+const userAuthenticationRequestReducer = generateAsyncRequestReducer<
+  UserAuthenticationReducerState,
+  UserAuthResponse,
+  void
+>(authenticateUser.key);
+
 const reducers = (
-  state: UserState = initialUserState,
+  state: UserAuthenticationReducerState = initialUserState,
   action: C4CAction,
-): UserState => {
+): UserAuthenticationReducerState => {
   switch (action.type) {
-    case AUTHENTICATION_SUCCESS_ACTION:
+    case ASYNC_REQUEST_LOADING_ACTION:
+    case ASYNC_REQUEST_LOADED_ACTION:
+    case ASYNC_REQUEST_FAILED_ACTION:
       return {
         ...state,
-        ...(action as AuthenticationSuccess).payload,
+        userAuthenticationDetails: userAuthenticationRequestReducer(
+          state.userAuthenticationDetails,
+          action,
+        ),
       };
     default:
       return state;

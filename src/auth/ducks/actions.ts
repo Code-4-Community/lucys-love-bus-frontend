@@ -1,29 +1,18 @@
-import { Action } from 'redux';
-
-export const AUTHENTICATION_SUCCESS_ACTION = 'AUTHENTICATION_SUCCESS';
-export const AUTHENTICATION_FAILED_ACTION = 'AUTHENTICATION_FAILED';
-export const AUTHENTICATION_LOGOUT_ACTION = 'AUTHENTICATION_LOGOUT';
+import { genericAsyncActions } from '../../utils/asyncRequest';
 
 export interface UserAuthResponse {
   readonly userId: number;
   readonly privilegeLevel: number;
 }
 
-export interface AuthenticationSuccess extends Action {
-  payload: UserAuthResponse;
-}
+export const authenticateUser = genericAsyncActions<UserAuthResponse, void>();
 
-export interface AuthenticationError {
-  readonly error: any;
-}
-
-export interface AuthenticationFailed extends Action {
-  payload: AuthenticationError;
-}
-
-export interface AuthenticationLogout extends Action {}
+export const logoutUser = genericAsyncActions<void, void>();
 
 export type UserAuthenticationActions =
-  | AuthenticationSuccess
-  | AuthenticationFailed
-  | AuthenticationLogout;
+  | ReturnType<typeof authenticateUser.loading>
+  | ReturnType<typeof authenticateUser.loaded>
+  | ReturnType<typeof authenticateUser.failed>
+  | ReturnType<typeof logoutUser.loading>
+  | ReturnType<typeof logoutUser.loaded>
+  | ReturnType<typeof logoutUser.failed>;

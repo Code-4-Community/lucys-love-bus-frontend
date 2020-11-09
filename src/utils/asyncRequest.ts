@@ -1,6 +1,6 @@
 import { Action } from '../store';
 import { Reducer } from 'redux';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 
 export enum AsyncRequestKinds {
   NotStarted = 'NotStarted',
@@ -183,7 +183,7 @@ export function genericAsyncActions<R, E>(): {
   ) => Action<typeof ASYNC_REQUEST_FAILED_ACTION, FailedPayload<E>>;
   key: string;
 } {
-  const key = uuid.v4();
+  const key = v4(); // UUID4
 
   const loading = (): Action<
     typeof ASYNC_REQUEST_LOADING_ACTION,

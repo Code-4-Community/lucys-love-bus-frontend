@@ -1,7 +1,6 @@
 import Axios from './axios';
 import Token from './token';
 import {
-  API_ROUTE,
   TokenResponse,
   LoginRequest,
   SignupRequest,
@@ -12,6 +11,12 @@ export interface AuthClient {
   signup: (user: SignupRequest) => Promise<TokenResponse>;
   logout: () => Promise<void>;
   refresh: () => Promise<void>;
+}
+
+enum API_ROUTE {
+  LOGIN = '/api/v1/user/login/',
+  SIGNUP = '/api/v1/user/signup/',
+  REFRESH = '/api/v1/user/login/refresh/',
 }
 
 const login: (user: LoginRequest) => Promise<TokenResponse> = async (

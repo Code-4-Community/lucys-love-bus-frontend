@@ -5,8 +5,7 @@ import {
   UserAuthenticationThunkAction,
 } from './types';
 import {
-  AUTHENTICATION_FAILED_ACTION, AUTHENTICATION_LOGOUT_ACTION,
-  AUTHENTICATION_SUCCESS_ACTION,
+  authenticateUser, logoutUser,
 } from './actions';
 
 export const login = (
@@ -18,19 +17,15 @@ export const login = (
       .then((response: TokenResponse) => {
         tokenService.setAccessToken(response.accessToken);
         tokenService.setRefreshToken(response.refreshToken);
-        dispatch({
-          type: AUTHENTICATION_SUCCESS_ACTION,
-          payload: {
+        dispatch(
+          authenticateUser.loaded({
             userId: tokenService.getUserID(),
             privilegeLevel: tokenService.getPrivilegeLevel(),
-          },
-        });
+          }),
+        );
       })
       .catch((error) => {
-        dispatch({
-          type: AUTHENTICATION_FAILED_ACTION,
-          payload: error,
-        });
+        dispatch(authenticateUser.failed(error));
       });
   };
 };
@@ -44,19 +39,15 @@ export const signup = (
       .then((response) => {
         tokenService.setAccessToken(response.accessToken);
         tokenService.setRefreshToken(response.refreshToken);
-        dispatch({
-          type: AUTHENTICATION_SUCCESS_ACTION,
-          payload: {
+        dispatch(
+          authenticateUser.loaded({
             userId: tokenService.getUserID(),
             privilegeLevel: tokenService.getPrivilegeLevel(),
-          },
-        });
+          }),
+        );
       })
       .catch((error) => {
-        dispatch({
-          type: AUTHENTICATION_FAILED_ACTION,
-          payload: error,
-        });
+        dispatch(authenticateUser.failed(error));
       });
   };
 };
@@ -68,16 +59,12 @@ export const logout = (): UserAuthenticationThunkAction<void> => {
       .then(() => {
         tokenService.removeAccessToken();
         tokenService.removeRefreshToken();
-        dispatch({
-          type: AUTHENTICATION_LOGOUT_ACTION
-        })
+        dispatch(logoutUser.loaded());
       })
       .catch(() => {
         tokenService.removeAccessToken();
         tokenService.removeRefreshToken();
-        dispatch({
-          type: AUTHENTICATION_LOGOUT_ACTION
-        })
+        dispatch(logoutUser.failed());
       });
   };
 };

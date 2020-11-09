@@ -1,9 +1,6 @@
 import { PrivilegeLevel, TokenResponse } from '../ducks/types';
 import { login, signup } from '../ducks/thunks';
-import {
-  AUTHENTICATION_SUCCESS_ACTION,
-  UserAuthResponse,
-} from '../ducks/actions';
+import { authenticateUser, UserAuthResponse } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
 import tokenService from '../token';
@@ -56,10 +53,10 @@ describe('User Authentication Thunks', () => {
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(1);
-      expect(mockDispatch).toHaveBeenNthCalledWith(1, {
-        payload: mockPayload,
-        type: AUTHENTICATION_SUCCESS_ACTION,
-      });
+      expect(mockDispatch).toHaveBeenNthCalledWith(
+        1,
+        authenticateUser.loaded(mockPayload),
+      );
       expect(mockLogin).toBeCalledTimes(1);
       expect(mockSetAccessToken).toHaveBeenNthCalledWith(
         1,
@@ -114,10 +111,10 @@ describe('User Authentication Thunks', () => {
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(1);
-      expect(mockDispatch).toHaveBeenNthCalledWith(1, {
-        payload: mockPayload,
-        type: AUTHENTICATION_SUCCESS_ACTION,
-      });
+      expect(mockDispatch).toHaveBeenNthCalledWith(
+        1,
+        authenticateUser.loaded(mockPayload),
+      );
       expect(mockSignup).toBeCalledTimes(1);
       expect(mockSetAccessToken).toHaveBeenNthCalledWith(
         1,

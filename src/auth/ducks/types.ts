@@ -2,10 +2,11 @@ import { ThunkAction } from 'redux-thunk';
 import { C4CState, C4CAction } from '../../store';
 import { AuthClient } from '../authClient';
 import { TokenService } from '../token';
+import { AsyncRequest } from '../../utils/asyncRequest';
+import { UserAuthResponse } from './actions';
 
-export interface UserState {
-  readonly privilegeLevel: PrivilegeLevel;
-  readonly userId: number;
+export interface UserAuthenticationReducerState {
+  readonly userAuthenticationDetails: AsyncRequest<UserAuthResponse, void>;
 }
 
 export interface UserAuthenticationExtraArgs {
@@ -35,17 +36,6 @@ export interface SignupRequest {
 export interface TokenResponse {
   readonly accessToken: string;
   readonly refreshToken: string;
-}
-
-export enum API_ROUTE {
-  LOGIN = '/api/v1/user/login/',
-  SIGNUP = '/api/v1/user/signup/',
-  REFRESH = '/api/v1/user/login/refresh/',
-}
-
-export enum LOCALSTORAGE_TOKEN_KEY {
-  ACCESS = 'access_token',
-  REFRESH = 'refresh_token',
 }
 
 export enum PrivilegeLevel {
