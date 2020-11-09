@@ -8,6 +8,8 @@ import './App.less';
 import Home from './containers/home/Home';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
+import SignupConfirmationPF from './containers/signup-confirmation/SignupConfirmationPF';
+import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirmationGM';
 import SignupGM from './containers/signup-gm/SignupGM';
 
 import NotFound from './containers/not-found/NotFound';
@@ -37,6 +39,16 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route
+                  path="/signup-confirmation-gm"
+                  exact
+                  component={SignupConfirmationGM}
+                />
+                <Route
+                  path="/signup-confirmation-pf"
+                  exact
+                  component={SignupConfirmationPF}
+                />
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="/modals" exact component={Modals} />
