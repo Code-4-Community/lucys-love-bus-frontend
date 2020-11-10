@@ -12,22 +12,22 @@ const { Text } = Typography;
 const StyledButton = styled(Button)`
   color: black;
   margin-left: 7em;
-`
+`;
 
 // Custom styling for the navbar row
 const StyledRow = styled(Row)`
   background-color: white;
   padding: 1em 0;
-`
+`;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
   const authenticated = false;
   const links = {
-    'Home': '/',
+    Home: '/',
     'Upcoming Events': '/block-template',
-    'My Events': '/grid-template'
-  }
+    'My Events': '/grid-template',
+  };
 
   // Dropdown menu options for the logged in
   const userMenu = (
@@ -50,8 +50,8 @@ const NavBar: React.FC = () => {
         >
           <img
             className="llbLogo"
-            src='https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'
-            alt='LLB Logo'
+            src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png"
+            alt="LLB Logo"
           />
         </Link>
       </Col>
@@ -63,13 +63,16 @@ const NavBar: React.FC = () => {
             history.push('/');
           }}
         >
-          <Text className="llbText" strong> Lucy's Love Bus </Text>
+          <Text className="llbText" strong>
+            {' '}
+            Lucy's Love Bus{' '}
+          </Text>
           <Text strong> Event Registration </Text>
         </Link>
       </Col>
 
       <Col flex={3}>
-        {Object.entries(links).map(([link, path]) => 
+        {Object.entries(links).map(([link, path]) => (
           <StyledButton
             type="link"
             onClick={() => {
@@ -78,7 +81,7 @@ const NavBar: React.FC = () => {
           >
             {link}
           </StyledButton>
-        )}
+        ))}
       </Col>
 
       <div>
@@ -113,7 +116,6 @@ const NavBar: React.FC = () => {
           </Col>
         )}
       </div>
-
     </StyledRow>
   );
 };
