@@ -13,7 +13,7 @@ import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirm
 import SignupGM from './containers/signup-gm/SignupGM';
 
 import NotFound from './containers/not-found/NotFound';
-import NavBar from './components/NavBar';
+import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/Signup_PF_P1/Signup_PF_P1';
 import { Layout } from 'antd';
