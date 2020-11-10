@@ -23,6 +23,11 @@ const StyledRow = styled(Row)`
 const NavBar: React.FC = () => {
   const history = useHistory();
   const authenticated = false;
+  const links = {
+    'Home': '/',
+    'Upcoming Events': '/block-template',
+    'My Events': '/grid-template'
+  }
 
   // Dropdown menu options for the logged in
   const userMenu = (
@@ -58,38 +63,22 @@ const NavBar: React.FC = () => {
             history.push('/');
           }}
         >
-          <Text className="llbText" strong>
-            Lucy's Love Bus
-          </Text>
-          <Text strong>Event Registration</Text>
+          <Text className="llbText" strong> Lucy's Love Bus </Text>
+          <Text strong> Event Registration </Text>
         </Link>
       </Col>
 
       <Col flex={3}>
-        <StyledButton
-          type="link"
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          Home
-        </StyledButton>
-        <StyledButton
-          type="link"
-          onClick={() => {
-            history.push('/block-template');
-          }}
-        >
-          Upcoming Events
-        </StyledButton>
-        <StyledButton
-          type="link"
-          onClick={() => {
-            history.push('/grid-template');
-          }}
-        >
-          My Events
-        </StyledButton>
+        {Object.entries(links).map(([link, path]) => 
+          <StyledButton
+            type="link"
+            onClick={() => {
+              history.push(path);
+            }}
+          >
+            {link}
+          </StyledButton>
+        )}
       </Col>
 
       <div>
