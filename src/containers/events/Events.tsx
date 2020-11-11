@@ -6,13 +6,6 @@ import EventsList from '../../components/EventsList/EventsList';
 
 const { Title } = Typography;
 
-/*
-Template for future page components.
-
-AntD Components:
-https://ant.design/components/overview/
-*/
-
 const Events: React.FC = () => {
 
   return (
@@ -22,9 +15,6 @@ const Events: React.FC = () => {
         <meta name="Upcoming Events" content="Description goes here." />
       </Helmet>
       <div className="content-container">
-        {/*
-          Place relevant components in here
-        */}
         <div className="flex-row">
           <Title className="title">Upcoming Events</Title>
           <Radio.Group defaultValue="list">
@@ -32,8 +22,6 @@ const Events: React.FC = () => {
             <Radio.Button value="calendar">Calendar</Radio.Button>
           </Radio.Group>
         </div>
-        
-
         <EventsList></EventsList>
       </div>
     </>

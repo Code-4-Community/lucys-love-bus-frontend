@@ -17,13 +17,15 @@ const EventsList: React.FC = () => {
     // send data to redux
   };
 
+  // mock data to use for now
   const event1: Event = {title: 'Event 1', date: '11/15/20', description: 'This is a test event'};
-  const events: Event[] = [event1];
+  const event2: Event = {title: 'Event 2', date: '11/18/20', description: 'This is another test event'};
+  const events: Event[] = [event1, event2];
   
   return (
-    <div>
-      {events.map(event => 
-        <EventListing></EventListing>
+    <div className="cards">
+      {events.map(e => 
+        <EventListing event={ e }/>
       )}
     </div>
   );

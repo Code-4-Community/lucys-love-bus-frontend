@@ -12,15 +12,19 @@ interface Event {
   thumbnail?: any;
 }
 
-const EventListing: React.FC = () => {
+const EventListing: React.FC<{event: Event}> = ( props ) => {
   const onFinish = (values: Event) => {
     // send data to redux
   };
 
   return (
-    <Card title="Title">
-      <p>Card content</p>
-    </Card>
+    <div className="flex-row">
+      
+      <Card className="card" title={ props.event.title }>
+        <span>{ props.event.description }</span>
+      </Card>
+    </div>
+    
   );
 };
 
