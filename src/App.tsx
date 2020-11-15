@@ -20,7 +20,7 @@ const { Content } = Layout;
 
 const AppInnerContainer = styled.div`
   min-height: 100vh;
-`
+`;
 
 const App: React.FC = () => {
   return (

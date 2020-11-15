@@ -60,25 +60,17 @@ const NavBar: React.FC = () => {
       </Col>
 
       <Col flex={1}>
-      <Link to="/">
-
-        <LogoText strong>Frontend Scaffold</LogoText>
-        <br />
-        <Text strong>Subtitle goes here</Text>
+        <Link to="/">
+          <LogoText strong>Frontend Scaffold</LogoText>
+          <br />
+          <Text strong>Subtitle goes here</Text>
         </Link>
-
       </Col>
 
       <Col flex={3}>
-        <AntButtonLink to="/">
-          Home
-        </AntButtonLink>
-        <AntButtonLink to="/block-template">
-          Block Template
-        </AntButtonLink>
-        <AntButtonLink to="/grid-template">
-          Grid Template
-        </AntButtonLink>
+        <AntButtonLink to="/">Home</AntButtonLink>
+        <AntButtonLink to="/block-template">Block Template</AntButtonLink>
+        <AntButtonLink to="/grid-template">Grid Template</AntButtonLink>
       </Col>
 
       <div>

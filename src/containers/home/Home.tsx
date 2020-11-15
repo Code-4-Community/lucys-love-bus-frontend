@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import {ContentContainer} from '../../components'
+import { ContentContainer } from '../../components';
 import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
 
