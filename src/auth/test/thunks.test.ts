@@ -4,6 +4,7 @@ import { authenticateUser } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
 import tokenService from '../token';
+import { AxiosError } from 'axios';
 
 export const generateState = (partialState: Partial<C4CState>): C4CState => ({
   ...initialStoreState,
@@ -12,7 +13,7 @@ export const generateState = (partialState: Partial<C4CState>): C4CState => ({
 
 describe('User Authentication Thunks', () => {
   describe('login', () => {
-    it('dispatches an AuthSuccess action after login', async () => {
+    it('dispatches an authenticateUser.loaded() action after login', async () => {
       const getState = () => generateState({});
       const mockDispatch = jest.fn();
       const mockLogin = jest.fn();
@@ -52,7 +53,44 @@ describe('User Authentication Thunks', () => {
       );
     });
 
-    it('dispatches an AuthSuccess action after signup', async () => {
+    it('dispatches authenticateUser.failed() action when API fails', async () => {
+      const getState = () => generateState({});
+      const mockDispatch = jest.fn();
+      const mockLogin = jest.fn();
+      const mockSetRefreshToken = jest.fn();
+      const mockAPIError = {
+        response: {
+          data: 'Unauthenticated user',
+        },
+      };
+      mockLogin.mockRejectedValue(mockAPIError);
+      const mockExtraArgs: ThunkExtraArgs = {
+        authClient: {
+          ...authClient,
+          login: mockLogin,
+        },
+        tokenService: {
+          ...tokenService,
+          setRefreshToken: mockSetRefreshToken,
+        },
+      };
+
+      await login({
+        email: 'Jack Blanc',
+        password: 'password',
+      })(mockDispatch, getState, mockExtraArgs);
+
+      expect(mockDispatch).toHaveBeenCalledTimes(1);
+      expect(mockDispatch).toHaveBeenNthCalledWith(
+        1,
+        authenticateUser.failed(mockAPIError.response.data),
+      );
+      expect(mockLogin).toBeCalledTimes(1);
+    });
+  });
+
+  describe('signup', () => {
+    it('dispatches an authenticateUser.loaded() action after signup', async () => {
       const getState = () => generateState({});
       const mockDispatch = jest.fn();
       const mockSignup = jest.fn();
@@ -92,6 +130,42 @@ describe('User Authentication Thunks', () => {
         1,
         mockTokenResponse.refreshToken,
       );
+    });
+    it('dispatches authenticateUser.failed() action when API fails', async () => {
+      const getState = () => generateState({});
+      const mockDispatch = jest.fn();
+      const mockSignup = jest.fn();
+      const mockSetRefreshToken = jest.fn();
+      const mockAPIError = {
+        response: {
+          data: 'Unauthenticated user',
+        },
+      };
+      mockSignup.mockRejectedValue(mockAPIError);
+      const mockExtraArgs: ThunkExtraArgs = {
+        authClient: {
+          ...authClient,
+          signup: mockSignup,
+        },
+        tokenService: {
+          ...tokenService,
+          setRefreshToken: mockSetRefreshToken,
+        },
+      };
+
+      await signup({
+        email: 'jblanc222@gmail.com',
+        password: 'password',
+        firstName: 'Jack',
+        lastName: 'Blanc',
+      })(mockDispatch, getState, mockExtraArgs);
+
+      expect(mockDispatch).toHaveBeenCalledTimes(1);
+      expect(mockDispatch).toHaveBeenNthCalledWith(
+        1,
+        authenticateUser.failed(mockAPIError.response.data),
+      );
+      expect(mockSignup).toBeCalledTimes(1);
     });
   });
 });
