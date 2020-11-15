@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LinkButton } from '../../components';
-import { Menu, Dropdown, Image, Typography, Row, Col, Button } from 'antd';
+import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -35,7 +35,7 @@ const SignupButton = styled(Button)`
 `;
 
 const NavBar: React.FC = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated] = useState(false);
 
   const userMenu = (
     <Menu>
