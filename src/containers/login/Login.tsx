@@ -1,12 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import {ContentContainer} from '../../components'
 import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
+import { Link } from 'react-router-dom';
+const { Title, Paragraph } = Typography;
 
-const { Title } = Typography;
-
-const Home: React.FC = () => {
+const Login: React.FC = () => {
   const onFinish = (values: any) => {
     login({ email: values.username, password: values.password });
   };
@@ -14,17 +13,11 @@ const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Title goes here</title>
+        <title>Login</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <ContentContainer>
-        {/*
-          Place relevant components in here
-        */}
-        <Title>Code4Community Frontend Scaffold</Title>
-        <Title level={3}>
-          Built with React.js, Typescript, and AntD components.
-        </Title>
+      <div className="content-container">
+        <Title>Login</Title>
         <Form name="basic" onFinish={onFinish}>
           <Form.Item
             label="Username"
@@ -42,15 +35,31 @@ const Home: React.FC = () => {
             <Input.Password />
           </Form.Item>
 
+          <Paragraph>
+            Need an account? Sign up{' '}
+            <Link to="/signup" component={Typography.Link}>
+              here
+            </Link>
+            !
+          </Paragraph>
+
+          <Paragraph>
+            Forgot your password? Click{' '}
+            <Link to="/" component={Typography.Link}>
+              here
+            </Link>{' '}
+            to reset it.
+          </Paragraph>
+
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
           </Form.Item>
         </Form>
-      </ContentContainer>
+      </div>
     </>
   );
 };
 
-export default Home;
+export default Login;
