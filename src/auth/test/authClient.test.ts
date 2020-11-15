@@ -1,15 +1,13 @@
-import { RefreshTokenResponse, TokenResponse } from '../ducks/types';
+import { RefreshTokenResponse, TokenPayload } from '../ducks/types';
 import AuthClient, { API_ROUTE } from '../authClient';
 import nock from 'nock';
-import axios from '../axios';
 
 const BASE_URL = 'http://localhost';
-// axios.defaults.baseURL = BASE_URL;
 
 describe('Authentication Client Tests', () => {
   describe('Login', () => {
     it('makes the right request', async () => {
-      const response: TokenResponse = {
+      const response: TokenPayload = {
         accessToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
         refreshToken:
@@ -19,7 +17,7 @@ describe('Authentication Client Tests', () => {
       nock(BASE_URL).post(API_ROUTE.LOGIN).reply(200, response);
 
       const result = await AuthClient.login({
-        username: 'jackblanc',
+        email: 'jackblanc',
         password: 'password',
       });
 
@@ -29,7 +27,7 @@ describe('Authentication Client Tests', () => {
 
   describe('Sign Up', () => {
     it('makes the right request', async () => {
-      const response: TokenResponse = {
+      const response: TokenPayload = {
         accessToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
         refreshToken:
@@ -39,9 +37,9 @@ describe('Authentication Client Tests', () => {
       nock(BASE_URL).post(API_ROUTE.SIGNUP).reply(200, response);
 
       const result = await AuthClient.signup({
-        username: 'jackblanc',
         password: 'password',
-        fullName: 'Jack Blanc',
+        firstName: 'Jack',
+        lastName: 'Blanc',
         email: 'jblanc222@gmail.com',
       });
 

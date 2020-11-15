@@ -1,12 +1,12 @@
 import { ThunkAction } from 'redux-thunk';
-import { C4CState, C4CAction } from '../../store';
 import { AuthClient } from '../authClient';
 import { TokenService } from '../token';
 import { AsyncRequest } from '../../utils/asyncRequest';
-import { UserAuthResponse } from './actions';
+import { UserAuthenticationActions } from './actions';
+import { C4CState } from '../../store';
 
 export interface UserAuthenticationReducerState {
-  readonly userAuthenticationDetails: AsyncRequest<UserAuthResponse, void>;
+  readonly tokens: AsyncRequest<TokenPayload, any>;
 }
 
 export interface UserAuthenticationExtraArgs {
@@ -18,22 +18,22 @@ export type UserAuthenticationThunkAction<R> = ThunkAction<
   R,
   C4CState,
   UserAuthenticationExtraArgs,
-  C4CAction
+  UserAuthenticationActions
 >;
 
 export interface LoginRequest {
-  readonly username: string;
+  readonly email: string;
   readonly password: string;
 }
 
 export interface SignupRequest {
-  readonly username: string;
   readonly email: string;
   readonly password: string;
-  readonly fullName: string;
+  readonly firstName: string;
+  readonly lastName: string;
 }
 
-export interface TokenResponse {
+export interface TokenPayload {
   readonly accessToken: string;
   readonly refreshToken: string;
 }

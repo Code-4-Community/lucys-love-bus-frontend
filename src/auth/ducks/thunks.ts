@@ -1,7 +1,7 @@
 import {
   LoginRequest,
   SignupRequest,
-  TokenResponse,
+  TokenPayload,
   UserAuthenticationThunkAction,
 } from './types';
 import { authenticateUser, logoutUser } from './actions';
@@ -12,18 +12,15 @@ export const login = (
   return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
     return authClient
       .login(loginRequest)
-      .then((response: TokenResponse) => {
-        tokenService.setAccessToken(response.accessToken);
+      .then((response: TokenPayload) => {
+        // TODO: move this side effect somewhere else
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(
-          authenticateUser.loaded({
-            userId: tokenService.getUserID(),
-            privilegeLevel: tokenService.getPrivilegeLevel(),
-          }),
+          authenticateUser.loaded(response),
         );
       })
       .catch((error) => {
-        dispatch(authenticateUser.failed(error));
+        dispatch(authenticateUser.failed(error.response.data));
       });
   };
 };
@@ -35,17 +32,14 @@ export const signup = (
     return authClient
       .signup(signupRequest)
       .then((response) => {
-        tokenService.setAccessToken(response.accessToken);
+        // TODO: move this side effect somewhere else
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(
-          authenticateUser.loaded({
-            userId: tokenService.getUserID(),
-            privilegeLevel: tokenService.getPrivilegeLevel(),
-          }),
+          authenticateUser.loaded(response),
         );
       })
       .catch((error) => {
-        dispatch(authenticateUser.failed(error));
+        dispatch(authenticateUser.failed(error.response.data));
       });
   };
 };

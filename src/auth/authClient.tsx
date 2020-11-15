@@ -1,14 +1,14 @@
 import Axios from './axios';
 import {
-  TokenResponse,
+  TokenPayload,
   LoginRequest,
   SignupRequest,
   RefreshTokenResponse,
 } from './ducks/types';
 
 export interface AuthClient {
-  login: (user: LoginRequest) => Promise<TokenResponse>;
-  signup: (user: SignupRequest) => Promise<TokenResponse>;
+  login: (user: LoginRequest) => Promise<TokenPayload>;
+  signup: (user: SignupRequest) => Promise<TokenPayload>;
   logout: (refreshToken: string) => Promise<void>;
   refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
 }
@@ -19,11 +19,11 @@ export enum API_ROUTE {
   REFRESH = '/api/v1/user/login/refresh/',
 }
 
-const login: (user: LoginRequest) => Promise<TokenResponse> = (
+const login: (user: LoginRequest) => Promise<TokenPayload> = (
   user: LoginRequest,
 ) => Axios.post(API_ROUTE.LOGIN, user).then((response) => response.data);
 
-const signup: (user: SignupRequest) => Promise<TokenResponse> = (
+const signup: (user: SignupRequest) => Promise<TokenPayload> = (
   user: SignupRequest,
 ) => Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);
 

@@ -10,9 +10,8 @@ import {
   AsyncRequestCompleted,
   rehydrateAsyncRequest,
 } from '../asyncRequest';
-import { UserAuthResponse } from '../../auth/ducks/actions';
 import {
-  PrivilegeLevel,
+  PrivilegeLevel, TokenPayload,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 
@@ -50,42 +49,44 @@ describe('asyncRequest ', () => {
   });
 
   describe('generateAsyncRequestReducer', () => {
-    const initialState = AsyncRequestNotStarted<UserAuthResponse, Error>();
-    const actions = genericAsyncActions<UserAuthResponse, Error>();
+    const initialState = AsyncRequestNotStarted<TokenPayload, Error>();
+    const actions = genericAsyncActions<TokenPayload, Error>();
     const reducer = generateAsyncRequestReducer<
       UserAuthenticationReducerState,
-      UserAuthResponse,
+      TokenPayload,
       Error
     >(actions.key);
 
     it('updates the state for a loading action with given key', () => {
       expect(reducer(initialState, actions.loading())).toEqual(
-        AsyncRequestLoading<UserAuthResponse, Error>(),
+        AsyncRequestLoading<TokenPayload, Error>(),
       );
     });
 
     it('updates the state for a failed action with given key', () => {
       const e = new Error();
       expect(reducer(initialState, actions.failed(e))).toEqual(
-        AsyncRequestFailed<UserAuthResponse, Error>(e),
+        AsyncRequestFailed<TokenPayload, Error>(e),
       );
     });
 
     it('updates the state for a loaded action with given key', () => {
-      const payload: UserAuthResponse = {
-        userId: Math.floor(Math.random()),
-        privilegeLevel: PrivilegeLevel.STANDARD,
+      const payload: TokenPayload = {
+        accessToken:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
+        refreshToken:
+          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
       };
       expect(reducer(initialState, actions.loaded(payload))).toEqual(
-        AsyncRequestCompleted<UserAuthResponse, Error>(payload),
+        AsyncRequestCompleted<TokenPayload, Error>(payload),
       );
     });
 
     it('does not update on mismatched keys', () => {
-      const misMatchedActions = genericAsyncActions<UserAuthResponse, Error>();
+      const misMatchedActions = genericAsyncActions<TokenPayload, Error>();
 
       expect(reducer(initialState, misMatchedActions.loading())).toEqual(
-        AsyncRequestNotStarted<UserAuthResponse, Error>(),
+        AsyncRequestNotStarted<TokenPayload, Error>(),
       );
     });
   });

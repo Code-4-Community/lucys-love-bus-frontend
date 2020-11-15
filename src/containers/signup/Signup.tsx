@@ -3,18 +3,24 @@ import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { signup } from '../../auth/ducks/thunks';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { C4CState } from '../../store';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { AsyncRequestKinds } from '../../utils/asyncRequest';
+
 const { Title, Paragraph } = Typography;
 
-const Signup: React.FC = () => {
+type SignupProps = UserAuthenticationReducerState;
+
+const Signup: React.FC<SignupProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const onFinish = (values: any) => {
     dispatch(
       signup({
-        username: values.username,
         email: values.email,
         password: values.password,
-        fullName: `${values.firstName} ${values.lastName}`,
+        firstName: values.firstName,
+        lastName: values.lastName,
       }),
     );
   };
@@ -87,6 +93,9 @@ const Signup: React.FC = () => {
             !
           </Paragraph>
 
+          {tokens.kind === AsyncRequestKinds.Failed && <Paragraph>
+            {tokens.error}
+          </Paragraph>}
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -98,4 +107,10 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state: C4CState): SignupProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(Signup);

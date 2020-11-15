@@ -1,6 +1,6 @@
-import { PrivilegeLevel, TokenResponse } from '../ducks/types';
+import { PrivilegeLevel, TokenPayload } from '../ducks/types';
 import { login, signup } from '../ducks/thunks';
-import { authenticateUser, UserAuthResponse } from '../ducks/actions';
+import { authenticateUser } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
 import tokenService from '../token';
@@ -16,23 +16,14 @@ describe('User Authentication Thunks', () => {
       const getState = () => generateState({});
       const mockDispatch = jest.fn();
       const mockLogin = jest.fn();
-      const mockSetAccessToken = jest.fn();
       const mockSetRefreshToken = jest.fn();
-      const mockGetUserID = jest.fn();
-      const mockGetPrivilegeLevel = jest.fn();
-      const mockTokenResponse: TokenResponse = {
+      const mockTokenResponse: TokenPayload = {
         accessToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
         refreshToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
       };
-      const mockPayload: UserAuthResponse = {
-        userId: Math.floor(Math.random()),
-        privilegeLevel: PrivilegeLevel.STANDARD,
-      };
       mockLogin.mockResolvedValue(mockTokenResponse);
-      mockGetUserID.mockReturnValue(mockPayload.userId);
-      mockGetPrivilegeLevel.mockReturnValue(mockPayload.privilegeLevel);
       const mockExtraArgs: ThunkExtraArgs = {
         authClient: {
           ...authClient,
@@ -40,28 +31,21 @@ describe('User Authentication Thunks', () => {
         },
         tokenService: {
           ...tokenService,
-          setAccessToken: mockSetAccessToken,
           setRefreshToken: mockSetRefreshToken,
-          getUserID: mockGetUserID,
-          getPrivilegeLevel: mockGetPrivilegeLevel,
         },
       };
 
       await login({
-        username: 'Jack Blanc',
+        email: 'Jack Blanc',
         password: 'password',
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(1);
       expect(mockDispatch).toHaveBeenNthCalledWith(
         1,
-        authenticateUser.loaded(mockPayload),
+        authenticateUser.loaded(mockTokenResponse),
       );
       expect(mockLogin).toBeCalledTimes(1);
-      expect(mockSetAccessToken).toHaveBeenNthCalledWith(
-        1,
-        mockTokenResponse.accessToken,
-      );
       expect(mockSetRefreshToken).toHaveBeenNthCalledWith(
         1,
         mockTokenResponse.refreshToken,
@@ -72,23 +56,14 @@ describe('User Authentication Thunks', () => {
       const getState = () => generateState({});
       const mockDispatch = jest.fn();
       const mockSignup = jest.fn();
-      const mockSetAccessToken = jest.fn();
       const mockSetRefreshToken = jest.fn();
-      const mockGetUserID = jest.fn();
-      const mockGetPrivilegeLevel = jest.fn();
-      const mockTokenResponse: TokenResponse = {
+      const mockTokenResponse: TokenPayload = {
         accessToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
         refreshToken:
           'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
       };
-      const mockPayload: UserAuthResponse = {
-        userId: Math.floor(Math.random()),
-        privilegeLevel: PrivilegeLevel.STANDARD,
-      };
       mockSignup.mockResolvedValue(mockTokenResponse);
-      mockGetUserID.mockReturnValue(mockPayload.userId);
-      mockGetPrivilegeLevel.mockReturnValue(mockPayload.privilegeLevel);
       const mockExtraArgs: ThunkExtraArgs = {
         authClient: {
           ...authClient,
@@ -96,30 +71,23 @@ describe('User Authentication Thunks', () => {
         },
         tokenService: {
           ...tokenService,
-          setAccessToken: mockSetAccessToken,
           setRefreshToken: mockSetRefreshToken,
-          getUserID: mockGetUserID,
-          getPrivilegeLevel: mockGetPrivilegeLevel,
         },
       };
 
       await signup({
-        username: 'jblanc222',
         password: 'password',
-        fullName: 'Jack Blanc',
-        email: 'jblanc222@gmail.com',
+        firstName: 'Jack',
+        lastName: 'Blanc',
+        email: 'jack@jackblanc.com',
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(1);
       expect(mockDispatch).toHaveBeenNthCalledWith(
         1,
-        authenticateUser.loaded(mockPayload),
+        authenticateUser.loaded(mockTokenResponse),
       );
       expect(mockSignup).toBeCalledTimes(1);
-      expect(mockSetAccessToken).toHaveBeenNthCalledWith(
-        1,
-        mockTokenResponse.accessToken,
-      );
       expect(mockSetRefreshToken).toHaveBeenNthCalledWith(
         1,
         mockTokenResponse.refreshToken,

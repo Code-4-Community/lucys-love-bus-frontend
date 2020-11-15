@@ -1,20 +1,20 @@
-import { authenticateUser, UserAuthResponse } from '../ducks/actions';
+import { authenticateUser } from '../ducks/actions';
 import reducers, { initialUserState } from '../ducks/reducers';
-import { PrivilegeLevel } from '../ducks/types';
+import { TokenPayload, UserAuthenticationReducerState } from '../ducks/types';
 import { AsyncRequestCompleted } from '../../utils/asyncRequest';
 
 describe('User Authentication Reducers', () => {
   it('Updates state correctly when a user authenticates successfully', () => {
-    const payload: UserAuthResponse = {
-      userId: Math.floor(Math.random()),
-      privilegeLevel: PrivilegeLevel.STANDARD,
+    const payload: TokenPayload = {
+      accessToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
+      refreshToken:
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
     };
     const action = authenticateUser.loaded(payload);
-    const expectedNextState = {
+    const expectedNextState: UserAuthenticationReducerState = {
       ...initialUserState,
-      userAuthenticationDetails: AsyncRequestCompleted<UserAuthResponse, void>(
-        payload,
-      ),
+      tokens: AsyncRequestCompleted<TokenPayload, void>(payload),
     };
 
     expect(reducers(initialUserState, action)).toEqual(expectedNextState);

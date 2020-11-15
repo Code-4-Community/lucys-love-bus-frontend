@@ -1,11 +1,7 @@
 import { genericAsyncActions } from '../../utils/asyncRequest';
+import { TokenPayload } from './types';
 
-export interface UserAuthResponse {
-  readonly userId: number;
-  readonly privilegeLevel: number;
-}
-
-export const authenticateUser = genericAsyncActions<UserAuthResponse, void>();
+export const authenticateUser = genericAsyncActions<TokenPayload, any>();
 
 export const logoutUser = genericAsyncActions<void, void>();
 

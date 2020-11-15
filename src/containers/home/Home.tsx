@@ -1,16 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Button, Form, Input, Typography } from 'antd';
-import { useDispatch } from 'react-redux';
-import { login } from '../../auth/ducks/thunks';
+import { Typography } from 'antd';
+
 const { Title } = Typography;
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
-  const onFinish = (values: any) => {
-    dispatch(login({ username: values.username, password: values.password }));
-  };
-
   return (
     <>
       <Helmet>
@@ -22,29 +16,6 @@ const Home: React.FC = () => {
         <Title level={3}>
           Built with React.js, Typescript, and AntD components.
         </Title>
-        <Form name="basic" onFinish={onFinish}>
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
       </div>
     </>
   );

@@ -3,15 +3,20 @@ import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { login } from '../../auth/ducks/thunks';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { AsyncRequestKinds } from '../../utils/asyncRequest';
+import { C4CState } from '../../store';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+
 const { Title, Paragraph } = Typography;
 
-const Login: React.FC = () => {
+type LoginProps = UserAuthenticationReducerState;
+
+const Login: React.FC<LoginProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    dispatch(login({ username: values.username, password: values.password }));
+    dispatch(login({ email: values.email, password: values.password }));
   };
-
   return (
     <>
       <Helmet>
@@ -22,13 +27,12 @@ const Login: React.FC = () => {
         <Title>Login</Title>
         <Form name="basic" onFinish={onFinish}>
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input />
           </Form.Item>
-
           <Form.Item
             label="Password"
             name="password"
@@ -36,7 +40,6 @@ const Login: React.FC = () => {
           >
             <Input.Password />
           </Form.Item>
-
           <Paragraph>
             Need an account? Sign up{' '}
             <Link to="/signup" component={Typography.Link}>
@@ -44,7 +47,6 @@ const Login: React.FC = () => {
             </Link>
             !
           </Paragraph>
-
           <Paragraph>
             Forgot your password? Click{' '}
             <Link to="/" component={Typography.Link}>
@@ -52,7 +54,9 @@ const Login: React.FC = () => {
             </Link>{' '}
             to reset it.
           </Paragraph>
-
+          {tokens.kind === AsyncRequestKinds.Failed && (
+            <Paragraph>{tokens.error}</Paragraph>
+          )}
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -64,4 +68,10 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: C4CState): LoginProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(Login);
