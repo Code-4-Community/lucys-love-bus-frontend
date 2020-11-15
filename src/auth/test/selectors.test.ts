@@ -1,4 +1,8 @@
-import { AsyncRequest, AsyncRequestCompleted } from '../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
 import { PrivilegeLevel, TokenPayload } from '../ducks/types';
 import { getPrivilegeLevel } from '../ducks/selectors';
 
@@ -18,6 +22,12 @@ describe('User Authentication Selectors', () => {
 
       // TODO: this will eventually change to 'standard' or 'admin'
       expect(getPrivilegeLevel(tokens)).toEqual('officer');
+    });
+
+    it('returns none privilege level when no token has been loaded', () => {
+      const tokens: AsyncRequest<TokenPayload, any> = AsyncRequestNotStarted();
+
+      expect(getPrivilegeLevel(tokens)).toEqual(PrivilegeLevel.NONE);
     });
   });
 });
