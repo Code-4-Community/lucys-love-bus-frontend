@@ -1,13 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './home.less';
+import {ContentContainer} from '../../components'
 import { Button, Checkbox, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
+
 const { Title } = Typography;
 
 const Home: React.FC = () => {
   const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password })
+    login({ email: values.username, password: values.password });
   };
 
   return (
@@ -16,7 +17,7 @@ const Home: React.FC = () => {
         <title>Title goes here</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
         {/*
           Place relevant components in here
         */}
@@ -55,7 +56,7 @@ const Home: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </ContentContainer>
     </>
   );
 };
