@@ -15,9 +15,7 @@ export const login = (
       .then((response: TokenPayload) => {
         // TODO: move this side effect somewhere else
         tokenService.setRefreshToken(response.refreshToken);
-        dispatch(
-          authenticateUser.loaded(response),
-        );
+        dispatch(authenticateUser.loaded(response));
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));
@@ -34,9 +32,7 @@ export const signup = (
       .then((response) => {
         // TODO: move this side effect somewhere else
         tokenService.setRefreshToken(response.refreshToken);
-        dispatch(
-          authenticateUser.loaded(response),
-        );
+        dispatch(authenticateUser.loaded(response));
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));

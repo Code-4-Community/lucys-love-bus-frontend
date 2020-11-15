@@ -11,7 +11,8 @@ import {
   rehydrateAsyncRequest,
 } from '../asyncRequest';
 import {
-  PrivilegeLevel, TokenPayload,
+  PrivilegeLevel,
+  TokenPayload,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 

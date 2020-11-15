@@ -29,10 +29,7 @@ const reducers = (
     case ASYNC_REQUEST_FAILED_ACTION:
       return {
         ...state,
-        tokens: userAuthenticationRequestReducer(
-          state.tokens,
-          action,
-        ),
+        tokens: userAuthenticationRequestReducer(state.tokens, action),
       };
     default:
       return state;
