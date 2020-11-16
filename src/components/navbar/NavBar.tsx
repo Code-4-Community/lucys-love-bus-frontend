@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LinkButton } from '../../components/LinkButton';
-import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
+import { Menu, Dropdown, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
