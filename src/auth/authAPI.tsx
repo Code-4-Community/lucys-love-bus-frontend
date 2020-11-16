@@ -5,6 +5,7 @@ enum ROUTES {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
+  DELETE_ACCOUNT = '/api/v1/user',
 }
 
 interface LoginRequest {
@@ -12,19 +13,31 @@ interface LoginRequest {
   readonly password: string;
 }
 
-export const login = async (user: LoginRequest) =>
+interface SignupRequest {
+  readonly username: string;
+  readonly email: string;
+  readonly password: string;
+  readonly firstName: string;
+  readonly lastName: string;
+}
+
+export const login: (user: LoginRequest) => Promise<void> = async (
+  user: LoginRequest,
+) =>
   Axios.post(ROUTES.LOGIN, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);
   });
 
-export const signup = async (user: LoginRequest) =>
+export const signup: (user: SignupRequest) => Promise<void> = async (
+  user: SignupRequest,
+) =>
   Axios.post(ROUTES.SIGNUP, user).then((response) => {
     Token.setAccessToken(response.data.accessToken);
     Token.setRefreshToken(response.data.refreshToken);
   });
 
-export const logout = async () =>
+export const logout: () => Promise<void> = async () =>
   Axios.delete(ROUTES.LOGIN, {
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),
@@ -39,7 +52,23 @@ export const logout = async () =>
       Token.removeRefreshToken();
     });
 
-export const refresh = async () =>
+export const deleteAccount: () => Promise<void> = async () =>
+  Axios.delete(ROUTES.DELETE_ACCOUNT, {
+    headers: {
+      'X-Access-Token': Token.getAccessToken(),
+      'X-Refresh-Token': Token.getRefreshToken(),
+    },
+  })
+    .then((response) => {
+      Token.removeAccessToken();
+      Token.removeRefreshToken();
+    })
+    .catch(() => {
+      Token.removeAccessToken();
+      Token.removeRefreshToken();
+    });
+
+export const refresh: () => Promise<void> = async () =>
   Axios.post(ROUTES.REFRESH, null, {
     headers: {
       'X-Refresh-Token': Token.getRefreshToken(),

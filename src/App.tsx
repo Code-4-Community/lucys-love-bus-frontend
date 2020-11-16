@@ -2,9 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-// Import antd stylesheets
-import 'antd/dist/antd.css';
-import './App.less';
 import Home from './containers/home/Home';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
@@ -17,7 +14,17 @@ import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/Signup_PF_P1/Signup_PF_P1';
 import { Layout } from 'antd';
+
+import Signup from './containers/signup/Signup';
+import Login from './containers/login/Login';
+import Settings from './containers/settings/Settings';
+
+import styled from 'styled-components';
 const { Content } = Layout;
+
+const AppInnerContainer = styled.div`
+  min-height: 100vh;
+`;
 
 const App: React.FC = () => {
   return (
@@ -33,7 +40,7 @@ const App: React.FC = () => {
         <Layout className="app-flex-container">
           <NavBar />
           <Content className="content-padding">
-            <div className="content-inner-container">
+            <AppInnerContainer>
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
@@ -51,8 +58,12 @@ const App: React.FC = () => {
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="*" exact component={NotFound} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/signup" exact component={Signup} />
+                <Route path="/settings" exact component={Settings} />
+                <Route path="*" exact component={NotFound} />
               </Switch>
-            </div>
+            </AppInnerContainer>
           </Content>
           <Footer />
         </Layout>

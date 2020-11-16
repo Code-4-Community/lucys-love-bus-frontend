@@ -13,7 +13,6 @@
 
 # IDE files
 .idea
-.vscode
 
 # misc
 .DS_Store

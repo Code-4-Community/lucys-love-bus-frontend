@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import { Typography } from 'antd';
-import './not-found.less';
+import {ContentContainer} from '../../components'
 const { Title } = Typography;
 
 /*
@@ -19,16 +19,16 @@ const Template: React.FC = () => {
         <title>Title goes here</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
         {/*
           Place relevant components in here
         */}
         <Title>Oops! We can't find the page you're looking for.</Title>
 
-        <Link to="/" component={Typography.Link}>
-          Take me back home!
+        <Link to="/">
+          <Typography.Link>Take me back home!</Typography.Link>
         </Link>
-      </div>
+      </ContentContainer>
     </>
   );
 };
