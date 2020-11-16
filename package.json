@@ -30,7 +30,7 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "nodemon -w craco.config.js -w ./antd.customize.less --exec \"craco start\"",    
+    "start": "nodemon -w craco.config.js -w ./antd.customize.less --exec \"craco start\"",
     "build": "craco build",
     "test": "craco test --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls",

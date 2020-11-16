@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { LinkButton } from '../../components';
+import { LinkButton } from '../../components/LinkButton';
 import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 const { Text } = Typography;
 
@@ -14,12 +13,7 @@ const AntButtonLink = styled(LinkButton)`
   color: black;
   margin-left: 7em;
 `;
-const Logo = styled.img`
-  float: right;
-`;
-const LogoText = styled(Text)`
-  font-size: 24px;
-`;
+
 const UserDropdown = styled(Button)`
   float: right;
   margin-right: 3em;
@@ -48,25 +42,6 @@ const NavBar: React.FC = () => {
 
   return (
     <NavRow align="middle">
-      <Col flex={1}>
-        <Link to="/">
-          <Logo
-            src={
-              'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png'
-            }
-            alt={'Site Logo'}
-          />
-        </Link>
-      </Col>
-
-      <Col flex={1}>
-        <Link to="/">
-          <LogoText strong>Frontend Scaffold</LogoText>
-          <br />
-          <Text strong>Subtitle goes here</Text>
-        </Link>
-      </Col>
-
       <Col flex={3}>
         <AntButtonLink to="/">Home</AntButtonLink>
         <AntButtonLink to="/block-template">Block Template</AntButtonLink>

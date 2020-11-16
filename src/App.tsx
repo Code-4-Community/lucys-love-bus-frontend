@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-// Import antd stylesheets
 import './App.less';
 import Home from './containers/home/Home';
 import Signup from './containers/signup/Signup';
