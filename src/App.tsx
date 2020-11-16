@@ -11,7 +11,7 @@ import GridTemplate from './containers/template-24-col-grid/Template';
 import SignupConfirmationPF from './containers/signup-confirmation/SignupConfirmationPF';
 import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirmationGM';
 import SignupGM from './containers/signup-gm/SignupGM';
-import Events from './containers/events/Events';
+import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/navbar';
@@ -51,7 +51,7 @@ const App: React.FC = () => {
                 />
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
-                <Route path="/upcoming-events" exact component={Events} />
+                <Route path="/upcoming-events" exact component={UpcomingEvents} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
