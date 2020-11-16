@@ -1,7 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { ContentContainer } from '../../components';
 import { Button, Form, Input, Typography } from 'antd';
 import { login } from '../../auth/authAPI';
+
 const { Title } = Typography;
 
 const Home: React.FC = () => {
@@ -15,7 +17,10 @@ const Home: React.FC = () => {
         <title>Title goes here</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
+        {/*
+          Place relevant components in here
+        */}
         <Title>Code4Community Frontend Scaffold</Title>
         <Title level={3}>
           Built with React.js, Typescript, and AntD components.
@@ -43,7 +48,7 @@ const Home: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </ContentContainer>
     </>
   );
 };
