@@ -13,8 +13,4 @@ describe('Request Interceptor Tests', () => {
       },
     });
   });
-
-  test('can run tests', () => {
-    expect(true).toBe(true);
-  });
 });

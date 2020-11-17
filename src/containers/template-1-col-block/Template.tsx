@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-
+import { ContentContainer } from '../../components';
 const { Title, Text, Paragraph } = Typography;
 
 /*
@@ -19,7 +19,7 @@ const Template: React.FC = () => {
         <title>Title goes here</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
         {/*
           Place relevant components in here
         */}
@@ -64,7 +64,7 @@ const Template: React.FC = () => {
           Also remember that you should link like this to make use of React
           Router!
         </Link>
-      </div>
+      </ContentContainer>
     </>
   );
 };
