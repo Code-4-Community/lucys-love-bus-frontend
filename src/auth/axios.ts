@@ -1,7 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import tokenService from './token';
+import axios, { AxiosInstance } from 'axios';
+import store, { C4CState } from '../store';
+import { AsyncRequestKinds } from '../utils/asyncRequest';
 
-const Instance: AxiosInstance = axios.create({
+const AppAxiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_DOMAIN,
   timeout: 10000,
   headers: {
@@ -9,15 +10,15 @@ const Instance: AxiosInstance = axios.create({
   },
 });
 
-export const requestInterceptor: (
-  request: AxiosRequestConfig,
-) => AxiosRequestConfig = (request: AxiosRequestConfig) => {
-  // eslint-disable-next-line
-  request.headers['X-Access-Token'] = tokenService.getAccessToken();
-  return request;
+const listener = () => {
+  const state: C4CState = store.getState();
+  if (state.authenticationState.tokens.kind === AsyncRequestKinds.Completed) {
+    AppAxiosInstance.defaults.headers['X-Access-Token'] =
+      state.authenticationState.tokens.result.accessToken;
+  }
 };
 
-Instance.interceptors.request.use(requestInterceptor);
+store.subscribe(listener);
 
 // const responseErrorInterceptor: (error: AxiosError) => void = (error) => {
 //   // const originalRequest = error.config;
@@ -43,9 +44,4 @@ Instance.interceptors.request.use(requestInterceptor);
 //   return Promise.reject(error);
 // };
 
-Instance.interceptors.response.use(
-  (response) => response,
-  (error) => error,
-);
-
-export default Instance;
+export default AppAxiosInstance;

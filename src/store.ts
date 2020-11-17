@@ -4,7 +4,13 @@ import {
 } from './auth/ducks/types';
 import { UserAuthenticationActions } from './auth/ducks/actions';
 import authClient from './auth/authClient';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import {
+  applyMiddleware,
+  combineReducers,
+  compose,
+  createStore,
+  Store,
+} from 'redux';
 import userReducer, { initialUserState } from './auth/ducks/reducers';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
@@ -49,10 +55,11 @@ const enhancer = composeEnhancers(
   ),
 );
 
-const store = createStore<C4CState, C4CAction, {}, {}>(
-  reducers,
-  initialStoreState,
-  enhancer,
-);
+const store: Store<C4CState, C4CAction> = createStore<
+  C4CState,
+  C4CAction,
+  {},
+  {}
+>(reducers, initialStoreState, enhancer);
 
 export default store;

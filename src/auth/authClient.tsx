@@ -1,10 +1,10 @@
-import Axios from './axios';
 import {
   TokenPayload,
   LoginRequest,
   SignupRequest,
   RefreshTokenResponse,
 } from './ducks/types';
+import axios, { AxiosInstance } from 'axios';
 
 export interface AuthClient {
   login: (user: LoginRequest) => Promise<TokenPayload>;
@@ -19,18 +19,32 @@ export enum API_ROUTE {
   REFRESH = '/api/v1/user/login/refresh/',
 }
 
+const AuthAxiosInstance: AxiosInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_DOMAIN,
+  timeout: 10000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 const login: (user: LoginRequest) => Promise<TokenPayload> = (
   user: LoginRequest,
-) => Axios.post(API_ROUTE.LOGIN, user).then((response) => response.data);
+) =>
+  AuthAxiosInstance.post(API_ROUTE.LOGIN, user).then(
+    (response) => response.data,
+  );
 
 const signup: (user: SignupRequest) => Promise<TokenPayload> = (
   user: SignupRequest,
-) => Axios.post(API_ROUTE.SIGNUP, user).then((response) => response.data);
+) =>
+  AuthAxiosInstance.post(API_ROUTE.SIGNUP, user).then(
+    (response) => response.data,
+  );
 
 const logout: (refreshToken: string) => Promise<void> = (
   refreshToken: string,
 ) =>
-  Axios.delete(API_ROUTE.LOGIN, {
+  AuthAxiosInstance.delete(API_ROUTE.LOGIN, {
     headers: {
       'X-Refresh-Token': refreshToken,
     },
@@ -40,7 +54,7 @@ const logout: (refreshToken: string) => Promise<void> = (
 const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
   refreshToken: string,
 ) =>
-  Axios.post(API_ROUTE.REFRESH, null, {
+  AuthAxiosInstance.post(API_ROUTE.REFRESH, null, {
     headers: {
       'X-Refresh-Token': refreshToken,
     },
