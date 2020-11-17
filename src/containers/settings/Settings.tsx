@@ -1,12 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Typography } from 'antd';
-import { deleteAccount } from '../../auth/authAPI';
 const { Title } = Typography;
 
 const Settings: React.FC = () => {
   const onFinish = () => {
-    deleteAccount();
+    // deleteAccount();
   };
 
   return (

@@ -1,20 +1,28 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
-import { signup } from '../../auth/authAPI';
 import { Link } from 'react-router-dom';
+import { signup } from '../../auth/ducks/thunks';
+import { connect, useDispatch } from 'react-redux';
+import { C4CState } from '../../store';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { AsyncRequestKinds } from '../../utils/asyncRequest';
+
 const { Title, Paragraph } = Typography;
 
-const Signup: React.FC = () => {
+type SignupProps = UserAuthenticationReducerState;
+
+const Signup: React.FC<SignupProps> = ({ tokens }) => {
+  const dispatch = useDispatch();
   const onFinish = (values: any) => {
-    // TODO: what if backend says the values are invalid? need to handle this
-    signup({
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      firstName: values.firstName,
-      lastName: values.lastName,
-    });
+    dispatch(
+      signup({
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+      }),
+    );
   };
 
   return (
@@ -85,6 +93,9 @@ const Signup: React.FC = () => {
             !
           </Paragraph>
 
+          {tokens.kind === AsyncRequestKinds.Failed && (
+            <Paragraph>{tokens.error}</Paragraph>
+          )}
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit
@@ -96,4 +107,10 @@ const Signup: React.FC = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = (state: C4CState): SignupProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(Signup);

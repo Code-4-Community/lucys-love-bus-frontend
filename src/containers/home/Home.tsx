@@ -1,16 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Typography } from 'antd';
 import { ContentContainer } from '../../components';
-import { Button, Form, Input, Typography } from 'antd';
-import { login } from '../../auth/authAPI';
 
 const { Title } = Typography;
 
 const Home: React.FC = () => {
-  const onFinish = (values: any) => {
-    login({ email: values.username, password: values.password });
-  };
-
   return (
     <>
       <Helmet>
@@ -25,29 +20,6 @@ const Home: React.FC = () => {
         <Title level={3}>
           Built with React.js, Typescript, and AntD components.
         </Title>
-        <Form name="basic" onFinish={onFinish}>
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
       </ContentContainer>
     </>
   );
