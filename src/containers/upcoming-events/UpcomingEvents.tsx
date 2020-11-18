@@ -23,13 +23,6 @@ const StyledRadio = styled(Radio.Group)`
   margin: 12px;
 `;
 
-const StyledRadioButton = styled(Radio.Button)`
-  .ant-radio-button-checked {
-    background-color: #CE4A00;
-    color: white;
-  }
-`;
-
 const StyledTitle = styled(Title)`
   margin: 12px;
 `;
@@ -45,8 +38,8 @@ const Events: React.FC = () => {
         <Content>
           <StyledTitle>Upcoming Events</StyledTitle>
           <StyledRadio buttonStyle="solid" defaultValue="list">
-            <StyledRadioButton className="ant-radio-checked" value="list">List</StyledRadioButton>
-            <StyledRadioButton value="calendar">Calendar</StyledRadioButton>
+            <Radio.Button value="list">List</Radio.Button>
+            <Radio.Button value="calendar">Calendar</Radio.Button>
           </StyledRadio>
         </Content>
         <EventsList></EventsList>
