@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography, Radio } from 'antd';
-import EventsList from '../../components/EventsList/EventsList';
+import EventsList from '../../components/events-list/EventsList';
 import styled from 'styled-components';
 
 const { Title } = Typography;
@@ -20,13 +20,13 @@ const Content = styled.div`
 `;
 
 const StyledRadio = styled(Radio.Group)`
-  background-color: #CE4A00;
   margin: 12px;
 `;
 
 const StyledRadioButton = styled(Radio.Button)`
-  :checked {
+  .ant-radio-button-checked {
     background-color: #CE4A00;
+    color: white;
   }
 `;
 
@@ -35,7 +35,6 @@ const StyledTitle = styled(Title)`
 `;
 
 const Events: React.FC = () => {
-
   return (
     <>
       <Helmet>
@@ -46,7 +45,7 @@ const Events: React.FC = () => {
         <Content>
           <StyledTitle>Upcoming Events</StyledTitle>
           <StyledRadio buttonStyle="solid" defaultValue="list">
-            <StyledRadioButton value="list">List</StyledRadioButton>
+            <StyledRadioButton className="ant-radio-checked" value="list">List</StyledRadioButton>
             <StyledRadioButton value="calendar">Calendar</StyledRadioButton>
           </StyledRadio>
         </Content>

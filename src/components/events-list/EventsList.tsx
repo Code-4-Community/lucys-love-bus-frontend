@@ -1,5 +1,5 @@
 import React from 'react';
-import EventListing from '../../components/EventListing/EventListing';
+import EventListing from '../event-listing/EventListing';
 
 // placeholder interface for now (will replace with real interface once hooked up to db)
 interface Event {
