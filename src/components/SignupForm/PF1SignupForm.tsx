@@ -204,7 +204,7 @@ const PF1SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <LinkButton to="/signup"
+        <LinkButton to="/not-found"
                     type="secondary"
                     style={{ display: 'inline-block', margin: '0 8px' }}>
           Back

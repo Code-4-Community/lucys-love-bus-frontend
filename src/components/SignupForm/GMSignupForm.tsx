@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button, Form, Input, Radio, Upload } from 'antd';
-import './signup-form.less';
+import { Form, Input, Radio, Upload } from 'antd';
+import './GM-signup-form.less';
+import {LinkButton} from "../LinkButton";
 
 interface SignupData {
   firstName: string;
@@ -20,7 +21,7 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const SignupForm: React.FC = () => {
+const GMSignupForm: React.FC = () => {
   const onFinish = (values: SignupData) => {
     // send data to redux
   };
@@ -201,19 +202,19 @@ const SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button style={{ display: 'inline-block', margin: '0 8px' }}>
+        <LinkButton to="/not-found"
+                    type="secondary"
+                    style={{ display: 'inline-block', margin: '0 8px' }}>
           Back
-        </Button>
-        <Button
-          type="primary"
-          htmlType="submit"
-          style={{ display: 'inline-block', margin: '0 8px' }}
-        >
+        </LinkButton>
+        <LinkButton to="/signup-confirmation-gm"
+                    type="primary"
+                    style={{ display: 'inline-block', margin: '0 8px' }}>
           Next
-        </Button>
+        </LinkButton>
       </Form.Item>
     </Form>
   );
 };
 
-export default SignupForm;
+export default GMSignupForm;

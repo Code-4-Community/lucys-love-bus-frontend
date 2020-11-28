@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import './signup-gm.less';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import SignupForm from '../../components/SignupForm/SignupForm';
+import GMSignupForm from '../../components/SignupForm/GMSignupForm';
 
 const { Title, Paragraph } = Typography;
 
@@ -29,7 +29,7 @@ const SignupGM: React.FC = () => {
           <Paragraph>Fields marked * are required.</Paragraph>
         </div>
 
-        <SignupForm></SignupForm>
+        <GMSignupForm></GMSignupForm>
       </div>
     </>
   );

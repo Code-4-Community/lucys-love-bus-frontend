@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Radio } from 'antd';
+import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
-import {LinkButton} from "../LinkButton";
+import {LinkButton} from '../LinkButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -27,7 +27,7 @@ const SignupConfirmationForm: React.FC = () => {
       onFinish={onFinish}
       requiredMark={false}
     >
-      <div className="checkbox-div">
+      <div className="new-section">
         <Form.Item
           name="check1"
           rules={[{ required: true, message: 'Please check all boxes' }]}
@@ -67,7 +67,7 @@ const SignupConfirmationForm: React.FC = () => {
         </Form.Item>
       </div>
 
-      <div className="photo-release-div">
+      <div className="new-section">
         <Paragraph>
           <strong>Photo/Video Release</strong>
           <br />
@@ -106,30 +106,29 @@ const SignupConfirmationForm: React.FC = () => {
         <Form.Item
           label="Head of Family Name"
           name="headOfFamilyName"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
               message: 'Please input the name of the head of the family',
             },
           ]}
-          className="input-item"
         >
-          <Input className="input-style" placeholder="Head of Family Name" />
+          <Input placeholder="Head of Family Name" />
         </Form.Item>
 
         <Form.Item
           label="Head of Family Initials"
           name="headOfFamilyInitials"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
               message: "Please input head of family's initials",
             },
           ]}
-          className="input-item"
         >
           <Input
-            className="input-style"
             placeholder="Head of Family Initials"
           />
         </Form.Item>
@@ -137,6 +136,7 @@ const SignupConfirmationForm: React.FC = () => {
         <Form.Item
           label="Date of Signature"
           name="dateOfSignature"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
@@ -146,9 +146,8 @@ const SignupConfirmationForm: React.FC = () => {
               ),
             },
           ]}
-          className="input-item"
         >
-          <Input className="input-style" placeholder="MM/DD/YYYY" />
+          <Input placeholder="MM/DD/YYYY" />
         </Form.Item>
       </div>
 
