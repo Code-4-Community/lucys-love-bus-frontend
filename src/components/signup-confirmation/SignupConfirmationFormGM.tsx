@@ -3,6 +3,7 @@ import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
 import {LinkButton} from '../LinkButton';
+import {SubmitButton} from '../SubmitButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -15,7 +16,7 @@ interface SignupConfirmationPage {
   dateOfSignature: string;
 }
 
-const SignupConfirmationForm: React.FC = () => {
+const SignupConfirmationFormGM: React.FC = () => {
   const onFinish = (values: SignupConfirmationPage) => {
     // send data to redux
   };
@@ -151,20 +152,20 @@ const SignupConfirmationForm: React.FC = () => {
         </Form.Item>
       </div>
 
-      <div className="button-div">
+      <Form.Item className="centered">
         <LinkButton to="/signup-pf-p2"
                     type="secondary"
-                    style={{ display: 'inline-block', margin: '0 8px' }}>
+                    className="button-style">
           Back
         </LinkButton>
-        <LinkButton to="/not-found"
+        <SubmitButton to="/signup-verification-gm"
                     type="primary"
-                    style={{ display: 'inline-block', margin: '0 8px' }}>
+                    className="button-style">
           Next
-        </LinkButton>
-      </div>
+        </SubmitButton>
+      </Form.Item>
     </Form>
   );
 };
 
-export default SignupConfirmationForm;
+export default SignupConfirmationFormGM;

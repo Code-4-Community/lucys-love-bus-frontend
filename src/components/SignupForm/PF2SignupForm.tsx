@@ -1,6 +1,7 @@
 import React from 'react';
-import {Button, Form, Input, Upload} from 'antd';
+import { Form, Input, Upload} from 'antd';
 import {LinkButton} from '../LinkButton';
+import {SubmitButton} from "../SubmitButton";
 
 const PF2SignupForm: React.FC = () => {
     const onFinish = () => {
@@ -25,14 +26,14 @@ const PF2SignupForm: React.FC = () => {
             <Form.Item>
                 <LinkButton to="/signup-pf-p1"
                             type="secondary"
-                            style={{ display: 'inline-block', margin: '0 8px' }}>
+                            className="button-style">
                     Back
                 </LinkButton>
-                <LinkButton to="/signup-confirmation-pf"
+                <SubmitButton to="/signup-confirmation-pf"
                             type="primary"
-                            style={{ display: 'inline-block', margin: '0 8px' }}>
+                            className="button-style">
                     Next
-                </LinkButton>
+                </SubmitButton>
             </Form.Item>
         </Form>
     );

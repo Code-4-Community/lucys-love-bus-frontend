@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
 import './PF1-signup-form.less';
 import {LinkButton} from "../LinkButton";
+import {SubmitButton} from "../SubmitButton";
 
 interface SignupData {
   firstName: string;
@@ -204,16 +205,16 @@ const PF1SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <LinkButton to="/not-found"
+        <LinkButton to="/"
                     type="secondary"
-                    style={{ display: 'inline-block', margin: '0 8px' }}>
+                    className="button-style">
           Back
         </LinkButton>
-        <LinkButton to="/signup-pf-p2"
+        <SubmitButton to="/signup-pf-p2"
                     type="primary"
-                    style={{ display: 'inline-block', margin: '0 8px' }}>
+                    className="button-style">
           Next
-        </LinkButton>
+        </SubmitButton>
       </Form.Item>
     </Form>
   );
