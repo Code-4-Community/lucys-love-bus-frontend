@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
+import {LinkButton} from "../LinkButton";
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -152,15 +153,16 @@ const SignupConfirmationForm: React.FC = () => {
       </div>
 
       <div className="button-div">
-        <Form.Item>
-          <Button className="back-button">Back</Button>
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="submit-button">
-            Submit Request
-          </Button>
-        </Form.Item>
+        <LinkButton to="/signup-pf-p2"
+                    type="secondary"
+                    style={{ display: 'inline-block', margin: '0 8px' }}>
+          Back
+        </LinkButton>
+        <LinkButton to="/not-found"
+                    type="primary"
+                    style={{ display: 'inline-block', margin: '0 8px' }}>
+          Next
+        </LinkButton>
       </div>
     </Form>
   );

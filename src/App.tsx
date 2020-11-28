@@ -15,7 +15,8 @@ import SignupConfirmationGM from './containers/signup-confirmation/SignupConfirm
 import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/navbar';
 import Footer from './components/Footer';
-import Signup_PF_P1 from './containers/Signup_PF_P1/Signup_PF_P1';
+import Signup_PF_P1 from './containers/signup-pf-p1/Signup_PF_P1';
+import Signup_PF_P2 from './containers/signup-pf-p2/Signup_PF_P2';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 const { Content } = Layout;
@@ -54,6 +55,7 @@ const App: React.FC = () => {
                   component={SignupConfirmationPF}
                 />
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
+                <Route path="/signup-pf-p2" exact component={Signup_PF_P2} />
                 <Route path="/signup-gm" exact component={SignupGM} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={Signup} />
