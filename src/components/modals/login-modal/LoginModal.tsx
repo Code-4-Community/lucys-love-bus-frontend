@@ -23,8 +23,9 @@ const StyledModal = styled(Modal)`
 `;
 
 const ContentDiv = styled.div`
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -39,8 +40,6 @@ const ForgotPasswordLinkButton = styled(Typography.Link)`
 const ForgotPasswordText = styled(Text)`
   color: #000000;
 `;
-
-const EmailField = styled(Input)``;
 
 const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
   const [currentPage, setPage] = useState<ModalContent>(
@@ -67,8 +66,8 @@ const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
       case ModalContent.LoginContent:
         return (
             <ContentDiv>
-              <EmailField placeholder="Email"/>
-              <Input.Password placeholder="Password" />
+              <Input size={"large"} placeholder="Email" onChange={e => setEmail(e.target.value)}/>
+              <Input.Password size={"large"} placeholder="Password" onChange={e => setPassword(e.target.value)}/>
               <ForgotPasswordText className="forgot-password-text">
                 Forgot password? Click{' '}
                 <ForgotPasswordLinkButton onClick={switchToForgotPasswordPage}>
