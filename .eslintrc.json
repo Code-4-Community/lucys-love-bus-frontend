@@ -17,7 +17,7 @@
       "error",
       {
         "singleQuote": true,
-        "endOfLine":"auto"
+        "endOfLine": "auto"
       }
     ],
     "react/no-unescaped-entities": 0
