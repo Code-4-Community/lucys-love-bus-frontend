@@ -17,7 +17,7 @@ const useModal = () => {
 };
 
 const renderModal = (isShowing: boolean, toggle: () => void) => {
-  return <LoginModal isShowing={isShowing} hide={toggle} />;
+  return <LoginModal showLoginModal={isShowing} onCloseLoginModal={toggle} />;
 };
 
 const Modals: React.FC = () => {

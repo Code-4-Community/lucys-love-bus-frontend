@@ -1,11 +1,22 @@
 import { Button, Form, Input } from 'antd';
 import React from 'react';
 import './forgot-password-content.less';
+import styled from 'styled-components';
 import Text from 'antd/es/typography/Text';
 
 interface Props {
   switchToConfirmationPage: () => void;
 }
+
+const SendLinkButton = styled(Button)`
+  position: absolute;
+  height: 45px;
+  width: 115px;
+  left: 40.8%;
+  top: 340px;
+  background: #505050;
+  border-radius: 6px;
+`;
 
 const ForgotPasswordContent: (props: Props) => JSX.Element = (props: Props) => {
   return (
@@ -22,13 +33,13 @@ const ForgotPasswordContent: (props: Props) => JSX.Element = (props: Props) => {
       >
         <Input className="input-style" placeholder="Email" />
       </Form.Item>
-      <Button
+      <SendLinkButton
         className="send-link-button"
         type="primary"
         onClick={props.switchToConfirmationPage}
       >
         Send Link
-      </Button>
+      </SendLinkButton>
     </div>
   );
 };
