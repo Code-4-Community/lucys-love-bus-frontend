@@ -26,7 +26,6 @@ const SignupConfirmationFormPF: React.FC = () => {
       name="basic"
       layout="vertical"
       onFinish={onFinish}
-      requiredMark={false}
     >
       <div className="new-section">
         <Form.Item
@@ -68,7 +67,7 @@ const SignupConfirmationFormPF: React.FC = () => {
         </Form.Item>
       </div>
 
-      <div className="new-section">
+      <div>
         <Paragraph>
           <strong>Photo/Video Release</strong>
           <br />

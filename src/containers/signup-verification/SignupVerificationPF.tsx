@@ -5,7 +5,7 @@ import { Typography } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
-const SignupVerificationGM: React.FC = () => {
+const SignupVerificationPF: React.FC = () => {
     return (
         <>
             <Helmet>
@@ -14,23 +14,16 @@ const SignupVerificationGM: React.FC = () => {
             </Helmet>
 
             <div className="content-container">
-                <Title level={5} className="centered-text">
-                    VERIFY EMAIL
-                </Title>
-
-                <Title level={3} className="centered-text">
-                    Thank you for signing up!
-                </Title>
-
+                <Title level={5} className="centered-text">VERIFY EMAIL</Title>
+                <Title level={3} className="centered-text">Thank you for signing up!</Title>
                 <Paragraph className="centered-text">
                     {' '}
                     We are incredibly excited for you to become a Participating Family at The Sajni Center.
                     An Admin will be reviewing your request, and you will receive a confirmation email shortly. {' '}
                 </Paragraph>
-
             </div>
         </>
     );
 };
 
-export default SignupVerificationGM;
+export default SignupVerificationPF;

@@ -4,7 +4,7 @@ import './signup-confirmation-form.less';
 import { Typography } from 'antd';
 import {LinkButton} from '../LinkButton';
 import {SubmitButton} from '../SubmitButton';
-const { Paragraph } = Typography;
+const { Paragraph, Title} = Typography;
 
 interface SignupConfirmationPage {
   check1: boolean;
@@ -21,12 +21,12 @@ const SignupConfirmationFormGM: React.FC = () => {
     // send data to redux
   };
 
+  // @ts-ignore
   return (
     <Form
       name="basic"
       layout="vertical"
       onFinish={onFinish}
-      requiredMark={false}
     >
       <div className="new-section">
         <Form.Item
@@ -68,9 +68,9 @@ const SignupConfirmationFormGM: React.FC = () => {
         </Form.Item>
       </div>
 
-      <div className="new-section">
+      <div>
         <Paragraph>
-          <strong>Photo/Video Release</strong>
+          <strong> Photo/Video Release </strong>
           <br />
           Do you authorize the use and reproduction by Lucy’s Love Bus of any
           and all photographs and any other audio-visual materials taken of me

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Upload} from 'antd';
 import {LinkButton} from '../LinkButton';
-import {SubmitButton} from "../SubmitButton";
+import {SubmitButton} from '../SubmitButton';
 
 const PF2SignupForm: React.FC = () => {
     const onFinish = () => {

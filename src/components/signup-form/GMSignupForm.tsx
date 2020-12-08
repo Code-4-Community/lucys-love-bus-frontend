@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Radio, Upload } from 'antd';
 import './GM-signup-form.less';
-import {LinkButton} from "../LinkButton";
-import {SubmitButton} from "../SubmitButton";
+import {LinkButton} from '../LinkButton';
+import {SubmitButton} from '../SubmitButton';
 
 interface SignupData {
   firstName: string;

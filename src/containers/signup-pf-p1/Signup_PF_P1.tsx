@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import './Signup_PF_P1.less';
+import './signup-pf-p1.less';
 import { Typography } from 'antd';
-import PF1SignupForm from '../../components/SignupForm/PF1SignupForm';
+import PF1SignupForm from '../../components/signup-form/PF1SignupForm';
 
 const { Title, Paragraph } = Typography;
 
@@ -30,10 +30,7 @@ const Signup_PF_P1: React.FC = () => {
             eligible to attend free of charge. After creating an account, your
             request will be reviewed by a member of our administration.
           </Paragraph>
-          <Paragraph>
-            *the following information will be associated with your account
-            details
-          </Paragraph>
+          <Paragraph>Fields marked * are required.</Paragraph>
         </div>
 
         <Title level={5}>Account Owner Details</Title>
