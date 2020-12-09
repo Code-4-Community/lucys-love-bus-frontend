@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Typography } from 'antd';
+import { Input, Modal, Typography } from 'antd';
 import styled from 'styled-components';
 import './login-modal.less';
 import { login } from '../../../auth/ducks/thunks';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Text from 'antd/es/typography/Text';
 import { Link } from 'react-router-dom';
+import { C4CState } from '../../../store';
+import { AsyncRequest, AsyncRequestKinds } from '../../../utils/asyncRequest';
+import { TokenPayload } from '../../../auth/ducks/types';
 
 interface LoginModalProps {
   showLoginModal: boolean;
   onCloseLoginModal: () => void;
+}
+
+interface StateProps {
+  tokens: AsyncRequest<TokenPayload, any>;
 }
 
 enum ModalContent {
@@ -27,6 +34,7 @@ const ContentDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 `;
 
 const ForgotPasswordLinkButton = styled(Typography.Link)`
@@ -41,7 +49,22 @@ const ForgotPasswordText = styled(Text)`
   color: #000000;
 `;
 
-const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
+const EmailInput = styled(Input)`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 272px;
+`;
+
+const PasswordInput = styled(Input.Password)`
+  margin-bottom: 10px;
+  width: 272px;
+`;
+
+const LoginModal: React.FC<LoginModalProps & StateProps> = ({
+  tokens,
+  onCloseLoginModal,
+  showLoginModal,
+}) => {
   const [currentPage, setPage] = useState<ModalContent>(
     ModalContent.LoginContent,
   );
@@ -53,62 +76,59 @@ const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
     setPage(ModalContent.ForgotPassword);
   };
 
-  const setToPasswordResetPage = () => {
-    setPage(ModalContent.ResetPassword);
-  };
-
-  const getModalContent = (
-      currentPage: ModalContent,
-      switchToForgotPasswordPage: () => void,
-      switchToPasswordResetPage: () => void,
-  ) => {
+  const getModalContent = () => {
     switch (currentPage) {
       case ModalContent.LoginContent:
         return (
-            <ContentDiv>
-              <Input size={"large"} placeholder="Email" onChange={e => setEmail(e.target.value)}/>
-              <Input.Password size={"large"} placeholder="Password" onChange={e => setPassword(e.target.value)}/>
-              <ForgotPasswordText className="forgot-password-text">
-                Forgot password? Click{' '}
-                <ForgotPasswordLinkButton onClick={switchToForgotPasswordPage}>
-                  here
-                </ForgotPasswordLinkButton>
-              </ForgotPasswordText>
-              <Text className="sign-up-text">
-                Don’t have an account? Sign up{' '}
-                <Link to="/signup" component={Typography.Link}>
-                  here
-                </Link>
-              </Text>
-            </ContentDiv>
+          <ContentDiv>
+            <EmailInput
+              size={'large'}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <PasswordInput
+              size={'large'}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <ForgotPasswordText>
+              Forgot password?{' '}
+              <ForgotPasswordLinkButton onClick={setToForgotPasswordPage}>
+                Click here
+              </ForgotPasswordLinkButton>
+            </ForgotPasswordText>
+            <Text>
+              Don’t have an account?{' '}
+              <Link to="/signup" component={Typography.Link}>
+                Sign up here
+              </Link>
+            </Text>
+            {tokens.kind === AsyncRequestKinds.Failed && (
+              <Text>{tokens.error}</Text>
+            )}
+          </ContentDiv>
         );
       case ModalContent.ForgotPassword:
         return (
-            <div className="content">
-              <Text>
-                Enter email address associated with account
-              </Text>
-              <Text>Email</Text>
-              <Input placeholder="Email" />
-            </div>
+          <ContentDiv>
+            <Text>Enter email address associated with account</Text>
+            <EmailInput size="large" placeholder="Email" />
+          </ContentDiv>
         );
       case ModalContent.ResetPassword:
         return (
-            <div className="content">
-              <Text className="password-reset-text">
-                Keep an eye on your inbox (and check your spam folder as well). If
-                you still haven’t received an email,{' '}
-                <Button className="resend-email-page-link" type="link">
-                  click here
-                </Button>{' '}
-                to resend it
-              </Text>
-            </div>
+          <ContentDiv>
+            <Text>
+              Keep an eye on your inbox (and check your spam folder as well). If
+              you still haven’t received an email,{' '}
+              <Typography.Link>click here</Typography.Link> to resend it.
+            </Text>
+          </ContentDiv>
         );
     }
   };
 
-  const getTitle = (currentPage: ModalContent): string => {
+  const getTitle = (): string => {
     switch (currentPage) {
       case ModalContent.LoginContent:
         return 'Log in to your account';
@@ -128,7 +148,7 @@ const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
         setPage(ModalContent.ResetPassword);
         break;
       case ModalContent.ResetPassword:
-        props.onCloseLoginModal();
+        onCloseLoginModal();
         break;
     }
   };
@@ -147,21 +167,23 @@ const LoginModal: React.FC<LoginModalProps> = (props: LoginModalProps) => {
   return (
     <div className="modal">
       <StyledModal
-        visible={props.showLoginModal}
-        title={getTitle(currentPage)}
+        visible={showLoginModal}
+        title={getTitle()}
         onOk={handleOk}
         okText={getOkText()}
-        onCancel={props.onCloseLoginModal}
+        onCancel={onCloseLoginModal}
         width={'625px'}
       >
-        {getModalContent(
-          currentPage,
-          setToForgotPasswordPage,
-          setToPasswordResetPage,
-        )}
+        {getModalContent()}
       </StyledModal>
     </div>
   );
 };
 
-export default LoginModal;
+const mapStateToProps = (state: C4CState): StateProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(LoginModal);

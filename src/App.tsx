@@ -59,7 +59,6 @@ const App: React.FC = () => {
                 <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
-                <Route path="/modals" exact component={Modals} />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </AppInnerContainer>
