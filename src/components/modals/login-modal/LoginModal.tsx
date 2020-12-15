@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Modal, Typography } from 'antd';
 import styled from 'styled-components';
-import './login-modal.less';
 import { login } from '../../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import Text from 'antd/es/typography/Text';
@@ -45,10 +44,6 @@ const ForgotPasswordLinkButton = styled(Typography.Link)`
   padding: 0px 0px 0px 0px;
 `;
 
-const ForgotPasswordText = styled(Text)`
-  color: #000000;
-`;
-
 const EmailInput = styled(Input)`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -82,21 +77,21 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         return (
           <ContentDiv>
             <EmailInput
-              size={'large'}
+              size="large"
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
             <PasswordInput
-              size={'large'}
+              size="large"
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <ForgotPasswordText>
+            <Text>
               Forgot password?{' '}
               <ForgotPasswordLinkButton onClick={setToForgotPasswordPage}>
                 Click here
               </ForgotPasswordLinkButton>
-            </ForgotPasswordText>
+            </Text>
             <Text>
               Don’t have an account?{' '}
               <Link to="/signup" component={Typography.Link}>
@@ -145,6 +140,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         dispatch(login({ email, password }));
         break;
       case ModalContent.ForgotPassword:
+        // TODO: Connect this to forgot password action
         setPage(ModalContent.ResetPassword);
         break;
       case ModalContent.ResetPassword:
@@ -165,7 +161,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   };
 
   return (
-    <div className="modal">
+    <div>
       <StyledModal
         visible={showLoginModal}
         title={getTitle()}
