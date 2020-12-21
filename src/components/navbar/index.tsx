@@ -25,7 +25,7 @@ const NavBar: React.FC = () => {
   const authenticated = false;
   const links = {
     Home: '/',
-    'Upcoming Events': '/block-template',
+    'Upcoming Events': '/upcoming-events',
     'My Events': '/grid-template',
   };
 
