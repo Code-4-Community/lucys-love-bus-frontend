@@ -16,7 +16,7 @@ import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/Signup_PF_P1/Signup_PF_P1';
-import UpcomingEvents from './containers/upcoming-events/UpcomingEvents'
+import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 const { Content } = Layout;
