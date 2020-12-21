@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 import { LinkButton } from '../LinkButton';
-import { SubmitButton } from '../SubmitButton';
 
 const PF2SignupForm: React.FC = () => {
   const onFinish = () => {
@@ -27,13 +26,13 @@ const PF2SignupForm: React.FC = () => {
         >
           Back
         </LinkButton>
-        <SubmitButton
+        <LinkButton
           to="/signup-confirmation-pf"
           type="primary"
           className="button-style"
         >
           Next
-        </SubmitButton>
+        </LinkButton>
       </Form.Item>
     </Form>
   );

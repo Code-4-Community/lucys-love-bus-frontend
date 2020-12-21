@@ -3,7 +3,6 @@ import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
 import { LinkButton } from '../LinkButton';
-import { SubmitButton } from '../SubmitButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -17,9 +16,10 @@ interface SignupConfirmationPage {
 }
 
 const SignupConfirmationFormGM: React.FC = () => {
-  const onFinish = (values: SignupConfirmationPage) => {};
+  const onFinish = (values: SignupConfirmationPage) => {
+    alert(values);
+  };
 
-  // @ts-ignore
   return (
     <Form name="basic" layout="vertical" onFinish={onFinish}>
       <div className="new-section">
@@ -152,13 +152,13 @@ const SignupConfirmationFormGM: React.FC = () => {
         >
           Back
         </LinkButton>
-        <SubmitButton
+        <LinkButton
           to="/signup-verification-gm"
           type="primary"
           className="button-style"
         >
           Next
-        </SubmitButton>
+        </LinkButton>
       </Form.Item>
     </Form>
   );
