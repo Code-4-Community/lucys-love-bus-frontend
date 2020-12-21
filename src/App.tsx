@@ -51,7 +51,11 @@ const App: React.FC = () => {
                 />
                 <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
                 <Route path="/signup-gm" exact component={SignupGM} />
-                <Route path="/upcoming-events" exact component={UpcomingEvents} />
+                <Route
+                  path="/upcoming-events"
+                  exact
+                  component={UpcomingEvents}
+                />
                 <Route path="*" exact component={NotFound} />
               </Switch>
             </div>
