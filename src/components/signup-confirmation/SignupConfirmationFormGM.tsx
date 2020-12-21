@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
-import {LinkButton} from '../LinkButton';
-import {SubmitButton} from '../SubmitButton';
-const { Paragraph, Title} = Typography;
+import { LinkButton } from '../LinkButton';
+import { SubmitButton } from '../SubmitButton';
+const { Paragraph, Title } = Typography;
 
 interface SignupConfirmationPage {
   check1: boolean;
@@ -17,16 +17,11 @@ interface SignupConfirmationPage {
 }
 
 const SignupConfirmationFormGM: React.FC = () => {
-
   const onFinish = (values: SignupConfirmationPage) => {};
 
   // @ts-ignore
   return (
-    <Form
-      name="basic"
-      layout="vertical"
-      onFinish={onFinish}
-    >
+    <Form name="basic" layout="vertical" onFinish={onFinish}>
       <div className="new-section">
         <Form.Item
           name="check1"
@@ -128,9 +123,7 @@ const SignupConfirmationFormGM: React.FC = () => {
             },
           ]}
         >
-          <Input
-            placeholder="Head of Family Initials"
-          />
+          <Input placeholder="Head of Family Initials" />
         </Form.Item>
 
         <Form.Item
@@ -152,14 +145,18 @@ const SignupConfirmationFormGM: React.FC = () => {
       </div>
 
       <Form.Item className="centered">
-        <LinkButton to="/signup-pf-p2"
-                    type="secondary"
-                    className="button-style">
+        <LinkButton
+          to="/signup-pf-p2"
+          type="secondary"
+          className="button-style"
+        >
           Back
         </LinkButton>
-        <SubmitButton to="/signup-verification-gm"
-                    type="primary"
-                    className="button-style">
+        <SubmitButton
+          to="/signup-verification-gm"
+          type="primary"
+          className="button-style"
+        >
           Next
         </SubmitButton>
       </Form.Item>

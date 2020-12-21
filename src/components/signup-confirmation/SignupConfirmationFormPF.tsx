@@ -2,8 +2,8 @@ import React from 'react';
 import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
-import {LinkButton} from '../LinkButton';
-import {SubmitButton} from '../SubmitButton';
+import { LinkButton } from '../LinkButton';
+import { SubmitButton } from '../SubmitButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -22,11 +22,7 @@ const SignupConfirmationFormPF: React.FC = () => {
   };
 
   return (
-    <Form
-      name="basic"
-      layout="vertical"
-      onFinish={onFinish}
-    >
+    <Form name="basic" layout="vertical" onFinish={onFinish}>
       <div className="new-section">
         <Form.Item
           name="check1"
@@ -128,9 +124,7 @@ const SignupConfirmationFormPF: React.FC = () => {
             },
           ]}
         >
-          <Input
-            placeholder="Head of Family Initials"
-          />
+          <Input placeholder="Head of Family Initials" />
         </Form.Item>
 
         <Form.Item
@@ -152,14 +146,18 @@ const SignupConfirmationFormPF: React.FC = () => {
       </div>
 
       <Form.Item className="centered">
-        <LinkButton to="/signup-pf-p2"
-                    type="secondary"
-                    className="button-style">
+        <LinkButton
+          to="/signup-pf-p2"
+          type="secondary"
+          className="button-style"
+        >
           Back
         </LinkButton>
-        <SubmitButton to="/signup-verification-pf"
-                    type="primary"
-                    className="button-style">
+        <SubmitButton
+          to="/signup-verification-pf"
+          type="primary"
+          className="button-style"
+        >
           Next
         </SubmitButton>
       </Form.Item>

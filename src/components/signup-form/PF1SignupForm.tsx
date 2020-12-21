@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Form, Input, Radio, Upload } from 'antd';
 import './PF1-signup-form.less';
-import {LinkButton} from '../LinkButton';
-import {SubmitButton} from '../SubmitButton';
+import { LinkButton } from '../LinkButton';
+import { SubmitButton } from '../SubmitButton';
 
 interface SignupData {
   firstName: string;
@@ -205,14 +205,14 @@ const PF1SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <LinkButton to="/"
-                    type="secondary"
-                    className="button-style">
+        <LinkButton to="/" type="secondary" className="button-style">
           Back
         </LinkButton>
-        <SubmitButton to="/signup-pf-p2"
-                    type="primary"
-                    className="button-style">
+        <SubmitButton
+          to="/signup-pf-p2"
+          type="primary"
+          className="button-style"
+        >
           Next
         </SubmitButton>
       </Form.Item>
