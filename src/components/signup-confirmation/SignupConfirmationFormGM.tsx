@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, Radio } from 'antd';
+import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
+import { LinkButton } from '../LinkButton';
+import { SubmitButton } from '../SubmitButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -14,19 +16,13 @@ interface SignupConfirmationPage {
   dateOfSignature: string;
 }
 
-const SignupConfirmationForm: React.FC = () => {
-  const onFinish = (values: SignupConfirmationPage) => {
-    // send data to redux
-  };
+const SignupConfirmationFormGM: React.FC = () => {
+  const onFinish = (values: SignupConfirmationPage) => {};
 
+  // @ts-ignore
   return (
-    <Form
-      name="basic"
-      layout="vertical"
-      onFinish={onFinish}
-      requiredMark={false}
-    >
-      <div className="checkbox-div">
+    <Form name="basic" layout="vertical" onFinish={onFinish}>
+      <div className="new-section">
         <Form.Item
           name="check1"
           rules={[{ required: true, message: 'Please check all boxes' }]}
@@ -66,9 +62,9 @@ const SignupConfirmationForm: React.FC = () => {
         </Form.Item>
       </div>
 
-      <div className="photo-release-div">
+      <div>
         <Paragraph>
-          <strong>Photo/Video Release</strong>
+          <strong> Photo/Video Release </strong>
           <br />
           Do you authorize the use and reproduction by Lucy’s Love Bus of any
           and all photographs and any other audio-visual materials taken of me
@@ -105,37 +101,35 @@ const SignupConfirmationForm: React.FC = () => {
         <Form.Item
           label="Head of Family Name"
           name="headOfFamilyName"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
               message: 'Please input the name of the head of the family',
             },
           ]}
-          className="input-item"
         >
-          <Input className="input-style" placeholder="Head of Family Name" />
+          <Input placeholder="Head of Family Name" />
         </Form.Item>
 
         <Form.Item
           label="Head of Family Initials"
           name="headOfFamilyInitials"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
               message: "Please input head of family's initials",
             },
           ]}
-          className="input-item"
         >
-          <Input
-            className="input-style"
-            placeholder="Head of Family Initials"
-          />
+          <Input placeholder="Head of Family Initials" />
         </Form.Item>
 
         <Form.Item
           label="Date of Signature"
           name="dateOfSignature"
+          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
@@ -145,25 +139,29 @@ const SignupConfirmationForm: React.FC = () => {
               ),
             },
           ]}
-          className="input-item"
         >
-          <Input className="input-style" placeholder="MM/DD/YYYY" />
+          <Input placeholder="MM/DD/YYYY" />
         </Form.Item>
       </div>
 
-      <div className="button-div">
-        <Form.Item>
-          <Button className="back-button">Back</Button>
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="submit-button">
-            Submit Request
-          </Button>
-        </Form.Item>
-      </div>
+      <Form.Item className="centered">
+        <LinkButton
+          to="/signup-pf-p2"
+          type="secondary"
+          className="button-style"
+        >
+          Back
+        </LinkButton>
+        <SubmitButton
+          to="/signup-verification-gm"
+          type="primary"
+          className="button-style"
+        >
+          Next
+        </SubmitButton>
+      </Form.Item>
     </Form>
   );
 };
 
-export default SignupConfirmationForm;
+export default SignupConfirmationFormGM;

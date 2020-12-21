@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './signup-confirmation.less';
 import { Typography } from 'antd';
-import SignupConfirmationForm from '../../components/signup-confirmation/SignupConfirmationForm';
+import SignupConfirmationFormGM from '../../components/signup-confirmation/SignupConfirmationFormGM';
 
 const { Title, Paragraph } = Typography;
 
@@ -29,7 +29,7 @@ const SignupConfirmationGM: React.FC = () => {
           safety and comfort of all participants.{' '}
         </Paragraph>
 
-        <SignupConfirmationForm> </SignupConfirmationForm>
+        <SignupConfirmationFormGM> </SignupConfirmationFormGM>
       </div>
     </>
   );

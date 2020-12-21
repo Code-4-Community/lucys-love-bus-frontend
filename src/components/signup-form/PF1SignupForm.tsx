@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Form, Input, Radio, Upload } from 'antd';
-import './signup-form.less';
+import { Form, Input, Radio, Upload } from 'antd';
+import './PF1-signup-form.less';
+import { LinkButton } from '../LinkButton';
+import { SubmitButton } from '../SubmitButton';
 
 interface SignupData {
   firstName: string;
@@ -16,11 +18,10 @@ interface SignupData {
   diagnosis?: string;
   otherNotes?: string;
   password: string;
-  // TODO: use correct file type
   profilePicture?: any;
 }
 
-const SignupForm: React.FC = () => {
+const PF1SignupForm: React.FC = () => {
   const onFinish = (values: SignupData) => {
     // send data to redux
   };
@@ -59,13 +60,13 @@ const SignupForm: React.FC = () => {
         rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={'he/him'}>
+          <Radio className="radio-item" value={1}>
             He/Him
           </Radio>
-          <Radio className="radio-item" value={'she/her'}>
+          <Radio className="radio-item" value={2}>
             She/Her
           </Radio>
-          <Radio className="radio-item" value={'they/them'}>
+          <Radio className="radio-item" value={4}>
             They/Them
           </Radio>
         </Radio.Group>
@@ -86,16 +87,54 @@ const SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item
+        label="Create Password"
+        name="password"
+        className="block-half stacked-inputs"
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            pattern: new RegExp(/^(?=.*\d).{8,20}$/),
+            message:
+              'Password must be 8-20 characters, containing at least one digit',
+          },
+        ]}
+      >
+        <Input.Password placeholder="Password" />
+      </Form.Item>
+
+      <Form.Item
+        name="confirmPassword"
+        dependencies={['password']}
+        className="block-half"
+        hasFeedback
+        rules={[
+          { required: true, message: 'Passwords must match' },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject('This password does not match!');
+            },
+          }),
+        ]}
+      >
+        <Input.Password placeholder="Confirm Password" />
+      </Form.Item>
+
+      <Form.Item
         label="Phone Number"
         name="phoneNumber"
-        className="inline-block-half"
+        className="block-half"
         rules={[
           {
             required: true,
             pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
-            message: 'Please input a valid ten-digit phone number',
+            message: 'Please input a valid phone number',
           },
         ]}
+        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
       >
         <Input placeholder="Phone Number" />
       </Form.Item>
@@ -122,7 +161,7 @@ const SignupForm: React.FC = () => {
           {
             required: true,
             pattern: new RegExp(/^[A-Za-z]{2}/),
-            message: 'Please input valid two-digit state abbreviation',
+            message: 'Please input state',
           },
         ]}
       >
@@ -130,7 +169,7 @@ const SignupForm: React.FC = () => {
       </Form.Item>
       <Form.Item
         name="zip"
-        className="inline-block-third"
+        className="block-third"
         rules={[
           {
             required: true,
@@ -150,47 +189,12 @@ const SignupForm: React.FC = () => {
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
 
-      <Form.Item label="Other Notes" name="otherNotes">
-        <TextArea rows={3} placeholder="Other Notes" />
+      <Form.Item label="Medication (if applicable)" name="medication">
+        <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
 
-      <Form.Item
-        name="password"
-        label="Create Password"
-        className="block-half stacked-inputs"
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            pattern: new RegExp(/^(?=.*\d).{8,20}$/),
-            message:
-              'Password must be 8-20 characters, containing at least one digit',
-          },
-        ]}
-      >
-        <Input.Password placeholder="Password" />
-      </Form.Item>
-      <Form.Item
-        name="confirm-password"
-        dependencies={['password']}
-        className="block-half"
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Passwords must match!',
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject('This password does not match!');
-            },
-          }),
-        ]}
-      >
-        <Input.Password placeholder="Confirm Password" />
+      <Form.Item label="Other Notes" name="otherNotes">
+        <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
 
       <Form.Item label="Upload Profile Picture">
@@ -201,19 +205,19 @@ const SignupForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button style={{ display: 'inline-block', margin: '0 8px' }}>
+        <LinkButton to="/" type="secondary" className="button-style">
           Back
-        </Button>
-        <Button
+        </LinkButton>
+        <SubmitButton
+          to="/signup-pf-p2"
           type="primary"
-          htmlType="submit"
-          style={{ display: 'inline-block', margin: '0 8px' }}
+          className="button-style"
         >
           Next
-        </Button>
+        </SubmitButton>
       </Form.Item>
     </Form>
   );
 };
 
-export default SignupForm;
+export default PF1SignupForm;
