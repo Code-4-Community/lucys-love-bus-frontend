@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
 import { LinkButton } from '../LinkButton';
 import { SubmitButton } from '../SubmitButton';
-const { Paragraph, Title } = Typography;
+const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
   check1: boolean;

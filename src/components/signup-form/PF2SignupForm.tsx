@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Upload } from 'antd';
+import { Form, Input } from 'antd';
 import { LinkButton } from '../LinkButton';
 import { SubmitButton } from '../SubmitButton';
 

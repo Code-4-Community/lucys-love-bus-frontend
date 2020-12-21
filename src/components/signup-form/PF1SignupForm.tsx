@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Input, Radio, Upload } from 'antd';
+import { Form, Input, Radio, Upload } from 'antd';
 import './PF1-signup-form.less';
 import { LinkButton } from '../LinkButton';
 import { SubmitButton } from '../SubmitButton';
