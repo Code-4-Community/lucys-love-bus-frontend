@@ -57,17 +57,22 @@ const NavBar: React.FC = () => {
       </Col>
 
       <Col flex={1}>
+        
         <Link
           to="/"
           onClick={() => {
             history.push('/');
           }}
         >
+          <Row>
           <Text className="llbText" strong>
             {' '}
             Lucy's Love Bus{' '}
           </Text>
+          </Row>
+          <Row>
           <Text strong> Event Registration </Text>
+          </Row>
         </Link>
       </Col>
 
