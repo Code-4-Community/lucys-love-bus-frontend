@@ -52,16 +52,13 @@ const Info = styled.div`
 
 const EventListing: React.FC<{event: Event}> = ( props ) => {
 
-  let defaultImg = 'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
-  if (props.event.thumbnail) {
-    defaultImg = props.event.thumbnail;
-  }
+  const defaultImg = 'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
 
   return (
       <StyledCard>
         <CardContent>
           <Thumbnail
-            src={ defaultImg }>
+            src={ props.event.thumbnail || defaultImg }>
           </Thumbnail>
           <Info>
             <H1>{ props.event.title }</H1>
