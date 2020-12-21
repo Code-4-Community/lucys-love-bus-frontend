@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
@@ -17,9 +17,8 @@ interface SignupConfirmationPage {
 }
 
 const SignupConfirmationFormGM: React.FC = () => {
-  const onFinish = (values: SignupConfirmationPage) => {
-    // send data to redux
-  };
+
+  const onFinish = (values: SignupConfirmationPage) => {};
 
   // @ts-ignore
   return (
