@@ -64,7 +64,6 @@ const App: React.FC = () => {
                   exact
                   component={UpcomingEvents}
                 />
-                <Route path="/login" exact component={Login} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
                 <Route path="*" exact component={NotFound} />
