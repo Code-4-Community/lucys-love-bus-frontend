@@ -46,7 +46,7 @@ const LLBText = styled(Text)`
 
 const NavBar: React.FC = () => {
   const history = useHistory();
-  const authenticated = true;
+  const authenticated = false;
   const links = {
     Home: '/',
     'Upcoming Events': '/upcoming-events',
