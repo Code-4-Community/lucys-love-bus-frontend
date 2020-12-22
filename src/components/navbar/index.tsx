@@ -77,12 +77,13 @@ const NavBar: React.FC = () => {
       </Col>
 
       <Col flex={3}>
-        {Object.entries(links).map(([link, path]) => (
+        {Object.entries(links).map(([link, path], i) => (
           <StyledButton
             type="link"
             onClick={() => {
               history.push(path);
             }}
+            key={i}
           >
             {link}
           </StyledButton>
