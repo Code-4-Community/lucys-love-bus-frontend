@@ -21,11 +21,10 @@ const StyledRow = styled(Row)`
 `;
 
 const LLBLogo = styled(Image)`
-
   width: 100px;
   float: right;
   margin: 16px;
-`
+`;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
@@ -64,7 +63,6 @@ const NavBar: React.FC = () => {
       </Col>
 
       <Col flex={1}>
-        
         <Link
           to="/"
           onClick={() => {
@@ -72,13 +70,13 @@ const NavBar: React.FC = () => {
           }}
         >
           <Row>
-          <Text className="llbText" strong>
-            {' '}
-            Lucy's Love Bus{' '}
-          </Text>
+            <Text className="llbText" strong>
+              {' '}
+              Lucy's Love Bus{' '}
+            </Text>
           </Row>
           <Row>
-          <Text> Event Registration </Text>
+            <Text> Event Registration </Text>
           </Row>
         </Link>
       </Col>
