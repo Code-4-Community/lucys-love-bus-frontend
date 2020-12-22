@@ -145,6 +145,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         break;
       case ModalContent.ResetPassword:
         onCloseLoginModal();
+        setPage(ModalContent.LoginContent);
         break;
     }
   };
@@ -167,7 +168,10 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         title={getTitle()}
         onOk={handleOk}
         okText={getOkText()}
-        onCancel={onCloseLoginModal}
+        onCancel={() => {
+          onCloseLoginModal();
+          setPage(ModalContent.LoginContent);
+        }}
         width={'625px'}
       >
         {getModalContent()}
