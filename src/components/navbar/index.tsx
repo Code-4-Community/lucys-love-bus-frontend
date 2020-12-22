@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Menu, Dropdown, Typography, Row, Col, Button } from 'antd';
+import { Menu, Dropdown, Typography, Row, Col, Button, Image } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -19,6 +19,13 @@ const StyledRow = styled(Row)`
   background-color: white;
   padding: 1em 0;
 `;
+
+const LLBLogo = styled(Image)`
+
+  width: 100px;
+  float: right;
+  margin: 16px;
+`
 
 const NavBar: React.FC = () => {
   const history = useHistory();
@@ -48,10 +55,10 @@ const NavBar: React.FC = () => {
             history.push('/');
           }}
         >
-          <img
-            className="llbLogo"
-            src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png"
+          <LLBLogo
+            src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_logo_no_text.png"
             alt="LLB Logo"
+            preview={false}
           />
         </Link>
       </Col>
@@ -71,7 +78,7 @@ const NavBar: React.FC = () => {
           </Text>
           </Row>
           <Row>
-          <Text strong> Event Registration </Text>
+          <Text> Event Registration </Text>
           </Row>
         </Link>
       </Col>
