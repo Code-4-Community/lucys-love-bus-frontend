@@ -6,7 +6,6 @@ import './App.less';
 import Home from './containers/home/Home';
 import SignupGM from './containers/signup-gm/SignupGM';
 import Signup from './containers/signup/Signup';
-import Login from './containers/login/Login';
 import Settings from './containers/settings/Settings';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
