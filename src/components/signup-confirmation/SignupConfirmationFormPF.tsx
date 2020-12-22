@@ -3,7 +3,6 @@ import { Checkbox, Form, Input, Radio } from 'antd';
 import './signup-confirmation-form.less';
 import { Typography } from 'antd';
 import { LinkButton } from '../LinkButton';
-import { SubmitButton } from '../SubmitButton';
 const { Paragraph } = Typography;
 
 interface SignupConfirmationPage {
@@ -153,13 +152,13 @@ const SignupConfirmationFormPF: React.FC = () => {
         >
           Back
         </LinkButton>
-        <SubmitButton
+        <LinkButton
           to="/signup-verification-pf"
           type="primary"
           className="button-style"
         >
           Next
-        </SubmitButton>
+        </LinkButton>
       </Form.Item>
     </Form>
   );
