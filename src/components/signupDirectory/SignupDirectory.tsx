@@ -7,7 +7,6 @@ const { Text, Link } = Typography;
 const SignupDirectoryCard = styled(Card)`
   margin: 24px;
   width: 400px;
-  //border-color: #D9D9D9;
   height: 424px;
   transition: all 0.2s ease-in-out;
   transform: translateY(3px);
@@ -55,7 +54,6 @@ const CardTextSmall = styled(Text)`
   line-height: 26px;
   text-align: center;
   margin-bottom: 1rem;
-  //max-width: 42ch;
   display: block;
 `;
 
