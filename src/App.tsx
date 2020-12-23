@@ -16,7 +16,7 @@ import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/signup-pf-p1/Signup_PF_P1';
 import Signup_PF_P2 from './containers/signup-pf-p2/Signup_PF_P2';
-
+import SignupDirectory from './containers/signupDirectory/SignupDirectory';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import { Layout } from 'antd';
 import styled from 'styled-components';
@@ -45,6 +45,11 @@ const App: React.FC = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/block-template" exact component={BlockTemplate} />
                 <Route path="/grid-template" exact component={GridTemplate} />
+                <Route
+                  path="/signup-directory"
+                  exact
+                  component={SignupDirectory}
+                />
                 <Route
                   path="/signup-confirmation-gm"
                   exact
