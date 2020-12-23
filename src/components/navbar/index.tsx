@@ -46,12 +46,12 @@ const LLBText = styled(Text)`
 `;
 
 const LLBSubtitle = styled(Text)`
-  color: #CE4A00;
+  color: #ce4a00;
 `;
 
 const UserContainer = styled.div`
-  margin-right: 16px; 
-`
+  margin-right: 16px;
+`;
 
 const NavBar: React.FC = () => {
   const history = useHistory();
@@ -138,28 +138,28 @@ const NavBar: React.FC = () => {
                 </Dropdown>
               </Col>
             ) : (
-                <>
-                  <Col>
-                    <Button
-                      onClick={() => {
-                        setDisplayLoginModal(true);
-                      }}
-                    >
-                      Login
-                </Button>
-                  </Col>
-                  <Col>
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        history.push('/signup');
-                      }}
-                    >
-                      Sign Up
-                </Button>
-                  </Col>
-                </>
-              )}
+              <>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      setDisplayLoginModal(true);
+                    }}
+                  >
+                    Login
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      history.push('/signup');
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </Col>
+              </>
+            )}
           </Row>
         </UserContainer>
       </NavBarContainer>
