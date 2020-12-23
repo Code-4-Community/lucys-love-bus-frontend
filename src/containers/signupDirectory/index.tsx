@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import { ContentContainer } from '../../components';
-import SignupDirectory from '../../components/signupDirectory/SignupDirectory'
+import SignupDirectory from '../../components/signupDirectory/SignupDirectory';
 const { Title, Text, Paragraph } = Typography;
 
 /*
@@ -21,7 +21,7 @@ const Template: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <ContentContainer>
-        <SignupDirectory/>
+        <SignupDirectory />
       </ContentContainer>
     </>
   );
