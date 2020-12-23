@@ -28,7 +28,7 @@ const NavBarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1440px;
   flex-wrap: row-wrap;
 `;
 
@@ -42,6 +42,15 @@ const LLBTextColumn = styled(Col)`
 const LLBText = styled(Text)`
   font-size: 1.6em;
   font-weight: 700;
+  line-height: 1.15;
+`;
+
+const LLBSubtitle = styled(Text)`
+  color: #ce4a00;
+`;
+
+const UserContainer = styled.div`
+  margin-right: 16px;
 `;
 
 const NavBar: React.FC = () => {
@@ -95,7 +104,7 @@ const NavBar: React.FC = () => {
                   <LLBText>Lucy's Love Bus</LLBText>
                 </Row>
                 <Row>
-                  <Text>Event Registration </Text>
+                  <LLBSubtitle>Event Registration </LLBSubtitle>
                 </Row>
               </Link>
             </LLBTextColumn>
@@ -118,39 +127,41 @@ const NavBar: React.FC = () => {
           </Row>
         </LogoContainer>
 
-        <Row gutter={[8, 0]}>
-          {authenticated ? (
-            <Col>
-              <Dropdown overlay={userMenu}>
-                <Button>
-                  <UserOutlined /> John Smith <DownOutlined />
-                </Button>
-              </Dropdown>
-            </Col>
-          ) : (
-            <>
+        <UserContainer>
+          <Row gutter={[8, 0]}>
+            {authenticated ? (
               <Col>
-                <Button
-                  onClick={() => {
-                    setDisplayLoginModal(true);
-                  }}
-                >
-                  Login
-                </Button>
+                <Dropdown overlay={userMenu}>
+                  <Button>
+                    <UserOutlined /> John Smith <DownOutlined />
+                  </Button>
+                </Dropdown>
               </Col>
-              <Col>
-                <Button
-                  type="primary"
-                  onClick={() => {
-                    history.push('/signup');
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </Col>
-            </>
-          )}
-        </Row>
+            ) : (
+              <>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      setDisplayLoginModal(true);
+                    }}
+                  >
+                    Login
+                  </Button>
+                </Col>
+                <Col>
+                  <Button
+                    type="primary"
+                    onClick={() => {
+                      history.push('/signup');
+                    }}
+                  >
+                    Sign Up
+                  </Button>
+                </Col>
+              </>
+            )}
+          </Row>
+        </UserContainer>
       </NavBarContainer>
       <LoginModal
         showLoginModal={displayLoginModal}
