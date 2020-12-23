@@ -113,7 +113,7 @@ const NavBar: React.FC = () => {
                 {Object.entries(links).map(([link, path], i) => (
                   <Col key={i}>
                     <NavBarButton
-                      tab-index = "0"
+                      tab-index="0"
                       type="link"
                       onClick={() => {
                         history.push(path);
@@ -142,7 +142,7 @@ const NavBar: React.FC = () => {
               <>
                 <Col>
                   <Button
-                    tab-index = "0"
+                    tab-index="0"
                     onClick={() => {
                       setDisplayLoginModal(true);
                     }}
@@ -152,7 +152,7 @@ const NavBar: React.FC = () => {
                 </Col>
                 <Col>
                   <Button
-                    tab-index = "0"
+                    tab-index="0"
                     type="primary"
                     onClick={() => {
                       history.push('/signup');
