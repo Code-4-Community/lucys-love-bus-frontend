@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { Consumer } from 'react';
 import { Card, Typography, Row, Col, Image } from 'antd';
 import styled from 'styled-components';
-import { DARK_GREY, ORANGE } from '../../colors';
+import { DARK_GREY, ORANGE } from '../colors';
+import {
+  SignupFlowComponentProps,
+  SignupState,
+} from '../containers/signupFlow/ducks/types';
+import { useHistory } from 'react-router-dom';
 const { Text, Link } = Typography;
 
 const SignupDirectoryCard = styled(Card)`
@@ -84,6 +89,9 @@ const PageTitle = styled(Text)`
 `;
 
 const SignupDirectory: React.FC = () => {
+
+  const history = useHistory();
+
   return (
     <DirectoryContainer>
       <CenteredTitle>SIGN UP</CenteredTitle>
@@ -107,7 +115,14 @@ const SignupDirectory: React.FC = () => {
           </SignupDirectoryCard>
         </Col>
         <Col>
-          <SignupDirectoryCard hoverable>
+          <SignupDirectoryCard hoverable 
+          onClick={()=>
+            {
+              history.push('/signup/gm/1');
+            }
+            }
+          //onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
+          >
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}

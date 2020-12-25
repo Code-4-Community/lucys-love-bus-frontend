@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './signup-confirmation.less';
 import { Typography } from 'antd';
-import SignupConfirmationFormGM from '../../components/signup-confirmation/SignupConfirmationFormGM';
+import SignupConfirmationFormGM from '../../components/SignupConfirmationFormGM';
 
 const { Title, Paragraph } = Typography;
 

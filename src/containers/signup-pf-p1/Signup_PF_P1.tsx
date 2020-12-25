@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import './signup-pf-p1.less';
 import { Typography } from 'antd';
-import PF1SignupForm from '../../components/signup-form/PF1SignupForm';
+//import PF1SignupForm from '../../components/signup-form/PF1SignupForm';
 
 const { Title, Paragraph } = Typography;
 
@@ -35,7 +35,7 @@ const Signup_PF_P1: React.FC = () => {
 
         <Title level={5}>Account Owner Details</Title>
 
-        <PF1SignupForm> </PF1SignupForm>
+      
       </div>
     </>
   );

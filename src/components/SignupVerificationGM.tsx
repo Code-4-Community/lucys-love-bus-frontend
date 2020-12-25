@@ -1,5 +1,4 @@
 import React from 'react';
-import './signup-verification.less';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
 const { Title, Paragraph } = Typography;

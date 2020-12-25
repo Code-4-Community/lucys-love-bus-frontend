@@ -4,8 +4,6 @@ import { Helmet } from 'react-helmet';
 
 import './App.less';
 import Home from './containers/home/Home';
-import SignupGM from './containers/signup-gm/SignupGM';
-import Signup from './containers/signup/Signup';
 import Settings from './containers/settings/Settings';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
@@ -16,13 +14,13 @@ import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/signup-pf-p1/Signup_PF_P1';
 import Signup_PF_P2 from './containers/signup-pf-p2/Signup_PF_P2';
-import SignupDirectory from './containers/signupDirectory/SignupDirectory';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 const { Content } = Layout;
 
-const AppInnerContainer = styled.div`
+const FullScreenLayout = styled(Layout)`
   min-height: 100vh;
 `;
 
@@ -37,45 +35,33 @@ const App: React.FC = () => {
       </Helmet>
 
       <Router>
-        <Layout className="app-flex-container">
+        <FullScreenLayout>
           <NavBar />
-          <Content className="content-padding">
-            <AppInnerContainer>
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/block-template" exact component={BlockTemplate} />
-                <Route path="/grid-template" exact component={GridTemplate} />
-                <Route
-                  path="/signup-directory"
-                  exact
-                  component={SignupDirectory}
-                />
-                <Route
-                  path="/signup-confirmation-gm"
-                  exact
-                  component={SignupConfirmationGM}
-                />
-                <Route
-                  path="/signup-confirmation-pf"
-                  exact
-                  component={SignupConfirmationPF}
-                />
-                <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
-                <Route path="/signup-pf-p2" exact component={Signup_PF_P2} />
-                <Route path="/signup-gm" exact component={SignupGM} />
-                <Route
-                  path="/upcoming-events"
-                  exact
-                  component={UpcomingEvents}
-                />
-                <Route path="/signup" exact component={Signup} />
-                <Route path="/settings" exact component={Settings} />
-                <Route path="*" exact component={NotFound} />
-              </Switch>
-            </AppInnerContainer>
+          <Content>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/block-template" exact component={BlockTemplate} />
+              <Route path="/grid-template" exact component={GridTemplate} />
+              <Route path="/signup" component={SignupFlow} />
+              <Route
+                path="/signup-confirmation-gm"
+                exact
+                component={SignupConfirmationGM}
+              />
+              <Route
+                path="/signup-confirmation-pf"
+                exact
+                component={SignupConfirmationPF}
+              />
+              <Route path="/signup-pf-p1" exact component={Signup_PF_P1} />
+              <Route path="/signup-pf-p2" exact component={Signup_PF_P2} />
+              <Route path="/upcoming-events" exact component={UpcomingEvents} />
+              <Route path="/settings" exact component={Settings} />
+              <Route path="*" exact component={NotFound} />
+            </Switch>
           </Content>
           <Footer />
-        </Layout>
+        </FullScreenLayout>
       </Router>
     </>
   );
