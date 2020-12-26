@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Radio, Upload, Typography } from 'antd';
+import { Form, Input, Radio, Upload, Typography, DatePicker } from 'antd';
 import { LinkButton } from './LinkButton';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
@@ -132,7 +132,21 @@ const GMSignupForm: React.FC = () => {
           >
             <Input placeholder="Phone Number" />
           </Form.Item>
+          
 
+          <Form.Item
+            label="Date of Birth"
+            name="birthday"
+            className="inline-block-half"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your date of birth.',
+              },
+            ]}
+          >
+            <DatePicker/>
+          </Form.Item>
           <Form.Item
             name="address"
             label="Address"

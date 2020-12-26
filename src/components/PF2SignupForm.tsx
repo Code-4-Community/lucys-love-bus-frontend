@@ -25,7 +25,7 @@ const PF2SignupForm: React.FC = () => {
   return (
     <FormContainer>
       <Helmet>
-        <title>Sign Up</title>
+        <title>Signup - Partipicating Family</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
       <FormInitialText>

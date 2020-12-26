@@ -35,7 +35,7 @@ const PF1SignupForm: React.FC = () => {
   return (
     <FormContainer>
       <Helmet>
-        <title>Sign Up - Participating Family</title>
+        <title>Signup - Participating Family</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
       <FormInitialText>
