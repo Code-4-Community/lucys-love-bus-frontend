@@ -1,4 +1,4 @@
-import React, { Consumer } from 'react';
+import React, { Consumer, useEffect } from 'react';
 import { Card, Typography, Row, Col, Image } from 'antd';
 import styled from 'styled-components';
 import { DARK_GREY, ORANGE } from '../colors';
@@ -89,7 +89,9 @@ const PageTitle = styled(Text)`
 `;
 
 const SignupDirectory: React.FC = () => {
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const history = useHistory();
 
   return (
@@ -98,7 +100,12 @@ const SignupDirectory: React.FC = () => {
       <PageTitle>Choose an Account Type {'&'} Register Your Family</PageTitle>
       <Row justify="center" align="middle">
         <Col>
-          <SignupDirectoryCard hoverable>
+          <SignupDirectoryCard hoverable
+                    onClick={()=>
+                      {
+                        history.push('/signup/pf/1');
+                      }
+                      }>
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}

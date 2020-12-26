@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Radio, Upload, Typography } from 'antd';
 import { LinkButton } from './LinkButton';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import FormInitialText from './FormInitialText'
 const {Title, Paragraph} = Typography;
 
 interface SignupData {
@@ -25,16 +25,15 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const FormInitialText = styled.div`
-    text-align: center;
-    margin-bottom: 2em;
-`
+
 
 const GMSignupForm: React.FC = () => {
   const onFinish = (values: SignupData) => {
     // send data to redux
   };
-
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const { Dragger } = Upload;
   const { TextArea } = Input;
 
@@ -235,7 +234,7 @@ const GMSignupForm: React.FC = () => {
           </Form.Item>
 
           <Form.Item>
-            <LinkButton to="/" type="secondary" className="button-style">
+            <LinkButton to="/signup" type="secondary" className="button-style">
               Back
             </LinkButton>
             <LinkButton

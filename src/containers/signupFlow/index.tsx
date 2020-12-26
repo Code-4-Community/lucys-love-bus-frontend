@@ -7,8 +7,11 @@ import { SignupState } from './ducks/types';
 import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
 import GMSignupForm from '../../components/GMSignupForm';
-import GMSignupVerification from '../../components/SignupVerificationGM'
-import GMSignupConfirmation from '../../components/SignupConfirmationFormGM'
+import SignupVerification from '../../components/SignupVerification'
+import SignupConfirmation from '../../components/SignupConfirmationForm'
+import PF1SignupForm from '../../components/PF1SignupForm'
+import PF2SignupForm from '../../components/PF2SignupForm'
+
 
 const { Title, Paragraph } = Typography;
 const SignupFlow: React.FC = () => {
@@ -34,9 +37,6 @@ const SignupFlow: React.FC = () => {
           <SignupDirectory/>
           </>}
         />
-
-
-
         <Route
           path="/signup/gm/1"
           exact
@@ -49,14 +49,43 @@ const SignupFlow: React.FC = () => {
           path="/signup/gm/confirmation"
           exact
           render={ () => (
-              <GMSignupConfirmation/>
+              <SignupConfirmation groupTitle={'General Member'}/>
           )}
         />
         <Route
           path="/signup/gm/verification"
           exact
           render={ () => (
-              <GMSignupVerification/>
+              <SignupVerification groupTitle={'General Member'}/>
+          )}
+        />
+
+        <Route
+          path="/signup/pf/1"
+          exact
+          render={ () => (
+              <PF1SignupForm/>
+          )}
+        />
+        <Route
+          path="/signup/pf/2"
+          exact
+          render={ () => (
+              <PF2SignupForm/>
+          )}
+        />
+        <Route
+          path="/signup/pf/confirmation"
+          exact
+          render={ () => (
+            <SignupConfirmation groupTitle={'Participating Family'}/>
+          )}
+        />
+        <Route
+          path="/signup/pf/verification"
+          exact
+          render={ () => (
+              <SignupVerification groupTitle={'Participating Family'}/>
           )}
         />
       </ContentContainer>

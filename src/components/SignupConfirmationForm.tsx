@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Checkbox, Form, Input, Radio } from 'antd';
 import { Typography } from 'antd';
 import { LinkButton } from './LinkButton';
@@ -17,15 +17,18 @@ interface SignupConfirmationPage {
   dateOfSignature: string;
 }
 
-const SignupConfirmationFormGM: React.FC = () => {
+const SignupConfirmationForm: React.FC<{groupTitle : string}> = ({groupTitle}) => {
   const onFinish = (values: SignupConfirmationPage) => {
     alert(values);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
       <Helmet>
-        <title>Signup Confirmation - Participating Family</title>
+        <title>Signup Confirmation - {groupTitle}</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
       <FormContainer>
@@ -34,7 +37,7 @@ const SignupConfirmationFormGM: React.FC = () => {
       </Title>
 
       <Title level={3} className="centered-text">
-        Registering as a General Member
+        Registering as a {groupTitle}
       </Title>
 
       <Paragraph className="centered-text">
@@ -168,7 +171,7 @@ const SignupConfirmationFormGM: React.FC = () => {
 
         <Form.Item className="centered">
           <LinkButton
-            to="/signup-pf-p2"
+            to="/signup/gm/1"
             type="secondary"
             className="button-style"
           >
@@ -188,4 +191,4 @@ const SignupConfirmationFormGM: React.FC = () => {
   );
 };
 
-export default SignupConfirmationFormGM;
+export default SignupConfirmationForm;
