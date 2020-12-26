@@ -17,7 +17,7 @@ interface SignupConfirmationPage {
   dateOfSignature: string;
 }
 
-const SignupConfirmationForm: React.FC<{groupTitle : string}> = ({groupTitle}) => {
+const SignupConfirmationForm: React.FC<{groupTitle : string, backURL :string, nextURL : string}> = ({groupTitle, backURL, nextURL}) => {
   const onFinish = (values: SignupConfirmationPage) => {
     alert(values);
   };
@@ -171,14 +171,14 @@ const SignupConfirmationForm: React.FC<{groupTitle : string}> = ({groupTitle}) =
 
         <Form.Item className="centered">
           <LinkButton
-            to="/signup/gm/1"
+            to={backURL}
             type="secondary"
             className="button-style"
           >
             Back
           </LinkButton>
           <LinkButton
-            to="/signup/gm/verification"
+            to={nextURL}
             type="primary"
             className="button-style"
           >

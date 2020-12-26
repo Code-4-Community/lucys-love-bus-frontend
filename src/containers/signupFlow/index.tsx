@@ -49,7 +49,7 @@ const SignupFlow: React.FC = () => {
           path="/signup/gm/confirmation"
           exact
           render={ () => (
-              <SignupConfirmation groupTitle={'General Member'}/>
+              <SignupConfirmation groupTitle={'General Member'} backURL={'/signup/gm/1'} nextURL={'/signup/gm/verification/'}/>
           )}
         />
         <Route
@@ -78,7 +78,7 @@ const SignupFlow: React.FC = () => {
           path="/signup/pf/confirmation"
           exact
           render={ () => (
-            <SignupConfirmation groupTitle={'Participating Family'}/>
+            <SignupConfirmation groupTitle={'Participating Family'}  backURL={'/signup/pf/2'} nextURL={'/signup/pf/verification/'}/>
           )}
         />
         <Route
