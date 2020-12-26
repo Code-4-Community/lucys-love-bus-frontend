@@ -90,8 +90,8 @@ const PageTitle = styled(Text)`
 
 const SignupDirectory: React.FC = () => {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   const history = useHistory();
 
   return (
@@ -100,12 +100,12 @@ const SignupDirectory: React.FC = () => {
       <PageTitle>Choose an Account Type {'&'} Register Your Family</PageTitle>
       <Row justify="center" align="middle">
         <Col>
-          <SignupDirectoryCard hoverable
-                    onClick={()=>
-                      {
-                        history.push('/signup/pf/1');
-                      }
-                      }>
+          <SignupDirectoryCard
+            hoverable
+            onClick={() => {
+              history.push('/signup/pf/1');
+            }}
+          >
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
@@ -122,13 +122,12 @@ const SignupDirectory: React.FC = () => {
           </SignupDirectoryCard>
         </Col>
         <Col>
-          <SignupDirectoryCard hoverable 
-          onClick={()=>
-            {
+          <SignupDirectoryCard
+            hoverable
+            onClick={() => {
               history.push('/signup/gm/1');
-            }
-            }
-          //onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
+            }}
+            // onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
           >
             <SignupDirectoryCardBody>
               <RoundImage

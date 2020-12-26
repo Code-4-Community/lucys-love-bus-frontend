@@ -33,7 +33,6 @@ const Signup_PF_P2: React.FC = () => {
         </div>
 
         <Title level={5}>Account Owner Details</Title>
-
       </div>
     </>
   );

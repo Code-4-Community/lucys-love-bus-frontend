@@ -4,7 +4,7 @@ import { LinkButton } from './LinkButton';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const ChildFormFragment: React.FC<{id : string}> = ({ id }) => {
+const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
   return (
     <>
       <Form.Item
@@ -47,19 +47,19 @@ const ChildFormFragment: React.FC<{id : string}> = ({ id }) => {
         label="Date of Birth"
         name={`${id}-adult-birthday`}
         rules={[
-            {
-              required: true,
-              message: 'Please input your date of birth.',
-            },
-          ]}
+          {
+            required: true,
+            message: 'Please input your date of birth.',
+          },
+        ]}
       >
-        <DatePicker/>
+        <DatePicker />
       </Form.Item>
       <Form.Item
         label="School"
         name={`${id}-child-school`}
         className="inline-block-half"
-        rules={[{ required: true, message: 'Please input your child\s school' }]}
+        rules={[{ required: true, message: 'Please input your childs school' }]}
       >
         <Input placeholder="First Name" />
       </Form.Item>
@@ -68,13 +68,17 @@ const ChildFormFragment: React.FC<{id : string}> = ({ id }) => {
         label="Grade"
         name={`${id}-child-grade`}
         className="inline-block-half"
-        rules={[{ required: true, message: 'Please input your child\s current grade' }]}
+        rules={[
+          { required: true, message: 'Please input your childs current grade' },
+        ]}
       >
         <Input placeholder="Last Name" />
       </Form.Item>
 
-
-      <Form.Item label="Allergies (if applicable)" name={`${id}-child-allergies`}>
+      <Form.Item
+        label="Allergies (if applicable)"
+        name={`${id}-child-allergies`}
+      >
         <TextArea rows={3} placeholder="Allergies" />
       </Form.Item>
 
@@ -82,7 +86,10 @@ const ChildFormFragment: React.FC<{id : string}> = ({ id }) => {
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
 
-      <Form.Item label="Medication (if applicable)" name={`${id}-child-medication`}>
+      <Form.Item
+        label="Medication (if applicable)"
+        name={`${id}-child-medication`}
+      >
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
 
@@ -90,15 +97,14 @@ const ChildFormFragment: React.FC<{id : string}> = ({ id }) => {
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
 
-      <Form.Item label="Upload Profile Picture"  name={`${id}-child-picture`}>
+      <Form.Item label="Upload Profile Picture" name={`${id}-child-picture`}>
         <Dragger>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>
       </Form.Item>
-
     </>
   );
 };
 
-export default ChildFormFragment
+export default ChildFormFragment;

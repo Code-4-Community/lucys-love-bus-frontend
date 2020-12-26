@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const FormContainer = styled.div`
   display: block;
@@ -8,4 +8,4 @@ const FormContainer = styled.div`
   background-color: white;
 `;
 
-export default FormContainer
+export default FormContainer;

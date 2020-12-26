@@ -39,15 +39,14 @@ const PF1SignupForm: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <FormInitialText>
-          <Title level={5}>SIGN UP</Title>
-          <Title level={3}>Registering as a Participating Family</Title>
-          <Paragraph>
-            Participating Families have early access to view events and are
-            eligible to attend free of charge. After creating an account, your
-            request will be reviewed by a member of our administration.
-          </Paragraph>
-          <Paragraph>Fields marked * are required.</Paragraph>
-
+        <Title level={5}>SIGN UP</Title>
+        <Title level={3}>Registering as a Participating Family</Title>
+        <Paragraph>
+          Participating Families have early access to view events and are
+          eligible to attend free of charge. After creating an account, your
+          request will be reviewed by a member of our administration.
+        </Paragraph>
+        <Paragraph>Fields marked * are required.</Paragraph>
       </FormInitialText>
       <Form
         name="basic"
@@ -227,11 +226,7 @@ const PF1SignupForm: React.FC = () => {
           <LinkButton to="/signup" type="secondary" className="button-style">
             Back
           </LinkButton>
-          <LinkButton
-            to="/signup/pf/2"
-            type="primary"
-            className="button-style"
-          >
+          <LinkButton to="/signup/pf/2" type="primary" className="button-style">
             Next
           </LinkButton>
         </Form.Item>

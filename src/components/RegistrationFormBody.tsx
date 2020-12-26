@@ -4,7 +4,7 @@ import { LinkButton } from './LinkButton';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const RegistrationFormBody: React.FC<{id : string}> = ({ id }) => {
+const RegistrationFormBody: React.FC<{ id: string }> = ({ id }) => {
   return (
     <>
       <Form.Item
@@ -57,8 +57,6 @@ const RegistrationFormBody: React.FC<{id : string}> = ({ id }) => {
         <Input placeholder="Email" />
       </Form.Item>
 
-    
-
       <Form.Item
         label="Phone Number"
         name={`${id}-adult-phoneNumber`}
@@ -78,17 +76,20 @@ const RegistrationFormBody: React.FC<{id : string}> = ({ id }) => {
         label="Date of Birth"
         name={`${id}-adult-birthday`}
         rules={[
-            {
-              required: true,
-              message: 'Please input your date of birth.',
-            },
-          ]}
+          {
+            required: true,
+            message: 'Please input your date of birth.',
+          },
+        ]}
         style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
       >
-        <DatePicker/>
+        <DatePicker />
       </Form.Item>
-      
-      <Form.Item label="Allergies (if applicable)" name={`${id}-adult-allergies`}>
+
+      <Form.Item
+        label="Allergies (if applicable)"
+        name={`${id}-adult-allergies`}
+      >
         <TextArea rows={3} placeholder="Allergies" />
       </Form.Item>
 
@@ -96,7 +97,10 @@ const RegistrationFormBody: React.FC<{id : string}> = ({ id }) => {
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
 
-      <Form.Item label="Medication (if applicable)" name={`${id}-adult-medication`}>
+      <Form.Item
+        label="Medication (if applicable)"
+        name={`${id}-adult-medication`}
+      >
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
 
@@ -104,15 +108,14 @@ const RegistrationFormBody: React.FC<{id : string}> = ({ id }) => {
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
 
-      <Form.Item label="Upload Profile Picture"  name={`${id}-adult-picture`}>
+      <Form.Item label="Upload Profile Picture" name={`${id}-adult-picture`}>
         <Dragger>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>
       </Form.Item>
-
     </>
   );
 };
 
-export default RegistrationFormBody
+export default RegistrationFormBody;

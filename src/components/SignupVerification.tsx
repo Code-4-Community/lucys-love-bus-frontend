@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
-import FormContainer from './FormContainer'
+import FormContainer from './FormContainer';
 const { Title, Paragraph } = Typography;
 
-const SignupVerification: React.FC<{groupTitle : string}> = ({groupTitle}) => {
+const SignupVerification: React.FC<{ groupTitle: string }> = ({
+  groupTitle,
+}) => {
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

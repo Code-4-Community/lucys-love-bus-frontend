@@ -51,7 +51,7 @@ const PF2SignupForm: React.FC = () => {
         {[...Array(numberOfGuardians)].map((_, i) => (
           <>
             <RegistrationFormBody id={i.toString()} />
-            <Divider/>
+            <Divider />
           </>
         ))}
 
@@ -66,16 +66,16 @@ const PF2SignupForm: React.FC = () => {
             Remove Adult/Guardian
           </Button>
         </Form.Item>
-        
+
         <Title level={4}>Children</Title>
 
         {[...Array(numberOfChildren)].map((_, i) => (
           <>
             <ChildFormFragment id={i.toString()} />
-            <Divider/>
+            <Divider />
           </>
         ))}
-        
+
         <Form.Item>
           <Button onClick={() => setNumberOfChildren(numberOfChildren + 1)}>
             Add Child

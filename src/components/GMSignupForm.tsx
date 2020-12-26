@@ -4,8 +4,8 @@ import { LinkButton } from './LinkButton';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import FormInitialText from './FormInitialText'
-const {Title, Paragraph} = Typography;
+import FormInitialText from './FormInitialText';
+const { Title, Paragraph } = Typography;
 
 interface SignupData {
   firstName: string;
@@ -25,15 +25,13 @@ interface SignupData {
   profilePicture?: any;
 }
 
-
-
 const GMSignupForm: React.FC = () => {
   const onFinish = (values: SignupData) => {
     // send data to redux
   };
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   const { Dragger } = Upload;
   const { TextArea } = Input;
 
@@ -44,7 +42,7 @@ const GMSignupForm: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <FormContainer>
-      <FormInitialText>
+        <FormInitialText>
           <Title level={5}>SIGN UP</Title>
           <Title level={3}>Registering as a General Member</Title>
           <Paragraph>
@@ -59,7 +57,6 @@ const GMSignupForm: React.FC = () => {
           <Paragraph>Fields marked * are required.</Paragraph>
         </FormInitialText>
 
-      
         <Form
           name="basic"
           layout="vertical"
@@ -132,7 +129,6 @@ const GMSignupForm: React.FC = () => {
           >
             <Input placeholder="Phone Number" />
           </Form.Item>
-          
 
           <Form.Item
             label="Date of Birth"
@@ -145,7 +141,7 @@ const GMSignupForm: React.FC = () => {
               },
             ]}
           >
-            <DatePicker/>
+            <DatePicker />
           </Form.Item>
           <Form.Item
             name="address"
