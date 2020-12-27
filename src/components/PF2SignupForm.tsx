@@ -6,21 +6,35 @@ import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import RegistrationFormBody from './RegistrationFormBody';
 import ChildFormFragment from './ChildFormFragment';
+import { useHistory } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
 const PF2SignupForm: React.FC = () => {
   const [numberOfGuardians, setNumberOfGuardians] = useState(0);
   const [numberOfChildren, setNumberOfChildren] = useState(0);
-
+  const history = useHistory();
   const onFinish = (d: any) => {
+    // send data to redux
+    console.log(d);
+    history.push('/signup/pf/confirmation');
+  };
+
+  const onFinishFailed = (d: any) => {
     // send data to redux
     console.log(d);
   };
 
   const onValuesChange = (a: any, b: any) => {
-    console.log(a);
-    console.log(b);
+    //console.log(a);
+   // console.log(b);
+    // loop through number of guardians, in the values find things that startwith i-adult
+    // then add this to a list
+
+    // do the same for children
+    // add both of these into a state
+
+    // then use callback from props and set the state "yay!"
   };
   return (
     <FormContainer>
@@ -44,28 +58,43 @@ const PF2SignupForm: React.FC = () => {
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
         onValuesChange={onValuesChange}
       >
         <Title level={4}>Additional Guardian or Adults (18+ years)</Title>
 
-        {[...Array(numberOfGuardians)].map((_, i) => (
-          <>
-            <RegistrationFormBody id={i.toString()} />
-            <Divider />
-          </>
-        ))}
+        <Form.List name="contacts">
+          {(fields, { add, remove }) => {
+            return (
+              <>
+                {fields.map((field) => (
+                  <div key={field.key}>
+                    
+                  <RegistrationFormBody field={field} />
+                  <Button
+                      onClick={() => {
+                        remove(field.name);
+                        console.log(field);
+                      }}
+                    >
+                      Remove Adult/Guardian
+                      </Button>
+                  <Divider />
+                  </div>
+                ))}
 
-        <Form.Item>
-          <Button onClick={() => setNumberOfGuardians(numberOfGuardians + 1)}>
-            Add Adult/Guardian
-          </Button>
-          <Button
-            onClick={() => setNumberOfGuardians(numberOfGuardians - 1)}
-            disabled={numberOfGuardians <= 0}
-          >
-            Remove Adult/Guardian
-          </Button>
-        </Form.Item>
+                <Button
+                  onClick={() => {
+                    add();
+                  }}
+                >
+                  Add Adult/Guardian
+                </Button>
+              </>
+            );
+          }}
+        </Form.List>
+        <Divider />
 
         <Title level={4}>Children</Title>
 
@@ -95,13 +124,14 @@ const PF2SignupForm: React.FC = () => {
           >
             Back
           </LinkButton>
-          <LinkButton
-            to="/signup/pf/confirmation"
+          <Button
+            //to="/signup/pf/confirmation"
             type="primary"
             className="button-style"
+            htmlType="submit"
           >
             Next
-          </LinkButton>
+          </Button>
         </Form.Item>
       </Form>
     </FormContainer>
