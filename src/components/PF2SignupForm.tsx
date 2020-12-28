@@ -11,16 +11,12 @@ import { useHistory } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 
 const PF2SignupForm: React.FC<{
-  setPMForm: React.Dispatch<React.SetStateAction<object | null>>;
+  setPMForm: React.Dispatch<React.SetStateAction<any | null>>;
 }> = ({ setPMForm }) => {
   const history = useHistory();
   const onFinish = (values: any) => {
-    // send data to redux
     setPMForm(values);
     history.push('/signup/pf/confirmation');
-  };
-  const onFinishFailed = (d: any) => {
-    console.log(d);
   };
 
   return (
@@ -39,11 +35,7 @@ const PF2SignupForm: React.FC<{
         <Paragraph>Fields marked * are required.</Paragraph>
       </FormInitialText>
 
-      <Form
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        layout="vertical"
-      >
+      <Form onFinish={onFinish} layout="vertical">
         <Form.List name="contacts">
           {(fields, { add, remove }) => {
             return (
@@ -55,7 +47,6 @@ const PF2SignupForm: React.FC<{
                     <Button
                       onClick={() => {
                         remove(field.name);
-                        console.log(field);
                       }}
                     >
                       Remove
@@ -88,7 +79,6 @@ const PF2SignupForm: React.FC<{
                     <Button
                       onClick={() => {
                         remove(field.name);
-                        console.log(field);
                       }}
                     >
                       Remove

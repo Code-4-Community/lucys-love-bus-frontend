@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Checkbox, DatePicker, Form, Input, Radio } from 'antd';
 import { Typography } from 'antd';
 import { LinkButton } from './LinkButton';
@@ -26,19 +26,14 @@ const SignupConfirmationForm: React.FC<{
 }> = ({ groupTitle, backURL, nextURL, onSubmission }) => {
   const history = useHistory();
 
-  const onFinish = (values: SignupConfirmationPage) => {
+  const onFinish = (values: any) => {
     // should make sure all values are true - terms are agreed to.
     // should be async and awaited
-    console.log(values);
 
     const consent = values.photoRelease === 1;
 
     onSubmission(consent);
     history.push(nextURL);
-  };
-
-  const onFinishFailed = (values: any) => {
-    console.log(values);
   };
 
   useEffect(() => {
@@ -65,12 +60,7 @@ const SignupConfirmationForm: React.FC<{
           order to participate in programs through Lucy’s Love Bus to ensure the
           safety and comfort of all participants.{' '}
         </Paragraph>
-        <Form
-          name="basic"
-          layout="vertical"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        >
+        <Form name="basic" layout="vertical" onFinish={onFinish}>
           <div className="new-section">
             <Form.Item
               name="check1"

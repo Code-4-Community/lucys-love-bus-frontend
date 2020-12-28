@@ -26,7 +26,7 @@ interface SignupData {
 }
 
 const PF1SignupForm: React.FC<{
-  setPMForm: React.Dispatch<React.SetStateAction<object | null>>;
+  setPMForm: React.Dispatch<React.SetStateAction<any | null>>;
 }> = ({ setPMForm }) => {
   const history = useHistory();
 

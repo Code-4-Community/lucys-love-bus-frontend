@@ -13,18 +13,20 @@ import PF1SignupForm from '../../components/PF1SignupForm';
 import PF2SignupForm from '../../components/PF2SignupForm';
 
 const SignupFlow: React.FC = () => {
-  const [GMForm, setGMForm] = useState<object | null>(null);
-  const [PFForm1, setPFForm1] = useState<object | null>(null);
-  const [PFForm2, setPFForm2] = useState<object | null>(null);
+  const [GMForm, setGMForm] = useState<any | null>(null);
+  const [PFForm1, setPFForm1] = useState<any | null>(null);
+  const [PFForm2, setPFForm2] = useState<any | null>(null);
 
   const submitGMForm = (photoRelease: boolean) => {
-    console.log(GMForm);
-    console.log(photoRelease);
+    // temporary console logs, just to show data is being collected correctly.
+    console.log(GMForm); // tslint:disable-line
+    console.log(photoRelease); // tslint:disable-line
   };
   const submitPFForm = (photoRelease: boolean) => {
-    console.log(PFForm1);
-    console.log(PFForm2);
-    console.log(photoRelease);
+    // temporary console logs, just to show data is being collected correctly.
+    console.log(PFForm1); // tslint:disable-line
+    console.log(PFForm2); // tslint:disable-line
+    console.log(photoRelease); // tslint:disable-line
   };
 
   return (

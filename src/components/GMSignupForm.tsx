@@ -14,7 +14,10 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import FormInitialText from './FormInitialText';
 import { useHistory } from 'react-router-dom';
+
 const { Title, Paragraph } = Typography;
+const { Dragger } = Upload;
+const { TextArea } = Input;
 
 interface SignupData {
   firstName: string;
@@ -35,7 +38,7 @@ interface SignupData {
 }
 
 const GMSignupForm: React.FC<{
-  setGMForm: React.Dispatch<React.SetStateAction<object | null>>;
+  setGMForm: React.Dispatch<React.SetStateAction<any | null>>;
 }> = ({ setGMForm }) => {
   const history = useHistory();
 
@@ -43,14 +46,10 @@ const GMSignupForm: React.FC<{
     setGMForm(values);
     history.push('/signup/gm/confirmation');
   };
-  const onFinishFailed = (values: any) => {
-    console.log(values);
-  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const { Dragger } = Upload;
-  const { TextArea } = Input;
 
   return (
     <>
@@ -78,7 +77,6 @@ const GMSignupForm: React.FC<{
           layout="vertical"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             label="First Name"
@@ -130,6 +128,45 @@ const GMSignupForm: React.FC<{
             ]}
           >
             <Input placeholder="Email" />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            label="Create Password"
+            className="block-half stacked-inputs"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                pattern: new RegExp(/^(?=.*\d).{8,20}$/),
+                message:
+                  'Password must be 8-20 characters, containing at least one digit',
+              },
+            ]}
+          >
+            <Input.Password placeholder="Password" />
+          </Form.Item>
+          <Form.Item
+            name="confirm-password"
+            dependencies={['password']}
+            className="block-half"
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Passwords must match!',
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('This password does not match!');
+                },
+              }),
+            ]}
+          >
+            <Input.Password placeholder="Confirm Password" />
           </Form.Item>
 
           <Form.Item
@@ -212,45 +249,6 @@ const GMSignupForm: React.FC<{
 
           <Form.Item label="Other Notes" name="otherNotes">
             <TextArea rows={3} placeholder="Other Notes" />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label="Create Password"
-            className="block-half stacked-inputs"
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                pattern: new RegExp(/^(?=.*\d).{8,20}$/),
-                message:
-                  'Password must be 8-20 characters, containing at least one digit',
-              },
-            ]}
-          >
-            <Input.Password placeholder="Password" />
-          </Form.Item>
-          <Form.Item
-            name="confirm-password"
-            dependencies={['password']}
-            className="block-half"
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: 'Passwords must match!',
-              },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if (!value || getFieldValue('password') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('This password does not match!');
-                },
-              }),
-            ]}
-          >
-            <Input.Password placeholder="Confirm Password" />
           </Form.Item>
 
           <Form.Item label="Upload Profile Picture">
