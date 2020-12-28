@@ -113,7 +113,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        //{...fieldWithoutKey}
         name={[field.name, 'diagnosis']}
         fieldKey={[field.fieldKey, 'diagnosis']}
         label="Diagnosis"

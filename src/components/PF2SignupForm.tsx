@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 
 const PF2SignupForm: React.FC<{
-  setPMForm: React.Dispatch<React.SetStateAction<Object | null>>;
+  setPMForm: React.Dispatch<React.SetStateAction<object | null>>;
 }> = ({ setPMForm }) => {
   const history = useHistory();
   const onFinish = (values: any) => {
@@ -24,7 +24,7 @@ const PF2SignupForm: React.FC<{
   };
 
   const onValuesChange = (a: any, b: any) => {
-    //console.log(a);
+    // console.log(a);
     console.log(b);
     // loop through number of guardians, in the values find things that startwith i-adult
     // then add this to a list

@@ -35,7 +35,7 @@ interface SignupData {
 }
 
 const GMSignupForm: React.FC<{
-  setGMForm: React.Dispatch<React.SetStateAction<Object | null>>;
+  setGMForm: React.Dispatch<React.SetStateAction<object | null>>;
 }> = ({ setGMForm }) => {
   const history = useHistory();
 

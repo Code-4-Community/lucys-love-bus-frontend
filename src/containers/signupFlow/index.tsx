@@ -14,9 +14,9 @@ import PF2SignupForm from '../../components/PF2SignupForm';
 
 const { Title, Paragraph } = Typography;
 const SignupFlow: React.FC = () => {
-  const [GMForm, setGMForm] = useState<Object | null>(null);
-  const [PFForm1, setPFForm1] = useState<Object | null>(null);
-  const [PFForm2, setPFForm2] = useState<Object | null>(null);
+  const [GMForm, setGMForm] = useState<object | null>(null);
+  const [PFForm1, setPFForm1] = useState<object | null>(null);
+  const [PFForm2, setPFForm2] = useState<object | null>(null);
 
   const submitGMForm = (photoRelease: boolean) => {
     console.log(GMForm);
