@@ -49,7 +49,6 @@ const SignupConfirmationForm: React.FC<{
     <>
       <Helmet>
         <title>Signup Confirmation - {groupTitle}</title>
-        <meta name="description" content="Description goes here." />
       </Helmet>
       <FormContainer>
         <Title level={5} className="centered-text">

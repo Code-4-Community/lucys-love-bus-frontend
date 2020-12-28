@@ -43,7 +43,6 @@ const PF1SignupForm: React.FC<{
     <FormContainer>
       <Helmet>
         <title>Signup - Participating Family</title>
-        <meta name="description" content="Description goes here." />
       </Helmet>
       <FormInitialText>
         <Title level={5}>SIGN UP</Title>

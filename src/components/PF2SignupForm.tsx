@@ -23,20 +23,11 @@ const PF2SignupForm: React.FC<{
     console.log(d);
   };
 
-  const onValuesChange = (a: any, b: any) => {
-    // console.log(a);
-    console.log(b);
-    // loop through number of guardians, in the values find things that startwith i-adult
-    // then add this to a list
-    // do the same for children
-    // add both of these into a state
-    // then use callback from props and set the state "yay!"
-  };
+
   return (
     <FormContainer>
       <Helmet>
         <title>Signup - Partipicating Family</title>
-        <meta name="description" content="Description goes here." />
       </Helmet>
       <FormInitialText>
         <Title level={5}>SIGN UP</Title>

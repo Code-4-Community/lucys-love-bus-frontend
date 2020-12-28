@@ -56,7 +56,6 @@ const GMSignupForm: React.FC<{
     <>
       <Helmet>
         <title>Signup - General Member</title>
-        <meta name="description" content="Description goes here." />
       </Helmet>
       <FormContainer>
         <FormInitialText>
