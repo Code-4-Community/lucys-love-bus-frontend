@@ -12,7 +12,6 @@ import SignupConfirmation from '../../components/SignupConfirmationForm';
 import PF1SignupForm from '../../components/PF1SignupForm';
 import PF2SignupForm from '../../components/PF2SignupForm';
 
-const { Title, Paragraph } = Typography;
 const SignupFlow: React.FC = () => {
   const [GMForm, setGMForm] = useState<object | null>(null);
   const [PFForm1, setPFForm1] = useState<object | null>(null);

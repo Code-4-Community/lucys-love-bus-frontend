@@ -23,7 +23,6 @@ const PF2SignupForm: React.FC<{
     console.log(d);
   };
 
-
   return (
     <FormContainer>
       <Helmet>
