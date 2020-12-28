@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Divider, Form, Input, Typography } from 'antd';
+import { Button, Divider, Form, Input, Space, Typography } from 'antd';
 import { LinkButton } from './LinkButton';
 import FormInitialText from './FormInitialText';
 import FormContainer from './FormContainer';
@@ -19,7 +19,6 @@ const PF2SignupForm: React.FC = () => {
     console.log(d);
     history.push('/signup/pf/confirmation');
   };
-
   const onFinishFailed = (d: any) => {
     // send data to redux
     console.log(d);
@@ -27,13 +26,11 @@ const PF2SignupForm: React.FC = () => {
 
   const onValuesChange = (a: any, b: any) => {
     //console.log(a);
-   // console.log(b);
+     console.log(b);
     // loop through number of guardians, in the values find things that startwith i-adult
     // then add this to a list
-
     // do the same for children
     // add both of these into a state
-
     // then use callback from props and set the state "yay!"
   };
   return (
@@ -53,8 +50,57 @@ const PF2SignupForm: React.FC = () => {
         <Paragraph>Fields marked * are required.</Paragraph>
       </FormInitialText>
 
-      <Form
-        name="basic"
+      <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
+          {/* This is the Dynamic room Adder */}
+          <Form.List name="rooms">
+            {(fields, { add, remove }) => {
+              return (
+                <div>
+                  {fields.map((field) => (
+                    <div
+                      key={field.key}
+                    >
+                      <RegistrationFormBody field={field}/>
+
+
+                      <Button
+                        onClick={() => {
+                          remove(field.name);
+                          console.log(field);
+                        }}
+                      >
+                        Remove
+                        </Button>
+                    </div>
+                  ))}
+
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      add();
+                    }}
+                    block
+                  >
+                    Add room
+                  </Button>
+                </div>
+              );
+            }}
+          </Form.List>
+          <Button type="primary" htmlType="submit">
+            Next
+          </Button>
+    </Form>
+
+
+
+
+
+
+
+
+      {/* <Form
+        name="dynamic_form_nest_item"
         layout="vertical"
         initialValues={{ remember: true }}
         onFinish={onFinish}
@@ -69,17 +115,16 @@ const PF2SignupForm: React.FC = () => {
               <>
                 {fields.map((field) => (
                   <div key={field.key}>
-                    
-                  <RegistrationFormBody field={field} />
-                  <Button
+                   <RegistrationFormBody field={field}/>
+                    <Button
                       onClick={() => {
                         remove(field.name);
                         console.log(field);
                       }}
                     >
                       Remove Adult/Guardian
-                      </Button>
-                  <Divider />
+                    </Button>
+                    <Divider />
                   </div>
                 ))}
 
@@ -133,7 +178,7 @@ const PF2SignupForm: React.FC = () => {
             Next
           </Button>
         </Form.Item>
-      </Form>
+      </Form> */}
     </FormContainer>
   );
 };
