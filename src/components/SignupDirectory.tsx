@@ -29,11 +29,11 @@ const SignupDirectoryCardBody = styled.div`
 `;
 
 const RoundImage = styled(Image)`
-  img {
+
     border-radius: 50%;
     width: 160px;
     height: 160px;
-  }
+
   margin-bottom: 1em;
 `;
 const CardTitle = styled(Text)`
