@@ -4,12 +4,19 @@ import { LinkButton } from './LinkButton';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
+const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
+  field,
+}) => {
+  const fieldWithoutKey: any = field;
+  delete fieldWithoutKey.key;
+
   return (
     <>
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'firstName']}
+        fieldKey={[field.fieldKey, 'firstName']}
         label="First Name"
-        name={`${id}-child-firstName`}
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your first name' }]}
       >
@@ -17,8 +24,10 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'lastName']}
+        fieldKey={[field.fieldKey, 'lastName']}
         label="Last Name"
-        name={`${id}-child-lastName`}
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your last name' }]}
       >
@@ -26,8 +35,10 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'pronouns']}
+        fieldKey={[field.fieldKey, 'pronouns']}
         label="Pronouns"
-        name={`${id}-child-pronouns`}
         rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
@@ -44,8 +55,10 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'birthday']}
+        fieldKey={[field.fieldKey, 'birthday']}
         label="Date of Birth"
-        name={`${id}-adult-birthday`}
         rules={[
           {
             required: true,
@@ -56,8 +69,10 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
         <DatePicker />
       </Form.Item>
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'school']}
+        fieldKey={[field.fieldKey, 'school']}
         label="School"
-        name={`${id}-child-school`}
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your childs school' }]}
       >
@@ -65,8 +80,10 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'grade']}
+        fieldKey={[field.fieldKey, 'grade']}
         label="Grade"
-        name={`${id}-child-grade`}
         className="inline-block-half"
         rules={[
           { required: true, message: 'Please input your childs current grade' },
@@ -76,28 +93,47 @@ const ChildFormFragment: React.FC<{ id: string }> = ({ id }) => {
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'allergies']}
+        fieldKey={[field.fieldKey, 'allergies']}
         label="Allergies (if applicable)"
-        name={`${id}-child-allergies`}
       >
         <TextArea rows={3} placeholder="Allergies" />
       </Form.Item>
 
-      <Form.Item label="Diagnosis" name={`${id}-child-diagnosis`}>
+      <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'diagnosis']}
+        fieldKey={[field.fieldKey, 'diagnosis']}
+        label="Diagnosis"
+      >
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
 
       <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'medication']}
+        fieldKey={[field.fieldKey, 'medication']}
         label="Medication (if applicable)"
-        name={`${id}-child-medication`}
       >
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
 
-      <Form.Item label="Other Notes" name={`${id}-child-otherNotes`}>
+      <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'otherNotes']}
+        fieldKey={[field.fieldKey, 'otherNotes']}
+        label="Other Notes"
+      >
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
 
-      <Form.Item label="Upload Profile Picture" name={`${id}-child-picture`}>
+      <Form.Item
+        {...fieldWithoutKey}
+        name={[field.name, 'picture']}
+        fieldKey={[field.fieldKey, 'picture']}
+        label="Upload Profile Picture"
+      >
         <Dragger>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>

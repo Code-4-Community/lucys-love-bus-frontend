@@ -26,7 +26,7 @@ const PF2SignupForm: React.FC = () => {
 
   const onValuesChange = (a: any, b: any) => {
     //console.log(a);
-     console.log(b);
+    console.log(b);
     // loop through number of guardians, in the values find things that startwith i-adult
     // then add this to a list
     // do the same for children
@@ -50,54 +50,80 @@ const PF2SignupForm: React.FC = () => {
         <Paragraph>Fields marked * are required.</Paragraph>
       </FormInitialText>
 
-      <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-          {/* This is the Dynamic room Adder */}
-          <Form.List name="rooms">
-            {(fields, { add, remove }) => {
-              return (
-                <div>
-                  {fields.map((field) => (
-                    <div
-                      key={field.key}
+      <Form
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        layout="vertical"
+      >
+        <Form.List name="contacts">
+          {(fields, { add, remove }) => {
+            return (
+              <div>
+                {fields.map((field) => (
+                  <div key={field.key}>
+                    <RegistrationFormBody field={field} />
+
+                    <Button
+                      onClick={() => {
+                        remove(field.name);
+                        console.log(field);
+                      }}
                     >
-                      <RegistrationFormBody field={field}/>
+                      Remove
+                    </Button>
+                    <Divider />
+                  </div>
+                ))}
 
+                <Button
+                  onClick={() => {
+                    add();
+                  }}
+                >
+                  Add Adult/Guardian
+                </Button>
+                <Divider />
+              </div>
+            );
+          }}
+        </Form.List>
 
-                      <Button
-                        onClick={() => {
-                          remove(field.name);
-                          console.log(field);
-                        }}
-                      >
-                        Remove
-                        </Button>
-                    </div>
-                  ))}
+        <Form.List name="children">
+          {(fields, { add, remove }) => {
+            return (
+              <div>
+                {fields.map((field) => (
+                  <div key={field.key}>
+                    <ChildFormFragment field={field} />
 
-                  <Button
-                    type="dashed"
-                    onClick={() => {
-                      add();
-                    }}
-                    block
-                  >
-                    Add room
-                  </Button>
-                </div>
-              );
-            }}
-          </Form.List>
-          <Button type="primary" htmlType="submit">
-            Next
-          </Button>
-    </Form>
+                    <Button
+                      onClick={() => {
+                        remove(field.name);
+                        console.log(field);
+                      }}
+                    >
+                      Remove
+                    </Button>
+                    <Divider />
+                  </div>
+                ))}
 
-
-
-
-
-
-
+                <Button
+                  onClick={() => {
+                    add();
+                  }}
+                >
+                  Add Child
+                </Button>
+                <Divider />
+              </div>
+            );
+          }}
+        </Form.List>
+        <Button type="primary" htmlType="submit">
+          Next
+        </Button>
+      </Form>
 
       {/* <Form
         name="dynamic_form_nest_item"
