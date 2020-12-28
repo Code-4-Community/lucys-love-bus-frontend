@@ -25,13 +25,15 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const PF1SignupForm: React.FC<{setPMForm : React.Dispatch<React.SetStateAction<Object | null>>}> = ({ setPMForm }) => {
+const PF1SignupForm: React.FC<{
+  setPMForm: React.Dispatch<React.SetStateAction<Object | null>>;
+}> = ({ setPMForm }) => {
   const history = useHistory();
-  
+
   const onFinish = (values: SignupData) => {
     // send data to redux
-    setPMForm(values)
-    history.push("/signup/pf/2")
+    setPMForm(values);
+    history.push('/signup/pf/2');
   };
 
   const { Dragger } = Upload;

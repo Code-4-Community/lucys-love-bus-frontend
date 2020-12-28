@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Radio, Upload, Typography, DatePicker, Button } from 'antd';
+import {
+  Form,
+  Input,
+  Radio,
+  Upload,
+  Typography,
+  DatePicker,
+  Button,
+} from 'antd';
 import { LinkButton } from './LinkButton';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
@@ -26,16 +34,17 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const GMSignupForm: React.FC<{setGMForm : React.Dispatch<React.SetStateAction<Object | null>>}> = ({setGMForm}) => {
-  
-  const history = useHistory()
-  
+const GMSignupForm: React.FC<{
+  setGMForm: React.Dispatch<React.SetStateAction<Object | null>>;
+}> = ({ setGMForm }) => {
+  const history = useHistory();
+
   const onFinish = (values: any) => {
-    setGMForm(values)
-    history.push("/signup/gm/confirmation")
+    setGMForm(values);
+    history.push('/signup/gm/confirmation');
   };
   const onFinishFailed = (values: any) => {
-    console.log(values)
+    console.log(values);
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -256,11 +265,7 @@ const GMSignupForm: React.FC<{setGMForm : React.Dispatch<React.SetStateAction<Ob
             <LinkButton to="/signup" type="secondary" className="button-style">
               Back
             </LinkButton>
-            <Button
-            htmlType="submit"
-              type="primary"
-              className="button-style"
-            >
+            <Button htmlType="submit" type="primary" className="button-style">
               Next
             </Button>
           </Form.Item>

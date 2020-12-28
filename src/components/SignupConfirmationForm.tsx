@@ -22,26 +22,23 @@ const SignupConfirmationForm: React.FC<{
   groupTitle: string;
   backURL: string;
   nextURL: string;
-  onSubmission: (photoRelease : boolean) => void;
-}> = ({ groupTitle, backURL, nextURL, onSubmission}) => {
-
-
+  onSubmission: (photoRelease: boolean) => void;
+}> = ({ groupTitle, backURL, nextURL, onSubmission }) => {
   const history = useHistory();
-  
+
   const onFinish = (values: SignupConfirmationPage) => {
     // should make sure all values are true - terms are agreed to.
     // should be async and awaited
-    console.log(values)
+    console.log(values);
 
+    const consent = values.photoRelease === 1;
 
-    const consent = values.photoRelease === 1
-
-    onSubmission(consent)
-    history.push(nextURL)
+    onSubmission(consent);
+    history.push(nextURL);
   };
 
   const onFinishFailed = (values: any) => {
-    console.log(values)
+    console.log(values);
   };
 
   useEffect(() => {
@@ -69,14 +66,24 @@ const SignupConfirmationForm: React.FC<{
           order to participate in programs through Lucy’s Love Bus to ensure the
           safety and comfort of all participants.{' '}
         </Paragraph>
-        <Form name="basic" layout="vertical" onFinish={onFinish}
-        
-        onFinishFailed={onFinishFailed}>
+        <Form
+          name="basic"
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
           <div className="new-section">
             <Form.Item
               name="check1"
               valuePropName="checked"
-              rules={[{ required: true, type: 'enum', enum: [true], message: 'Please check all boxes' }]}
+              rules={[
+                {
+                  required: true,
+                  type: 'enum',
+                  enum: [true],
+                  message: 'Please check all boxes',
+                },
+              ]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -90,7 +97,14 @@ const SignupConfirmationForm: React.FC<{
             <Form.Item
               name="check2"
               valuePropName="checked"
-              rules={[{ required: true,type: 'enum', enum: [true], message: 'Please check all boxes' }]}
+              rules={[
+                {
+                  required: true,
+                  type: 'enum',
+                  enum: [true],
+                  message: 'Please check all boxes',
+                },
+              ]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -101,7 +115,14 @@ const SignupConfirmationForm: React.FC<{
             <Form.Item
               name="check3"
               valuePropName="checked"
-              rules={[{ required: true, type: 'enum', enum: [true],message: 'Please check all boxes' }]}
+              rules={[
+                {
+                  required: true,
+                  type: 'enum',
+                  enum: [true],
+                  message: 'Please check all boxes',
+                },
+              ]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -117,8 +138,7 @@ const SignupConfirmationForm: React.FC<{
 
           <div>
             <Text strong>Photo/Video Release</Text>
-            <Paragraph> 
-              
+            <Paragraph>
               Do you authorize the use and reproduction by Lucy’s Love Bus of
               any and all photographs and any other audio-visual materials taken
               of me for promotional material, educational activities,
@@ -126,9 +146,8 @@ const SignupConfirmationForm: React.FC<{
               organization?
             </Paragraph>
             <Paragraph strong>
-          
-                  We do not share last names, diagnosis, or hometowns unless
-                  given explicit permission in order to protect privacy
+              We do not share last names, diagnosis, or hometowns unless given
+              explicit permission in order to protect privacy
             </Paragraph>
 
             <Form.Item
@@ -183,11 +202,10 @@ const SignupConfirmationForm: React.FC<{
                 {
                   required: true,
                   message: 'Please input the date of signature',
-                  
                 },
               ]}
             >
-              <DatePicker/>
+              <DatePicker />
             </Form.Item>
           </div>
 
@@ -195,7 +213,7 @@ const SignupConfirmationForm: React.FC<{
             <LinkButton to={backURL} type="secondary" className="button-style">
               Back
             </LinkButton>
-            <Button  type="primary" className="button-style" htmlType="submit">
+            <Button type="primary" className="button-style" htmlType="submit">
               Next
             </Button>
           </Form.Item>

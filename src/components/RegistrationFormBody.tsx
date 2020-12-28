@@ -8,9 +8,8 @@ const { TextArea } = Input;
 const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
   field,
 }) => {
-
-  const fieldWithoutKey: any = field
-  delete fieldWithoutKey.key
+  const fieldWithoutKey: any = field;
+  delete fieldWithoutKey.key;
   return (
     <>
       <Form.Item
@@ -28,7 +27,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
         {...fieldWithoutKey}
         name={[field.name, 'lastName']}
         fieldKey={[field.fieldKey, 'firstName']}
-      
         label="Last Name"
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your last name' }]}

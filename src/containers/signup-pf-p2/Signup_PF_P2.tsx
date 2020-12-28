@@ -5,7 +5,6 @@ import { Typography } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
-
 const Signup_PF_P2: React.FC = () => {
   return (
     <>

@@ -14,23 +14,19 @@ import PF2SignupForm from '../../components/PF2SignupForm';
 
 const { Title, Paragraph } = Typography;
 const SignupFlow: React.FC = () => {
-  
-
   const [GMForm, setGMForm] = useState<Object | null>(null);
   const [PFForm1, setPFForm1] = useState<Object | null>(null);
   const [PFForm2, setPFForm2] = useState<Object | null>(null);
 
-  const submitGMForm = (photoRelease : boolean) => {
-    console.log(GMForm)
-    console.log(photoRelease)
-  }
-  const submitPFForm = (photoRelease : boolean) => {
-    console.log(PFForm1)
-    console.log(PFForm2)
-    console.log(photoRelease)
-  }
-
-
+  const submitGMForm = (photoRelease: boolean) => {
+    console.log(GMForm);
+    console.log(photoRelease);
+  };
+  const submitPFForm = (photoRelease: boolean) => {
+    console.log(PFForm1);
+    console.log(PFForm2);
+    console.log(photoRelease);
+  };
 
   return (
     <>
@@ -51,7 +47,11 @@ const SignupFlow: React.FC = () => {
             </>
           )}
         />
-        <Route path="/signup/gm/1" exact render={() => <GMSignupForm setGMForm={setGMForm}/>} />
+        <Route
+          path="/signup/gm/1"
+          exact
+          render={() => <GMSignupForm setGMForm={setGMForm} />}
+        />
 
         <Route
           path="/signup/gm/confirmation"
@@ -71,8 +71,16 @@ const SignupFlow: React.FC = () => {
           render={() => <SignupVerification groupTitle={'General Member'} />}
         />
 
-        <Route path="/signup/pf/1" exact render={() => <PF1SignupForm setPMForm={setPFForm1}/>} />
-        <Route path="/signup/pf/2" exact render={() => <PF2SignupForm setPMForm={setPFForm2}/>} />
+        <Route
+          path="/signup/pf/1"
+          exact
+          render={() => <PF1SignupForm setPMForm={setPFForm1} />}
+        />
+        <Route
+          path="/signup/pf/2"
+          exact
+          render={() => <PF2SignupForm setPMForm={setPFForm2} />}
+        />
         <Route
           path="/signup/pf/confirmation"
           exact
