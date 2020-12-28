@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Radio, Upload, Typography, DatePicker } from 'antd';
+import { Form, Input, Radio, Upload, Typography, DatePicker, Button } from 'antd';
 import { LinkButton } from './LinkButton';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import FormInitialText from './FormInitialText';
+import { useHistory } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 
 interface SignupData {
@@ -25,9 +26,16 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const GMSignupForm: React.FC = () => {
-  const onFinish = (values: SignupData) => {
-    // send data to redux
+const GMSignupForm: React.FC<{setGMForm : React.Dispatch<React.SetStateAction<Object | null>>}> = ({setGMForm}) => {
+  
+  const history = useHistory()
+  
+  const onFinish = (values: any) => {
+    setGMForm(values)
+    history.push("/signup/gm/confirmation")
+  };
+  const onFinishFailed = (values: any) => {
+    console.log(values)
   };
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,6 +70,7 @@ const GMSignupForm: React.FC = () => {
           layout="vertical"
           initialValues={{ remember: true }}
           onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             label="First Name"
@@ -247,13 +256,13 @@ const GMSignupForm: React.FC = () => {
             <LinkButton to="/signup" type="secondary" className="button-style">
               Back
             </LinkButton>
-            <LinkButton
-              to="/signup/gm/confirmation"
+            <Button
+            htmlType="submit"
               type="primary"
               className="button-style"
             >
               Next
-            </LinkButton>
+            </Button>
           </Form.Item>
         </Form>
       </FormContainer>

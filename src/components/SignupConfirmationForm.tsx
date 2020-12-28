@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
-import { Checkbox, Form, Input, Radio } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Checkbox, DatePicker, Form, Input, Radio } from 'antd';
 import { Typography } from 'antd';
 import { LinkButton } from './LinkButton';
 import { Helmet } from 'react-helmet';
 import FormContainer from './FormContainer';
+import { useHistory } from 'react-router-dom';
 
-const { Paragraph, Title } = Typography;
+const { Paragraph, Title, Text } = Typography;
 
 interface SignupConfirmationPage {
   check1: boolean;
@@ -21,10 +22,28 @@ const SignupConfirmationForm: React.FC<{
   groupTitle: string;
   backURL: string;
   nextURL: string;
-}> = ({ groupTitle, backURL, nextURL }) => {
+  onSubmission: (photoRelease : boolean) => void;
+}> = ({ groupTitle, backURL, nextURL, onSubmission}) => {
+
+
+  const history = useHistory();
+  
   const onFinish = (values: SignupConfirmationPage) => {
-    alert(values);
+    // should make sure all values are true - terms are agreed to.
+    // should be async and awaited
+    console.log(values)
+
+
+    const consent = values.photoRelease === 1
+
+    onSubmission(consent)
+    history.push(nextURL)
   };
+
+  const onFinishFailed = (values: any) => {
+    console.log(values)
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -50,11 +69,14 @@ const SignupConfirmationForm: React.FC<{
           order to participate in programs through Lucy’s Love Bus to ensure the
           safety and comfort of all participants.{' '}
         </Paragraph>
-        <Form name="basic" layout="vertical" onFinish={onFinish}>
+        <Form name="basic" layout="vertical" onFinish={onFinish}
+        
+        onFinishFailed={onFinishFailed}>
           <div className="new-section">
             <Form.Item
               name="check1"
-              rules={[{ required: true, message: 'Please check all boxes' }]}
+              valuePropName="checked"
+              rules={[{ required: true, type: 'enum', enum: [true], message: 'Please check all boxes' }]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -67,7 +89,8 @@ const SignupConfirmationForm: React.FC<{
 
             <Form.Item
               name="check2"
-              rules={[{ required: true, message: 'Please check all boxes' }]}
+              valuePropName="checked"
+              rules={[{ required: true,type: 'enum', enum: [true], message: 'Please check all boxes' }]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -77,7 +100,8 @@ const SignupConfirmationForm: React.FC<{
 
             <Form.Item
               name="check3"
-              rules={[{ required: true, message: 'Please check all boxes' }]}
+              valuePropName="checked"
+              rules={[{ required: true, type: 'enum', enum: [true],message: 'Please check all boxes' }]}
               style={{ display: 'inline-block' }}
             >
               <Checkbox>
@@ -92,24 +116,19 @@ const SignupConfirmationForm: React.FC<{
           </div>
 
           <div>
-            <Paragraph>
-              <strong> Photo/Video Release </strong>
-              <br />
+            <Text strong>Photo/Video Release</Text>
+            <Paragraph> 
+              
               Do you authorize the use and reproduction by Lucy’s Love Bus of
               any and all photographs and any other audio-visual materials taken
               of me for promotional material, educational activities,
               exhibitions or for any other use for the benefit of the
               organization?
-              <br />
-              <br />
-              <i>
-                {' '}
-                <strong>
-                  {' '}
+            </Paragraph>
+            <Paragraph strong>
+          
                   We do not share last names, diagnosis, or hometowns unless
                   given explicit permission in order to protect privacy
-                </strong>
-              </i>
             </Paragraph>
 
             <Form.Item
@@ -164,13 +183,11 @@ const SignupConfirmationForm: React.FC<{
                 {
                   required: true,
                   message: 'Please input the date of signature',
-                  pattern: new RegExp(
-                    /(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](20)\d\d/,
-                  ),
+                  
                 },
               ]}
             >
-              <Input placeholder="MM/DD/YYYY" />
+              <DatePicker/>
             </Form.Item>
           </div>
 
@@ -178,9 +195,9 @@ const SignupConfirmationForm: React.FC<{
             <LinkButton to={backURL} type="secondary" className="button-style">
               Back
             </LinkButton>
-            <LinkButton to={nextURL} type="primary" className="button-style">
+            <Button  type="primary" className="button-style" htmlType="submit">
               Next
-            </LinkButton>
+            </Button>
           </Form.Item>
         </Form>
       </FormContainer>

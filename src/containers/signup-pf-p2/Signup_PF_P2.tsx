@@ -5,14 +5,7 @@ import { Typography } from 'antd';
 
 const { Title, Paragraph } = Typography;
 
-/*
-Template for future page components.
 
-AntD Components:
-https://ant.design/components/overview/
-*/
-
-// tslint:disable-next-line:variable-name
 const Signup_PF_P2: React.FC = () => {
   return (
     <>

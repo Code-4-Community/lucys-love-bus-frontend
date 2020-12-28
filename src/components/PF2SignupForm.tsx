@@ -10,17 +10,14 @@ import { useHistory } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
-const PF2SignupForm: React.FC = () => {
-  const [numberOfGuardians, setNumberOfGuardians] = useState(0);
-  const [numberOfChildren, setNumberOfChildren] = useState(0);
+const PF2SignupForm: React.FC<{setPMForm : React.Dispatch<React.SetStateAction<Object | null>>}> = ({setPMForm}) => {
   const history = useHistory();
-  const onFinish = (d: any) => {
+  const onFinish = (values: any) => {
     // send data to redux
-    console.log(d);
+    setPMForm(values)
     history.push('/signup/pf/confirmation');
   };
   const onFinishFailed = (d: any) => {
-    // send data to redux
     console.log(d);
   };
 

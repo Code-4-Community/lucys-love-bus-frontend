@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, Input, Radio, Upload, Typography } from 'antd';
+import { Form, Input, Radio, Upload, Typography, Button } from 'antd';
 import { LinkButton } from './LinkButton';
 import FormInitialText from './FormInitialText';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
+import { useHistory } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;
 
@@ -24,9 +25,13 @@ interface SignupData {
   profilePicture?: any;
 }
 
-const PF1SignupForm: React.FC = () => {
+const PF1SignupForm: React.FC<{setPMForm : React.Dispatch<React.SetStateAction<Object | null>>}> = ({ setPMForm }) => {
+  const history = useHistory();
+  
   const onFinish = (values: SignupData) => {
     // send data to redux
+    setPMForm(values)
+    history.push("/signup/pf/2")
   };
 
   const { Dragger } = Upload;
@@ -226,9 +231,9 @@ const PF1SignupForm: React.FC = () => {
           <LinkButton to="/signup" type="secondary" className="button-style">
             Back
           </LinkButton>
-          <LinkButton to="/signup/pf/2" type="primary" className="button-style">
+          <Button type="primary" className="button-style" htmlType="submit">
             Next
-          </LinkButton>
+          </Button>
         </Form.Item>
       </Form>
     </FormContainer>
