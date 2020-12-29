@@ -1,18 +1,23 @@
-import React from 'react';
-import './signup-verification.less';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
+import FormContainer from './FormContainer';
 const { Title, Paragraph } = Typography;
 
-const SignupVerificationGM: React.FC = () => {
+const SignupVerification: React.FC<{ groupTitle: string }> = ({
+  groupTitle,
+}) => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Helmet>
-        <title>Signup Confirmation - Participating Family</title>
+        <title>Signup Confirmation - {groupTitle}</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-
-      <div className="content-container">
+      <FormContainer>
         <Title level={5} className="centered-text">
           VERIFY EMAIL
         </Title>
@@ -21,13 +26,13 @@ const SignupVerificationGM: React.FC = () => {
         </Title>
         <Paragraph className="centered-text">
           {' '}
-          We are incredibly excited for you to become a General Member at The
+          We are incredibly excited for you to become a {groupTitle} at The
           Sajni Center. An Admin will be reviewing your request, and you will
           receive a confirmation email shortly.{' '}
         </Paragraph>
-      </div>
+      </FormContainer>
     </>
   );
 };
 
-export default SignupVerificationGM;
+export default SignupVerification;

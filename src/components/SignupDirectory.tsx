@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Typography, Row, Col, Image } from 'antd';
 import styled from 'styled-components';
-import { DARK_GREY, ORANGE } from '../../colors';
+import { DARK_GREY, ORANGE } from '../colors';
+
+import { useHistory } from 'react-router-dom';
 const { Text, Link } = Typography;
 
 const SignupDirectoryCard = styled(Card)`
@@ -24,11 +26,16 @@ const SignupDirectoryCardBody = styled.div`
 `;
 
 const RoundImage = styled(Image)`
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
+
   img {
     border-radius: 50%;
     width: 160px;
     height: 160px;
   }
+
   margin-bottom: 1em;
 `;
 const CardTitle = styled(Text)`
@@ -84,13 +91,23 @@ const PageTitle = styled(Text)`
 `;
 
 const SignupDirectory: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const history = useHistory();
+
   return (
     <DirectoryContainer>
       <CenteredTitle>SIGN UP</CenteredTitle>
       <PageTitle>Choose an Account Type {'&'} Register Your Family</PageTitle>
       <Row justify="center" align="middle">
         <Col>
-          <SignupDirectoryCard hoverable>
+          <SignupDirectoryCard
+            hoverable
+            onClick={() => {
+              history.push('/signup/pf/1');
+            }}
+          >
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
@@ -107,7 +124,13 @@ const SignupDirectory: React.FC = () => {
           </SignupDirectoryCard>
         </Col>
         <Col>
-          <SignupDirectoryCard hoverable>
+          <SignupDirectoryCard
+            hoverable
+            onClick={() => {
+              history.push('/signup/gm/1');
+            }}
+            // onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
+          >
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
