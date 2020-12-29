@@ -1,11 +1,8 @@
-import React, { Consumer, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Card, Typography, Row, Col, Image } from 'antd';
 import styled from 'styled-components';
 import { DARK_GREY, ORANGE } from '../colors';
-import {
-  SignupFlowComponentProps,
-  SignupState,
-} from '../containers/signupFlow/ducks/types';
+
 import { useHistory } from 'react-router-dom';
 const { Text, Link } = Typography;
 

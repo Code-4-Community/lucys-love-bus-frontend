@@ -1,11 +1,8 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Route } from 'react-router-dom';
 import { ContentContainer } from '../../components';
 import SignupDirectory from '../../components/SignupDirectory';
-import { SignupState } from './ducks/types';
-import { Typography } from 'antd';
-import { Link } from 'react-router-dom';
 import GMSignupForm from '../../components/GMSignupForm';
 import SignupVerification from '../../components/SignupVerification';
 import SignupConfirmation from '../../components/SignupConfirmationForm';

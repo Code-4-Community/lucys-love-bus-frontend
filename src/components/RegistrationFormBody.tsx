@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Radio, Upload, DatePicker } from 'antd';
-import { LinkButton } from './LinkButton';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 const { Dragger } = Upload;
 const { TextArea } = Input;
