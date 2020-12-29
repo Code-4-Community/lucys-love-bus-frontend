@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Divider, Form,  Typography } from 'antd';
+import { Button, Divider, Form, Typography } from 'antd';
 import FormInitialText from './FormInitialText';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
