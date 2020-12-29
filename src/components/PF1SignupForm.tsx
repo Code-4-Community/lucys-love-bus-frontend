@@ -31,7 +31,6 @@ const PF1SignupForm: React.FC<{
   const history = useHistory();
 
   const onFinish = (values: SignupData) => {
-    // send data to redux
     setPMForm(values);
     history.push('/signup/pf/2');
   };
