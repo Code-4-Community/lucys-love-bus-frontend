@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Menu, Dropdown, Typography, Row, Col, Button, Image } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../modals/login-modal/LoginModal';
+import { ORANGE } from '../../colors';
 
 const { Text } = Typography;
 
@@ -13,7 +14,18 @@ const NavBarButton = styled(Button)`
   color: black;
   padding-left: 1em;
   padding-right: 1em;
+  :active {
+    color: inherit;
+  }
+  :hover {
+    color: ${ORANGE};
+  }
 `;
+
+const ActiveNavBarButton = styled(NavBarButton)`
+  color: ${ORANGE};
+  font-weight: 500;
+`
 
 const LLBLogo = styled(Image)`
   width: 100px;
@@ -55,6 +67,7 @@ const UserContainer = styled.div`
 
 const NavBar: React.FC = () => {
   const history = useHistory();
+  const location = useLocation();
   const authenticated = false;
   const links = {
     Home: '/',
@@ -112,6 +125,16 @@ const NavBar: React.FC = () => {
               <Row justify="space-between">
                 {Object.entries(links).map(([link, path], i) => (
                   <Col key={i}>
+                  { path === location.pathname ?
+                    <ActiveNavBarButton
+                      type="link"
+                      onClick={() => {
+                        history.push(path);
+                      }}
+                    >
+                      {link}
+                    </ActiveNavBarButton>
+                    :
                     <NavBarButton
                       tab-index="0"
                       type="link"
@@ -121,6 +144,7 @@ const NavBar: React.FC = () => {
                     >
                       {link}
                     </NavBarButton>
+                  }
                   </Col>
                 ))}
               </Row>
