@@ -5,7 +5,7 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../modals/login-modal/LoginModal';
-import {ORANGE} from '../../colors';
+import { ORANGE } from '../../colors';
 
 const { Text } = Typography;
 
@@ -23,8 +23,8 @@ const NavBarButton = styled(Button)`
 `;
 
 const ActiveNavBarButton = styled(NavBarButton)`
-color: ${ORANGE};
-font-weight: 500;
+  color: ${ORANGE};
+  font-weight: 500;
 `
 
 const LLBLogo = styled(Image)`
