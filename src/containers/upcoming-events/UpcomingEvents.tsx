@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
 import { ORANGE } from '../../colors';
 
-
 const { Title } = Typography;
 
 const Content = styled.div`

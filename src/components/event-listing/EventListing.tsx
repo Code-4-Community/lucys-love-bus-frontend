@@ -4,9 +4,7 @@ import { Card, Divider, Button, Typography } from 'antd';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
 import dateFormat from 'dateformat';
 
-
 const { Title, Text, Paragraph } = Typography;
-
 
 const StyledCard = styled(Card)`
   margin-bottom: 32px;
@@ -50,7 +48,7 @@ const EventListing: React.FC<EventProps> = ({
   description,
 }) => {
   const defaultImg =
-  "https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg";
+    'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
 
   return (
     <StyledCard>
@@ -59,7 +57,7 @@ const EventListing: React.FC<EventProps> = ({
         <Info>
           <Title level={3}>{title}</Title>
           <Text strong>{dateFormat(date, 'longDate')}</Text>
-          <br/>
+          <br />
           <Text strong>{dateFormat(date, 'shortTime')}</Text>
           <ThinDivider />
           <Paragraph ellipsis={{ rows: 5 }}>{description}</Paragraph>
