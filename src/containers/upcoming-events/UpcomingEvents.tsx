@@ -3,15 +3,10 @@ import { Helmet } from 'react-helmet';
 import { Typography, Radio } from 'antd';
 import EventsList from '../../components/events-list/EventsList';
 import styled from 'styled-components';
+import { ChungusContentContainer } from '../../components';
+import { ORANGE } from '../../colors';
 
 const { Title } = Typography;
-
-const ContentContainer = styled.div`
-  padding: 24px;
-  margin: auto;
-  max-width: 1200px;
-  width: 80%;
-`;
 
 const Content = styled.div`
   display: flex;
@@ -25,6 +20,7 @@ const StyledRadio = styled(Radio.Group)`
 
 const StyledTitle = styled(Title)`
   margin: 12px;
+  margin-left: 0px;
 `;
 
 const Events: React.FC = () => {
@@ -34,7 +30,7 @@ const Events: React.FC = () => {
         <title>Events</title>
         <meta name="Upcoming Events" content="Description goes here." />
       </Helmet>
-      <ContentContainer>
+      <ChungusContentContainer>
         <Content>
           <StyledTitle>Upcoming Events</StyledTitle>
           <StyledRadio buttonStyle="solid" defaultValue="list">
@@ -43,7 +39,7 @@ const Events: React.FC = () => {
           </StyledRadio>
         </Content>
         <EventsList></EventsList>
-      </ContentContainer>
+      </ChungusContentContainer>
     </>
   );
 };

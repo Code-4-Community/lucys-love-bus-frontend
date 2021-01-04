@@ -1,8 +1,7 @@
 export interface EventProps {
   title: string;
-  date: string;
-  time: string;
+  date: Date;
   description: string;
   otherNotes?: string;
-  thumbnail?: string;
+  src?: string;
 }
