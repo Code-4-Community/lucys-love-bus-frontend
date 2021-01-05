@@ -8,20 +8,14 @@ import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import AnnoucementCard from '../../components/AnnoucementCard';
 const { Title, Text, Paragraph } = Typography;
-const image1 =
-  'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music+1(1).jpg';
-
-const image2 =
-  'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+anandi+aerial+yoga+1(1).jpg';
-
-const images = [image1, image2];
-const currentImage = 0;
+const image1v2 =
+  'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
 
 const LandingContainer = styled.div`
   width: 100%;
   height: calc(100vh - 110px);
   object-fit: cover;
-  background-image: url('${images[currentImage]}');
+  background-image: url('${image1v2}');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
