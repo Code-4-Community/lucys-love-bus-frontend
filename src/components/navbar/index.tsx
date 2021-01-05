@@ -25,7 +25,7 @@ const NavBarButton = styled(Button)`
 const ActiveNavBarButton = styled(NavBarButton)`
   color: ${ORANGE};
   font-weight: 500;
-`
+`;
 
 const LLBLogo = styled(Image)`
   width: 100px;
@@ -125,26 +125,26 @@ const NavBar: React.FC = () => {
               <Row justify="space-between">
                 {Object.entries(links).map(([link, path], i) => (
                   <Col key={i}>
-                  { path === location.pathname ?
-                    <ActiveNavBarButton
-                      type="link"
-                      onClick={() => {
-                        history.push(path);
-                      }}
-                    >
-                      {link}
-                    </ActiveNavBarButton>
-                    :
-                    <NavBarButton
-                      tab-index="0"
-                      type="link"
-                      onClick={() => {
-                        history.push(path);
-                      }}
-                    >
-                      {link}
-                    </NavBarButton>
-                  }
+                    {path === location.pathname ? (
+                      <ActiveNavBarButton
+                        type="link"
+                        onClick={() => {
+                          history.push(path);
+                        }}
+                      >
+                        {link}
+                      </ActiveNavBarButton>
+                    ) : (
+                      <NavBarButton
+                        tab-index="0"
+                        type="link"
+                        onClick={() => {
+                          history.push(path);
+                        }}
+                      >
+                        {link}
+                      </NavBarButton>
+                    )}
                   </Col>
                 ))}
               </Row>
