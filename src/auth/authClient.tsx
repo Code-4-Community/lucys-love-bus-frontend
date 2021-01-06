@@ -7,10 +7,10 @@ import {
 import axios, { AxiosInstance } from 'axios';
 
 export interface AuthClient {
-  login: (user: LoginRequest) => Promise<TokenPayload>;
-  signup: (user: SignupRequest) => Promise<TokenPayload>;
-  logout: (refreshToken: string) => Promise<void>;
-  refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
+  readonly login: (user: LoginRequest) => Promise<TokenPayload>;
+  readonly signup: (user: SignupRequest) => Promise<TokenPayload>;
+  readonly logout: (refreshToken: string) => Promise<void>;
+  readonly refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
 }
 
 export enum API_ROUTE {
