@@ -1,12 +1,16 @@
-## Why
+## Issue
 
-[Monday.com Ticket](https://code4community-team.monday.com/boards/XXXXXXXX/pulses/XXXXXXX)
+Closes #[Write Issue Number Here]
 
-What benefit does this bring to the end user? Or, what benefit does this bring to developers working in the codebase?
+## Changes
 
-## This PR
+Go to the relevant issue and **tick the items that have been addressed by this PR**. Ensure you cover every item.
 
-Describe the changes required and any implementation choices you made to give context to reviewers. 
+Briefly list the changes made to the code:
+
+- Added support for this.
+- And removed redunant use of that.
+- Also this was included for reasons.
 
 ## Screenshots
 
