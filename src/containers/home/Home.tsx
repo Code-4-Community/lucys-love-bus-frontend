@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography, Card, Carousel, Row, Col, Divider } from 'antd';
@@ -64,20 +63,11 @@ const UpcomingEventsTitle = styled(Text)`
 const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
-=======
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Typography } from 'antd';
-import { ContentContainer } from '../../components';
-
-const { Title } = Typography;
->>>>>>> upstream/master
 
 const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-<<<<<<< HEAD
         <title>Lucy's Love Bus Event Registration</title>
         <meta
           name="description"
@@ -175,20 +165,6 @@ const Home: React.FC = () => {
           </Col>
         </Row>
       </HomeContainer>
-=======
-        <title>Title goes here</title>
-        <meta name="description" content="Description goes here." />
-      </Helmet>
-      <ContentContainer>
-        {/*
-          Place relevant components in here
-        */}
-        <Title>Code4Community Frontend Scaffold</Title>
-        <Title level={3}>
-          Built with React.js, Typescript, and AntD components.
-        </Title>
-      </ContentContainer>
->>>>>>> upstream/master
     </>
   );
 };
