@@ -30,7 +30,7 @@ You will also see any lint errors in the console.
 
 ### `npm run check`
 
-Runs all 4 lint and fix and test commands below, **REQUIRED BEFORE MERGE**.
+Runs all 4 lint, type check, and test commands below, **REQUIRED BEFORE MERGE**.
 
 ### `npm run lint-fix`
 
