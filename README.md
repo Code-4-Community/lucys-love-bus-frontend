@@ -4,7 +4,7 @@
 
 This is the React.js frontend for our event registration app made for Lucy's Bus's Sajini Center.
 
-[![Build Status](https://travis-ci.org/Code-4-Community/lucys-love-bus-frontend.svg?branch=master)](https://travis-ci.org/Code-4-Community/lucys-love-bus-frontend)
+![Build Status](https://github.com/Code-4-Community/lucys-love-bus-frontend/workflows/build%2C+lint%2C+test/badge.svg?branch=master)
 
 [![Coverage Status](https://coveralls.io/repos/github/Code-4-Community/lucys-love-bus-frontend/badge.svg?branch=master)](https://coveralls.io/github/Code-4-Community/lucys-love-bus-frontend?branch=master)
 
@@ -30,7 +30,7 @@ You will also see any lint errors in the console.
 
 ### `npm run check`
 
-Runs all 3 lint and fix commands below, **REQUIRED BEFORE MERGE**.
+Runs all 4 lint and fix and test commands below, **REQUIRED BEFORE MERGE**.
 
 ### `npm run lint-fix`
 
@@ -43,6 +43,10 @@ To lint and fix your files (required before merge).
 ### `npm run type-check`
 
 Type checks your code (required before merge).
+
+### `npm run test`
+
+Runs all unit tests (required before merge).
 
 ## Code Walkthrough :computer:
 Inside the source folder, you'll find components, containers (pages), and utilities.
