@@ -27,8 +27,4 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run build --if-present
-<<<<<<< HEAD
-      - run: npm run lint-and-test
-=======
       - run: npm run check
->>>>>>> upstream/master
