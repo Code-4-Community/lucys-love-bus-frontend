@@ -20,5 +20,5 @@ export interface EventProps {
   date: Date;
   description: string;
   otherNotes?: string;
-  src?: string;
+  thumbnail?: string;
 }
