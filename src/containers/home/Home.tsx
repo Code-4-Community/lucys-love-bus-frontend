@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ORANGE, PRIMARY } from '../../colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
-import AnnoucementCard from '../../components/AnnoucementCard';
+import AnnoucementCard from '../../components/AnnouncementCard';
 const { Title, Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
@@ -131,9 +131,9 @@ const Home: React.FC = () => {
           </Col>
         </Row>
         <Row align="middle">
-          <UpcomingEventsTitle>Annoucements</UpcomingEventsTitle>
-          <ViewMoreButton to="upcoming-events">
-            View All Annoucements
+          <UpcomingEventsTitle>Announcements</UpcomingEventsTitle>
+          <ViewMoreButton to="announcements">
+            View All Announcements
           </ViewMoreButton>
         </Row>
         <Row gutter={[24, 24]} justify="center">

@@ -14,6 +14,7 @@ import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
+import Announcements from './containers/announcements/Announcements';
 const { Content } = Layout;
 
 const FullScreenLayout = styled(Layout)`
@@ -40,6 +41,7 @@ const App: React.FC = () => {
               <Route path="/grid-template" exact component={GridTemplate} />
               <Route path="/signup" component={SignupFlow} />
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
+              <Route path="/announcements" exact component={Announcements} />
               <Route path="/settings" exact component={Settings} />
               <Route path="*" exact component={NotFound} />
             </Switch>
