@@ -2,8 +2,14 @@ import { Row } from 'antd';
 import React from 'react';
 import AnnouncementCard from '../AnnouncementCard';
 import { AnnouncementsCardProps } from '../AnnouncementCard';
+import styled from 'styled-components';
 
 const COLUMNS_PER_ROW = 3
+const AnnouncementRow = styled(Row)`
+    display: grid;
+    grid-auto-flow: column;
+    margin-bottom: 20px;
+`
 
 export const AnnouncementsList: React.FC = () => {
     // mock data to use for now
@@ -61,13 +67,13 @@ export const AnnouncementsList: React.FC = () => {
             {
                 announcementRows.map((row, i) => {
                     return (
-                        <Row>
+                        <AnnouncementRow>
                             {row.map((announcement, i) => {
                                 return (
                                     <AnnouncementCard {...announcement} key={i} />
                                 )
                             })}
-                        </Row>
+                        </AnnouncementRow>
                     )
                 })
             }

@@ -17,7 +17,6 @@ const AnnouncementsCard = styled(Card)`
   height: fit-content;
   min-width: 200px;
   max-width: 400px;
-  margin: 10px;
   img {
     height: 250px;
     object-fit: cover;
@@ -25,7 +24,6 @@ const AnnouncementsCard = styled(Card)`
 `;
 const AnnouncementsCardNoCover = styled(Card)`
   height: 100%;
-  margin: 10px;
   min-width: 200px;
   max-width: 400px;
 `;
