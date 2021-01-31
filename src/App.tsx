@@ -11,6 +11,8 @@ import NotFound from './containers/not-found/NotFound';
 import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import SingleEvent from './containers/single-event/SingleEvent';
+
 import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
@@ -38,6 +40,7 @@ const App: React.FC = () => {
               <Route path="/" exact component={Home} />
               <Route path="/block-template" exact component={BlockTemplate} />
               <Route path="/grid-template" exact component={GridTemplate} />
+              <Route path="/single-event" exact component={SingleEvent}/>
               <Route path="/signup" component={SignupFlow} />
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
               <Route path="/settings" exact component={Settings} />
