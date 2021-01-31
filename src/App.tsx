@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import Signup_PF_P1 from './containers/signup-pf-p1/Signup_PF_P1';
 import Signup_PF_P2 from './containers/signup-pf-p2/Signup_PF_P2';
 import SignupDirectory from './containers/signupDirectory/SignupDirectory';
+import SingleEvent from './containers/single-event/SingleEvent';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import { Layout } from 'antd';
 import styled from 'styled-components';
@@ -68,6 +69,7 @@ const App: React.FC = () => {
                   exact
                   component={UpcomingEvents}
                 />
+                <Route path="/single-event" exact component={SingleEvent}/>
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
                 <Route path="*" exact component={NotFound} />

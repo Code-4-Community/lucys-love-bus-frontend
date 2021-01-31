@@ -48,7 +48,7 @@ const EventListing: React.FC<EventProps> = ({
         <Thumbnail src={thumbnail || defaultImg}></Thumbnail>
         <Info>
           <Title level={3}>{title}</Title>
-          <Text>{date}</Text>
+          <Text>{date}.prototype.toString()</Text>
           <ThinDivider />
           <Paragraph>{description}</Paragraph>
           <GreenButton>Register</GreenButton>

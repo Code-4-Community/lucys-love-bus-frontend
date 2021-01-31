@@ -6,13 +6,13 @@ const EventsList: React.FC = () => {
   // mock data to use for now
   const event1: EventProps = {
     title: 'Event 1',
-    date: '11/15/20',
+    date: new Date(2020, 11, 18),
     time: '3:00PM',
     description: 'This is a test event',
   };
   const event2: EventProps = {
     title: 'Event 2',
-    date: '11/18/20',
+    date: new Date(2020, 11, 18),
     time: '3:00PM',
     description: 'Here is another test event',
     thumbnail:
@@ -20,7 +20,7 @@ const EventsList: React.FC = () => {
   };
   const event3: EventProps = {
     title: 'Event 3',
-    date: '11/21/20',
+    date: new Date(2020, 11, 21),
     time: '3:00PM',
     description: 'Yet another test event',
   };
