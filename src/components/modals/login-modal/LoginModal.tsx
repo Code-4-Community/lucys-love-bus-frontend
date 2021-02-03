@@ -138,6 +138,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
     switch (currentPage) {
       case ModalContent.LoginContent:
         dispatch(login({ email, password }));
+        // TODO: response is received but user is not actually logged in yet
         break;
       case ModalContent.ForgotPassword:
         // TODO: Connect this to forgot password action
