@@ -15,7 +15,7 @@ import userReducer, { initialUserState } from './auth/ducks/reducers';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import tokenService from './auth/token';
-import protectedApiClient, { ApiExtraArgs } from './api/protectedApiClient';
+import protectedApiClient, { ApiExtraArgs } from './api/publicApiClient';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
