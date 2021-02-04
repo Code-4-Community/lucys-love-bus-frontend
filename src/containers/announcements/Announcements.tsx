@@ -29,7 +29,7 @@ const Announcements: React.FC = () => {
                 <Content>
                     <StyledTitle>Announcements</StyledTitle>
                 </Content>
-                <AnnouncementsList></AnnouncementsList>
+                <AnnouncementsList/>
             </ChungusContentContainer>
         </>
     );
