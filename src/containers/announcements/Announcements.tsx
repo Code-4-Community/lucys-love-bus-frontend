@@ -19,11 +19,16 @@ const StyledTitle = styled(Title)`
 `;
 
 const Announcements: React.FC = () => {
+
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <Helmet>
                 <title>Announcements</title>
-                <meta name="Upcoming Events" content="Description goes here." />
+                <meta name="Announcements" content="Description goes here." />
             </Helmet>
             <ChungusContentContainer>
                 <Content>
