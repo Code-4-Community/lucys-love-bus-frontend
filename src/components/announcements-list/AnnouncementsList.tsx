@@ -3,8 +3,23 @@ import React from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import { AnnouncementCardProps } from '../AnnouncementCard';
 import styled from 'styled-components';
+import axios, { AxiosInstance } from 'axios';
 
 const COLUMNS_PER_ROW = 3
+const ANNOUNCEMENTS = '/api/v1/announcements/'
+const AuthAxiosInstance: AxiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_DOMAIN,
+    timeout: 10000,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
+const getAllAnnouncements: () => void = () => {
+    AuthAxiosInstance.get(ANNOUNCEMENTS).then(
+        (response) => console.log(response.data)
+    );
+}
+    
 const AnnouncementRow = styled(Row)`
     display: grid;
     grid-auto-flow: column;
@@ -12,6 +27,7 @@ const AnnouncementRow = styled(Row)`
 `
 
 export const AnnouncementsList: React.FC = () => {
+    getAllAnnouncements();
     // mock data to use for now
     const announcement1: AnnouncementCardProps = {
         title: 'VIRTUAL Slow Flow Restorative Yoga',
