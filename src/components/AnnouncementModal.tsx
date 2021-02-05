@@ -1,29 +1,23 @@
-import { Divider, Card, Typography } from 'antd';
+import { Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import Modal from 'antd/lib/modal/Modal';
 
 const { Text, Paragraph } = Typography;
-const CardTitle = styled(Text)`
+const ModalTitle = styled(Text)`
   font-size: 20px;
   font-weight: 800;
 `;
-const CardDivider = styled(Divider)`
-  margin-top: 12px;
-  margin-bottom: 12px;
-`;
-
-const AnnouncementsCard = styled(Card)`
-  height: fit-content;
+const AnnouncementsModal = styled(Modal)`
   min-width: 200px;
   max-width: 400px;
   img {
-    height: 250px;
-    object-fit: cover;
+    max-width: 100%;
+    margin: 20px 0 10px 0;
   }
 `;
-const AnnouncementsCardNoCover = styled(Card)`
+const AnnouncementsModalNoCover = styled(Modal)`
   height: 100%;
   min-width: 200px;
   max-width: 400px;
@@ -37,6 +31,7 @@ export interface AnnouncementModalProps {
     title: string;
     date: Date;
     description: string;
+    isVisible: boolean;
     setIsModalVisible: (visible: boolean) => void
 }
 
@@ -45,34 +40,36 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
     title,
     date,
     description,
+    isVisible,
     setIsModalVisible
 }) => {
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
+    
+    const getModalContent = () => {
+        return (
+            <>
+                <div>
+                    <DateText strong>{dateFormat(date, 'longDate')}</DateText>
+                </div>
+                <div>
+                    <ModalTitle>{title}</ModalTitle>
+                </div>
+                <div>
+                    <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+                </div>
+            </>
+        )
     }
 
-    return src ? (
-        <Modal onCancel={handleCancel}>
-            <img alt="example" src={src} />
-            <DateText strong>{dateFormat(date, 'longDate')}</DateText>
-            <br />
-
-            <CardTitle>{title}</CardTitle>
-            <br />
-
-            <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
-        </Modal>
-    ) : (
-        <Modal onCancel={handleCancel}>
-            <DateText strong>{dateFormat(date, 'longDate')}</DateText>
-            <br />
-
-            <CardTitle>{title}</CardTitle>
-            <br />
-
-            <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
-        </Modal>
-        );
+    return (
+        src ? (
+            <AnnouncementsModal visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
+                <img alt="example" src={src} />
+                {getModalContent()}
+            </AnnouncementsModal>
+        ) : (
+                <AnnouncementsModalNoCover visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
+                    {getModalContent()}
+                </AnnouncementsModalNoCover>
+            )
+    )
 };
-export default AnnouncementModal;

@@ -13,20 +13,18 @@ const CardDivider = styled(Divider)`
   margin-top: 12px;
   margin-bottom: 12px;
 `;
-
-const AnnouncementCard = styled(Card)`
-  height: fit-content;
+const AnnouncementCardNoCover = styled(Card)`
+  cursor: pointer;
+  height: 100%;
   min-width: 200px;
   max-width: 400px;
+`;
+const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
+  height: fit-content;
   img {
     height: 250px;
     object-fit: cover;
   }
-`;
-const AnnouncementCardNoCover = styled(Card)`
-  height: 100%;
-  min-width: 200px;
-  max-width: 400px;
 `;
 const DateText = styled(Text)`
   font-size: 16px;
@@ -40,46 +38,65 @@ export interface AnnouncementCardProps {
   // to: string; annoucements will eventually need to link to an individual annoucement, for now I am purposefully leaving this out for simplicity
 }
 
-const AnnouncementsCardComponent: React.FC<AnnouncementCardProps> = ({
+export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   src,
   title,
   date,
   description,
 }) => {
-  const [isModalVisible, setIsModalVisible] = React.useState(true);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
 
 
   const handleVisible = () => {
     setIsModalVisible(!isModalVisible);
   }
 
-  return src ? (
-    <div onClick={() => handleVisible}>
-      <AnnouncementCard
-        cover={<img alt="example" src={src} />}>
-        <DateText strong>{dateFormat(date, 'longDate')}</DateText>
-        <br />
+  const getCardContent = () => {
+    return (
+      <>
+        <div>
+          <DateText strong>{dateFormat(date, 'longDate')}</DateText>
+        </div>
+        <div>
+          <CardTitle>{title}</CardTitle>
+        </div>
+        <div>
+          <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+        </div>
+      </>
+    )
+  }
 
-        <CardTitle>{title}</CardTitle>
-        <br />
+  return (
+    src ? (
+      <>
+        <AnnouncementCardCover cover={<img alt="example" src={src} />} onClick={() => handleVisible()}>
+          {getCardContent()}
+        </AnnouncementCardCover>
 
-        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
-      </AnnouncementCard>
-      {isModalVisible ? <AnnouncementModal title={title} date={date} description={description} setIsModalVisible={setIsModalVisible} /> : <></>}
-    </div>
-  ) : (
-    <>
-      <AnnouncementCardNoCover>
-        <DateText strong>{dateFormat(date, 'longDate')}</DateText>
-        <br />
+        <AnnouncementModal
+          src={src}
+          title={title}
+          date={date}
+          description={description}
+          isVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        />
+      </>
+    ) : (
+        <>
+          <AnnouncementCardNoCover onClick={() => handleVisible()}>
+            {getCardContent()}
+          </AnnouncementCardNoCover>
 
-        <CardTitle>{title}</CardTitle>
-        <br />
-
-        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
-      </AnnouncementCardNoCover>
-      { isModalVisible ? <AnnouncementModal title={title} date={date} description={description} setIsModalVisible={setIsModalVisible} /> : <></>}
-    </>
-  );
+          <AnnouncementModal
+            title={title}
+            date={date}
+            description={description}
+            isVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+          />
+        </>
+      )
+  )
 };
-export default AnnouncementsCardComponent;

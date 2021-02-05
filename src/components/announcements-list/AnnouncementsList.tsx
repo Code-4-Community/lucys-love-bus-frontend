@@ -1,6 +1,6 @@
 import { Row } from 'antd';
 import React from 'react';
-import AnnouncementCard from '../AnnouncementCard';
+import { AnnouncementCard } from '../AnnouncementCard';
 import { AnnouncementCardProps } from '../AnnouncementCard';
 import styled from 'styled-components';
 
