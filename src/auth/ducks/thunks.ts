@@ -5,6 +5,7 @@ import {
   UserAuthenticationThunkAction,
 } from './types';
 import { authenticateUser, logoutUser } from './actions';
+import AppAxiosInstance from '../axios';
 
 export const login = (
   loginRequest: LoginRequest,
@@ -14,6 +15,8 @@ export const login = (
       .login(loginRequest)
       .then((response: TokenPayload) => {
         // TODO: move this side effect somewhere else
+        AppAxiosInstance.defaults.headers['X-Access-Token'] =
+          response.accessToken;
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
       })
@@ -31,6 +34,8 @@ export const signup = (
       .signup(signupRequest)
       .then((response) => {
         // TODO: move this side effect somewhere else
+        AppAxiosInstance.defaults.headers['X-Access-Token'] =
+          response.accessToken;
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
       })
@@ -47,6 +52,7 @@ export const logout = (): UserAuthenticationThunkAction<void> => {
       dispatch(logoutUser.loaded());
       return Promise.resolve();
     }
+    delete AppAxiosInstance.defaults.headers['X-Access-Token'];
     return authClient
       .logout(refreshToken)
       .then(() => {

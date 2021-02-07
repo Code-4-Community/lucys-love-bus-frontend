@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Typography, Radio } from 'antd';
+import { Radio, Typography } from 'antd';
 import EventsList from '../../components/events-list/EventsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
-import { ORANGE } from '../../colors';
+import { C4CState } from '../../store';
+import { EventsReducerState } from './ducks/types';
+import { connect, useDispatch } from 'react-redux';
+import { AsyncRequestKinds } from '../../utils/asyncRequest';
+import { getUpcomingEvents } from './ducks/thunks';
 
 const { Title } = Typography;
 
@@ -23,7 +27,16 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Events: React.FC = () => {
+interface UpcomingEventsProps {
+  readonly events: EventsReducerState['upcomingEvents'];
+}
+
+const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUpcomingEvents());
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -38,10 +51,18 @@ const Events: React.FC = () => {
             <Radio.Button value="calendar">Calendar</Radio.Button>
           </StyledRadio>
         </Content>
-        <EventsList></EventsList>
+        {events.kind === AsyncRequestKinds.Completed && (
+          <EventsList events={events.result} />
+        )}
       </ChungusContentContainer>
     </>
   );
 };
 
-export default Events;
+const mapStateToProps = (state: C4CState): UpcomingEventsProps => {
+  return {
+    events: state.eventsState.upcomingEvents,
+  };
+};
+
+export default connect(mapStateToProps)(UpcomingEvents);
