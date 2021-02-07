@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Menu, Dropdown, Typography, Row, Col, Button, Image } from 'antd';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../modals/login-modal/LoginModal';
 import { ORANGE } from '../../colors';
+import { PrivilegeLevel, UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { C4CState } from '../../store';
+import { connect } from 'react-redux';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 
 const { Text } = Typography;
 
@@ -65,10 +68,15 @@ const UserContainer = styled.div`
   margin-right: 16px;
 `;
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  readonly tokens: UserAuthenticationReducerState['tokens'];
+}
+
+const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const history = useHistory();
   const location = useLocation();
-  const authenticated = false;
+
+  const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
     Home: '/',
     'Upcoming Events': '/upcoming-events',
@@ -154,7 +162,7 @@ const NavBar: React.FC = () => {
 
         <UserContainer>
           <Row gutter={[8, 0]}>
-            {authenticated ? (
+            {privilegeLevel > PrivilegeLevel.NONE ? (
               <Col>
                 <Dropdown overlay={userMenu}>
                   <Button>
@@ -191,7 +199,9 @@ const NavBar: React.FC = () => {
         </UserContainer>
       </NavBarContainer>
       <LoginModal
-        showLoginModal={displayLoginModal}
+        showLoginModal={
+          privilegeLevel === PrivilegeLevel.NONE && displayLoginModal
+        }
         onCloseLoginModal={() => {
           setDisplayLoginModal(false);
         }}
@@ -200,4 +210,10 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state: C4CState): NavBarProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(NavBar);
