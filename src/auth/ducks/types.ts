@@ -34,6 +34,10 @@ export interface SignupRequest {
   readonly lastName: string;
 }
 
+export interface ForgotPasswordRequest {
+  readonly email: string;
+}
+
 export interface TokenPayload {
   readonly accessToken: string;
   readonly refreshToken: string;

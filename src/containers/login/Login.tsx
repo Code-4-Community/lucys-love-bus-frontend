@@ -49,7 +49,7 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
           </Paragraph>
           <Paragraph>
             Forgot your password? Click{' '}
-            <Link to="/" component={Typography.Link}>
+            <Link to="/forgot-password" component={Typography.Link}>
               here
             </Link>{' '}
             to reset it.
