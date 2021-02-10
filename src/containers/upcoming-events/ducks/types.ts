@@ -18,6 +18,7 @@ export type EventsThunkAction<R> = ThunkAction<
 export interface EventProps {
   title: string;
   date: Date;
+  time: string;
   description: string;
   otherNotes?: string;
   thumbnail?: string;

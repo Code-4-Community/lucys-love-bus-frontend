@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Row, Button, Typography } from 'antd';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
-const { Title } = Typography;
+import {Row, Button, Typography, Col} from 'antd';
+import {EventProps} from '../../containers/upcoming-events/ducks/types';
+
+const {Title} = Typography;
 
 const TopRow = styled(Row)`
   margin-bottom: 12px;
@@ -11,6 +12,7 @@ const TopRow = styled(Row)`
 
 const BottomRow = styled(Row)`
   display: flex;
+  flex-direction: row;
   margin-bottom: 12px;
 `;
 
@@ -39,20 +41,21 @@ const GreenButton = styled(Button)`
 `;
 
 const Thumbnail = styled.img`
-  margin-right: 40px;
-  width: 60%;
-  max-height: 350px;
+  max-width: 100%;
+  max-height: 400px;
 `;
 
 const Info = styled.div`
-  margin-right: 40px;
-  width: 60%;
+  margin-left: 40px;
   max-height: 350px;
 `;
 
-const LeftColumn = styled.div`
-  width: 40%;
+const AnnoucementBox = styled.div`
+  align-items: center;
+  border: 1px solid #D9D9D9;
+  min-height: 80px;
 `;
+
 
 const EventListing: React.FC<EventProps> = ({
                                               thumbnail,
@@ -71,29 +74,34 @@ const EventListing: React.FC<EventProps> = ({
       <>
         <TopRow>
           <CardContent>
-            <Thumbnail src={thumbnail || defaultImg}></Thumbnail>
-            <LeftColumn>
-              <StyledTitle level={3}>{title}</StyledTitle>
-              <div>{dateFormat(date, 'dddd, mmmm dS, yyyy')}</div>
-              <Time>{time}</Time>
-              <Location>Location: {location}</Location>
-              <GreenButton>Register</GreenButton>
-            </LeftColumn>
+            <Col span={14}>
+              <Thumbnail src={thumbnail || defaultImg}></Thumbnail>
+            </Col>
+            <Col span={10}>
+              <Info>
+                <StyledTitle level={3}>{title}</StyledTitle>
+                <div>{dateFormat(date, 'dddd, mmmm dS, yyyy')}</div>
+                <Time>{time}</Time>
+                <Location>Location: {location}</Location>
+                <GreenButton>Register</GreenButton>
+              </Info>
+            </Col>
           </CardContent>
         </TopRow>
         <BottomRow>
-          <CardContent>
-            <Info>
-              <Title level={5}>Description</Title>
-              <Typography>{description}</Typography>
-              <Title level={5}>Other Notes</Title>
-              <Typography>{otherNotes}</Typography>
-              <GreenButton>Register</GreenButton>
-            </Info>
-            <LeftColumn>
-              <StyledTitle level={5}>Announcements</StyledTitle>
-            </LeftColumn>
-          </CardContent>
+            <Col span={14}>
+                <Title level={5}>Description</Title>
+                <Typography>{description}</Typography>
+                <Title level={5}>Other Notes</Title>
+                <Typography>{otherNotes}</Typography>
+                <GreenButton>Register</GreenButton>
+            </Col>
+            <Col span={10}>
+                <Title level={5}>Announcements</Title>
+              <AnnoucementBox>
+                  There are no annoucements for this event
+              </AnnoucementBox>
+            </Col>
         </BottomRow>
       </>
 
