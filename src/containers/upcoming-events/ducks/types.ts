@@ -26,6 +26,6 @@ export interface EventProps {
     location: string;
     start: Date;
     end: Date;
-  }
+  };
   price: number;
 }

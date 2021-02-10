@@ -58,7 +58,7 @@ const PasswordInput = styled(Input.Password)`
 const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   tokens,
   onCloseLoginModal,
-  showLoginModal
+  showLoginModal,
 }) => {
   const [currentPage, setPage] = useState<ModalContent>(
     ModalContent.LoginContent,
@@ -137,7 +137,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   const handleOk = (): void => {
     switch (currentPage) {
       case ModalContent.LoginContent:
-        dispatch(login({ email, password }))
+        dispatch(login({ email, password }));
         break;
       case ModalContent.ForgotPassword:
         // TODO: Connect this to forgot password action

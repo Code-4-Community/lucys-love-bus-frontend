@@ -5,7 +5,10 @@ import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import LoginModal from '../modals/login-modal/LoginModal';
 import { ORANGE } from '../../colors';
-import { PrivilegeLevel, UserAuthenticationReducerState } from '../../auth/ducks/types';
+import {
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 import { C4CState } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
