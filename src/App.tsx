@@ -12,7 +12,6 @@ import NavBar from './components/navbar';
 import Footer from './components/Footer';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SingleEvent from './containers/single-event/SingleEvent';
-
 import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
