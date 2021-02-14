@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useDispatch } from 'react-redux';
 import { Route } from 'react-router-dom';
 import AppAxiosInstance from '../../auth/axios';
+import { login } from '../../auth/ducks/thunks';
 import { ContentContainer } from '../../components';
 import GMSignupForm from '../../components/GMSignupForm';
 import PF1SignupForm from '../../components/PF1SignupForm';
@@ -23,16 +25,15 @@ interface SignupRequest {
     readonly state: string;
     readonly zipCode: string;
   };
-  readonly profilePicture: object | null;
 }
 
 interface ContactInfoRequest {
-  mainContact: PFContact;
+  mainContact: Contact;
   additionalContacts: AdultContact[];
   children: ChildContact[];
 }
 
-interface PFContact {
+interface Contact {
   firstName: string;
   lastName: string;
   dateOfBirth: Date;
@@ -45,62 +46,35 @@ interface PFContact {
   profilePicture: String | null;
 }
 
-interface AdultContact extends PFContact {
+interface AdultContact extends Contact {
   email: string;
   shouldSendEmails: boolean;
 }
 
-interface ChildContact extends PFContact {
+interface ChildContact extends Contact {
   school: string;
   schoolYear: string;
 }
 
-function initialSignup(body: SignupRequest) {
+async function initialSignup(body: SignupRequest) {
   console.log(body);
-  AppAxiosInstance.post('/api/v1/user/signup/', body)
-    .then((res) => {
-      console.log('success!!!');
-      console.log(res);
-    })
-    .catch((err) => {
-      // display "Try Again"
-      console.error(err);
-    });
-}
-//todo rewrite this with async await
-function addContactInfo(
-  signupBody: SignupRequest,
-  contactBody: ContactInfoRequest,
-) {
-  /*
   try {
-    await AppAxiosInstance.post('/api/v1/user/signup/', signupBody)
-    await AppAxiosInstance.post('/api/v1/user/contact_info/'
-    console.log("success!!!")
+    await AppAxiosInstance.post('/api/v1/user/signup/', body);
+    console.log('success');
   } catch (err) {
     console.error(err);
   }
+}
 
-  */
-
-  AppAxiosInstance.post('/api/v1/user/signup/', signupBody)
-    .then((_) => {
-      console.log('got here2');
-
-      AppAxiosInstance.post('/api/v1/user/contact_info/', contactBody)
-        .then((res) => {
-          console.log('success!!!');
-          console.log(res);
-        })
-        .catch((err) => {
-          // display "Try Again"
-          console.error(err);
-        });
-    })
-    .catch((err) => {
-      // display "Try Again"
-      console.error(err);
-    });
+async function addContactInfo(contactBody: ContactInfoRequest) {
+  try {
+    await AppAxiosInstance.post(
+      '/api/v1/protected/user/contact_info/',
+      contactBody,
+    );
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 function convertImage(file: File): Promise<any> {
@@ -116,6 +90,7 @@ const SignupFlow: React.FC = () => {
   const [GMForm, setGMForm] = useState<any | null>(null);
   const [PFForm1, setPFForm1] = useState<any | null>(null);
   const [PFForm2, setPFForm2] = useState<any | null>(null);
+  const dispatch = useDispatch();
 
   const submitGMForm = async (photoRelease: boolean) => {
     // temporary console logs, just to show data is being collected correctly.
@@ -126,7 +101,7 @@ const SignupFlow: React.FC = () => {
       ? await convertImage(GMForm.profilePicture.file).catch((e) => null)
       : null;
 
-    initialSignup({
+    await initialSignup({
       email: GMForm.email,
       password: GMForm.password,
       firstName: GMForm.firstName,
@@ -138,8 +113,29 @@ const SignupFlow: React.FC = () => {
         state: GMForm.state,
         zipCode: GMForm.zip,
       },
-      profilePicture: profilePicture,
     });
+
+    console.log('got past signup');
+
+    dispatch(login({ email: GMForm.email, password: GMForm.password }));
+    console.log('got past login');
+    await addContactInfo({
+      mainContact: {
+        firstName: GMForm.firstName,
+        lastName: GMForm.lastName,
+        dateOfBirth: GMForm.birthday,
+        phoneNumber: GMForm.phoneNumber,
+        pronouns: GMForm.pronouns,
+        allergies: GMForm.allergies ?? null,
+        diagnosis: GMForm.diagnosis ?? null,
+        medication: GMForm.medication ?? null,
+        notes: GMForm.otherNotes ?? null,
+        profilePicture,
+      },
+      additionalContacts: [],
+      children: [],
+    });
+    console.log('got past contact info');
   };
 
   const submitPFForm = (photoRelease: boolean) => {
