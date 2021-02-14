@@ -2,7 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import store, { C4CState } from '../store';
 import { AsyncRequestKinds } from '../utils/asyncRequest';
 
-const AppAxiosInstance: AxiosInstance = axios.create({
+export const AppAxiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_DOMAIN,
   timeout: 10000,
   headers: {

@@ -7,6 +7,7 @@ import { ORANGE, PRIMARY } from '../../colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import { AnnouncementCard } from '../../components/AnnouncementCard';
+import { AnnouncementsList } from '../../components/announcements-list/AnnouncementsList';
 const { Title, Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
@@ -136,34 +137,7 @@ const Home: React.FC = () => {
             View All Announcements
           </ViewMoreButton>
         </Row>
-        <Row gutter={[24, 24]} justify="center">
-          <Col>
-            <AnnouncementCard
-              src="http://www.pinkgazelle.com/wp-content/uploads/2017/04/monarch_butterfly_flower.jpg"
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-          <Col>
-            <AnnouncementCard
-              src="https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-          <Col>
-            <AnnouncementCard
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-        </Row>
+        <AnnouncementsList limit={3} />
       </HomeContainer>
     </>
   );

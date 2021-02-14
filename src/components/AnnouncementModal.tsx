@@ -5,10 +5,12 @@ import dateFormat from 'dateformat';
 import Modal from 'antd/lib/modal/Modal';
 
 const { Text, Paragraph } = Typography;
+
 const ModalTitle = styled(Text)`
   font-size: 20px;
   font-weight: 800;
 `;
+
 const AnnouncementsModal = styled(Modal)`
   min-width: 200px;
   max-width: 400px;
@@ -17,11 +19,13 @@ const AnnouncementsModal = styled(Modal)`
     margin: 20px 0 10px 0;
   }
 `;
+
 const AnnouncementsModalNoCover = styled(Modal)`
   height: 100%;
   min-width: 200px;
   max-width: 400px;
 `;
+
 const DateText = styled(Text)`
   font-size: 16px;
 `;
@@ -54,7 +58,7 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
                     <ModalTitle>{title}</ModalTitle>
                 </div>
                 <div>
-                    <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+                    <Paragraph>{description}</Paragraph>
                 </div>
             </>
         )

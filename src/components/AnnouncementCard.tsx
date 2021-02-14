@@ -5,20 +5,19 @@ import dateFormat from 'dateformat';
 import { AnnouncementModal } from './AnnouncementModal';
 
 const { Text, Paragraph } = Typography;
+
 const CardTitle = styled(Text)`
   font-size: 20px;
   font-weight: 800;
 `;
-const CardDivider = styled(Divider)`
-  margin-top: 12px;
-  margin-bottom: 12px;
-`;
+
 const AnnouncementCardNoCover = styled(Card)`
   cursor: pointer;
   height: 100%;
   min-width: 200px;
   max-width: 400px;
 `;
+
 const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
   height: fit-content;
   img {
@@ -26,6 +25,7 @@ const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
     object-fit: cover;
   }
 `;
+
 const DateText = styled(Text)`
   font-size: 16px;
 `;
@@ -35,7 +35,6 @@ export interface AnnouncementCardProps {
   title: string;
   date: Date;
   description: string;
-  // to: string; annoucements will eventually need to link to an individual annoucement, for now I am purposefully leaving this out for simplicity
 }
 
 export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({

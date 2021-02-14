@@ -2,18 +2,11 @@ import { Row } from 'antd';
 import React from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
-import axios, { AxiosInstance } from 'axios';
+import { AppAxiosInstance } from '../../auth/axios'
 
 const COLUMNS_PER_ROW = 3
 const NO_ANNOUNCEMENTS_MESSAGE = "There are currently no announcements!"
 const ANNOUNCEMENTS = '/api/v1/announcements/'
-const AuthAxiosInstance: AxiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_DOMAIN,
-    timeout: 10000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
     
 const AnnouncementRow = styled(Row)`
     display: grid;
@@ -21,14 +14,19 @@ const AnnouncementRow = styled(Row)`
     margin-bottom: 20px;
 `
 
-export const AnnouncementsList: React.FC = () => {
+export interface AnnouncementsListProps {
+    limit?: number
+}
+
+export const AnnouncementsList: React.FC<AnnouncementsListProps> = props => {
     const [announcements, setAnnouncements] = React.useState<Array<any>>([]);
 
     React.useEffect(() => {
         (async function () {
-            let announcementsData = await AuthAxiosInstance.get(ANNOUNCEMENTS)
+            let announcementsData = await AppAxiosInstance.get(ANNOUNCEMENTS)
                 .then(response => response.data)
                 .then(data => { return data.announcements as any[] })
+                .then(announcements => { return (props.limit && props.limit >= 0) ? announcements.slice(0, props.limit) : announcements })
                 .catch(() => { return [] as any[] });
             setAnnouncements(announcementsData);
         })()
@@ -40,7 +38,7 @@ export const AnnouncementsList: React.FC = () => {
     return (
         <div>
             {
-                rows.length > 1 ? (
+                rows.length > 0 ? (
                     announcementRows.map((row, i) => {
                         return (
                             <AnnouncementRow>
