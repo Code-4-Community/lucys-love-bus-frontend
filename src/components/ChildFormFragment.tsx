@@ -1,6 +1,6 @@
-import React from 'react';
-import { Form, Input, Radio, Upload, DatePicker } from 'antd';
+import { DatePicker, Form, Input, Radio, Upload } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
+import React from 'react';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -42,13 +42,13 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={1}>
+          <Radio className="radio-item" value={'He/Him'}>
             He/Him
           </Radio>
-          <Radio className="radio-item" value={2}>
+          <Radio className="radio-item" value={'She/Her'}>
             She/Her
           </Radio>
-          <Radio className="radio-item" value={4}>
+          <Radio className="radio-item" value={'They/Them'}>
             They/Them
           </Radio>
         </Radio.Group>
@@ -74,7 +74,9 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         fieldKey={[field.fieldKey, 'school']}
         label="School"
         className="inline-block-half"
-        rules={[{ required: true, message: 'Please input your childs school' }]}
+        rules={[
+          { required: true, message: "Please input your child's school" },
+        ]}
       >
         <Input placeholder="First Name" />
       </Form.Item>
@@ -86,7 +88,10 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         label="Grade"
         className="inline-block-half"
         rules={[
-          { required: true, message: 'Please input your childs current grade' },
+          {
+            required: true,
+            message: "Please input your child's current grade",
+          },
         ]}
       >
         <Input placeholder="Last Name" />

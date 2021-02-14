@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
 import {
+  Button,
+  DatePicker,
   Form,
   Input,
   Radio,
-  Upload,
   Typography,
-  DatePicker,
-  Button,
+  Upload,
 } from 'antd';
-import { LinkButton } from './LinkButton';
-import FormContainer from './FormContainer';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import FormContainer from './FormContainer';
 import FormInitialText from './FormInitialText';
-import { useHistory } from 'react-router-dom';
+import { LinkButton } from './LinkButton';
 
 const { Title, Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -251,8 +250,8 @@ const GMSignupForm: React.FC<{
             <TextArea rows={3} placeholder="Other Notes" />
           </Form.Item>
 
-          <Form.Item label="Upload Profile Picture">
-            <Dragger>
+          <Form.Item label="Upload Profile Picture" name="profilePicture">
+            <Dragger multiple={false} beforeUpload={() => false}>
               <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
               <u>Or Browse Your Computer</u>
             </Dragger>
