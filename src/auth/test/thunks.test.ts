@@ -169,4 +169,3 @@ describe('User Authentication Thunks', () => {
     });
   });
 });
-

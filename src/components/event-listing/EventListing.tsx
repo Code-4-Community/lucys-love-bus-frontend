@@ -1,8 +1,9 @@
+import { Card, Divider, Typography } from 'antd';
+import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Divider, Button, Typography } from 'antd';
+import { LinkButton } from '../../components/LinkButton';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
-import dateFormat from 'dateformat';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -25,7 +26,7 @@ const ThinDivider = styled(Divider)`
   width: 100%;
 `;
 
-const GreenButton = styled(Button)`
+const GreenButton = styled(LinkButton)`
   color: white;
   background-color: #2d870d;
 `;
@@ -42,6 +43,7 @@ const Info = styled.div`
 `;
 
 const EventListing: React.FC<EventProps> = ({
+  id,
   thumbnail,
   title,
   details,
@@ -60,7 +62,7 @@ const EventListing: React.FC<EventProps> = ({
           <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
           <ThinDivider />
           <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
-          <GreenButton>Register</GreenButton>
+          <GreenButton to={`events/${id}`}>Register</GreenButton>
         </Info>
       </CardContent>
     </StyledCard>

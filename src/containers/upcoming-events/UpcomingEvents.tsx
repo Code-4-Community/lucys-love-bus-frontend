@@ -1,14 +1,14 @@
+import { Radio, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Radio, Typography } from 'antd';
-import EventsList from '../../components/events-list/EventsList';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
+import EventsList from '../../components/events-list/EventsList';
 import { C4CState } from '../../store';
-import { EventsReducerState } from './ducks/types';
-import { connect, useDispatch } from 'react-redux';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from './ducks/thunks';
+import { EventsReducerState } from './ducks/types';
 
 const { Title } = Typography;
 
@@ -34,7 +34,9 @@ interface UpcomingEventsProps {
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUpcomingEvents());
+    if (events.kind === AsyncRequestKinds.NotStarted) {
+      dispatch(getUpcomingEvents());
+    }
   }, []);
 
   return (

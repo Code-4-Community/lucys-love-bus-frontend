@@ -1,20 +1,20 @@
+import { Layout } from 'antd';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import './App.less';
+import Footer from './components/Footer';
+import NavBar from './components/navbar';
 import Home from './containers/home/Home';
+import NotFound from './containers/not-found/NotFound';
 import Settings from './containers/settings/Settings';
+import SignupFlow from './containers/signupFlow';
+import SingleEvent from './containers/single-event/SingleEvent';
 import BlockTemplate from './containers/template-1-col-block/Template';
 import GridTemplate from './containers/template-24-col-grid/Template';
-import NotFound from './containers/not-found/NotFound';
-import NavBar from './components/navbar';
-import Footer from './components/Footer';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
-import SingleEvent from './containers/single-event/SingleEvent';
-import SignupFlow from './containers/signupFlow';
-import { Layout } from 'antd';
-import styled from 'styled-components';
+
 const { Content } = Layout;
 
 const FullScreenLayout = styled(Layout)`
@@ -39,7 +39,7 @@ const App: React.FC = () => {
               <Route path="/" exact component={Home} />
               <Route path="/block-template" exact component={BlockTemplate} />
               <Route path="/grid-template" exact component={GridTemplate} />
-              <Route path="/single-event" exact component={SingleEvent}/>
+              <Route path="/events/:id" exact component={SingleEvent} />
               <Route path="/signup" component={SignupFlow} />
               <Route path="/upcoming-events" exact component={UpcomingEvents} />
               <Route path="/settings" exact component={Settings} />
