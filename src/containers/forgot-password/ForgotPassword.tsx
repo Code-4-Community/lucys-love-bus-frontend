@@ -6,34 +6,34 @@ import authClient from '../../auth/authClient';
 const { Title } = Typography;
 
 const ForgotPassword: React.FC = () => {
-    const onFinish = (values: any) => {
-        authClient.forgotPassword(values);
-    };
-    return (
-        <>
-            <Helmet>
-                <title>Forgot Password</title>
-                <meta name="description" content="Description goes here." />
-            </Helmet>
-            <div className="content-container">
-                <Title>Forgot Password</Title>
-                <Form name="basic" onFinish={onFinish}>
-                    <Form.Item
-                        label="Email"
-                        name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
-            </div>
-        </>
-    );
+  const onFinish = (values: any) => {
+    authClient.forgotPassword(values);
+  };
+  return (
+    <>
+      <Helmet>
+        <title>Forgot Password</title>
+        <meta name="description" content="Description goes here." />
+      </Helmet>
+      <div className="content-container">
+        <Title>Forgot Password</Title>
+        <Form name="basic" onFinish={onFinish}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
+    </>
+  );
 };
 
 export default ForgotPassword;

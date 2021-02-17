@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, Form, Input, Typography } from 'antd';
 import authClient from '../../auth/authClient';
 
@@ -11,7 +11,10 @@ const ForgotPasswordReset: React.FC = () => {
 
   // gotta change this
   const onFinish = (values: any) => {
-    authClient.forgotPasswordReset({secretKey: key, newPassword: values.password});
+    authClient.forgotPasswordReset({
+      secretKey: key,
+      newPassword: values.password,
+    });
   };
   return (
     <>
@@ -25,7 +28,9 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please enter your new password!' }]}
+            rules={[
+              { required: true, message: 'Please enter your new password!' },
+            ]}
           >
             <Input.Password />
           </Form.Item>
@@ -33,7 +38,9 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
-            rules={[{ required: true, message: 'Please confirm your new password!' }]}
+            rules={[
+              { required: true, message: 'Please confirm your new password!' },
+            ]}
           >
             <Input.Password />
           </Form.Item>

@@ -44,8 +44,16 @@ const App: React.FC = () => {
                 {/*<Route path="/block-template" exact component={BlockTemplate} />*/}
                 {/* <Route path="/grid-template" exact component={GridTemplate} />*/}
                 <Route path="/login" exact component={Login} />
-                <Route path="/forgot-password" exact component={ForgotPassword} />
-                <Route path="/forgot-password-reset/:key" exact component={ForgotPasswordReset} />
+                <Route
+                  path="/forgot-password"
+                  exact
+                  component={ForgotPassword}
+                />
+                <Route
+                  path="/forgot-password-reset/:key"
+                  exact
+                  component={ForgotPasswordReset}
+                />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
                 <Route path="*" exact component={NotFound} />
