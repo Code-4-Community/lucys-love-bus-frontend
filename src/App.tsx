@@ -8,6 +8,7 @@ import Signup from './containers/signup/Signup';
 import Login from './containers/login/Login';
 import ForgotPassword from './containers/forgot-password/ForgotPassword';
 import Settings from './containers/settings/Settings';
+import ForgotPasswordReset from './containers/forgot-password/ForgotPasswordReset';
 // import BlockTemplate from './containers/template-1-col-block/Template';
 // import GridTemplate from './containers/template-24-col-grid/Template';
 
@@ -16,6 +17,7 @@ import NavBar from './components/navbar/NavBar';
 import Footer from './components/Footer';
 import { Layout } from 'antd';
 import styled from 'styled-components';
+
 const { Content } = Layout;
 
 const AppInnerContainer = styled.div`
@@ -43,6 +45,7 @@ const App: React.FC = () => {
                 {/* <Route path="/grid-template" exact component={GridTemplate} />*/}
                 <Route path="/login" exact component={Login} />
                 <Route path="/forgot-password" exact component={ForgotPassword} />
+                <Route path="/forgot-password-reset/:key" exact component={ForgotPasswordReset} />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
                 <Route path="*" exact component={NotFound} />
