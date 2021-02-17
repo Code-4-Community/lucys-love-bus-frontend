@@ -47,7 +47,6 @@ const loadStateFromLocalStorage = (): C4CState | undefined => {
     if (serializedState === null) {
       return undefined;
     }
-    console.log('hi, i successfully loaded state', serializedState);
     const state: C4CState = JSON.parse(serializedState);
     if (asyncRequestIsComplete(state.authenticationState.tokens)) {
       AppAxiosInstance.defaults.headers['X-Access-Token'] =

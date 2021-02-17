@@ -8,8 +8,8 @@ const { Title } = Typography;
 const Settings: React.FC = () => {
   const onFinishChangePassword = (values: any) => {
     ProtectedApiClient.changePassword(values)
-      .then((res) => console.log(res))
-      .catch((e) => console.error(e));
+      .then((res) => res)
+      .catch((e) => e);
   };
 
   return (

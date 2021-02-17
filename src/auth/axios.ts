@@ -24,11 +24,6 @@ const responseErrorInterceptor = (error: AxiosError) => {
   const tokens: UserAuthenticationReducerState['tokens'] = store.getState()
     .authenticationState.tokens;
 
-  console.log('handler');
-  console.log(error.response?.status);
-  console.log(error.message);
-  console.log();
-
   if (
     asyncRequestIsComplete(tokens) &&
     error?.response?.status === 401 &&
