@@ -14,8 +14,6 @@ import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
-import { PrivilegeLevel } from './auth/ducks/types';
-import { C4CState } from './store';
 
 const { Content } = Layout;
 
