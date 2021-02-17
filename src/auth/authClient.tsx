@@ -69,12 +69,12 @@ const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
 // TODO: maybe make these functions return Promise<Boolean> to let the user know what's up
 const forgotPassword: (user: ForgotPasswordRequest) => Promise<void> = (
   user: ForgotPasswordRequest,
-) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD, user).then(() => {});
+) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD, user);
 
 const forgotPasswordReset: (
   user: ForgotPasswordResetRequest,
 ) => Promise<void> = (user: ForgotPasswordResetRequest) =>
-  AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user).then(() => {});
+  AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user);
 
 const Client: AuthClient = Object.freeze({
   login,
