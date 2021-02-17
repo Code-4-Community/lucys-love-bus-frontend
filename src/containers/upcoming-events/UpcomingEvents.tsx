@@ -34,9 +34,7 @@ interface UpcomingEventsProps {
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (events.kind === AsyncRequestKinds.NotStarted) {
-      dispatch(getUpcomingEvents());
-    }
+    dispatch(getUpcomingEvents());
   }, []);
 
   return (
