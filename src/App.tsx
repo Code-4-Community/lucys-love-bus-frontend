@@ -14,6 +14,7 @@ import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SignupFlow from './containers/signupFlow';
 import { Layout } from 'antd';
 import styled from 'styled-components';
+
 const { Content } = Layout;
 
 const FullScreenLayout = styled(Layout)`

@@ -41,11 +41,7 @@ const Info = styled.div`
   width: 67%;
 `;
 
-const EventListing: React.FC<EventProps> = ({
-  thumbnail,
-  title,
-  details,
-}) => {
+const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
   const defaultImg =
     'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
 
