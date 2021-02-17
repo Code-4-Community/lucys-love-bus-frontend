@@ -10,3 +10,10 @@ export const getPrivilegeLevel = (
   }
   return PrivilegeLevel.NONE;
 };
+
+export const isTokenValid = (
+  token: string
+): boolean => {
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload && Math.round(Date.now() / 1000) < payload.exp;
+}
