@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { signup } from '../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import { C4CState } from '../../store';
-import { SignupRequest, UserAuthenticationReducerState } from '../../auth/ducks/types';
+import {
+  SignupRequest,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { ContentContainer } from '../../components';
 

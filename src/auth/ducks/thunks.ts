@@ -6,9 +6,7 @@ import {
 } from './types';
 import { authenticateUser, logoutUser } from './actions';
 import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
-import {
-  asyncRequestIsComplete,
-} from '../../utils/asyncRequest';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import AppAxiosInstance from '../axios';
 
 export const login = (
@@ -19,7 +17,8 @@ export const login = (
     return authClient
       .login(loginRequest)
       .then((response: TokenPayload) => {
-        AppAxiosInstance.defaults.headers['X-Access-Token'] = response.accessToken
+        AppAxiosInstance.defaults.headers['X-Access-Token'] =
+          response.accessToken;
         dispatch(authenticateUser.loaded(response));
       })
       .catch((error) => {
@@ -36,7 +35,8 @@ export const signup = (
     return authClient
       .signup(signupRequest)
       .then((response) => {
-        AppAxiosInstance.defaults.headers['X-Access-Token'] = response.accessToken
+        AppAxiosInstance.defaults.headers['X-Access-Token'] =
+          response.accessToken;
         dispatch(authenticateUser.loaded(response));
       })
       .catch((error) => {

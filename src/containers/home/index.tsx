@@ -10,7 +10,10 @@ const Home: React.FC = () => {
     <>
       <Helmet>
         <title>Code4Community</title>
-        <meta name="Homepage" content="Welcome to Code4Community's frontend scaffold!" />
+        <meta
+          name="Homepage"
+          content="Welcome to Code4Community's frontend scaffold!"
+        />
       </Helmet>
       <ContentContainer>
         <Title>Code4Community Frontend Scaffold</Title>

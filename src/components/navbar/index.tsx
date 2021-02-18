@@ -168,7 +168,8 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
               <Col>
                 <Dropdown overlay={userMenu}>
                   <Button>
-                    <UserOutlined /><DownOutlined />
+                    <UserOutlined />
+                    <DownOutlined />
                   </Button>
                 </Dropdown>
               </Col>
