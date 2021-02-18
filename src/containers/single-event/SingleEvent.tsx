@@ -34,7 +34,7 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
     }
   }, []);
 
-  const { id } = useParams();
+  const id: number = Number(useParams().id);
 
   const conditionalRenderEventDetails = (
     eventsList: AsyncRequest<EventProps[], any>,
@@ -43,9 +43,7 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
-        return (
-          <EventDetails {...eventsList.result.filter((e) => e.id === id)[0]} />
-        );
+        return <EventDetails {...event[0]} />;
       } else {
         return <p>That event does not exist!</p>;
       }
