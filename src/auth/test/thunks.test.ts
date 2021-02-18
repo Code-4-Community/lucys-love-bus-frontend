@@ -3,6 +3,7 @@ import { login, signup } from '../ducks/thunks';
 import { authenticateUser } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
+import publicApiClient from '../../api/publicApiClient';
 
 export const generateState = (partialState: Partial<C4CState>): C4CState => ({
   ...initialStoreState,
@@ -27,6 +28,7 @@ describe('User Authentication Thunks', () => {
           ...authClient,
           login: mockLogin,
         },
+        publicApiClient,
       };
 
       await login({
@@ -57,6 +59,7 @@ describe('User Authentication Thunks', () => {
           ...authClient,
           login: mockLogin,
         },
+        publicApiClient,
       };
 
       await login({
@@ -90,6 +93,7 @@ describe('User Authentication Thunks', () => {
           ...authClient,
           signup: mockSignup,
         },
+        publicApiClient,
       };
 
       await signup({
@@ -121,6 +125,7 @@ describe('User Authentication Thunks', () => {
           ...authClient,
           signup: mockSignup,
         },
+        publicApiClient,
       };
 
       await signup({

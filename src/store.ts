@@ -17,7 +17,7 @@ import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
 import AppAxiosInstance from './auth/axios';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
-import protectedApiClient, { ApiExtraArgs } from './api/publicApiClient';
+import publicApiClient, { ApiExtraArgs } from './api/publicApiClient';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
@@ -34,7 +34,7 @@ export interface Action<T, P> {
   readonly payload: P;
 }
 
-export type C4CAction = UserAuthenticationActions & EventsActions;
+export type C4CAction = UserAuthenticationActions | EventsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
 
@@ -71,7 +71,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
-  protectedApiClient,
+  publicApiClient,
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
