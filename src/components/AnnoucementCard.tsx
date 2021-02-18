@@ -1,7 +1,6 @@
-import { Divider, Card, Typography } from 'antd';
+import { Card, Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { LinkButton } from './LinkButton';
 import dateFormat from 'dateformat';
 
 const { Text, Paragraph } = Typography;
@@ -9,11 +8,6 @@ const CardTitle = styled(Text)`
   font-size: 20px;
   font-weight: 800;
 `;
-const CardDivider = styled(Divider)`
-  margin-top: 12px;
-  margin-bottom: 12px;
-`;
-
 const AnnoucementsCard = styled(Card)`
   height: fit-content;
   min-width: 200px;

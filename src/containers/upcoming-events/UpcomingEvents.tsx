@@ -33,9 +33,10 @@ interface UpcomingEventsProps {
 
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUpcomingEvents());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
