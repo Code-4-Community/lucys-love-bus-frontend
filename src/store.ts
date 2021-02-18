@@ -17,9 +17,16 @@ import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
 import AppAxiosInstance from './auth/axios';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
+import protectedApiClient, { ApiExtraArgs } from './api/publicApiClient';
+import { EventsReducerState } from './containers/upcoming-events/ducks/types';
+import { EventsActions } from './containers/upcoming-events/ducks/actions';
+import eventsReducer, {
+  initialEventsState,
+} from './containers/upcoming-events/ducks/reducers';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
+  eventsState: EventsReducerState;
 }
 
 export interface Action<T, P> {
@@ -27,16 +34,18 @@ export interface Action<T, P> {
   readonly payload: P;
 }
 
-export type C4CAction = UserAuthenticationActions;
+export type C4CAction = UserAuthenticationActions & EventsActions;
 
-export type ThunkExtraArgs = UserAuthenticationExtraArgs;
+export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
+  eventsState: eventsReducer,
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
+  eventsState: initialEventsState,
 };
 
 export const LOCALSTORAGE_STATE_KEY: string = 'state';
@@ -62,6 +71,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
+  protectedApiClient,
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import Home from './containers/home';
-import Signup from './containers/signup';
 import Login from './containers/login';
 import Settings from './containers/settings';
 import NotFound from './containers/notFound';
@@ -57,7 +56,11 @@ const App: React.FC = () => {
                     return (
                       <Switch>
                         <Route path={Routes.HOME} exact component={Home} />
-                        <Route path={Routes.SIGNUP} exact component={SignupFlow} />
+                        <Route
+                          path={Routes.SIGNUP}
+                          exact
+                          component={SignupFlow}
+                        />
                         <Route path={Routes.LOGIN} exact component={Login} />
                         <Route
                           path={Routes.UPCOMING_EVENTS}
@@ -76,7 +79,11 @@ const App: React.FC = () => {
                     return (
                       <Switch>
                         <Route path={Routes.HOME} exact component={Home} />
-                        <Route path={Routes.SIGNUP} exact component={SignupFlow} />
+                        <Route
+                          path={Routes.SIGNUP}
+                          exact
+                          component={SignupFlow}
+                        />
                         <Route path={Routes.LOGIN} exact component={Login} />
                         <Route
                           path={Routes.UPCOMING_EVENTS}

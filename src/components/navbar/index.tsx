@@ -10,9 +10,9 @@ import {
 import { C4CState } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
-import { ORANGE } from '../../utils/colors';
 import { Routes } from '../../App';
 import LoginModal from '../modals/login-modal/LoginModal';
+import { ORANGE } from '../../colors';
 
 const { Text } = Typography;
 
@@ -206,7 +206,9 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
         </UserContainer>
       </NavBarContainer>
       <LoginModal
-        showLoginModal={displayLoginModal}
+        showLoginModal={
+          privilegeLevel === PrivilegeLevel.NONE && displayLoginModal
+        }
         onCloseLoginModal={() => {
           setDisplayLoginModal(false);
         }}

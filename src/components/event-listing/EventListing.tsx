@@ -41,26 +41,21 @@ const Info = styled.div`
   width: 67%;
 `;
 
-const EventListing: React.FC<EventProps> = ({
-  src,
-  title,
-  date,
-  description,
-}) => {
+const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
   const defaultImg =
     'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
 
   return (
     <StyledCard>
       <CardContent>
-        <Thumbnail src={src || defaultImg}></Thumbnail>
+        <Thumbnail src={thumbnail || defaultImg} />
         <Info>
           <Title level={3}>{title}</Title>
-          <Text strong>{dateFormat(date, 'longDate')}</Text>
+          <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
-          <Text strong>{dateFormat(date, 'shortTime')}</Text>
+          <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
           <ThinDivider />
-          <Paragraph ellipsis={{ rows: 5 }}>{description}</Paragraph>
+          <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
           <GreenButton>Register</GreenButton>
         </Info>
       </CardContent>
