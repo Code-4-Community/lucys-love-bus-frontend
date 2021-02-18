@@ -9,16 +9,13 @@ const Home: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Title goes here</title>
-        <meta name="description" content="Description goes here." />
+        <title>Code4Community</title>
+        <meta name="Homepage" content="Welcome to Code4Community's frontend scaffold!" />
       </Helmet>
       <ContentContainer>
-        {/*
-          Place relevant components in here
-        */}
         <Title>Code4Community Frontend Scaffold</Title>
         <Title level={3}>
-          Built with React.js, Typescript, and AntD components.
+          Built with React.js, Typescript, Redux, and AntD components.
         </Title>
       </ContentContainer>
     </>
