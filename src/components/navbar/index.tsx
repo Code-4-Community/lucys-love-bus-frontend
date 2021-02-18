@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { Routes } from '../../App';
 import LoginModal from '../modals/login-modal/LoginModal';
-import { ORANGE } from '../../colors';
+import { ORANGE } from '../../utils/colors';
 
 const { Text } = Typography;
 
