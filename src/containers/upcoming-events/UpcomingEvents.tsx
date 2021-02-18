@@ -4,7 +4,7 @@ import { Typography, Radio } from 'antd';
 import EventsList from '../../components/events-list/EventsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
-import { ORANGE } from '../../colors';
+import { ORANGE } from '../../utils/colors';
 
 const { Title } = Typography;
 
@@ -38,7 +38,7 @@ const Events: React.FC = () => {
             <Radio.Button value="calendar">Calendar</Radio.Button>
           </StyledRadio>
         </Content>
-        <EventsList></EventsList>
+        <EventsList />
       </ChungusContentContainer>
     </>
   );
