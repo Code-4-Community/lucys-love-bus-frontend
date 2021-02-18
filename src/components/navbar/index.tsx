@@ -3,8 +3,6 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
-import LoginModal from '../modals/login-modal/LoginModal';
-import { ORANGE } from '../../colors';
 import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
@@ -12,6 +10,9 @@ import {
 import { C4CState } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { Routes } from '../../App';
+import LoginModal from '../modals/login-modal/LoginModal';
+import { ORANGE } from '../../utils/colors';
 
 const { Text } = Typography;
 
@@ -33,7 +34,7 @@ const ActiveNavBarButton = styled(NavBarButton)`
   font-weight: 500;
 `;
 
-const LLBLogo = styled(Image)`
+const Logo = styled(Image)`
   width: 100px;
   margin: 16px;
 `;
@@ -54,17 +55,17 @@ const LogoContainer = styled.div`
   padding-right: 24px;
 `;
 
-const LLBTextColumn = styled(Col)`
+const TextColumn = styled(Col)`
   padding-right: 16px;
 `;
-const LLBText = styled(Text)`
+const NavBarText = styled(Text)`
   font-size: 1.6em;
   font-weight: 700;
   line-height: 1.15;
 `;
 
-const LLBSubtitle = styled(Text)`
-  color: #ce4a00;
+const Subtitle = styled(Text)`
+  color: ${ORANGE};
 `;
 
 const UserContainer = styled.div`
@@ -81,18 +82,20 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
-    Home: '/',
-    'Upcoming Events': '/upcoming-events',
-    'My Events': '/grid-template',
+    Home: Routes.HOME,
+    'Upcoming Events': Routes.UPCOMING_EVENTS,
   };
 
   // Dropdown menu options for the logged in
   const userMenu = (
     <Menu>
-      <Menu.Item>Change Primary Account Email</Menu.Item>
-      <Menu.Item>Account Details</Menu.Item>
-      <Menu.Item>Change Password</Menu.Item>
-      <Menu.Item>Deactivate Account</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.SETTINGS);
+        }}
+      >
+        Settings
+      </Menu.Item>
     </Menu>
   );
 
@@ -110,14 +113,14 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                   history.push('/');
                 }}
               >
-                <LLBLogo
+                <Logo
                   src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_logo_no_text.png"
                   alt="LLB Logo"
                   preview={false}
                 />
               </Link>
             </Col>
-            <LLBTextColumn>
+            <TextColumn>
               <Link
                 to="/"
                 onClick={() => {
@@ -125,13 +128,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                 }}
               >
                 <Row>
-                  <LLBText>Lucy's Love Bus</LLBText>
+                  <NavBarText>Lucy's Love Bus</NavBarText>
                 </Row>
                 <Row>
-                  <LLBSubtitle>Event Registration </LLBSubtitle>
+                  <Subtitle>Event Registration</Subtitle>
                 </Row>
               </Link>
-            </LLBTextColumn>
+            </TextColumn>
             <Col>
               <Row justify="space-between">
                 {Object.entries(links).map(([link, path], i) => (
@@ -165,11 +168,12 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 
         <UserContainer>
           <Row gutter={[8, 0]}>
-            {privilegeLevel > PrivilegeLevel.NONE ? (
+            {privilegeLevel !== PrivilegeLevel.NONE ? (
               <Col>
                 <Dropdown overlay={userMenu}>
                   <Button>
-                    <UserOutlined /> John Smith <DownOutlined />
+                    <UserOutlined />
+                    <DownOutlined />
                   </Button>
                 </Dropdown>
               </Col>
@@ -190,7 +194,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                     tab-index="0"
                     type="primary"
                     onClick={() => {
-                      history.push('/signup');
+                      history.push(Routes.SIGNUP);
                     }}
                   >
                     Sign Up
