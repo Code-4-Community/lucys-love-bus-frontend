@@ -1,14 +1,14 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, Form, Input, Typography } from 'antd';
 import authClient from '../../auth/authClient';
 
 const { Title } = Typography;
 
 interface NewPasswords {
-  readonly password: string,
-  readonly confirmPassword: string
+  readonly password: string;
+  readonly confirmPassword: string;
 }
 
 const ForgotPasswordReset: React.FC = () => {
@@ -17,16 +17,17 @@ const ForgotPasswordReset: React.FC = () => {
   const onFinish = (values: NewPasswords) => {
     if (values.password.length < 8) {
       alert('New password is too weak. Must be at least 8 characters long.');
-    }
-    else if (values.password !== values.confirmPassword) {
-      alert('Passwords don\'t match');
-    }
-    else {
-      authClient.forgotPasswordReset({secretKey: key, newPassword: values.password}).then(() => {
-        alert('Successfully reset password!');
-      }).catch((err) => {
-        alert('Was not able to reset password.');
-      });
+    } else if (values.password !== values.confirmPassword) {
+      alert("Passwords don't match");
+    } else {
+      authClient
+        .forgotPasswordReset({ secretKey: key, newPassword: values.password })
+        .then(() => {
+          alert('Successfully reset password!');
+        })
+        .catch((err) => {
+          alert('Was not able to reset password.');
+        });
     }
   };
   return (
@@ -41,7 +42,9 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label="Password"
             name="password"
-            rules={[{ required: true, message: 'Please enter your new password!' }]}
+            rules={[
+              { required: true, message: 'Please enter your new password!' },
+            ]}
           >
             <Input.Password />
           </Form.Item>
@@ -49,7 +52,9 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
-            rules={[{ required: true, message: 'Please confirm your new password!' }]}
+            rules={[
+              { required: true, message: 'Please confirm your new password!' },
+            ]}
           >
             <Input.Password />
           </Form.Item>

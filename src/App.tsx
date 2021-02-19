@@ -40,8 +40,16 @@ const App: React.FC = () => {
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/login" exact component={Login} />
-                <Route path="/forgot-password" exact component={ForgotPassword} />
-                <Route path="/forgot-password-reset/:key" exact component={ForgotPasswordReset} />
+                <Route
+                  path="/forgot-password"
+                  exact
+                  component={ForgotPassword}
+                />
+                <Route
+                  path="/forgot-password-reset/:key"
+                  exact
+                  component={ForgotPasswordReset}
+                />
                 <Route path="/signup" exact component={Signup} />
                 <Route path="/settings" exact component={Settings} />
                 <Route path="*" exact component={NotFound} />

@@ -22,7 +22,7 @@ export enum API_ROUTE {
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
   FORGOT_PASSWORD = '/api/v1/user/forgot_password/request',
-  FORGOT_PASSWORD_RESET = '/api/v1/user/forgot_password/reset'
+  FORGOT_PASSWORD_RESET = '/api/v1/user/forgot_password/reset',
 }
 
 const AuthAxiosInstance: AxiosInstance = axios.create({
@@ -67,13 +67,13 @@ const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
   }).then((response) => response.data);
 
 const forgotPassword: (user: ForgotPasswordRequest) => Promise<void> = (
-    user: ForgotPasswordRequest,
-) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD, user).then(() => {});
+  user: ForgotPasswordRequest,
+) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD, user);
 
-const forgotPasswordReset: (user: ForgotPasswordResetRequest) => Promise<void> = (
+const forgotPasswordReset: (
   user: ForgotPasswordResetRequest,
-) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user).then(() => {});
-
+) => Promise<void> = (user: ForgotPasswordResetRequest) =>
+  AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user);
 
 const Client: AuthClient = Object.freeze({
   login,
@@ -81,7 +81,7 @@ const Client: AuthClient = Object.freeze({
   logout,
   refresh,
   forgotPassword,
-  forgotPasswordReset
+  forgotPasswordReset,
 });
 
 export default Client;
