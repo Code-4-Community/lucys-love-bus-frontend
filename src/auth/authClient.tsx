@@ -66,7 +66,6 @@ const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
     },
   }).then((response) => response.data);
 
-// TODO: maybe make these functions return Promise<Boolean> to let the user know what's up
 const forgotPassword: (user: ForgotPasswordRequest) => Promise<void> = (
     user: ForgotPasswordRequest,
 ) => AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD, user).then(() => {});

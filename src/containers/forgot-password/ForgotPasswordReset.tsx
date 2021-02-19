@@ -6,12 +6,28 @@ import authClient from '../../auth/authClient';
 
 const { Title } = Typography;
 
+interface NewPasswords {
+  readonly password: string,
+  readonly confirmPassword: string
+}
+
 const ForgotPasswordReset: React.FC = () => {
   const { key } = useParams();
 
-  // gotta change this
-  const onFinish = (values: any) => {
-    authClient.forgotPasswordReset({secretKey: key, newPassword: values.password});
+  const onFinish = (values: NewPasswords) => {
+    if (values.password.length < 8) {
+      alert('New password is too weak. Must be at least 8 characters long.');
+    }
+    else if (values.password !== values.confirmPassword) {
+      alert('Passwords don\'t match');
+    }
+    else {
+      authClient.forgotPasswordReset({secretKey: key, newPassword: values.password}).then(() => {
+        alert('Successfully reset password!');
+      }).catch((err) => {
+        alert('Was not able to reset password.');
+      });
+    }
   };
   return (
     <>

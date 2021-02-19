@@ -2,12 +2,17 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
 import authClient from '../../auth/authClient';
+import { ForgotPasswordRequest } from '../../auth/ducks/types';
 
 const { Title } = Typography;
 
 const ForgotPassword: React.FC = () => {
-    const onFinish = (values: any) => {
-        authClient.forgotPassword(values);
+    const onFinish = (values: ForgotPasswordRequest) => {
+        authClient.forgotPassword(values).then(() => {
+            alert('Successfully sent forgot password request!');
+        }).catch((err) => {
+            alert('Forgot password request unsuccessful!')
+        });
     };
     return (
         <>
