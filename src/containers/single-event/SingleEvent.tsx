@@ -39,7 +39,7 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
     }
   }, []);
 
-  const id: number = Number(useParams().id);
+  const id = Number(useParams().id);
 
   const conditionalRenderEventDetails = (
     eventsList: AsyncRequest<EventProps[], any>,
@@ -48,9 +48,6 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
-        if (event.length > 1) {
-          console.error(`Multiple events mapped to the same ID: ${event}`);
-        }
         return <EventDetails {...event[0]} />;
       } else {
         return <p>That event does not exist!</p>;

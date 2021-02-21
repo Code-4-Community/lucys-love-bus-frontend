@@ -70,7 +70,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
         </Content>
 
         {asyncRequestIsComplete(events) &&
-          (view == EventView.List ? (
+          (view === EventView.List ? (
             <EventsList events={events.result} />
           ) : (
             <Calendar events={events.result} />
