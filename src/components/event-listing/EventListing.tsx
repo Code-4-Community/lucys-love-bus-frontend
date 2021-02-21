@@ -62,7 +62,7 @@ const EventListing: React.FC<EventProps> = ({
           <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
           <ThinDivider />
           <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
-          <GreenButton to={`events/${id}`}>Register</GreenButton>
+          <GreenButton to={`/events/${id}`}>Register</GreenButton>
         </Info>
       </CardContent>
     </StyledCard>

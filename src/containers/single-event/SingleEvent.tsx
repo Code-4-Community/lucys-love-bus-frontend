@@ -6,7 +6,12 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import EventDetails from '../../components/event-details/EventDetails';
 import { C4CState } from '../../store';
-import { AsyncRequest, AsyncRequestKinds } from '../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsNotStarted,
+} from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
 
@@ -29,7 +34,7 @@ interface UpcomingEventsProps {
 const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (events.kind === AsyncRequestKinds.NotStarted) {
+    if (asyncRequestIsNotStarted(events)) {
       dispatch(getUpcomingEvents());
     }
   }, []);
@@ -39,15 +44,18 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
   const conditionalRenderEventDetails = (
     eventsList: AsyncRequest<EventProps[], any>,
   ) => {
-    if (eventsList.kind === AsyncRequestKinds.Completed) {
+    if (asyncRequestIsComplete(eventsList)) {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
+        if (event.length > 1) {
+          console.error(`Multiple events mapped to the same ID: ${event}`);
+        }
         return <EventDetails {...event[0]} />;
       } else {
         return <p>That event does not exist!</p>;
       }
-    } else if (eventsList.kind === AsyncRequestKinds.Failed) {
+    } else if (asyncRequestIsFailed(eventsList)) {
       return <p>The request failed.</p>;
     } else {
       return (
@@ -60,7 +68,13 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
 
   return (
     <>
-      <Helmet> </Helmet>
+      <Helmet>
+        <title>Event</title>
+        <meta
+          name="Lucy's Love Bus Events"
+          content="An event hosted through Lucy's Love Bus Programs."
+        />
+      </Helmet>
       <ContentContainer>
         {conditionalRenderEventDetails(events)}
       </ContentContainer>

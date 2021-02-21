@@ -1,6 +1,7 @@
 import { Button, Col, Row, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
 const { Title } = Typography;
@@ -77,6 +78,10 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{title}</title>
+        <meta name={title} content={details.description} />
+      </Helmet>
       <TopRow>
         <CardContent>
           <Col span={14}>
