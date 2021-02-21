@@ -38,9 +38,10 @@ enum EventView {
 
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUpcomingEvents());
-  }, []);
+  }, [dispatch]);
 
   const [view, setView] = useState<EventView>(EventView.List);
 

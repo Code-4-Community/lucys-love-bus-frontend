@@ -1,27 +1,43 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.less';
-import Footer from './components/Footer';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
+import { PrivilegeLevel } from './auth/ducks/types';
 import NavBar from './components/navbar';
-import Home from './containers/home/Home';
-import NotFound from './containers/not-found/NotFound';
-import Settings from './containers/settings/Settings';
+import Home from './containers/home';
+import Login from './containers/login';
+import NotFound from './containers/notFound/';
+import Settings from './containers/settings';
 import SignupFlow from './containers/signupFlow';
 import SingleEvent from './containers/single-event/SingleEvent';
-import BlockTemplate from './containers/template-1-col-block/Template';
-import GridTemplate from './containers/template-24-col-grid/Template';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import { C4CState } from './store';
+
 
 const { Content } = Layout;
 
-const FullScreenLayout = styled(Layout)`
+const AppInnerContainer = styled(Layout)`
   min-height: 100vh;
 `;
 
+export enum Routes {
+  HOME = '/',
+  LOGIN = '/login',
+  SIGNUP = '/signup',
+  SETTINGS = '/settings',
+  UPCOMING_EVENTS = '/upcoming-events',
+  EVENT = "/event/:id"
+}
+
 const App: React.FC = () => {
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
+
   return (
     <>
       <Helmet>
@@ -32,22 +48,64 @@ const App: React.FC = () => {
       </Helmet>
 
       <Router>
-        <FullScreenLayout>
+        <Layout>
           <NavBar />
           <Content>
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/block-template" exact component={BlockTemplate} />
-              <Route path="/grid-template" exact component={GridTemplate} />
-              <Route path="/events/:id" exact component={SingleEvent} />
-              <Route path="/signup" component={SignupFlow} />
-              <Route path="/upcoming-events" exact component={UpcomingEvents} />
-              <Route path="/settings" exact component={Settings} />
-              <Route path="*" exact component={NotFound} />
-            </Switch>
+            <AppInnerContainer>
+              {(() => {
+                switch (privilegeLevel) {
+                  case PrivilegeLevel.ADMIN:
+                  case PrivilegeLevel.STANDARD:
+                    return (
+                      <Switch>
+                        <Route path={Routes.HOME} exact component={Home} />
+                        <Route
+                          path={Routes.SIGNUP}
+                          exact
+                          component={SignupFlow}
+                        />
+                        <Route path={Routes.LOGIN} exact component={Login} />
+                        <Route
+                          path={Routes.UPCOMING_EVENTS}
+                          exact
+                          component={UpcomingEvents}
+                        />
+                        <Route
+                          path={Routes.EVENT}
+                          exact
+                          component={SingleEvent}
+                        />
+                        <Route
+                          path={Routes.SETTINGS}
+                          exact
+                          component={Settings}
+                        />
+                        <Route path="*" exact component={NotFound} />
+                      </Switch>
+                    );
+                  case PrivilegeLevel.NONE:
+                    return (
+                      <Switch>
+                        <Route path={Routes.HOME} exact component={Home} />
+                        <Route
+                          path={Routes.SIGNUP}
+                          exact
+                          component={SignupFlow}
+                        />
+                        <Route path={Routes.LOGIN} exact component={Login} />
+                        <Route
+                          path={Routes.UPCOMING_EVENTS}
+                          exact
+                          component={UpcomingEvents}
+                        />
+                        <Route path="*" exact component={NotFound} />
+                      </Switch>
+                    );
+                }
+              })()}
+            </AppInnerContainer>
           </Content>
-          <Footer />
-        </FullScreenLayout>
+        </Layout>
       </Router>
     </>
   );
