@@ -2,8 +2,8 @@ import { Badge, Calendar } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { LINK } from '../colors';
 import { EventProps } from '../containers/upcoming-events/ducks/types';
+import { LINK } from '../utils/colors';
 
 const EventsCalendarList = styled.ul`
   margin: 0;
