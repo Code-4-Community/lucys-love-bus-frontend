@@ -28,7 +28,7 @@ export enum Routes {
   SIGNUP = '/signup',
   SETTINGS = '/settings',
   UPCOMING_EVENTS = '/upcoming-events',
-  EVENT = '/event/:id',
+  EVENT = '/events/:id',
 }
 
 const App: React.FC = () => {
@@ -94,6 +94,11 @@ const App: React.FC = () => {
                         path={Routes.UPCOMING_EVENTS}
                         exact
                         component={UpcomingEvents}
+                      />
+                      <Route
+                        path={Routes.EVENT}
+                        exact
+                        component={SingleEvent}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
