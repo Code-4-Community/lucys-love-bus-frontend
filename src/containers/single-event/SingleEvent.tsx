@@ -31,6 +31,10 @@ interface UpcomingEventsProps {
   readonly events: EventsReducerState['upcomingEvents'];
 }
 
+interface SingleEventParams {
+  id: string;
+}
+
 const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +43,7 @@ const SingleEvent: React.FC<UpcomingEventsProps> = ({ events }) => {
     }
   }, []);
 
-  const id = Number(useParams().id);
+  const id = Number(useParams<SingleEventParams>().id);
 
   const conditionalRenderEventDetails = (
     eventsList: AsyncRequest<EventProps[], any>,
