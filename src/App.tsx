@@ -12,7 +12,7 @@ import Login from './containers/login';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
 import SignupFlow from './containers/signupFlow';
-import SingleEvent from './containers/single-event/SingleEvent';
+import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import { C4CState } from './store';
 
