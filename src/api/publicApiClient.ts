@@ -1,5 +1,5 @@
-import { EventProps } from '../containers/upcoming-events/ducks/types';
 import AppAxiosInstance from '../auth/axios';
+import { EventProps } from '../containers/upcoming-events/ducks/types';
 
 export interface ApiExtraArgs {
   readonly publicApiClient: PublicApiClient;
