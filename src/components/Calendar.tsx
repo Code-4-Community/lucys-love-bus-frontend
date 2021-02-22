@@ -30,34 +30,51 @@ interface CalendarData {
   content: string;
 }
 
+/**
+ * A loose interface for the Moment.js Moment objects used by AntD's calendar component.
+ */
+interface CalendarMoment {
+  date: () => number;
+  month: () => number;
+  year: () => number;
+}
+
 interface CalendarProps {
   events: EventProps[];
 }
 
-const matchesDateMonthYear = (eventDate: Date, value: any): boolean => {
+type DatePredicate = (d: Date, moment: CalendarMoment) => boolean;
+
+const matchesDateMonthYear: DatePredicate = (
+  eventDate: Date,
+  moment: CalendarMoment,
+): boolean => {
   return (
-    eventDate.getDate() === value.date() &&
-    eventDate.getMonth() === value.month() &&
-    eventDate.getFullYear() === value.year()
+    eventDate.getDate() === moment.date() &&
+    eventDate.getMonth() === moment.month() &&
+    eventDate.getFullYear() === moment.year()
   );
 };
 
-const matchesMonthYear = (eventDate: Date, value: any): boolean => {
+const matchesMonthYear: DatePredicate = (
+  eventDate: Date,
+  moment: CalendarMoment,
+): boolean => {
   return (
-    eventDate.getMonth() === value.month() &&
-    eventDate.getFullYear() === value.year()
+    eventDate.getMonth() === moment.month() &&
+    eventDate.getFullYear() === moment.year()
   );
 };
 
 const CalendarComponent: React.FC<CalendarProps> = ({ events }) => {
   function getListData(
-    value: any,
-    datePredicate: (d: Date, moment: any) => boolean,
+    moment: CalendarMoment,
+    datePredicate: DatePredicate,
   ): CalendarData[] {
     const listData: CalendarData[] = events
       .filter((e) => {
         const eventDate = new Date(e.details.start);
-        return datePredicate(eventDate, value);
+        return datePredicate(eventDate, moment);
       })
       .map((e) => {
         return { eventId: e.id, type: 'success', content: e.title };
@@ -66,17 +83,7 @@ const CalendarComponent: React.FC<CalendarProps> = ({ events }) => {
     return listData;
   }
 
-  function dateCellRender(value: any) {
-    const listData = getListData(value, matchesDateMonthYear);
-    return renderEventList(listData);
-  }
-
-  function monthCellRender(value: any) {
-    const listData = getListData(value, matchesMonthYear);
-    return renderEventList(listData);
-  }
-
-  function renderEventList(listData: CalendarData[]) {
+  function renderEventList(listData: CalendarData[]): JSX.Element {
     return (
       <EventsCalendarList>
         {listData.map((item) => (
@@ -88,6 +95,32 @@ const CalendarComponent: React.FC<CalendarProps> = ({ events }) => {
         ))}
       </EventsCalendarList>
     );
+  }
+
+  /**
+   * Candler date cell render handler required by AntD. Takes in a
+   * CalendarMoment (really a Moment.js object) that represents
+   * a Date. Given that date, conditionally renders the
+   * appropriate events for that day.
+   *
+   * @param moment
+   */
+  function dateCellRender(moment: CalendarMoment): JSX.Element {
+    const listData = getListData(moment, matchesDateMonthYear);
+    return renderEventList(listData);
+  }
+
+  /**
+   * Candler month cell render handler required by AntD. Takes in a
+   * CalendarMoment (really a Moment.js object) that represents
+   * a Date. Given that date, conditionally renders the
+   * appropriate events for that month.
+   *
+   * @param moment
+   */
+  function monthCellRender(moment: CalendarMoment): JSX.Element {
+    const listData = getListData(moment, matchesMonthYear);
+    return renderEventList(listData);
   }
 
   return (
