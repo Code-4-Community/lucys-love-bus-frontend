@@ -98,12 +98,11 @@ const CalendarComponent: React.FC<CalendarProps> = ({ events }) => {
   }
 
   /**
-   * Candler date cell render handler required by AntD. Takes in a
+   * Calendar date cell render handler required by AntD. Takes in a
    * CalendarMoment (really a Moment.js object) that represents
    * a Date. Given that date, conditionally renders the
    * appropriate events for that day.
    *
-   * @param moment
    */
   function dateCellRender(moment: CalendarMoment): JSX.Element {
     const listData = getListData(moment, matchesDateMonthYear);
@@ -111,12 +110,11 @@ const CalendarComponent: React.FC<CalendarProps> = ({ events }) => {
   }
 
   /**
-   * Candler month cell render handler required by AntD. Takes in a
+   * Calendar month cell render handler required by AntD. Takes in a
    * CalendarMoment (really a Moment.js object) that represents
    * a Date. Given that date, conditionally renders the
    * appropriate events for that month.
    *
-   * @param moment
    */
   function monthCellRender(moment: CalendarMoment): JSX.Element {
     const listData = getListData(moment, matchesMonthYear);
