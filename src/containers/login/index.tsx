@@ -7,6 +7,7 @@ import { connect, useDispatch } from 'react-redux';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { C4CState } from '../../store';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { ContentContainer } from '../../components';
 
 const { Title, Paragraph } = Typography;
 
@@ -23,7 +24,7 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
         <title>Login</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
         <Title>Login</Title>
         <Form name="basic" onFinish={onFinish}>
           <Form.Item
@@ -63,7 +64,7 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </ContentContainer>
     </>
   );
 };

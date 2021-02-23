@@ -2,19 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import './App.less';
-import Home from './containers/home/Home';
-import Signup from './containers/signup/Signup';
-import Login from './containers/login/Login';
-import ForgotPassword from './containers/forgot-password/ForgotPassword';
-import Settings from './containers/settings/Settings';
-import ForgotPasswordReset from './containers/forgot-password/ForgotPasswordReset';
-
-import NotFound from './containers/not-found/NotFound';
-import NavBar from './components/navbar/NavBar';
-import Footer from './components/Footer';
+import Home from './containers/home';
+import Signup from './containers/signup';
+import Login from './containers/login';
+import ForgotPassword from './containers/forgot-password';
+import ForgotPasswordReset from './containers/forgot-password-reset';
+import Settings from './containers/settings';
+import NotFound from './containers/notFound';
+import NavBar from './components/navbar';
 import { Layout } from 'antd';
 import styled from 'styled-components';
+import { PrivilegeLevel } from './auth/ducks/types';
+import { C4CState } from './store';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
+import { useSelector } from 'react-redux';
 
 const { Content } = Layout;
 
@@ -22,7 +23,20 @@ const AppInnerContainer = styled.div`
   min-height: 100vh;
 `;
 
+export enum Routes {
+  HOME = '/',
+  LOGIN = '/login',
+  SIGNUP = '/signup',
+  SETTINGS = '/settings',
+  FORGOT_PASSWORD = '/forgot-password',
+  FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key'
+}
+
 const App: React.FC = () => {
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
+
   return (
     <>
       <Helmet>
@@ -33,30 +47,42 @@ const App: React.FC = () => {
       </Helmet>
 
       <Router>
-        <Layout className="app-flex-container">
+        <Layout>
           <NavBar />
-          <Content className="content-padding">
+          <Content>
             <AppInnerContainer>
-              <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/login" exact component={Login} />
-                <Route
-                  path="/forgot-password"
-                  exact
-                  component={ForgotPassword}
-                />
-                <Route
-                  path="/forgot-password-reset/:key"
-                  exact
-                  component={ForgotPasswordReset}
-                />
-                <Route path="/signup" exact component={Signup} />
-                <Route path="/settings" exact component={Settings} />
-                <Route path="*" exact component={NotFound} />
-              </Switch>
+              {(() => {
+                switch (privilegeLevel) {
+                  case PrivilegeLevel.ADMIN:
+                  case PrivilegeLevel.STANDARD:
+                    return (
+                      <Switch>
+                        <Route path={Routes.HOME} exact component={Home} />
+                        <Route path={Routes.SIGNUP} exact component={Signup} />
+                        <Route path={Routes.LOGIN} exact component={Login} />
+                        <Route
+                          path={Routes.SETTINGS}
+                          exact
+                          component={Settings}
+                        />
+                        <Route path="*" exact component={NotFound} />
+                      </Switch>
+                    );
+                  case PrivilegeLevel.NONE:
+                    return (
+                      <Switch>
+                        <Route path={Routes.HOME} exact component={Home} />
+                        <Route path={Routes.SIGNUP} exact component={Signup} />
+                        <Route path={Routes.LOGIN} exact component={Login} />
+                        <Route path={Routes.FORGOT_PASSWORD} exact component={ForgotPassword} />
+                        <Route path={Routes.FORGOT_PASSWORD_RESET} exact component={ForgotPasswordReset} />
+                        <Route path="*" exact component={NotFound} />
+                      </Switch>
+                    );
+                }
+              })()}
             </AppInnerContainer>
           </Content>
-          <Footer />
         </Layout>
       </Router>
     </>
