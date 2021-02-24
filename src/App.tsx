@@ -27,7 +27,7 @@ export enum Routes {
   LOGIN = '/login',
   SIGNUP = '/signup',
   SETTINGS = '/settings',
-  VERIFY_EMAIL = '/verify/:key'
+  VERIFY_EMAIL = '/verify/:key',
 }
 
 const App: React.FC = () => {
@@ -72,7 +72,11 @@ const App: React.FC = () => {
                         <Route path={Routes.HOME} exact component={Home} />
                         <Route path={Routes.SIGNUP} exact component={Signup} />
                         <Route path={Routes.LOGIN} exact component={Login} />
-                        <Route path={Routes.VERIFY_EMAIL} exact component={VerifyEmail} />
+                        <Route
+                          path={Routes.VERIFY_EMAIL}
+                          exact
+                          component={VerifyEmail}
+                        />
                         <Route path="*" exact component={NotFound} />
                       </Switch>
                     );

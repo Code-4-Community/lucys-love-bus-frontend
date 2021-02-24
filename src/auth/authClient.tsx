@@ -18,7 +18,7 @@ export enum API_ROUTE {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
-  VERIFY_EMAIL = '/api/v1/user/verify/'
+  VERIFY_EMAIL = '/api/v1/user/verify/',
 }
 
 const AuthAxiosInstance: AxiosInstance = axios.create({
@@ -62,9 +62,7 @@ const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
     },
   }).then((response) => response.data);
 
-const verifyEmail: (secretKey: string) => Promise<void> = (
-  secretKey: string
-) =>
+const verifyEmail: (secretKey: string) => Promise<void> = (secretKey: string) =>
   AuthAxiosInstance.post(API_ROUTE.VERIFY_EMAIL + secretKey, null);
 
 const Client: AuthClient = Object.freeze({
@@ -72,7 +70,7 @@ const Client: AuthClient = Object.freeze({
   signup,
   logout,
   refresh,
-  verifyEmail
+  verifyEmail,
 });
 
 export default Client;

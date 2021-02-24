@@ -5,12 +5,11 @@ import { Typography } from 'antd';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
 import authClient from '../../auth/authClient';
-const { Title } = Typography;
 
 enum Status {
   SUCCESS = 1,
   WAITING = 0,
-  FAILURE = -1
+  FAILURE = -1,
 }
 
 const VerifyEmail: React.FC = () => {
@@ -20,11 +19,14 @@ const VerifyEmail: React.FC = () => {
   useEffect(() => {
     if (status === Status.WAITING) {
       // make a request
-      authClient.verifyEmail(key).then(() => {
-        setStatus(Status.SUCCESS);
-      }).catch(() => {
-        setStatus(Status.FAILURE);
-      })
+      authClient
+        .verifyEmail(key)
+        .then(() => {
+          setStatus(Status.SUCCESS);
+        })
+        .catch(() => {
+          setStatus(Status.FAILURE);
+        });
     }
   });
 
@@ -35,20 +37,21 @@ const VerifyEmail: React.FC = () => {
         <meta name="description" content="Description goes here." />
       </Helmet>
       <ContentContainer>
-        {/*<Title>Oops! We can't find the page you're looking for.</Title>*/}
         {(() => {
           switch (status) {
             case Status.FAILURE:
               return (
                 <>
-                  <Typography.Paragraph>Unable to verify email</Typography.Paragraph>
+                  <Typography.Paragraph>
+                    Unable to verify email
+                  </Typography.Paragraph>
                   <Link to={Routes.HOME}>
                     <Typography.Link>Take me back home!</Typography.Link>
                   </Link>
                 </>
               );
             case Status.WAITING:
-              return (<Typography.Paragraph>Loading...</Typography.Paragraph>);
+              return <Typography.Paragraph>Loading...</Typography.Paragraph>;
             case Status.SUCCESS:
               return (
                 <>
