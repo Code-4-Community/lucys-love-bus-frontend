@@ -31,7 +31,7 @@ const VerifyEmail: React.FC = () => {
           setStatus(AsyncRequestFailed(error));
         });
     }
-  });
+  }, [status, key]);
 
   return (
     <>
