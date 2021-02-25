@@ -5,27 +5,30 @@ import { Typography } from 'antd';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
 import authClient from '../../auth/authClient';
-
-enum Status {
-  SUCCESS = 1,
-  WAITING = 0,
-  FAILURE = -1,
-}
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsNotStarted,
+  AsyncRequestKinds,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
 
 const VerifyEmail: React.FC = () => {
   const { key } = useParams();
-  const [status, setStatus] = useState<Status>(0);
+  const [status, setStatus] = useState<AsyncRequest>(AsyncRequestNotStarted());
 
   useEffect(() => {
-    if (status === Status.WAITING) {
-      // make a request
+    if (asyncRequestIsNotStarted(status)) {
+      setStatus(AsyncRequestLoading());
       authClient
         .verifyEmail(key)
         .then(() => {
-          setStatus(Status.SUCCESS);
+          setStatus(AsyncRequestCompleted(undefined));
         })
-        .catch(() => {
-          setStatus(Status.FAILURE);
+        .catch((error) => {
+          setStatus(AsyncRequestFailed(error));
         });
     }
   });
@@ -33,13 +36,13 @@ const VerifyEmail: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Title goes here</title>
-        <meta name="description" content="Description goes here." />
+        <title>Verify Email</title>
+        <meta name="verifyEmail" content="Email verification page." />
       </Helmet>
       <ContentContainer>
         {(() => {
-          switch (status) {
-            case Status.FAILURE:
+          switch (status.kind) {
+            case AsyncRequestKinds.Failed:
               return (
                 <>
                   <Typography.Paragraph>
@@ -50,9 +53,9 @@ const VerifyEmail: React.FC = () => {
                   </Link>
                 </>
               );
-            case Status.WAITING:
+            case AsyncRequestKinds.Loading:
               return <Typography.Paragraph>Loading...</Typography.Paragraph>;
-            case Status.SUCCESS:
+            case AsyncRequestKinds.Completed:
               return (
                 <>
                   <Typography.Paragraph>Email verified!</Typography.Paragraph>

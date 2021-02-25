@@ -6,7 +6,7 @@ import Home from './containers/home';
 import Signup from './containers/signup';
 import Login from './containers/login';
 import Settings from './containers/settings';
-import VerifyEmail from './containers/verify-email';
+import VerifyEmail from './containers/verifyEmail';
 import NotFound from './containers/notFound';
 import NavBar from './components/navbar';
 import { Layout } from 'antd';

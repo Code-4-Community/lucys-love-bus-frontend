@@ -63,7 +63,8 @@ const refresh: (refreshToken: string) => Promise<RefreshTokenResponse> = (
   }).then((response) => response.data);
 
 const verifyEmail: (secretKey: string) => Promise<void> = (secretKey: string) =>
-  AuthAxiosInstance.post(API_ROUTE.VERIFY_EMAIL + secretKey, null);
+  // eslint-disable-next-line
+  AuthAxiosInstance.get(API_ROUTE.VERIFY_EMAIL + secretKey).then(() => {});
 
 const Client: AuthClient = Object.freeze({
   login,
