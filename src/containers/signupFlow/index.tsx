@@ -39,7 +39,6 @@ const SignupFlow: React.FC = () => {
             zipCode: GMForm.zip,
           },
           photoRelease: photoRelease,
-          referrer: string,
         },
         {
           mainContact: {
