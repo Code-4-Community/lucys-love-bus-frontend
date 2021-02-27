@@ -1,14 +1,19 @@
-import {
-  TokenPayload,
-  LoginRequest,
-  SignupRequest,
-  RefreshTokenResponse,
-} from './ducks/types';
 import axios, { AxiosInstance } from 'axios';
+import {
+  LoginRequest,
+  RefreshTokenResponse,
+  SetContactsRequest,
+  SignupRequest,
+  TokenPayload,
+} from './ducks/types';
 
 export interface AuthClient {
   readonly login: (user: LoginRequest) => Promise<TokenPayload>;
   readonly signup: (user: SignupRequest) => Promise<TokenPayload>;
+  readonly setContacts: (
+    contactInfo: SetContactsRequest,
+    accessToken: string,
+  ) => Promise<void>;
   readonly logout: (refreshToken: string) => Promise<void>;
   readonly refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
 }
@@ -17,6 +22,7 @@ export enum API_ROUTE {
   LOGIN = '/api/v1/user/login/',
   SIGNUP = '/api/v1/user/signup/',
   REFRESH = '/api/v1/user/login/refresh/',
+  SET_CONTACTS = '/api/v1/protected/user/contact_info/',
 }
 
 const AuthAxiosInstance: AxiosInstance = axios.create({
@@ -40,6 +46,17 @@ const signup: (user: SignupRequest) => Promise<TokenPayload> = (
   AuthAxiosInstance.post(API_ROUTE.SIGNUP, user).then(
     (response) => response.data,
   );
+
+const setContacts: (
+  contactInfo: SetContactsRequest,
+  accessToken: string,
+) => Promise<void> = (contactInfo: SetContactsRequest, accessToken: string) =>
+  AuthAxiosInstance.post(API_ROUTE.SET_CONTACTS, contactInfo, {
+    headers: {
+      'X-Access-Token':
+        accessToken ?? AuthAxiosInstance.defaults.headers['X-Access-Token'],
+    },
+  }).then((response) => response.data);
 
 const logout: (refreshToken: string) => Promise<void> = (
   refreshToken: string,
@@ -65,6 +82,7 @@ const Client: AuthClient = Object.freeze({
   signup,
   logout,
   refresh,
+  setContacts,
 });
 
 export default Client;

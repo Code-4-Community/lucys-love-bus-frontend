@@ -1,9 +1,9 @@
 import { ThunkAction } from 'redux-thunk';
+import { C4CState } from '../../store';
+import { AsyncRequest } from '../../utils/asyncRequest';
 import { AuthClient } from '../authClient';
 import { TokenService } from '../token';
-import { AsyncRequest } from '../../utils/asyncRequest';
 import { UserAuthenticationActions } from './actions';
-import { C4CState } from '../../store';
 
 export interface UserAuthenticationReducerState {
   readonly tokens: AsyncRequest<TokenPayload, any>;
@@ -31,6 +31,46 @@ export interface SignupRequest {
   readonly password: string;
   readonly firstName: string;
   readonly lastName: string;
+  readonly phoneNumber: string;
+  readonly location : {
+    readonly address: string;
+    readonly city: string;
+    readonly state: string;
+    readonly zipCode: string;
+  }
+  readonly photoRelease: boolean;
+  readonly referrer: string;
+}
+export interface SetContactsRequest {
+  mainContact: AdultContact;
+  additionalContacts: AdditionalContact[];
+  children: ChildContact[];
+}
+
+interface Contact {
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  phoneNumber: string;
+  pronouns: string;
+  allergies: string | null;
+  diagnosis: string | null;
+  medications: string | null;
+  notes: string | null;
+  profilePicture: string | null;
+}
+
+interface AdultContact extends Contact {
+  email: string;
+}
+
+interface AdditionalContact extends AdultContact {
+  shouldSendEmails: boolean;
+}
+
+interface ChildContact extends Contact {
+  school: string;
+  schoolYear: string;
 }
 
 export interface TokenPayload {

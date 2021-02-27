@@ -1,11 +1,12 @@
+import AppAxiosInstance from '../axios';
+import { authenticateUser, logoutUser } from './actions';
 import {
   LoginRequest,
+  SetContactsRequest,
   SignupRequest,
   TokenPayload,
-  UserAuthenticationThunkAction,
+  UserAuthenticationThunkAction
 } from './types';
-import { authenticateUser, logoutUser } from './actions';
-import AppAxiosInstance from '../axios';
 
 export const login = (
   loginRequest: LoginRequest,
@@ -28,6 +29,7 @@ export const login = (
 
 export const signup = (
   signupRequest: SignupRequest,
+  contactInfo: SetContactsRequest,
 ): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
     return authClient
@@ -38,6 +40,7 @@ export const signup = (
           response.accessToken;
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
+        authClient.setContacts(contactInfo, response.accessToken)
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));

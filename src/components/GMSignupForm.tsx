@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import FormContainer from './FormContainer';
 import FormInitialText from './FormInitialText';
@@ -32,7 +33,6 @@ interface SignupData {
   diagnosis?: string;
   otherNotes?: string;
   password: string;
-  // TODO: use correct file type
   profilePicture?: any;
 }
 
@@ -40,9 +40,10 @@ const GMSignupForm: React.FC<{
   setGMForm: React.Dispatch<React.SetStateAction<any | null>>;
 }> = ({ setGMForm }) => {
   const history = useHistory();
-
-  const onFinish = (values: any) => {
+  const dispatch = useDispatch();
+  const onFinish = (values: SignupData) => {
     setGMForm(values);
+    // this is bad, we will route before we know if the signup was successful.
     history.push('/signup/gm/confirmation');
   };
 
