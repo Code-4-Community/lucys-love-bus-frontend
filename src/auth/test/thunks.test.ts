@@ -96,12 +96,40 @@ describe('User Authentication Thunks', () => {
         publicApiClient,
       };
 
-      await signup({
-        password: 'password',
-        firstName: 'Jack',
-        lastName: 'Blanc',
-        email: 'jack@jackblanc.com',
-      })(mockDispatch, getState, mockExtraArgs);
+      await signup(
+        {
+          password: 'password',
+          firstName: 'Jack',
+          lastName: 'Blanc',
+          email: 'jack@jackblanc.com',
+          photoRelease: true,
+          phoneNumber: '',
+          location: {
+            address: '',
+            city: '',
+            state: '',
+            zipCode: '',
+          },
+        },
+        {
+          mainContact: {
+            firstName: '',
+            lastName: '',
+            dateOfBirth: '', // YYYY-MM-DD
+            phoneNumber: '',
+            pronouns: '',
+            allergies: '',
+            diagnosis: '',
+            medications: '',
+            notes: '',
+            profilePicture: '',
+            referrer: '',
+            email: '',
+          },
+          additionalContacts: [],
+          children: [],
+        },
+      )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
       expect(mockDispatch).toHaveBeenNthCalledWith(
@@ -128,12 +156,40 @@ describe('User Authentication Thunks', () => {
         publicApiClient,
       };
 
-      await signup({
-        email: 'jblanc222@gmail.com',
-        password: 'password',
-        firstName: 'Jack',
-        lastName: 'Blanc',
-      })(mockDispatch, getState, mockExtraArgs);
+      await signup(
+        {
+          email: 'jblanc222@gmail.com',
+          password: 'password',
+          firstName: 'Jack',
+          lastName: 'Blanc',
+          photoRelease: true,
+          phoneNumber: '',
+          location: {
+            address: '',
+            city: '',
+            state: '',
+            zipCode: '',
+          },
+        },
+        {
+          mainContact: {
+            firstName: '',
+            lastName: '',
+            dateOfBirth: '', // YYYY-MM-DD
+            phoneNumber: '',
+            pronouns: '',
+            allergies: '',
+            diagnosis: '',
+            medications: '',
+            notes: '',
+            profilePicture: '',
+            referrer: '',
+            email: '',
+          },
+          additionalContacts: [],
+          children: [],
+        },
+      )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
       expect(mockDispatch).toHaveBeenNthCalledWith(
