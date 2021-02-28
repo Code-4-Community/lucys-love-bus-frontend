@@ -4,6 +4,7 @@ import {
   Form,
   Input,
   Radio,
+  Select,
   Typography,
   Upload,
 } from 'antd';
@@ -18,7 +19,7 @@ import { LinkButton } from './LinkButton';
 const { Title, Paragraph } = Typography;
 const { Dragger } = Upload;
 const { TextArea } = Input;
-
+const { Option } = Select;
 interface SignupData {
   firstName: string;
   lastName: string;
@@ -237,6 +238,25 @@ const GMSignupForm: React.FC<{
             ]}
           >
             <Input placeholder="Zip Code" />
+          </Form.Item>
+
+          <Form.Item label="Referrer (if applicable)" name="referrer">
+            <Select
+              showSearch
+              style={{ width: 200 }}
+              placeholder="None"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option &&
+                option.children &&
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              <Option value="none">None</Option>
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+              <Option value="tom">Tom</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item label="Allergies (if applicable)" name="allergies">

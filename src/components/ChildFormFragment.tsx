@@ -78,7 +78,7 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
           { required: true, message: "Please input your child's school" },
         ]}
       >
-        <Input placeholder="First Name" />
+        <Input placeholder="School" />
       </Form.Item>
 
       <Form.Item
@@ -94,7 +94,7 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
           },
         ]}
       >
-        <Input placeholder="Last Name" />
+        <Input placeholder="Grade" />
       </Form.Item>
 
       <Form.Item
@@ -135,11 +135,11 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'picture']}
-        fieldKey={[field.fieldKey, 'picture']}
+        name={[field.name, 'profilePicture']}
+        fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"
       >
-        <Dragger>
+        <Dragger multiple={false} beforeUpload={() => false}>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>

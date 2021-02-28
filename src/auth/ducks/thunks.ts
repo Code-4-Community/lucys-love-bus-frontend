@@ -5,7 +5,7 @@ import {
   SetContactsRequest,
   SignupRequest,
   TokenPayload,
-  UserAuthenticationThunkAction
+  UserAuthenticationThunkAction,
 } from './types';
 
 export const login = (
@@ -40,7 +40,7 @@ export const signup = (
           response.accessToken;
         tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
-        authClient.setContacts(contactInfo, response.accessToken)
+        authClient.setContacts(contactInfo, response.accessToken);
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));

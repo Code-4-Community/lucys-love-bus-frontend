@@ -10,7 +10,7 @@ import PF2SignupForm from '../../components/PF2SignupForm';
 import SignupConfirmation from '../../components/SignupConfirmationForm';
 import SignupDirectory from '../../components/SignupDirectory';
 import SignupVerification from '../../components/SignupVerification';
-import convertToBase64String from '../../utils/convertToBase64String';
+import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 
 const SignupFlow: React.FC = () => {
   const [GMForm, setGMForm] = useState<any | null>(null);
@@ -18,12 +18,12 @@ const SignupFlow: React.FC = () => {
   const [PFForm2, setPFForm2] = useState<any | null>(null);
   const dispatch = useDispatch();
 
+  function convertToYearMonthDateString(d: Date): string {
+    return d.toISOString().split('T')[0];
+  }
+
   const submitGMForm = async (photoRelease: boolean) => {
-    const profilePicture = GMForm.profilePicture
-      ? await convertToBase64String(GMForm.profilePicture.file).catch(
-          (e) => null,
-        )
-      : null;
+    const profilePicture = await encodeProfileFieldFile(GMForm.profilePicture);
     dispatch(
       signup(
         {
@@ -38,20 +38,21 @@ const SignupFlow: React.FC = () => {
             state: GMForm.state,
             zipCode: GMForm.zip,
           },
-          photoRelease: photoRelease,
+          photoRelease,
         },
         {
           mainContact: {
             email: GMForm.email,
             firstName: GMForm.firstName,
             lastName: GMForm.lastName,
-            dateOfBirth: GMForm.birthday.toISOString().split('T')[0],
+            dateOfBirth: convertToYearMonthDateString(GMForm.birthday),
             phoneNumber: GMForm.phoneNumber,
             pronouns: GMForm.pronouns,
             allergies: GMForm.allergies ?? null,
             diagnosis: GMForm.diagnosis ?? null,
             medications: GMForm.medication ?? null,
             notes: GMForm.otherNotes ?? null,
+            referrer: GMForm.referrer === 'none' ? null : GMForm.referrer,
             profilePicture,
           },
           additionalContacts: [],
@@ -61,54 +62,83 @@ const SignupFlow: React.FC = () => {
     );
   };
 
-  const submitPFForm = (photoRelease: boolean) => {
-    // temporary console logs, just to show data is being collected correctly.
-    console.log(PFForm1); // tslint:disable-line
-    console.log(PFForm2); // tslint:disable-line
-    console.log(photoRelease); // tslint:disable-line
-    /*
-    addContactInfo({
-      mainContact: {
-        firstName: PFForm1.firstName,
-        lastName: PFForm1.lastName,
-        dateOfBirth: new Date(), // todo add field for date of birth
-        phoneNumber: PFForm1.phoneNumber,
-        pronouns: PFForm1.pronouns,
-        allergies: PFForm1.allergies ?? null,
-        diagnosis: PFForm1.diagnosis ?? null,
-        medication: PFForm1.medication ?? null,
-        notes: PFForm1.notes ?? null,
-        profilePicture: null,
-      },
-      additionalContacts: PFForm2.contacts.map((contact: any) => ({
-        firstName: contact.firstName,
-        lastName: contact.lastName,
-        dateOfBirth: contact.birthday._d,
-        phoneNumber: contact.phoneNumber,
-        pronouns: contact.pronouns,
-        allergies: contact.allergies ?? null,
-        diagnosis: contact.diagnosis ?? null,
-        medication: contact.medication ?? null,
-        notes: contact.notes ?? null,
-        email: contact.email,
-        shouldSendEmails: true, // todo: add field
-        profilePicture: null,
-      })),
-      children: PFForm2.children.map((child: any) => ({
-        firstName: child.firstName,
-        lastName: child.lastName,
-        dateOfBirth: child.birthday._d,
-        phoneNumber: child.phoneNumber,
-        pronouns: child.pronouns,
-        allergies: child.allergies ?? null,
-        diagnosis: child.diagnosis ?? null,
-        medication: child.medication ?? null,
-        notes: child.notes ?? null,
-        school: child.school,
-        grade: child.grade,
-        profilePicture: null,
-      })),
-    });*/
+  const submitPFForm = async (photoRelease: boolean) => {
+    dispatch(
+      signup(
+        {
+          email: PFForm1.email,
+          password: PFForm1.password,
+          firstName: PFForm1.firstName,
+          lastName: PFForm1.lastName,
+          phoneNumber: PFForm1.phoneNumber,
+          location: {
+            address: PFForm1.address,
+            city: PFForm1.city,
+            state: PFForm1.state,
+            zipCode: PFForm1.zip,
+          },
+          photoRelease,
+        },
+        {
+          mainContact: {
+            firstName: PFForm1.firstName,
+            lastName: PFForm1.lastName,
+            dateOfBirth: convertToYearMonthDateString(PFForm1.birthday),
+            phoneNumber: PFForm1.phoneNumber,
+            pronouns: PFForm1.pronouns,
+            allergies: PFForm1.allergies ?? null,
+            diagnosis: PFForm1.diagnosis ?? null,
+            medications: PFForm1.medication ?? null,
+            notes: PFForm1.otherNotes ?? null,
+            profilePicture: await encodeProfileFieldFile(
+              PFForm1.profilePicture,
+            ),
+            email: PFForm1.email,
+            referrer: PFForm1.referrer,
+          },
+          additionalContacts: PFForm2.children
+            ? await Promise.all(
+                PFForm2.contacts.map(async (contact: any) => ({
+                  firstName: contact.firstName,
+                  lastName: contact.lastName,
+                  dateOfBirth: convertToYearMonthDateString(contact.birthday),
+                  phoneNumber: contact.phoneNumber,
+                  pronouns: contact.pronouns,
+                  allergies: contact.allergies ?? null,
+                  diagnosis: contact.diagnosis ?? null,
+                  medications: contact.medication ?? null,
+                  notes: contact.otherNotes ?? null,
+                  email: contact.email,
+                  shouldSendEmails: true,
+                  profilePicture: await encodeProfileFieldFile(
+                    contact.profilePicture,
+                  ),
+                })),
+              )
+            : [],
+          children: PFForm2.children
+            ? await Promise.all(
+                PFForm2.children.map(async (child: any) => ({
+                  firstName: child.firstName,
+                  lastName: child.lastName,
+                  dateOfBirth: convertToYearMonthDateString(child.birthday),
+                  phoneNumber: child.phoneNumber,
+                  pronouns: child.pronouns,
+                  allergies: child.allergies ?? null,
+                  diagnosis: child.diagnosis ?? null,
+                  medications: child.medication ?? null,
+                  notes: child.otherNotes ?? null,
+                  school: child.school,
+                  schoolYear: child.grade,
+                  profilePicture: await encodeProfileFieldFile(
+                    child.profilePicture,
+                  ),
+                })),
+              )
+            : [],
+        },
+      ),
+    );
   };
 
   return (

@@ -32,14 +32,13 @@ export interface SignupRequest {
   readonly firstName: string;
   readonly lastName: string;
   readonly phoneNumber: string;
-  readonly location : {
+  readonly location: {
     readonly address: string;
     readonly city: string;
     readonly state: string;
     readonly zipCode: string;
-  }
+  };
   readonly photoRelease: boolean;
-  readonly referrer: string;
 }
 export interface SetContactsRequest {
   mainContact: AdultContact;
@@ -48,29 +47,30 @@ export interface SetContactsRequest {
 }
 
 interface Contact {
-  firstName: string;
-  lastName: string;
-  dateOfBirth: Date;
-  phoneNumber: string;
-  pronouns: string;
-  allergies: string | null;
-  diagnosis: string | null;
-  medications: string | null;
-  notes: string | null;
-  profilePicture: string | null;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly dateOfBirth: string; // YYYY-MM-DD
+  readonly phoneNumber: string;
+  readonly pronouns: string;
+  readonly allergies: string | null;
+  readonly diagnosis: string | null;
+  readonly medications: string | null;
+  readonly notes: string | null;
+  readonly profilePicture: string | null;
+  readonly referrer: string | null;
 }
 
 interface AdultContact extends Contact {
-  email: string;
+  readonly email: string;
 }
 
 interface AdditionalContact extends AdultContact {
-  shouldSendEmails: boolean;
+  readonly shouldSendEmails: boolean;
 }
 
 interface ChildContact extends Contact {
-  school: string;
-  schoolYear: string;
+  readonly school: string;
+  readonly schoolYear: string;
 }
 
 export interface TokenPayload {

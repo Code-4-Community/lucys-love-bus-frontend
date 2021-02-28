@@ -1,12 +1,22 @@
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Radio,
+  Select,
+  Typography,
+  Upload,
+} from 'antd';
 import React from 'react';
-import { Form, Input, Radio, Upload, Typography, Button } from 'antd';
-import { LinkButton } from './LinkButton';
-import FormInitialText from './FormInitialText';
-import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router-dom';
+import FormContainer from './FormContainer';
+import FormInitialText from './FormInitialText';
+import { LinkButton } from './LinkButton';
 
 const { Title, Paragraph } = Typography;
+const { Option } = Select;
 
 interface SignupData {
   firstName: string;
@@ -83,13 +93,13 @@ const PF1SignupForm: React.FC<{
           rules={[{ required: true, message: 'Please select your pronouns' }]}
         >
           <Radio.Group>
-            <Radio className="radio-item" value={1}>
+            <Radio className="radio-item" value={'He/Him'}>
               He/Him
             </Radio>
-            <Radio className="radio-item" value={2}>
+            <Radio className="radio-item" value={'She/Her'}>
               She/Her
             </Radio>
-            <Radio className="radio-item" value={4}>
+            <Radio className="radio-item" value={'They/Them'}>
               They/Them
             </Radio>
           </Radio.Group>
@@ -161,6 +171,20 @@ const PF1SignupForm: React.FC<{
         >
           <Input placeholder="Phone Number" />
         </Form.Item>
+        <Form.Item
+          name="birthday"
+          fieldKey="birthday"
+          label="Date of Birth"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your date of birth.',
+            },
+          ]}
+          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+        >
+          <DatePicker />
+        </Form.Item>
 
         <Form.Item
           name="address"
@@ -204,6 +228,25 @@ const PF1SignupForm: React.FC<{
           <Input placeholder="Zip Code" />
         </Form.Item>
 
+        <Form.Item label="Referrer (if applicable)" name="referrer">
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="None"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              option &&
+              option.children &&
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+          >
+            <Option value="none">None</Option>
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
+            <Option value="tom">Tom</Option>
+          </Select>
+        </Form.Item>
+
         <Form.Item label="Allergies (if applicable)" name="allergies">
           <TextArea rows={3} placeholder="Allergies" />
         </Form.Item>
@@ -220,8 +263,8 @@ const PF1SignupForm: React.FC<{
           <TextArea rows={3} placeholder="Other Notes" />
         </Form.Item>
 
-        <Form.Item label="Upload Profile Picture">
-          <Dragger>
+        <Form.Item label="Upload Profile Picture" name="profilePicture">
+          <Dragger multiple={false} beforeUpload={() => false}>
             <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
             <u>Or Browse Your Computer</u>
           </Dragger>

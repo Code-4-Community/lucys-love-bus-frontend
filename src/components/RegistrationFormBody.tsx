@@ -1,6 +1,6 @@
-import React from 'react';
-import { Form, Input, Radio, Upload, DatePicker } from 'antd';
+import { DatePicker, Form, Input, Radio, Upload } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
+import React from 'react';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -41,13 +41,13 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
         rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={1}>
+          <Radio className="radio-item" value={'He/Him'}>
             He/Him
           </Radio>
-          <Radio className="radio-item" value={2}>
+          <Radio className="radio-item" value={'She/Her'}>
             She/Her
           </Radio>
-          <Radio className="radio-item" value={4}>
+          <Radio className="radio-item" value={'They/Them'}>
             They/Them
           </Radio>
         </Radio.Group>
@@ -139,11 +139,11 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'picture']}
-        fieldKey={[field.fieldKey, 'picture']}
+        name={[field.name, 'profilePicture']}
+        fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"
       >
-        <Dragger>
+        <Dragger multiple={false} beforeUpload={() => false}>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>
