@@ -7,18 +7,19 @@ import {
   TokenPayload,
   UserAuthenticationThunkAction,
 } from './types';
+import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 
 export const login = (
   loginRequest: LoginRequest,
 ): UserAuthenticationThunkAction<void> => {
-  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
+  return (dispatch, getState, { authClient }): Promise<void> => {
+    dispatch(authenticateUser.loading());
     return authClient
       .login(loginRequest)
       .then((response: TokenPayload) => {
-        // TODO: move this side effect somewhere else
         AppAxiosInstance.defaults.headers['X-Access-Token'] =
           response.accessToken;
-        tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
       })
       .catch((error) => {
@@ -31,14 +32,13 @@ export const signup = (
   signupRequest: SignupRequest,
   contactInfo: SetContactsRequest,
 ): UserAuthenticationThunkAction<void> => {
-  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
+  return (dispatch, getState, { authClient }): Promise<void> => {
+    dispatch(authenticateUser.loading());
     return authClient
       .signup(signupRequest)
       .then((response) => {
-        // TODO: move this side effect somewhere else
         AppAxiosInstance.defaults.headers['X-Access-Token'] =
           response.accessToken;
-        tokenService.setRefreshToken(response.refreshToken);
         dispatch(authenticateUser.loaded(response));
         authClient.setContacts(contactInfo, response.accessToken);
       })
@@ -49,24 +49,25 @@ export const signup = (
 };
 
 export const logout = (): UserAuthenticationThunkAction<void> => {
-  return (dispatch, getState, { authClient, tokenService }): Promise<void> => {
-    const refreshToken = tokenService.getRefreshToken();
-    if (refreshToken === null) {
+  return (dispatch, getState, { authClient }): Promise<void> => {
+    localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
+
+    const state: C4CState = getState();
+
+    if (asyncRequestIsComplete(state.authenticationState.tokens)) {
+      const refreshToken: string =
+        state.authenticationState.tokens.result.refreshToken;
+      return authClient
+        .logout(refreshToken)
+        .then(() => {
+          dispatch(logoutUser.loaded());
+        })
+        .catch(() => {
+          dispatch(logoutUser.failed());
+        });
+    } else {
       dispatch(logoutUser.loaded());
       return Promise.resolve();
     }
-    delete AppAxiosInstance.defaults.headers['X-Access-Token'];
-    return authClient
-      .logout(refreshToken)
-      .then(() => {
-        tokenService.removeAccessToken();
-        tokenService.removeRefreshToken();
-        dispatch(logoutUser.loaded());
-      })
-      .catch(() => {
-        tokenService.removeAccessToken();
-        tokenService.removeRefreshToken();
-        dispatch(logoutUser.failed());
-      });
   };
 };

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Typography, Card, Carousel, Row, Col, Divider } from 'antd';
-import { ContentContainer } from '../../components';
+import { Card, Col, Row, Typography } from 'antd';
 import styled from 'styled-components';
-import { ORANGE, PRIMARY } from '../../colors';
+import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import AnnoucementCard from '../../components/AnnoucementCard';
-const { Title, Text, Paragraph } = Typography;
+
+const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
 

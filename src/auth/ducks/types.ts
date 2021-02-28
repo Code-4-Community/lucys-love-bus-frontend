@@ -2,7 +2,6 @@ import { ThunkAction } from 'redux-thunk';
 import { C4CState } from '../../store';
 import { AsyncRequest } from '../../utils/asyncRequest';
 import { AuthClient } from '../authClient';
-import { TokenService } from '../token';
 import { UserAuthenticationActions } from './actions';
 
 export interface UserAuthenticationReducerState {
@@ -11,7 +10,6 @@ export interface UserAuthenticationReducerState {
 
 export interface UserAuthenticationExtraArgs {
   readonly authClient: AuthClient;
-  readonly tokenService: TokenService;
 }
 
 export type UserAuthenticationThunkAction<R> = ThunkAction<
@@ -83,9 +81,9 @@ export interface RefreshTokenResponse {
 }
 
 export enum PrivilegeLevel {
-  NONE = -1,
-  STANDARD = 0,
-  ADMIN = 1,
+  NONE = 'none',
+  STANDARD = 'standard',
+  ADMIN = 'admin',
 }
 
 export const NO_USER_ID = -1;
