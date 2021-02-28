@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Card, Typography, Row, Col, Image } from 'antd';
 import styled from 'styled-components';
-import { DARK_GREY, ORANGE } from '../colors';
+import { DARK_GREY, ORANGE } from '../utils/colors';
 
 import { useHistory } from 'react-router-dom';
 const { Text, Link } = Typography;

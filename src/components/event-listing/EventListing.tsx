@@ -1,8 +1,9 @@
+import { Card, Divider, Typography } from 'antd';
+import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Divider, Button, Typography } from 'antd';
+import { LinkButton } from '../../components/LinkButton';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
-import dateFormat from 'dateformat';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -25,7 +26,7 @@ const ThinDivider = styled(Divider)`
   width: 100%;
 `;
 
-const GreenButton = styled(Button)`
+const GreenButton = styled(LinkButton)`
   color: white;
   background-color: #2d870d;
 `;
@@ -42,10 +43,10 @@ const Info = styled.div`
 `;
 
 const EventListing: React.FC<EventProps> = ({
-  src,
+  id,
+  thumbnail,
   title,
-  date,
-  description,
+  details,
 }) => {
   const defaultImg =
     'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
@@ -53,15 +54,15 @@ const EventListing: React.FC<EventProps> = ({
   return (
     <StyledCard>
       <CardContent>
-        <Thumbnail src={src || defaultImg}></Thumbnail>
+        <Thumbnail src={thumbnail || defaultImg} />
         <Info>
           <Title level={3}>{title}</Title>
-          <Text strong>{dateFormat(date, 'longDate')}</Text>
+          <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
-          <Text strong>{dateFormat(date, 'shortTime')}</Text>
+          <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
           <ThinDivider />
-          <Paragraph ellipsis={{ rows: 5 }}>{description}</Paragraph>
-          <GreenButton>Register</GreenButton>
+          <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
+          <GreenButton to={`/events/${id}`}>Register</GreenButton>
         </Info>
       </CardContent>
     </StyledCard>

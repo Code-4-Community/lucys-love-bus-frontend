@@ -5,8 +5,12 @@ import { Link } from 'react-router-dom';
 import { signup } from '../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import { C4CState } from '../../store';
-import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import {
+  SignupRequest,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
+import { ContentContainer } from '../../components';
 
 const { Title, Paragraph } = Typography;
 
@@ -14,7 +18,8 @@ type SignupProps = UserAuthenticationReducerState;
 
 const Signup: React.FC<SignupProps> = ({ tokens }) => {
   const dispatch = useDispatch();
-  const onFinish = (values: any) => {
+
+  const onFinish = (values: SignupRequest) => {
     dispatch(
       signup({
         email: values.email,
@@ -31,10 +36,7 @@ const Signup: React.FC<SignupProps> = ({ tokens }) => {
         <title>Sign Up</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
-        {/*
-          Place relevant components in here
-        */}
+      <ContentContainer>
         <Title>Sign Up</Title>
         <Form name="basic" onFinish={onFinish}>
           <Form.Item
@@ -102,7 +104,7 @@ const Signup: React.FC<SignupProps> = ({ tokens }) => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </ContentContainer>
     </>
   );
 };
