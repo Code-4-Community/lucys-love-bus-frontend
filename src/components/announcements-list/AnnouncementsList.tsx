@@ -1,58 +1,89 @@
 import { Row } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
-import { AppAxiosInstance } from '../../auth/axios'
+import { getAnnouncements } from '../../containers/announcements/ducks/thunks';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { connect, useDispatch } from 'react-redux';
+import { AnnouncementProps, AnnouncementsReducerState } from '../../containers/announcements/ducks/types';
+import { C4CState } from '../../store';
 
 const COLUMNS_PER_ROW = 3
 const NO_ANNOUNCEMENTS_MESSAGE = "There are currently no announcements!"
-const ANNOUNCEMENTS = '/api/v1/announcements/'
-    
+
 const AnnouncementRow = styled(Row)`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-bottom: 20px;
 `
 
-export interface AnnouncementsListProps {
+interface AnnouncementsProps {
+    readonly announcements: AnnouncementsReducerState['announcements'];
+}
+
+export interface AnnouncementsListProps extends AnnouncementsProps {
     limit?: number
 }
 
-export const AnnouncementsList: React.FC<AnnouncementsListProps> = props => {
-    const [announcements, setAnnouncements] = React.useState<Array<any>>([]);
+const AnnouncementsList: React.FC<AnnouncementsListProps> = props => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAnnouncements(props.limit));
+    }, [dispatch]);
 
-    React.useEffect(() => {
-        (async function () {
-            let announcementsData = await AppAxiosInstance.get(ANNOUNCEMENTS)
-                .then(response => response.data)
-                .then(data => { return data.announcements as any[] })
-                .then(announcements => { return (props.limit && props.limit >= 0) ? announcements.slice(0, props.limit) : announcements })
-                .catch(() => { return [] as any[] });
-            setAnnouncements(announcementsData);
-        })()
-    }, []);
+    const getNumRows = (announcements: AnnouncementProps[]): number => 
+        Math.ceil(announcements.length / COLUMNS_PER_ROW);
+ 
+    const getAnnouncementRows = (numRows: number, announcements: AnnouncementProps[]) => 
+        [...Array(numRows)].map((row, i) => announcements.slice(i * COLUMNS_PER_ROW, i * COLUMNS_PER_ROW + COLUMNS_PER_ROW));
 
-    let numRows = Math.ceil(announcements.length / COLUMNS_PER_ROW);
-    let rows = [...Array(numRows)];
-    let announcementRows = rows.map((row, i) => announcements.slice(i * COLUMNS_PER_ROW, i * COLUMNS_PER_ROW + COLUMNS_PER_ROW));
     return (
-        <div>
-            {
-                rows.length > 0 ? (
-                    announcementRows.map((row, i) => {
-                        return (
-                            <AnnouncementRow>
-                                {row.map((announcement, i) => {
-                                    return (
-                                        announcement.src ? <AnnouncementCard {...{ src: announcement.src, title: announcement.title, date: new Date(announcement.created), description: announcement.description }} key={i} />
-                                            : <AnnouncementCard {...{ title: announcement.title, date: new Date(announcement.created), description: announcement.description }} key={i} />
-                                    )
-                                })}
-                            </AnnouncementRow>
-                        )
-                    })
-                ) : NO_ANNOUNCEMENTS_MESSAGE
+        <>
+            { asyncRequestIsComplete(props.announcements) &&
+                <div>
+                    {
+                        getNumRows(props.announcements.result) > 0 ? (
+                            getAnnouncementRows(getNumRows(props.announcements.result), props.announcements.result).map((row, i) => {
+                                return (
+                                    <AnnouncementRow>
+                                        {row.map((announcement, i) => {
+                                            return (
+                                                announcement.imageSrc ?
+                                                    <AnnouncementCard
+                                                        {...{
+                                                            imageSrc: announcement.imageSrc,
+                                                            title: announcement.title,
+                                                            created: announcement.created,
+                                                            description: announcement.description
+                                                        }}
+                                                        key={i}
+                                                    />
+                                                    :
+                                                    <AnnouncementCard
+                                                        {...{
+                                                            title: announcement.title,
+                                                            created: announcement.created,
+                                                            description: announcement.description
+                                                        }}
+                                                        key={i}
+                                                    />
+                                            )
+                                        })}
+                                    </AnnouncementRow>
+                                )
+                            })
+                        ) : NO_ANNOUNCEMENTS_MESSAGE
+                    }
+                </div>
             }
-        </div>
+        </>
     );
 };
+
+const mapStateToProps = (state: C4CState): AnnouncementsProps => {
+    return {
+        announcements: state.announcementsState.announcements,
+    };
+};
+
+export default connect(mapStateToProps)(AnnouncementsList);

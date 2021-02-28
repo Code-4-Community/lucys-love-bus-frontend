@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import Modal from 'antd/lib/modal/Modal';
+import { AnnouncementProps } from '../containers/announcements/ducks/types';
 
 const { Text, Paragraph } = Typography;
 
@@ -30,19 +31,15 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export interface AnnouncementModalProps {
-    src?: string;
-    title: string;
-    date: Date;
-    description: string;
+export interface AnnouncementModalProps extends AnnouncementProps {
     isVisible: boolean;
     setIsModalVisible: (visible: boolean) => void
 }
 
 export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
-    src,
+    imageSrc,
     title,
-    date,
+    created,
     description,
     isVisible,
     setIsModalVisible
@@ -52,7 +49,7 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
         return (
             <>
                 <div>
-                    <DateText strong>{dateFormat(date, 'longDate')}</DateText>
+                    <DateText strong>{dateFormat(created, 'longDate')}</DateText>
                 </div>
                 <div>
                     <ModalTitle>{title}</ModalTitle>
@@ -65,9 +62,9 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
     }
 
     return (
-        src ? (
+        imageSrc ? (
             <AnnouncementsModal visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
-                <img alt="example" src={src} />
+                <img alt="example" src={imageSrc} />
                 {getModalContent()}
             </AnnouncementsModal>
         ) : (

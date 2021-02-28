@@ -1,8 +1,9 @@
-import { Divider, Card, Typography } from 'antd';
+import { Card, Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import { AnnouncementModal } from './AnnouncementModal';
+import { AnnouncementProps } from '../containers/announcements/ducks/types'
 
 const { Text, Paragraph } = Typography;
 
@@ -30,17 +31,10 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export interface AnnouncementCardProps {
-  src?: string;
-  title: string;
-  date: Date;
-  description: string;
-}
-
-export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
-  src,
+export const AnnouncementCard: React.FC<AnnouncementProps> = ({
+  imageSrc,
   title,
-  date,
+  created,
   description,
 }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
@@ -54,7 +48,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
     return (
       <>
         <div>
-          <DateText strong>{dateFormat(date, 'longDate')}</DateText>
+          <DateText strong>{dateFormat(created, 'longDate')}</DateText>
         </div>
         <div>
           <CardTitle>{title}</CardTitle>
@@ -67,16 +61,16 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
   }
 
   return (
-    src ? (
+    imageSrc ? (
       <>
-        <AnnouncementCardCover cover={<img alt="example" src={src} />} onClick={() => handleVisible()}>
+        <AnnouncementCardCover cover={<img alt="example" src={imageSrc} />} onClick={() => handleVisible()}>
           {getCardContent()}
         </AnnouncementCardCover>
 
         <AnnouncementModal
-          src={src}
+          imageSrc={imageSrc}
           title={title}
-          date={date}
+          created={created}
           description={description}
           isVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
@@ -90,7 +84,7 @@ export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
 
           <AnnouncementModal
             title={title}
-            date={date}
+            created={created}
             description={description}
             isVisible={isModalVisible}
             setIsModalVisible={setIsModalVisible}
