@@ -96,7 +96,7 @@ const SignupFlow: React.FC = () => {
             email: PFForm1.email,
             referrer: PFForm1.referrer,
           },
-          additionalContacts: PFForm2.children
+          additionalContacts: PFForm2.contacts
             ? await Promise.all(
                 PFForm2.contacts.map(async (contact: any) => ({
                   firstName: contact.firstName,
