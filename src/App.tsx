@@ -56,11 +56,7 @@ const App: React.FC = () => {
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
-                      <Route
-                        path={Routes.SIGNUP}
-                        exact
-                        component={SignupFlow}
-                      />
+                      <Route path={Routes.SIGNUP} component={SignupFlow} />
                       <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}
@@ -84,11 +80,7 @@ const App: React.FC = () => {
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
-                      <Route
-                        path={Routes.SIGNUP}
-                        exact
-                        component={SignupFlow}
-                      />
+                      <Route path={Routes.SIGNUP} component={SignupFlow} />
                       <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}

@@ -34,17 +34,15 @@ interface SignupData {
   diagnosis?: string;
   otherNotes?: string;
   password: string;
-  profilePicture?: any;
+  profilePicture?: File | FileList;
 }
 
 const GMSignupForm: React.FC<{
   setGMForm: React.Dispatch<React.SetStateAction<any | null>>;
 }> = ({ setGMForm }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const onFinish = (values: SignupData) => {
     setGMForm(values);
-    // this is bad, we will route before we know if the signup was successful.
     history.push('/signup/gm/confirmation');
   };
 
