@@ -6,7 +6,7 @@ import { ForgotPasswordRequest } from '../../auth/ducks/types';
 
 const { Title } = Typography;
 
-const ForgotPassword: React.FC = () => {
+const ForgotPasswordRequest: React.FC = () => {
   const onFinish = (values: ForgotPasswordRequest) => {
     authClient
       .forgotPassword(values)
@@ -44,4 +44,4 @@ const ForgotPassword: React.FC = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordRequest;

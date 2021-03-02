@@ -15,7 +15,7 @@ export interface AuthClient {
   refresh: (refreshToken: string) => Promise<RefreshTokenResponse>;
   forgotPassword: (user: ForgotPasswordRequest) => Promise<void>;
   forgotPasswordReset: (user: ForgotPasswordResetRequest) => Promise<void>;
-  verifyEmail: (secretKey: string) => Promise<void>;]
+  verifyEmail: (secretKey: string) => Promise<void>;
 }
 
 export enum API_ROUTE {

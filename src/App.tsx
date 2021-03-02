@@ -5,8 +5,8 @@ import { Helmet } from 'react-helmet';
 import Home from './containers/home';
 import Signup from './containers/signup';
 import Login from './containers/login';
-import ForgotPassword from './containers/forgot-password';
-import ForgotPasswordReset from './containers/forgot-password-reset';
+import ForgotPasswordRequest from './containers/forgotPasswordRequest';
+import ForgotPasswordReset from './containers/forgotPasswordReset';
 import Settings from './containers/settings';
 import VerifyEmail from './containers/verifyEmail';
 import NotFound from './containers/notFound';
@@ -29,8 +29,8 @@ export enum Routes {
   LOGIN = '/login',
   SIGNUP = '/signup',
   SETTINGS = '/settings',
-  FORGOT_PASSWORD = '/forgot-password',
-  FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key'
+  FORGOT_PASSWORD_REQUEST = '/forgot-password',
+  FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key',
   VERIFY_EMAIL = '/verify/:key',
 }
 
@@ -76,7 +76,7 @@ const App: React.FC = () => {
                         <Route path={Routes.HOME} exact component={Home} />
                         <Route path={Routes.SIGNUP} exact component={Signup} />
                         <Route path={Routes.LOGIN} exact component={Login} />
-                        <Route path={Routes.FORGOT_PASSWORD} exact component={ForgotPassword} />
+                        <Route path={Routes.FORGOT_PASSWORD_REQUEST} exact component={ForgotPasswordRequest} />
                         <Route path={Routes.FORGOT_PASSWORD_RESET} exact component={ForgotPasswordReset} />
                         <Route
                           path={Routes.VERIFY_EMAIL}
