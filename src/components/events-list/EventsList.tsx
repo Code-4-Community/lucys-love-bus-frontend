@@ -28,7 +28,7 @@ const PageNumber = styled.li`
 const EventsList: React.FC<EventsListProps> = ({ events }) => {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [eventsPerPage, setEventsPerPage] = useState<number>(6);
+  const [eventsPerPage, setEventsPerPage] = useState<number>(3);
 
   const indexOfLastEvent = currentPage * eventsPerPage;
   const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
@@ -42,7 +42,6 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
     setCurrentPage(event.target.id)
   }
 
-   // Logic for displaying page numbers
    const pageNumbers = [];
    for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
      pageNumbers.push(i);
@@ -60,7 +59,6 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
      );
    });
 
-  console.log(events)
   return (
     <div>
       <div className="cards">
