@@ -13,11 +13,11 @@ import { C4CState } from '../../store';
 const { Title } = Typography;
 
 export interface AnnouncementsDataProps {
-    readonly announcements: AnnouncementsReducerState['announcements'];
+  readonly announcements: AnnouncementsReducerState['announcements'];
 }
 
 export interface AnnouncementsContainerProps extends AnnouncementsDataProps {
-    limit?: number
+  limit?: number;
 }
 
 const Content = styled.div`
@@ -32,39 +32,39 @@ const StyledTitle = styled(Title)`
 `;
 
 const Announcements: React.FC<AnnouncementsContainerProps> = (props) => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAnnouncements(props.limit));
-    }, [dispatch, props.limit]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAnnouncements(props.limit));
+  }, [dispatch, props.limit]);
 
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-    return (
+  return (
+    <>
+      {asyncRequestIsComplete(props.announcements) && (
         <>
-            { asyncRequestIsComplete(props.announcements) &&
-                <>
-                    <Helmet>
-                        <title>Announcements</title>
-                        <meta name="Announcements" content="Description goes here." />
-                    </Helmet>
-                    <ChungusContentContainer>
-                        <Content>
-                            <StyledTitle>Announcements</StyledTitle>
-                        </Content>
-                        <AnnouncementsList announcements={props.announcements.result} />
-                    </ChungusContentContainer>
-                </>
-            }
+          <Helmet>
+            <title>Announcements</title>
+            <meta name="Announcements" content="Description goes here." />
+          </Helmet>
+          <ChungusContentContainer>
+            <Content>
+              <StyledTitle>Announcements</StyledTitle>
+            </Content>
+            <AnnouncementsList announcements={props.announcements.result} />
+          </ChungusContentContainer>
         </>
-    );
+      )}
+    </>
+  );
 };
 
 const mapStateToProps = (state: C4CState): AnnouncementsDataProps => {
-    return {
-        announcements: state.announcementsState.announcements,
-    };
+  return {
+    announcements: state.announcementsState.announcements,
+  };
 };
 
 export default connect(mapStateToProps)(Announcements);

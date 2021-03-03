@@ -30,7 +30,7 @@ export enum Routes {
   SETTINGS = '/settings',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
-  ANNOUNCEMENTS = '/announcements'
+  ANNOUNCEMENTS = '/announcements',
 }
 
 const App: React.FC = () => {

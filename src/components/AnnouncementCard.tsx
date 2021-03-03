@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import { AnnouncementModal } from './AnnouncementModal';
-import { AnnouncementProps } from '../containers/announcements/ducks/types'
+import { AnnouncementProps } from '../containers/announcements/ducks/types';
 
 const { Text, Paragraph } = Typography;
 
@@ -31,7 +31,7 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<AnnouncementProps> = props => {
+export const AnnouncementCard: React.FC<AnnouncementProps> = (props) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const getCardContent = (() => {
@@ -47,42 +47,44 @@ export const AnnouncementCard: React.FC<AnnouncementProps> = props => {
           <Paragraph ellipsis={{ rows: 3 }}>{props.description}</Paragraph>
         </div>
       </>
-    )
+    );
   })();
 
-  return (
-    props.imageSrc ? (
-      <>
-        <AnnouncementCardCover
-          cover={<img className="cardImg" alt="Announcement" src={props.imageSrc} />}
-          onClick={() => setIsModalVisible(prevState => !prevState)}
-        >
-          {getCardContent}
-        </AnnouncementCardCover>
+  return props.imageSrc ? (
+    <>
+      <AnnouncementCardCover
+        cover={
+          <img className="cardImg" alt="Announcement" src={props.imageSrc} />
+        }
+        onClick={() => setIsModalVisible((prevState) => !prevState)}
+      >
+        {getCardContent}
+      </AnnouncementCardCover>
 
-        <AnnouncementModal
-          imageSrc={props.imageSrc}
-          title={props.title}
-          created={props.created}
-          description={props.description}
-          isVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-        />
-      </>
-    ) : (
-        <>
-          <AnnouncementCardNoCover onClick={() => setIsModalVisible(prevState => !prevState)}>
-            {getCardContent}
-          </AnnouncementCardNoCover>
+      <AnnouncementModal
+        imageSrc={props.imageSrc}
+        title={props.title}
+        created={props.created}
+        description={props.description}
+        isVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+    </>
+  ) : (
+    <>
+      <AnnouncementCardNoCover
+        onClick={() => setIsModalVisible((prevState) => !prevState)}
+      >
+        {getCardContent}
+      </AnnouncementCardNoCover>
 
-          <AnnouncementModal
-            title={props.title}
-            created={props.created}
-            description={props.description}
-            isVisible={isModalVisible}
-            setIsModalVisible={setIsModalVisible}
-          />
-        </>
-      )
-  )
+      <AnnouncementModal
+        title={props.title}
+        created={props.created}
+        description={props.description}
+        isVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+    </>
+  );
 };
