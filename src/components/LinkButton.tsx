@@ -1,9 +1,13 @@
-import React from 'react';
 import { Button } from 'antd';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 // onClick is overwritten
 
-export const LinkButton: React.FC<any> = ({ to, ...rest }) => {
+interface LinkButtonProps {
+  to: string;
+}
+
+export const LinkButton: React.FC<LinkButtonProps> = ({ to, ...rest }) => {
   const history = useHistory();
 
   return (

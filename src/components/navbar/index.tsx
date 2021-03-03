@@ -12,6 +12,8 @@ import {
 import { C4CState } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PRIMARY } from '../../utils/colors';
+import { Routes } from '../../App';
 
 const { Text } = Typography;
 
@@ -81,7 +83,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
-    Home: '/',
+  Home: Routes.HOME,
     'Upcoming Events': '/upcoming-events',
     'My Events': '/grid-template',
   };
@@ -190,7 +192,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                     tab-index="0"
                     type="primary"
                     onClick={() => {
-                      history.push('/signup');
+                      history.push(Routes.SIGNUP);
                     }}
                   >
                     Sign Up

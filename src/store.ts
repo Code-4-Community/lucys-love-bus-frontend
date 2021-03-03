@@ -14,6 +14,9 @@ import {
 import userReducer, { initialUserState } from './auth/ducks/reducers';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
+import throttle from 'lodash/throttle';
+import AppAxiosInstance from './auth/axios';
+import { asyncRequestIsComplete } from './utils/asyncRequest';
 import tokenService from './auth/token';
 import protectedApiClient, { ApiExtraArgs } from './api/publicApiClient';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
@@ -34,7 +37,7 @@ export interface Action<T, P> {
 
 export type C4CAction = UserAuthenticationActions & EventsActions;
 
-export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
+export type ThunkExtraArgs = UserAuthenticationExtraArgs;// & ApiExtraArgs;
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
@@ -49,8 +52,29 @@ export const initialStoreState: C4CState = {
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
   tokenService,
-  protectedApiClient,
+  protectedApiClient
 };
+
+export const LOCALSTORAGE_STATE_KEY: string = 'state';
+
+const loadStateFromLocalStorage = (): C4CState | undefined => {
+  try {
+    const serializedState = localStorage.getItem(LOCALSTORAGE_STATE_KEY);
+    if (serializedState === null) {
+      return undefined;
+    }
+    const state: C4CState = JSON.parse(serializedState);
+    if (asyncRequestIsComplete(state.authenticationState.tokens)) {
+      AppAxiosInstance.defaults.headers['X-Access-Token'] =
+        state.authenticationState.tokens.result.accessToken;
+    }
+    return state;
+  } catch (err) {
+    return undefined;
+  }
+};
+
+const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
@@ -70,6 +94,18 @@ const store: Store<C4CState, C4CAction> = createStore<
   C4CAction,
   {},
   {}
->(reducers, initialStoreState, enhancer);
+>(reducers, preloadedState || initialStoreState, enhancer);
+
+store.subscribe(
+  throttle(() => {
+    const state: C4CState = store.getState();
+    try {
+      const serializedState = JSON.stringify(state);
+      localStorage.setItem(LOCALSTORAGE_STATE_KEY, serializedState);
+    } catch {
+      // ignore write errors
+    }
+  }, 10000),
+);
 
 export default store;
