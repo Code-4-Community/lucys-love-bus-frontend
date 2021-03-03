@@ -7,10 +7,6 @@ import Footer from './components/Footer';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SignupFlow from './containers/signupFlow';
 
-const FullScreenLayout = styled(Layout)`
-  min-height: 100vh;
-`;
-
 import Home from './containers/home';
 import Signup from './containers/signup';
 import Login from './containers/login';
@@ -26,6 +22,10 @@ import { PrivilegeLevel } from './auth/ducks/types';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { useSelector } from 'react-redux';
+
+const FullScreenLayout = styled(Layout)`
+  min-height: 100vh;
+`;
 
 const { Content } = Layout;
 

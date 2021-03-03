@@ -48,8 +48,7 @@
     "prettier": "prettier --check ./src/**/*.{ts,tsx,less}",
     "prettier-fix": "prettier --write ./src/**/*.{ts,tsx,less}",
     "type-check": "tsc",
-    "travis": "npm run lint && npm run prettier && npm run test && npm run build && npm run type-check",
-    "check": "npm run lint-fix && npm run prettier-fix && npm run type-check",
+    "travis": "npm run lint && npm run prettier && npm run test && npm run build && npm run type-check"
   },
   "browserslist": {
     "production": [

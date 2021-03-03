@@ -52,7 +52,7 @@ export const initialStoreState: C4CState = {
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
   tokenService,
-  protectedApiClient
+  // protectedApiClient
 };
 
 export const LOCALSTORAGE_STATE_KEY: string = 'state';
