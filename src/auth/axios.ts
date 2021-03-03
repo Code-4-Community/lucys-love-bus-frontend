@@ -5,7 +5,7 @@ import { UserAuthenticationReducerState } from './ducks/types';
 import { isTokenValid } from './ducks/selectors';
 import AuthClient from './authClient';
 
-export const AppAxiosInstance: AxiosInstance = axios.create({
+const AppAxiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_DOMAIN,
   timeout: 10000,
   headers: {

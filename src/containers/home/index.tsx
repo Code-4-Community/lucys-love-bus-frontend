@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
-import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
+import Announcements from '../announcements/Announcements';
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
@@ -135,7 +135,7 @@ const Home: React.FC = () => {
             View All Announcements
           </ViewMoreButton>
         </Row>
-        <AnnouncementsList limit={3} />
+        <Announcements limit={3} />
       </HomeContainer>
     </>
   );

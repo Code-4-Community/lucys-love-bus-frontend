@@ -1,12 +1,8 @@
 import { Row } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
-import { getAnnouncements } from '../../containers/announcements/ducks/thunks';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { connect, useDispatch } from 'react-redux';
-import { AnnouncementProps, AnnouncementsReducerState } from '../../containers/announcements/ducks/types';
-import { C4CState } from '../../store';
+import { AnnouncementProps } from '../../containers/announcements/ducks/types';
 
 const COLUMNS_PER_ROW = 3
 const NO_ANNOUNCEMENTS_HEADER = "There are currently no announcements!"
@@ -28,78 +24,43 @@ const NoAnnouncementsText = styled(NoAnnouncementsSubText)`
     font-weight: 800;
 `
 
-interface AnnouncementsProps {
-    readonly announcements: AnnouncementsReducerState['announcements'];
-}
-
-export interface AnnouncementsListProps extends AnnouncementsProps {
-    limit?: number
+export interface AnnouncementsListProps {
+    announcements: AnnouncementProps[]
 }
 
 const AnnouncementsList: React.FC<AnnouncementsListProps> = props => {
-    const dispatch = useDispatch();
+    const [numRows, setNumRows] = useState(0);
+
     useEffect(() => {
-        dispatch(getAnnouncements(props.limit));
-    }, [dispatch]);
+        let rows = Math.ceil(props.announcements.length / COLUMNS_PER_ROW);
+        setNumRows(rows);
+    }, [props.announcements])
 
-    const getNumRows = (announcements: AnnouncementProps[]): number =>
-        Math.ceil(announcements.length / COLUMNS_PER_ROW);
-
-    const getAnnouncementRows = (numRows: number, announcements: AnnouncementProps[]) =>
-        [...Array(numRows)].map((row, i) => announcements.slice(i * COLUMNS_PER_ROW, i * COLUMNS_PER_ROW + COLUMNS_PER_ROW));
+    const getAnnouncementRows = () =>
+        [...Array(numRows)].map((row, i) => props.announcements.slice(i * COLUMNS_PER_ROW, i * COLUMNS_PER_ROW + COLUMNS_PER_ROW));
 
     return (
         <>
-            { asyncRequestIsComplete(props.announcements) &&
-                <div>
-                    {
-                        getNumRows(props.announcements.result) > 0 ? (
-                            getAnnouncementRows(getNumRows(props.announcements.result), props.announcements.result).map((row, i) => {
-                                return (
-                                    <AnnouncementRow>
-                                        {row.map((announcement, i) => {
-                                            return (
-                                                announcement.imageSrc ?
-                                                    <AnnouncementCard
-                                                        {...{
-                                                            imageSrc: announcement.imageSrc,
-                                                            title: announcement.title,
-                                                            created: announcement.created,
-                                                            description: announcement.description
-                                                        }}
-                                                        key={i}
-                                                    />
-                                                    :
-                                                    <AnnouncementCard
-                                                        {...{
-                                                            title: announcement.title,
-                                                            created: announcement.created,
-                                                            description: announcement.description
-                                                        }}
-                                                        key={i}
-                                                    />
-                                            )
-                                        })}
-                                    </AnnouncementRow>
-                                )
-                            })
-                        ) : (
-                                <div>
-                                    <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
-                                    <NoAnnouncementsSubText>{NO_ANNOUNCEMENTS_SUBHEADER}</NoAnnouncementsSubText>
-                                </div>
-                            )
-                    }
-                </div>
+            {
+                numRows ? (
+                    getAnnouncementRows().map((row, i) => {
+                        return (
+                            <AnnouncementRow>
+                                {row.map((announcement, i) => {
+                                    return (
+                                        <AnnouncementCard {...announcement} />
+                                    )
+                                })}
+                            </AnnouncementRow>
+                        )
+                    })
+                ) : <div>
+                        <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
+                        <NoAnnouncementsSubText>{NO_ANNOUNCEMENTS_SUBHEADER}</NoAnnouncementsSubText>
+                    </div>
             }
         </>
     );
 };
 
-const mapStateToProps = (state: C4CState): AnnouncementsProps => {
-    return {
-        announcements: state.announcementsState.announcements,
-    };
-};
-
-export default connect(mapStateToProps)(AnnouncementsList);
+export default AnnouncementsList;

@@ -15,7 +15,7 @@ const ModalTitle = styled(Text)`
 const AnnouncementsModal = styled(Modal)`
   min-width: 200px;
   max-width: 400px;
-  img {
+  .cardImg {
     max-width: 100%;
     margin: 20px 0 10px 0;
   }
@@ -44,8 +44,8 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
     isVisible,
     setIsModalVisible
 }) => {
-    
-    const getModalContent = () => {
+
+    const getModalContent = (() => {
         return (
             <>
                 <div>
@@ -59,18 +59,16 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
                 </div>
             </>
         )
-    }
+    })();
 
     return (
         imageSrc ? (
             <AnnouncementsModal visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
-                <img alt="example" src={imageSrc} />
-                {getModalContent()}
+                <img className="cardImg" alt="Announcement" src={imageSrc} />
+                {getModalContent}
             </AnnouncementsModal>
-        ) : (
-                <AnnouncementsModalNoCover visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
-                    {getModalContent()}
-                </AnnouncementsModalNoCover>
-            )
+        ) : <AnnouncementsModalNoCover visible={isVisible} maskClosable={false} footer={null} onCancel={() => setIsModalVisible(false)}>
+                {getModalContent}
+            </AnnouncementsModalNoCover>
     )
 };

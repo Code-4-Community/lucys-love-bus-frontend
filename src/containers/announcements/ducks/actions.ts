@@ -1,6 +1,6 @@
 
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import { AnnouncementProps as AnnouncementProps } from './types';
+import { AnnouncementProps } from './types';
 
 export const announcements = genericAsyncActions<AnnouncementProps[], any>();
 

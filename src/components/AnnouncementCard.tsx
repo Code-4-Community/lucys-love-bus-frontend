@@ -21,7 +21,7 @@ const AnnouncementCardNoCover = styled(Card)`
 
 const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
   height: fit-content;
-  img {
+  .cardImg {
     height: 250px;
     object-fit: cover;
   }
@@ -31,61 +31,54 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<AnnouncementProps> = ({
-  imageSrc,
-  title,
-  created,
-  description,
-}) => {
+export const AnnouncementCard: React.FC<AnnouncementProps> = props => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
-
-  const handleVisible = () => {
-    setIsModalVisible(!isModalVisible);
-  }
-
-  const getCardContent = () => {
+  const getCardContent = (() => {
     return (
       <>
         <div>
-          <DateText strong>{dateFormat(created, 'longDate')}</DateText>
+          <DateText strong>{dateFormat(props.created, 'longDate')}</DateText>
         </div>
         <div>
-          <CardTitle>{title}</CardTitle>
+          <CardTitle>{props.title}</CardTitle>
         </div>
         <div>
-          <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+          <Paragraph ellipsis={{ rows: 3 }}>{props.description}</Paragraph>
         </div>
       </>
     )
-  }
+  })();
 
   return (
-    imageSrc ? (
+    props.imageSrc ? (
       <>
-        <AnnouncementCardCover cover={<img alt="example" src={imageSrc} />} onClick={() => handleVisible()}>
-          {getCardContent()}
+        <AnnouncementCardCover
+          cover={<img className="cardImg" alt="Announcement" src={props.imageSrc} />}
+          onClick={() => setIsModalVisible(prevState => !prevState)}
+        >
+          {getCardContent}
         </AnnouncementCardCover>
 
         <AnnouncementModal
-          imageSrc={imageSrc}
-          title={title}
-          created={created}
-          description={description}
+          imageSrc={props.imageSrc}
+          title={props.title}
+          created={props.created}
+          description={props.description}
           isVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}
         />
       </>
     ) : (
         <>
-          <AnnouncementCardNoCover onClick={() => handleVisible()}>
-            {getCardContent()}
+          <AnnouncementCardNoCover onClick={() => setIsModalVisible(prevState => !prevState)}>
+            {getCardContent}
           </AnnouncementCardNoCover>
 
           <AnnouncementModal
-            title={title}
-            created={created}
-            description={description}
+            title={props.title}
+            created={props.created}
+            description={props.description}
             isVisible={isModalVisible}
             setIsModalVisible={setIsModalVisible}
           />
