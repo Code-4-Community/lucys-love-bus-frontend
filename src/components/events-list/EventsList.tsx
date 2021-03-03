@@ -11,22 +11,21 @@ const PageNumbersWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-`
+`;
 
 const PageNumber = styled.li`
-    font-size: 30px;
-    list-style-type: none;
-    margin: 1rem;
-    cursor: pointer;
-    transition: all .1s ease-in-out;
+  font-size: 30px;
+  list-style-type: none;
+  margin: 1rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
 
-    &:hover {
-      transform: scale(1.2);
-    }
-`
+  &:hover {
+    transform: scale(1.2);
+  }
+`;
 
 const EventsList: React.FC<EventsListProps> = ({ events }) => {
-
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [eventsPerPage, setEventsPerPage] = useState<number>(3);
 
@@ -39,34 +38,26 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
   ));
 
   const handlePageClick = (event: any) => {
-    setCurrentPage(event.target.id)
+    setCurrentPage(event.target.id);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
+    pageNumbers.push(i);
   }
 
-   const pageNumbers = [];
-   for (let i = 1; i <= Math.ceil(events.length / eventsPerPage); i++) {
-     pageNumbers.push(i);
-   }
-
-   const renderPageNumbers = pageNumbers.map(number => {
-     return (
-       <PageNumber
-         key={number}
-         id={number.toString()}
-         onClick={handlePageClick}
-       >
-         {number}
-       </PageNumber>
-     );
-   });
+  const renderPageNumbers = pageNumbers.map((number) => {
+    return (
+      <PageNumber key={number} id={number.toString()} onClick={handlePageClick}>
+        {number}
+      </PageNumber>
+    );
+  });
 
   return (
     <div>
-      <div className="cards">
-        {renderTodos}
-      </div>
-      <PageNumbersWrapper>
-        {renderPageNumbers}
-      </PageNumbersWrapper>
+      <div className="cards">{renderTodos}</div>
+      <PageNumbersWrapper>{renderPageNumbers}</PageNumbersWrapper>
     </div>
   );
 };
