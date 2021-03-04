@@ -106,7 +106,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   }
 
   const renderPageNumbers = pageNumbers.map((number) => {
-    if (number != currentPage) {
+    if (number !== currentPage) {
       return (
         <PageNumber key={number} value={number} onClick={handlePageClick}>
           {number}
@@ -136,6 +136,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
           {announcements.length > 6 ? (
             <PageNumbersWrapper>
               <ArrowButton
+                key='prev'
                 onClick={
                   currentPage === 1 ? handleNoOnClick : handlePreviousPage
                 }
@@ -144,6 +145,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
               </ArrowButton>
               {renderPageNumbers}
               <ArrowButton
+                key='next'
                 onClick={
                   currentPage === pageNumbers[pageNumbers.length - 1]
                     ? handleNoOnClick
