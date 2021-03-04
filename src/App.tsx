@@ -76,8 +76,16 @@ const App: React.FC = () => {
                         <Route path={Routes.HOME} exact component={Home} />
                         <Route path={Routes.SIGNUP} exact component={Signup} />
                         <Route path={Routes.LOGIN} exact component={Login} />
-                        <Route path={Routes.FORGOT_PASSWORD_REQUEST} exact component={ForgotPassword} />
-                        <Route path={Routes.FORGOT_PASSWORD_RESET} exact component={ForgotPasswordReset} />
+                        <Route
+                          path={Routes.FORGOT_PASSWORD_REQUEST}
+                          exact
+                          component={ForgotPassword}
+                        />
+                        <Route
+                          path={Routes.FORGOT_PASSWORD_RESET}
+                          exact
+                          component={ForgotPasswordReset}
+                        />
                         <Route
                           path={Routes.VERIFY_EMAIL}
                           exact
