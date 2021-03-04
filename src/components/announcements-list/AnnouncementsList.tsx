@@ -37,6 +37,16 @@ const PageNumber = styled.li`
   border: 1px solid #D9D9D9;
   box-sizing: border-box;
   border-radius: 4px;
+  margin: 0px 8px;
+`;
+
+const SelectedPageNumber = styled(PageNumber)`
+  color: #1890FF;
+  border: 1px solid #1890FF;
+`;
+
+const ArrowButton = styled(PageNumber)`
+  color: #BFBFBF;
 `;
 
 export interface AnnouncementsListProps {
@@ -46,6 +56,14 @@ export interface AnnouncementsListProps {
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) => {
   const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(6);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const handleNextPage = (event: any) => {
+    setCurrentPage(currentPage + 1);
+  }
+
+  const handlePreviousPage = (event: any) => {
+    setCurrentPage(currentPage - 1);
+  }
 
   const handlePageClick = (event: any) => {
     setCurrentPage(event.target.id);
@@ -61,11 +79,17 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
   }
 
   const renderPageNumbers = pageNumbers.map((number) => {
-    return (
-      <PageNumber key={number} id={number.toString()} onClick={handlePageClick}>
+
+    if (number != currentPage) {
+      return <PageNumber key={number} id={number.toString()} onClick={handlePageClick}>
         {number}
       </PageNumber>
-    );
+    }
+    else {
+      return <SelectedPageNumber key={number} id={number.toString()} onClick={handlePageClick}>
+      {number}
+    </SelectedPageNumber>
+    }
   });
 
   return (
@@ -77,7 +101,21 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
       </AnnouncementsListWrapper>
 
       <PageNumbersWrapper>
+        {currentPage == 1 ? 
+        <ArrowButton>
+          {'<'}
+        </ArrowButton> :
+        <ArrowButton onClick={handlePreviousPage}>
+          {'<'}
+        </ArrowButton>}
         {renderPageNumbers}
+        {currentPage == pageNumbers[pageNumbers.length - 1] ? 
+        <ArrowButton>
+          {'>'}
+        </ArrowButton> :
+        <ArrowButton onClick={handleNextPage}>
+          {'>'}
+        </ArrowButton>}
       </PageNumbersWrapper>
     </>
   );
