@@ -133,7 +133,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
             })}
           </AnnouncementsListWrapper>
 
-          {announcements.length > 6 ? (
+          {announcements.length > announcementsPerPage ? (
             <PageNumbersWrapper>
               <ArrowButton
                 key="prev"
