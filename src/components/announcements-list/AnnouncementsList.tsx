@@ -1,8 +1,8 @@
-import { Row } from 'antd';
 import React, { useState } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
 import { AnnouncementProps } from '../../containers/announcements/ducks/types';
+import { ORANGE, LINK } from '../../utils/colors';
 
 const NoAnnouncementsSubText = styled.span`
   display: block;
@@ -10,7 +10,7 @@ const NoAnnouncementsSubText = styled.span`
 `;
 
 const NoAnnouncementsText = styled(NoAnnouncementsSubText)`
-  color: #ce4a00;
+  color: ${ORANGE};
   font-size: 36px;
   font-weight: 800;
 `;
@@ -41,8 +41,8 @@ const PageNumber = styled.li`
 `;
 
 const SelectedPageNumber = styled(PageNumber)`
-  color: #1890FF;
-  border: 1px solid #1890FF;
+  color: ${LINK};
+  border: 1px solid ${LINK};
 `;
 
 const ArrowButton = styled(PageNumber)`
@@ -58,6 +58,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = (event: any) => {
+    console.log(event.target.id);
     setCurrentPage(currentPage + 1);
   }
 
@@ -70,7 +71,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
   }
 
   const handlePageClick = (event: any) => {
-    setCurrentPage(event.target.id);
+    setCurrentPage(parseInt(event.target.id));
   };
 
   const indexOfLastAnnouncement = currentPage * announcementsPerPage;
@@ -83,7 +84,6 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
   }
 
   const renderPageNumbers = pageNumbers.map((number) => {
-
     if (number != currentPage) {
       return <PageNumber key={number} id={number.toString()} onClick={handlePageClick}>
         {number}
@@ -103,8 +103,8 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
           return <AnnouncementCard {...announcement}/>
         })}
       </AnnouncementsListWrapper>
-
-      <PageNumbersWrapper>
+      
+      {announcements.length > 6 ? <PageNumbersWrapper>
         <ArrowButton onClick={currentPage == 1 ? handleNoOnClick : handlePreviousPage}>
           {'<'}
         </ArrowButton>
@@ -112,7 +112,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
         <ArrowButton onClick={currentPage == pageNumbers[pageNumbers.length - 1] ? handleNoOnClick : handleNextPage}>
           {'>'}
         </ArrowButton>
-      </PageNumbersWrapper>
+      </PageNumbersWrapper> : null}
     </>
   );
 };

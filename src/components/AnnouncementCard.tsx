@@ -17,6 +17,7 @@ const AnnouncementCardNoCover = styled(Card)`
   height: 100%;
   min-width: 200px;
   max-width: 400px;
+  margin: 16px 16px;
 
   @media screen and (min-width: 800px) {
     min-width: 400px;
