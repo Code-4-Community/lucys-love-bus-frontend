@@ -65,6 +65,10 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
     setCurrentPage(currentPage - 1);
   }
 
+  const handleNoOnClick = (event: any) => {
+    setCurrentPage(currentPage);
+  }
+
   const handlePageClick = (event: any) => {
     setCurrentPage(event.target.id);
   };
@@ -101,21 +105,13 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({announcements}) =>
       </AnnouncementsListWrapper>
 
       <PageNumbersWrapper>
-        {currentPage == 1 ? 
-        <ArrowButton>
+        <ArrowButton onClick={currentPage == 1 ? handleNoOnClick : handlePreviousPage}>
           {'<'}
-        </ArrowButton> :
-        <ArrowButton onClick={handlePreviousPage}>
-          {'<'}
-        </ArrowButton>}
+        </ArrowButton>
         {renderPageNumbers}
-        {currentPage == pageNumbers[pageNumbers.length - 1] ? 
-        <ArrowButton>
+        <ArrowButton onClick={currentPage == pageNumbers[pageNumbers.length - 1] ? handleNoOnClick : handleNextPage}>
           {'>'}
-        </ArrowButton> :
-        <ArrowButton onClick={handleNextPage}>
-          {'>'}
-        </ArrowButton>}
+        </ArrowButton>
       </PageNumbersWrapper>
     </>
   );
