@@ -5,19 +5,19 @@ import { AnnouncementsActions } from './actions';
 import { ApiExtraArgs } from '../../../api/publicApiClient';
 
 export interface AnnouncementsReducerState {
-    readonly announcements: AsyncRequest<AnnouncementProps[], any>;
+  readonly announcements: AsyncRequest<AnnouncementProps[], any>;
 }
 
 export type AnnouncementsThunkAction<R> = ThunkAction<
-    R,
-    C4CState,
-    ApiExtraArgs,
-    AnnouncementsActions
+  R,
+  C4CState,
+  ApiExtraArgs,
+  AnnouncementsActions
 >;
 
 export interface AnnouncementProps {
-    imageSrc?: string;
-    title: string;
-    created: Date;
-    description: string;
+  imageSrc?: string;
+  title: string;
+  created: Date;
+  description: string;
 }
