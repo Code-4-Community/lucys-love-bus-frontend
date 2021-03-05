@@ -13,40 +13,6 @@ const AppAxiosInstance: AxiosInstance = axios.create({
   },
 });
 
-// const listener = () => {
-//   const state: C4CState = store.getState();
-//   if (state.authenticationState.tokens.kind === AsyncRequestKinds.Completed) {
-//     AppAxiosInstance.defaults.headers['X-Access-Token'] =
-//       state.authenticationState.tokens.result.accessToken;
-//   }
-// };
-//
-// // store.subscribe(listener);
-
-// const responseErrorInterceptor: (error: AxiosError) => void = (error) => {
-//   // const originalRequest = error.config;
-//   if (
-//     error.code === '401' &&
-//     error.message === INVALID_ACCESS_TOKEN &&
-//     tokenService.isRefreshTokenValid()
-//   ) {
-//     // return refresh().then(() => {
-//     //   Instance.defaults.headers[
-//     //     'X-Access-Token'
-//     //   ] = tokenService.getAccessToken();
-//     //   return Instance(originalRequest);
-//     // });
-//   }
-//   if (
-//     error.code === '401' &&
-//     error.message === INVALID_ACCESS_TOKEN &&
-//     !tokenService.isRefreshTokenValid()
-//   ) {
-//     // logout();
-//   }
-//   return Promise.reject(error);
-// };
-
 const INVALID_ACCESS_TOKEN: string = 'Given access token is expired or invalid';
 
 const responseErrorInterceptor = (error: AxiosError) => {

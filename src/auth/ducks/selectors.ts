@@ -1,8 +1,15 @@
-import { PrivilegeLevel, NO_USER_ID, TokenPayload, UserAuthenticationReducerState } from './types';
-import { asyncRequestIsComplete, AsyncRequest, AsyncRequestKinds } from '../../utils/asyncRequest';
+import {
+  NO_USER_ID,
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from './types';
+import {
+  asyncRequestIsComplete,
+  AsyncRequestKinds,
+} from '../../utils/asyncRequest';
 
 export const getPrivilegeLevel = (
-  tokens: AsyncRequest<TokenPayload, any>,
+  tokens: UserAuthenticationReducerState['tokens'],
 ): PrivilegeLevel => {
   if (tokens.kind === AsyncRequestKinds.Completed) {
     const payload = JSON.parse(atob(tokens.result.accessToken.split('.')[1]));

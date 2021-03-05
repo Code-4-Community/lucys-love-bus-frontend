@@ -2,9 +2,9 @@ import { EventProps, EventsThunkAction } from './types';
 import { upcomingEvents } from './actions';
 
 export const getUpcomingEvents = (): EventsThunkAction<void> => {
-  return (dispatch, getState, { protectedApiClient }) => {
+  return (dispatch, getState, { publicApiClient }) => {
     dispatch(upcomingEvents.loading());
-    return protectedApiClient
+    return publicApiClient
       .getUpcomingEvents()
       .then((response: EventProps[]) => {
         dispatch(upcomingEvents.loaded(response));
