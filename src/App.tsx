@@ -6,6 +6,7 @@ import './App.less';
 import Footer from './components/Footer';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import SignupFlow from './containers/signupFlow';
+import SingleEvent from './containers/singleEvent';
 
 import Home from './containers/home';
 import Signup from './containers/signup';
@@ -41,6 +42,8 @@ export enum Routes {
   FORGOT_PASSWORD_REQUEST = '/forgot-password',
   FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key',
   VERIFY_EMAIL = '/verify/:key',
+  UPCOMING_EVENTS = '/upcoming-events',
+  EVENT = '/events/:id',
 }
 
 const App: React.FC = () => {
@@ -72,11 +75,21 @@ const App: React.FC = () => {
                         <Route path={Routes.SIGNUP} exact component={Signup} />
                         <Route path={Routes.LOGIN} exact component={Login} />
                         <Route
-                          path={Routes.SETTINGS}
-                          exact
-                          component={Settings}
+                            path={Routes.UPCOMING_EVENTS}
+                            exact
+                            component={UpcomingEvents}
+                        />
+                        <Route
+                            path={Routes.EVENT}
+                            exact
+                            component={SingleEvent}
                         />
                         <Route path="*" exact component={NotFound} />
+                        <Route
+                            path={Routes.SETTINGS}
+                            exact
+                            component={Settings}
+                        />
                       </Switch>
                     );
                   case PrivilegeLevel.NONE:
@@ -85,6 +98,16 @@ const App: React.FC = () => {
                         <Route path={Routes.HOME} exact component={Home} />
                         <Route path={Routes.SIGNUP} exact component={Signup} />
                         <Route path={Routes.LOGIN} exact component={Login} />
+                        <Route
+                            path={Routes.UPCOMING_EVENTS}
+                            exact
+                            component={UpcomingEvents}
+                        />
+                        <Route
+                            path={Routes.EVENT}
+                            exact
+                            component={SingleEvent}
+                        />
                         <Route path={Routes.FORGOT_PASSWORD_REQUEST} exact component={ForgotPassword} />
                         <Route path={Routes.FORGOT_PASSWORD_RESET} exact component={ForgotPasswordReset} />
                         <Route
