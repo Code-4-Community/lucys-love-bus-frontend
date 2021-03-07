@@ -87,6 +87,6 @@ describe('Authentication Client Tests', () => {
       } catch (e) {
         fail(e);
       }
-    })
-  })
+    });
+  });
 });

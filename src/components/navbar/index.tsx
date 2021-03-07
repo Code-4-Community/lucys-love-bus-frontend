@@ -56,7 +56,6 @@ const LogoContainer = styled.div`
   padding-right: 24px;
 `;
 
-
 const TextColumn = styled(Col)`
   padding-right: 16px;
 `;
@@ -65,7 +64,6 @@ const NavBarText = styled(Text)`
   font-weight: 700;
   line-height: 1.15;
 `;
-
 
 const Subtitle = styled(Text)`
   color: ${ORANGE};
