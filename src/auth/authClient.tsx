@@ -52,10 +52,6 @@ const setContacts: (
   accessToken: string,
 ) => Promise<void> = (contactInfo: SetContactsRequest, accessToken: string) =>
   AuthAxiosInstance.post(API_ROUTE.SET_CONTACTS, contactInfo, {
-    headers: {
-      'X-Access-Token':
-        accessToken ?? AuthAxiosInstance.defaults.headers['X-Access-Token'],
-    },
   }).then((response) => response.data);
 
 const logout: (refreshToken: string) => Promise<void> = (
