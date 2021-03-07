@@ -21,10 +21,6 @@ import { C4CState } from './store';
 import SignupFlow from './containers/signupFlow';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 
-const FullScreenLayout = styled(Layout)`
-  min-height: 100vh;
-`;
-
 const { Content } = Layout;
 
 const AppInnerContainer = styled(Layout)`

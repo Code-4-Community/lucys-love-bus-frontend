@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { ORANGE, PRIMARY } from '../../utils/colors';
+import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import AnnoucementCard from '../../components/AnnoucementCard';
