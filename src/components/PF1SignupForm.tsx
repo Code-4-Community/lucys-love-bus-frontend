@@ -228,7 +228,7 @@ const PF1SignupForm: React.FC<{
         </Form.Item>
 
         <Form.Item>
-          <LinkButton to="/signup" type="secondary" className="button-style">
+          <LinkButton to="/signup" className="button-style">
             Back
           </LinkButton>
           <Button type="primary" className="button-style" htmlType="submit">

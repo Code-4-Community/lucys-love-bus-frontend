@@ -1,11 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Card, Col, Row, Typography } from 'antd';
 import styled from 'styled-components';
 import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import AnnoucementCard from '../../components/AnnoucementCard';
+import { Card, Col, Row, Typography } from 'antd';
 
 const { Text, Paragraph } = Typography;
 const image1v2 =
