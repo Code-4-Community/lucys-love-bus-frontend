@@ -76,7 +76,7 @@ const forgotPasswordReset: (
   user: ForgotPasswordResetRequest,
 ) => Promise<void> = (user: ForgotPasswordResetRequest) =>
   AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user);
-  
+
 const verifyEmail: (secretKey: string) => Promise<void> = (secretKey: string) =>
   // eslint-disable-next-line
   AuthAxiosInstance.get(API_ROUTE.VERIFY_EMAIL + secretKey).then(() => {});
