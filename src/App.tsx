@@ -17,9 +17,9 @@ import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
 import { useSelector } from 'react-redux';
-import {C4CState} from './store';
+import { C4CState } from './store';
 import SignupFlow from './containers/signupFlow';
-import {getPrivilegeLevel} from './auth/ducks/selectors';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
 
 const FullScreenLayout = styled(Layout)`
   min-height: 100vh;
@@ -90,7 +90,11 @@ const App: React.FC = () => {
                         component={Settings}
                       />
                       <Route path="*" exact component={NotFound} />
-                      <Route path={Routes.VERIFY_EMAIL} exact component={VerifyEmail} />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
+                      />
                     </Switch>
                   );
                 case PrivilegeLevel.NONE:
@@ -114,9 +118,21 @@ const App: React.FC = () => {
                         component={SingleEvent}
                       />
 
-                        <Route path={Routes.FORGOT_PASSWORD_REQUEST} exact component={ForgotPassword} />
-                        <Route path={Routes.FORGOT_PASSWORD_RESET} exact component={ForgotPasswordReset} />
-                        <Route path={Routes.VERIFY_EMAIL} exact component={VerifyEmail} />
+                      <Route
+                        path={Routes.FORGOT_PASSWORD_REQUEST}
+                        exact
+                        component={ForgotPassword}
+                      />
+                      <Route
+                        path={Routes.FORGOT_PASSWORD_RESET}
+                        exact
+                        component={ForgotPasswordReset}
+                      />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );

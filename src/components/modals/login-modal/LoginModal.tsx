@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { C4CState } from '../../../store';
 import { AsyncRequest, AsyncRequestKinds } from '../../../utils/asyncRequest';
 import { TokenPayload } from '../../../auth/ducks/types';
+import authClient from '../../../auth/authClient';
 
 interface LoginModalProps {
   showLoginModal: boolean;
@@ -107,7 +108,11 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         return (
           <ContentDiv>
             <Text>Enter email address associated with account</Text>
-            <EmailInput size="large" placeholder="Email" />
+            <EmailInput
+              size="large"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </ContentDiv>
         );
       case ModalContent.ResetPassword:
@@ -135,13 +140,24 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   };
 
   const handleOk = (): void => {
+    // tslint:disable-next-line:no-console
+    console.log('HANDLING OK');
     switch (currentPage) {
       case ModalContent.LoginContent:
         dispatch(login({ email, password }));
         break;
       case ModalContent.ForgotPassword:
-        // TODO: Connect this to forgot password action
-        setPage(ModalContent.ResetPassword);
+        // tslint:disable-next-line:no-console
+        console.log(email);
+        authClient
+          .forgotPassword({ email })
+          .then(() => {
+            setPage(ModalContent.ResetPassword);
+          })
+          .catch((err) => {
+            alert('Forgot password request unsuccessful!');
+          });
+        // TODO: handle error case better
         break;
       case ModalContent.ResetPassword:
         onCloseLoginModal();

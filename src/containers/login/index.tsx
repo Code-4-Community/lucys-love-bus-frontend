@@ -8,7 +8,7 @@ import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { C4CState } from '../../store';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
-import {Routes} from '../../App';
+import { Routes } from '../../App';
 
 const { Title, Paragraph } = Typography;
 
@@ -51,7 +51,10 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
           </Paragraph>
           <Paragraph>
             Forgot your password? Click{' '}
-            <Link to={Routes.FORGOT_PASSWORD_REQUEST} component={Typography.Link}>
+            <Link
+              to={Routes.FORGOT_PASSWORD_REQUEST}
+              component={Typography.Link}
+            >
               here
             </Link>{' '}
             to reset it.

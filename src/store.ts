@@ -71,7 +71,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
-  publicApiClient
+  publicApiClient,
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
