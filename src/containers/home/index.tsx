@@ -1,11 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Card, Col, Row, Typography } from 'antd';
 import styled from 'styled-components';
 import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
 import Announcements from '../announcements/Announcements';
+import { Card, Col, Row, Typography } from 'antd';
+
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';

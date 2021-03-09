@@ -3,6 +3,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import LoginModal from '../modals/login-modal/LoginModal';
 import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
@@ -10,8 +11,8 @@ import {
 import { C4CState } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+
 import { Routes } from '../../App';
-import LoginModal from '../modals/login-modal/LoginModal';
 import { ORANGE } from '../../utils/colors';
 
 const { Text } = Typography;
@@ -89,6 +90,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   // Dropdown menu options for the logged in
   const userMenu = (
     <Menu>
+      <Menu.Item>Change Primary Account Email</Menu.Item>
+      <Menu.Item>Account Details</Menu.Item>
+      <Menu.Item>Change Password</Menu.Item>
+      <Menu.Item>Deactivate Account</Menu.Item>
       <Menu.Item
         onClick={() => {
           history.push(Routes.SETTINGS);
