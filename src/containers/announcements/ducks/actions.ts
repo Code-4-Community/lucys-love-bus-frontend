@@ -1,4 +1,3 @@
-
 import { genericAsyncActions } from '../../../utils/asyncRequest';
 import { Announcement } from './types';
 

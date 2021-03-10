@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
+import { getAnnouncementRows } from '../../containers/announcements/ducks/selectors';
 
 const COLUMNS_PER_ROW = 3;
 const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
@@ -37,23 +38,15 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({ announcements }) 
     setNumRows(rows);
   }, [announcements]);
 
-  const getAnnouncementRows = () =>
-    [...Array(numRows)].map((row, i) =>
-      announcements.slice(
-        i * COLUMNS_PER_ROW,
-        i * COLUMNS_PER_ROW + COLUMNS_PER_ROW,
-      ),
-    );
-
   return (
     <>
       {numRows ? (
-        getAnnouncementRows().map(row => {
+        getAnnouncementRows(numRows, announcements).map(row => {
           return (
             <AnnouncementRow>
-                {row.map(announcement => {
-                    return <AnnouncementCard {...announcement} />;
-                })}
+              {row.map(announcement => (
+                  <AnnouncementCard {...announcement} />
+                ))}
             </AnnouncementRow>
           );
         })
