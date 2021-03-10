@@ -259,7 +259,7 @@ const GMSignupForm: React.FC<{
           </Form.Item>
 
           <Form.Item>
-            <LinkButton to="/signup" type="secondary" className="button-style">
+            <LinkButton to="/signup" className="button-style">
               Back
             </LinkButton>
             <Button htmlType="submit" type="primary" className="button-style">
