@@ -15,7 +15,7 @@ import Settings from './containers/settings';
 import SignupFlow from './containers/signupFlow';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
-import Announcements from './containers/announcements/Announcements';
+import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';

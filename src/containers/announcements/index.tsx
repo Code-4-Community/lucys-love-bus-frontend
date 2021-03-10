@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
-import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
+import AnnouncementsList from '../../components/announcementsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
 import { getAnnouncements } from './ducks/thunks';
