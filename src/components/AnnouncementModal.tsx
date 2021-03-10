@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import Modal from 'antd/lib/modal/Modal';
-import { AnnouncementProps } from '../containers/announcements/ducks/types';
+import { Announcement } from '../containers/announcements/ducks/types';
 
 const { Text, Paragraph } = Typography;
 
@@ -31,7 +31,7 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export interface AnnouncementModalProps extends AnnouncementProps {
+export interface AnnouncementModalProps extends Announcement {
     isVisible: boolean;
     setIsModalVisible: (visible: boolean) => void;
 }

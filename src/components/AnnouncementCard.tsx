@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
 import { AnnouncementModal } from './AnnouncementModal';
-import { AnnouncementProps } from '../containers/announcements/ducks/types';
+import { Announcement } from '../containers/announcements/ducks/types';
 
 const { Text, Paragraph } = Typography;
 
@@ -31,7 +31,7 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<AnnouncementProps> = (props) => {
+export const AnnouncementCard: React.FC<Announcement> = (props) => {
     const [isModalVisible, setIsModalVisible] = React.useState(false);
 
     const getCardContent = (() => {

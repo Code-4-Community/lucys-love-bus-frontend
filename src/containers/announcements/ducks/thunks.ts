@@ -1,4 +1,4 @@
-import { AnnouncementProps, AnnouncementsThunkAction } from './types';
+import { Announcement, AnnouncementsThunkAction } from './types';
 import { announcements } from './actions';
 
 export const getAnnouncements = (limit?: number): AnnouncementsThunkAction<void> => {
@@ -6,10 +6,10 @@ export const getAnnouncements = (limit?: number): AnnouncementsThunkAction<void>
         dispatch(announcements.loading());
         return publicApiClient
             .getAnnouncements()
-            .then((response: AnnouncementProps[]) => {
+            .then((response: Announcement[]) => {
                 return (limit && limit >= 0) ? response.slice(0, limit) : response;
             })
-            .then((response: AnnouncementProps[]) => {
+            .then((response: Announcement[]) => {
                 dispatch(announcements.loaded(response));
             })
             .catch((error: any) => {

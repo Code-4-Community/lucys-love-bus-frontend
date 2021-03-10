@@ -1,4 +1,4 @@
-import { AnnouncementProps, AnnouncementsReducerState } from './types';
+import { Announcement, AnnouncementsReducerState } from './types';
 import {
     ASYNC_REQUEST_FAILED_ACTION,
     ASYNC_REQUEST_LOADED_ACTION,
@@ -10,12 +10,12 @@ import { announcements } from './actions';
 import { C4CAction } from '../../../store';
 
 export const initialAnnouncementsState: AnnouncementsReducerState = {
-    announcements: AsyncRequestNotStarted<AnnouncementProps[], any>(),
+    announcements: AsyncRequestNotStarted<Announcement[], any>(),
 };
 
 const announcementsReducer = generateAsyncRequestReducer<
     AnnouncementsReducerState,
-    AnnouncementProps[],
+    Announcement[],
     void
     >(announcements.key);
 

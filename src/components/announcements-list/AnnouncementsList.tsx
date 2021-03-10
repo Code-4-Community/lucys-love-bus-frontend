@@ -2,11 +2,12 @@ import { Row } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
-import { AnnouncementProps } from '../../containers/announcements/ducks/types';
+import { Announcement } from '../../containers/announcements/ducks/types';
 
 const COLUMNS_PER_ROW = 3;
 const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
 const NO_ANNOUNCEMENTS_SUBHEADER = 'Come back later for future updates!';
+const NO_ANNOUNCEMENTS_HEADER_COLOR = "#ce4a00";
 
 const AnnouncementRow = styled(Row)`
   display: grid;
@@ -19,26 +20,26 @@ const NoAnnouncementsSubText = styled.span`
 `;
 
 const NoAnnouncementsText = styled(NoAnnouncementsSubText)`
-  color: #ce4a00;
+  color: ${NO_ANNOUNCEMENTS_HEADER_COLOR};
   font-size: 36px;
   font-weight: 800;
 `;
 
 export interface AnnouncementsListProps {
-  announcements: AnnouncementProps[];
+  announcements: Announcement[];
 }
 
-const AnnouncementsList: React.FC<AnnouncementsListProps> = (props) => {
+const AnnouncementsList: React.FC<AnnouncementsListProps> = ({ announcements }) => {
   const [numRows, setNumRows] = useState(0);
 
   useEffect(() => {
-    const rows = Math.ceil(props.announcements.length / COLUMNS_PER_ROW);
+    const rows = Math.ceil(announcements.length / COLUMNS_PER_ROW);
     setNumRows(rows);
-  }, [props.announcements]);
+  }, [announcements]);
 
   const getAnnouncementRows = () =>
     [...Array(numRows)].map((row, i) =>
-      props.announcements.slice(
+      announcements.slice(
         i * COLUMNS_PER_ROW,
         i * COLUMNS_PER_ROW + COLUMNS_PER_ROW,
       ),

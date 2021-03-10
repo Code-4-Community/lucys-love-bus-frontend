@@ -7,7 +7,7 @@ import EventCard from '../../components/EventCard';
 import { AnnouncementsDataProps } from '../announcements/Announcements';
 import { getAnnouncements } from '../announcements/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
 import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
 import { C4CState } from '../../store';
 import { Card, Col, Row, Typography } from 'antd';
@@ -71,7 +71,7 @@ const ViewMoreButton = styled(LinkButton)`
 
 export interface HomeContainerProps extends AnnouncementsDataProps { }
 
-const Home: React.FC<HomeContainerProps> = props => {
+const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
@@ -149,8 +149,16 @@ const Home: React.FC<HomeContainerProps> = props => {
           </ViewMoreButton>
         </Row>
         {
-          asyncRequestIsComplete(props.announcements) &&
-          <AnnouncementsList announcements={props.announcements.result} />
+          asyncRequestIsFailed(announcements) &&
+          <p>The announcements could not be retrieved.</p>
+        }
+        {
+          asyncRequestIsLoading(announcements) &&
+          <p>Loading announcements...</p>
+        }
+        {
+          asyncRequestIsComplete(announcements) &&
+          <AnnouncementsList announcements={announcements.result} />
         }
       </HomeContainer>
     </>
