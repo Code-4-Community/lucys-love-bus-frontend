@@ -32,52 +32,52 @@ const DateText = styled(Text)`
 `;
 
 export interface AnnouncementModalProps extends AnnouncementProps {
-  isVisible: boolean;
-  setIsModalVisible: (visible: boolean) => void;
+    isVisible: boolean;
+    setIsModalVisible: (visible: boolean) => void;
 }
 
 export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
-  imageSrc,
-  title,
-  created,
-  description,
-  isVisible,
-  setIsModalVisible,
+    imageSrc,
+    title,
+    created,
+    description,
+    isVisible,
+    setIsModalVisible,
 }) => {
-  const getModalContent = (() => {
-    return (
-      <>
-        <div>
-          <DateText strong>{dateFormat(created, 'longDate')}</DateText>
-        </div>
-        <div>
-          <ModalTitle>{title}</ModalTitle>
-        </div>
-        <div>
-          <Paragraph>{description}</Paragraph>
-        </div>
-      </>
-    );
-  })();
+    const getModalContent = (() => {
+        return (
+            <>
+                <div>
+                    <DateText strong>{dateFormat(created, 'longDate')}</DateText>
+                </div>
+                <div>
+                    <ModalTitle>{title}</ModalTitle>
+                </div>
+                <div>
+                    <Paragraph>{description}</Paragraph>
+                </div>
+            </>
+        );
+    })();
 
-  return imageSrc ? (
-    <AnnouncementsModal
-      visible={isVisible}
-      maskClosable={false}
-      footer={null}
-      onCancel={() => setIsModalVisible(false)}
-    >
-      <img className="cardImg" alt="Announcement" src={imageSrc} />
-      {getModalContent}
-    </AnnouncementsModal>
-  ) : (
-    <AnnouncementsModalNoCover
-      visible={isVisible}
-      maskClosable={false}
-      footer={null}
-      onCancel={() => setIsModalVisible(false)}
-    >
-      {getModalContent}
-    </AnnouncementsModalNoCover>
-  );
+    return imageSrc ? (
+        <AnnouncementsModal
+            visible={isVisible}
+            maskClosable={false}
+            footer={null}
+            onCancel={() => setIsModalVisible(false)}
+        >
+            <img className="cardImg" alt="Announcement" src={imageSrc} />
+            {getModalContent}
+        </AnnouncementsModal>
+    ) : (
+            <AnnouncementsModalNoCover
+                visible={isVisible}
+                maskClosable={false}
+                footer={null}
+                onCancel={() => setIsModalVisible(false)}
+            >
+                {getModalContent}
+            </AnnouncementsModalNoCover>
+        );
 };

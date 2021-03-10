@@ -37,10 +37,6 @@ const Announcements: React.FC<AnnouncementsContainerProps> = (props) => {
     dispatch(getAnnouncements(props.limit));
   }, [dispatch, props.limit]);
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
     <>
       {asyncRequestIsComplete(props.announcements) && (
