@@ -10,6 +10,7 @@ import { connect, useDispatch } from 'react-redux';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
 import { C4CState } from '../../store';
+import { Card, Col, Row, Typography } from 'antd';
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
