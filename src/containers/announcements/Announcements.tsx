@@ -4,10 +4,10 @@ import { Typography } from 'antd';
 import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
-import { getAnnouncements } from '../../containers/announcements/ducks/thunks';
+import { getAnnouncements } from './ducks/thunks';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { connect, useDispatch } from 'react-redux';
-import { AnnouncementsReducerState } from '../../containers/announcements/ducks/types';
+import { AnnouncementsReducerState } from './ducks/types';
 import { C4CState } from '../../store';
 
 const { Title } = Typography;
