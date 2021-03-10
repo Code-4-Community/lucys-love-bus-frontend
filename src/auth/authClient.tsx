@@ -78,7 +78,7 @@ const forgotPasswordReset: (
   AuthAxiosInstance.post(API_ROUTE.FORGOT_PASSWORD_RESET, user);
 
 const verifyEmail: (secretKey: string) => Promise<void> = (secretKey: string) =>
-  AuthAxiosInstance.get(API_ROUTE.VERIFY_EMAIL + secretKey).then(() => {});
+  AuthAxiosInstance.get(API_ROUTE.VERIFY_EMAIL + secretKey);
 
 const Client: AuthClient = Object.freeze({
   login,

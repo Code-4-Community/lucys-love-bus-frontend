@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Button, Form, Input, Typography, Alert } from 'antd';
 import authClient from '../../auth/authClient';
+import { Routes } from '../../App';
 
 const { Title } = Typography;
 
@@ -13,18 +14,19 @@ interface NewPasswords {
 
 const ForgotPasswordReset: React.FC = () => {
   const { key } = useParams();
+  const [error, setError] = useState<boolean>(false);
+  const history = useHistory();
 
   const onFinish = (values: NewPasswords) => {
     authClient
       .forgotPasswordReset({ secretKey: key, newPassword: values.password })
       .then(() => {
-        window.location.href = '/';
+        setError(false);
+        history.push(Routes.HOME);
       })
       .catch((err) => {
-        alert('Was not able to reset password.');
+        setError(true);
       });
-    // TODO: handle error case better,
-    //  store passwordResetError boolean in state and when it is true, render an AntD alert
   };
   return (
     <>
@@ -78,6 +80,8 @@ const ForgotPasswordReset: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
+
+        {error && <Alert message={'Password reset failed'} type="error" />}
       </div>
     </>
   );

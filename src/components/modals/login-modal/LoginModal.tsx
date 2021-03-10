@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Modal, Typography } from 'antd';
+import { Alert, Input, Modal, Typography } from 'antd';
 import styled from 'styled-components';
 import { login } from '../../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
@@ -66,6 +66,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   );
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const setToForgotPasswordPage = () => {
@@ -113,6 +114,12 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             />
+            {error && (
+              <Alert
+                message={'Unable to send forgot password email'}
+                type="error"
+              />
+            )}
           </ContentDiv>
         );
       case ModalContent.ResetPassword:
@@ -140,24 +147,20 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   };
 
   const handleOk = (): void => {
-    // tslint:disable-next-line:no-console
-    console.log('HANDLING OK');
     switch (currentPage) {
       case ModalContent.LoginContent:
         dispatch(login({ email, password }));
         break;
       case ModalContent.ForgotPassword:
-        // tslint:disable-next-line:no-console
-        console.log(email);
         authClient
           .forgotPassword({ email })
           .then(() => {
+            setError(false);
             setPage(ModalContent.ResetPassword);
           })
           .catch((err) => {
-            alert('Forgot password request unsuccessful!');
+            setError(true);
           });
-        // TODO: handle error case better
         break;
       case ModalContent.ResetPassword:
         onCloseLoginModal();
