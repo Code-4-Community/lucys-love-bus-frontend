@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
-import { Button, Form, Input, Typography } from 'antd';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button, Form, Input, Typography, Alert } from 'antd';
 import authClient from '../../auth/authClient';
+import { Routes } from '../../App';
 
 const { Title } = Typography;
 
@@ -13,22 +14,19 @@ interface NewPasswords {
 
 const ForgotPasswordReset: React.FC = () => {
   const { key } = useParams();
+  const [error, setError] = useState<boolean>(false);
+  const history = useHistory();
 
   const onFinish = (values: NewPasswords) => {
-    if (values.password.length < 8) {
-      alert('New password is too weak. Must be at least 8 characters long.');
-    } else if (values.password !== values.confirmPassword) {
-      alert("Passwords don't match");
-    } else {
-      authClient
-        .forgotPasswordReset({ secretKey: key, newPassword: values.password })
-        .then(() => {
-          alert('Successfully reset password!');
-        })
-        .catch((err) => {
-          alert('Was not able to reset password.');
-        });
-    }
+    authClient
+      .forgotPasswordReset({ secretKey: key, newPassword: values.password })
+      .then(() => {
+        setError(false);
+        history.push(Routes.HOME);
+      })
+      .catch((err) => {
+        setError(true);
+      });
   };
   return (
     <>
@@ -44,6 +42,11 @@ const ForgotPasswordReset: React.FC = () => {
             name="password"
             rules={[
               { required: true, message: 'Please enter your new password!' },
+              {
+                min: 8,
+                message:
+                  'New password is too weak. Must be at least 8 characters long.',
+              },
             ]}
           >
             <Input.Password />
@@ -52,8 +55,21 @@ const ForgotPasswordReset: React.FC = () => {
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
+            dependencies={['password']}
             rules={[
               { required: true, message: 'Please confirm your new password!' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    new Error(
+                      'The two passwords that you entered do not match!',
+                    ),
+                  );
+                },
+              }),
             ]}
           >
             <Input.Password />
@@ -64,6 +80,8 @@ const ForgotPasswordReset: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
+
+        {error && <Alert message={'Password reset failed'} type="error" />}
       </div>
     </>
   );
