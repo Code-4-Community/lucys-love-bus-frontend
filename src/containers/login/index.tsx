@@ -1,14 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { login } from '../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { C4CState } from '../../store';
-import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import {
+  LoginRequest,
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 
 const { Title, Paragraph } = Typography;
 
@@ -16,9 +21,16 @@ type LoginProps = UserAuthenticationReducerState;
 
 const Login: React.FC<LoginProps> = ({ tokens }) => {
   const dispatch = useDispatch();
-  const onFinish = (values: any) => {
-    dispatch(login({ email: values.email, password: values.password }));
+  const history = useHistory();
+
+  const onFinish = (values: LoginRequest): void => {
+    dispatch(login(values));
   };
+
+  if (getPrivilegeLevel(tokens) !== PrivilegeLevel.NONE) {
+    history.push(Routes.HOME);
+  }
+
   return (
     <>
       <Helmet>

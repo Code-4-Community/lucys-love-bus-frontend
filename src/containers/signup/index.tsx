@@ -1,16 +1,19 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Button, Form, Input, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { signup } from '../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import { C4CState } from '../../store';
 import {
+  PrivilegeLevel,
   SignupRequest,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { ContentContainer } from '../../components';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { Routes } from '../../App';
 
 const { Title, Paragraph } = Typography;
 
@@ -18,17 +21,15 @@ type SignupProps = UserAuthenticationReducerState;
 
 const Signup: React.FC<SignupProps> = ({ tokens }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onFinish = (values: SignupRequest) => {
-    dispatch(
-      signup({
-        email: values.email,
-        password: values.password,
-        firstName: values.firstName,
-        lastName: values.lastName,
-      }),
-    );
+    dispatch(signup(values));
   };
+
+  if (getPrivilegeLevel(tokens) !== PrivilegeLevel.NONE) {
+    history.push(Routes.HOME);
+  }
 
   return (
     <>
@@ -82,7 +83,19 @@ const Signup: React.FC<SignupProps> = ({ tokens }) => {
           <Form.Item
             label="Confirm Password"
             name="confirmPassword"
-            rules={[{ required: true, message: 'Required' }]}
+            rules={[
+              { required: true, message: 'Required' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('password') === value) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(
+                    'The two passwords that you entered do not match!',
+                  );
+                },
+              }),
+            ]}
           >
             <Input.Password />
           </Form.Item>
