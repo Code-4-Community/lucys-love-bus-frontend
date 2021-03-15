@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
-import AnnoucementCard from '../../components/AnnoucementCard';
+import { AnnouncementsDataProps } from '../announcements';
+import { getAnnouncements } from '../announcements/ducks/thunks';
+import { connect, useDispatch } from 'react-redux';
+import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
+import AnnouncementsList from '../../components/announcementsList';
+import { C4CState } from '../../store';
 import { Card, Col, Row, Typography } from 'antd';
-
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
+const ANNOUNCEMENTS_LIMIT = 3;
 
 const LandingContainer = styled.div`
   width: 100%;
@@ -64,7 +69,14 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
-const Home: React.FC = () => {
+export interface HomeContainerProps extends AnnouncementsDataProps { }
+
+const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
+  }, [dispatch]);
+
   return (
     <>
       <Helmet>
@@ -131,42 +143,32 @@ const Home: React.FC = () => {
           </Col>
         </Row>
         <Row align="middle">
-          <UpcomingEventsTitle>Annoucements</UpcomingEventsTitle>
-          <ViewMoreButton to="upcoming-events">
-            View All Annoucements
+          <UpcomingEventsTitle>Announcements</UpcomingEventsTitle>
+          <ViewMoreButton to="announcements">
+            View All Announcements
           </ViewMoreButton>
         </Row>
-        <Row gutter={[24, 24]} justify="center">
-          <Col>
-            <AnnoucementCard
-              src="http://www.pinkgazelle.com/wp-content/uploads/2017/04/monarch_butterfly_flower.jpg"
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-          <Col>
-            <AnnoucementCard
-              src="https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-          <Col>
-            <AnnoucementCard
-              title="VIRTUAL Slow Flow Restorative Yoga"
-              date={new Date()}
-              description={`Find some time for self-care and join yoga teacher Sarah Oleson
-    for a peaceful and rejuvenating virtual...`}
-            />
-          </Col>
-        </Row>
+        {
+          asyncRequestIsFailed(announcements) &&
+          <p>The announcements could not be retrieved.</p>
+        }
+        {
+          asyncRequestIsLoading(announcements) &&
+          <p>Loading announcements...</p>
+        }
+        {
+          asyncRequestIsComplete(announcements) &&
+          <AnnouncementsList announcements={announcements.result} />
+        }
       </HomeContainer>
     </>
   );
 };
 
-export default Home;
+const mapStateToProps = (state: C4CState): AnnouncementsDataProps => {
+  return {
+    announcements: state.announcementsState.announcements,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

@@ -1,10 +1,6 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
-import SingleEvent from './containers/singleEvent';
-
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './containers/home';
 import Login from './containers/login';
@@ -16,9 +12,12 @@ import styled from 'styled-components';
 import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
+import SignupFlow from './containers/signupFlow';
+import SingleEvent from './containers/singleEvent';
+import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
-import SignupFlow from './containers/signupFlow';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 
 const { Content } = Layout;
@@ -37,6 +36,7 @@ export enum Routes {
   VERIFY_EMAIL = '/verify/:key',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
+  ANNOUNCEMENTS = '/announcements',
 }
 
 const App: React.FC = () => {
@@ -81,6 +81,11 @@ const App: React.FC = () => {
                         component={SingleEvent}
                       />
                       <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
+                      />
+                      <Route
                         path={Routes.SETTINGS}
                         exact
                         component={Settings}
@@ -112,6 +117,11 @@ const App: React.FC = () => {
                         path={Routes.EVENT}
                         exact
                         component={SingleEvent}
+                      />
+                      <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
                       />
 
                       <Route
