@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Modal, Typography } from 'antd';
+import { Alert, Input, Modal, Typography } from 'antd';
 import styled from 'styled-components';
 import { login } from '../../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { C4CState } from '../../../store';
 import { AsyncRequest, AsyncRequestKinds } from '../../../utils/asyncRequest';
 import { TokenPayload } from '../../../auth/ducks/types';
+import authClient from '../../../auth/authClient';
 
 interface LoginModalProps {
   showLoginModal: boolean;
@@ -65,6 +66,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
   );
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const setToForgotPasswordPage = () => {
@@ -107,7 +109,17 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         return (
           <ContentDiv>
             <Text>Enter email address associated with account</Text>
-            <EmailInput size="large" placeholder="Email" />
+            <EmailInput
+              size="large"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {error && (
+              <Alert
+                message={'Unable to send forgot password email'}
+                type="error"
+              />
+            )}
           </ContentDiv>
         );
       case ModalContent.ResetPassword:
@@ -140,8 +152,15 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         dispatch(login({ email, password }));
         break;
       case ModalContent.ForgotPassword:
-        // TODO: Connect this to forgot password action
-        setPage(ModalContent.ResetPassword);
+        authClient
+          .forgotPassword({ email })
+          .then(() => {
+            setError(false);
+            setPage(ModalContent.ResetPassword);
+          })
+          .catch((err) => {
+            setError(true);
+          });
         break;
       case ModalContent.ResetPassword:
         onCloseLoginModal();

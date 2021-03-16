@@ -1,7 +1,7 @@
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import { AnnouncementProps } from './types';
+import { Announcement } from './types';
 
-export const announcements = genericAsyncActions<AnnouncementProps[], any>();
+export const announcements = genericAsyncActions<Announcement[], any>();
 
 export type AnnouncementsActions =
   | ReturnType<typeof announcements.loading>

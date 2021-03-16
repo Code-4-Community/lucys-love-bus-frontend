@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
-import { AnnouncementProps } from '../../containers/announcements/ducks/types';
+import { Announcement } from '../../containers/announcements/ducks/types';
 import { ORANGE, LINK } from '../../utils/colors';
 
 const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
@@ -62,7 +62,7 @@ const noAnnouncementsTexts = (
 );
 
 export interface AnnouncementsListProps {
-  announcements: AnnouncementProps[];
+  announcements: Announcement[];
 }
 
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({

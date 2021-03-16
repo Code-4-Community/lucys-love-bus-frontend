@@ -5,7 +5,7 @@ import { AnnouncementsActions } from './actions';
 import { ApiExtraArgs } from '../../../api/publicApiClient';
 
 export interface AnnouncementsReducerState {
-  readonly announcements: AsyncRequest<AnnouncementProps[], any>;
+    readonly announcements: AsyncRequest<Announcement[], any>;
 }
 
 export type AnnouncementsThunkAction<R> = ThunkAction<
@@ -15,9 +15,9 @@ export type AnnouncementsThunkAction<R> = ThunkAction<
   AnnouncementsActions
 >;
 
-export interface AnnouncementProps {
-  imageSrc?: string;
-  title: string;
-  created: Date;
-  description: string;
+export interface Announcement {
+    imageSrc?: string;
+    title: string;
+    created: Date;
+    description: string;
 }

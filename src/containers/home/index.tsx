@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Card, Col, Row, Typography } from 'antd';
 import styled from 'styled-components';
 import { ORANGE } from '../../utils/colors';
 import { LinkButton } from '../../components/LinkButton';
 import EventCard from '../../components/EventCard';
-import Announcements from '../announcements/Announcements';
+import { AnnouncementsDataProps } from '../announcements';
+import { getAnnouncements } from '../announcements/ducks/thunks';
+import { connect, useDispatch } from 'react-redux';
+import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
+import AnnouncementsList from '../../components/announcementsList';
+import { C4CState } from '../../store';
+import { Card, Col, Row, Typography } from 'antd';
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
+const ANNOUNCEMENTS_LIMIT = 3;
 
 const LandingContainer = styled.div`
   width: 100%;
@@ -63,7 +69,14 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
-const Home: React.FC = () => {
+export interface HomeContainerProps extends AnnouncementsDataProps { }
+
+const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
+  }, [dispatch]);
+
   return (
     <>
       <Helmet>
@@ -135,10 +148,27 @@ const Home: React.FC = () => {
             View All Announcements
           </ViewMoreButton>
         </Row>
-        <Announcements limit={3} />
+        {
+          asyncRequestIsFailed(announcements) &&
+          <p>The announcements could not be retrieved.</p>
+        }
+        {
+          asyncRequestIsLoading(announcements) &&
+          <p>Loading announcements...</p>
+        }
+        {
+          asyncRequestIsComplete(announcements) &&
+          <AnnouncementsList announcements={announcements.result} />
+        }
       </HomeContainer>
     </>
   );
 };
 
-export default Home;
+const mapStateToProps = (state: C4CState): AnnouncementsDataProps => {
+  return {
+    announcements: state.announcementsState.announcements,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

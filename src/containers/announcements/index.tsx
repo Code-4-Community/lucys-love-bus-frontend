@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
-import AnnouncementsList from '../../components/announcements-list/AnnouncementsList';
+import AnnouncementsList from '../../components/announcementsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
-import { getAnnouncements } from '../../containers/announcements/ducks/thunks';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { getAnnouncements } from './ducks/thunks';
+import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
 import { connect, useDispatch } from 'react-redux';
-import { AnnouncementsReducerState } from '../../containers/announcements/ducks/types';
+import { AnnouncementsReducerState } from './ducks/types';
 import { C4CState } from '../../store';
 
 const { Title } = Typography;
@@ -31,19 +31,24 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Announcements: React.FC<AnnouncementsContainerProps> = (props) => {
+const Announcements: React.FC<AnnouncementsContainerProps> = ({ announcements, limit }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAnnouncements(props.limit));
-  }, [dispatch, props.limit]);
-
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    dispatch(getAnnouncements(limit));
+  }, [dispatch, limit]);
 
   return (
     <>
-      {asyncRequestIsComplete(props.announcements) && (
+      {
+        asyncRequestIsFailed(announcements) &&
+        <p>The announcements could not be retrieved.</p>
+      }
+      {
+        asyncRequestIsLoading(announcements) &&
+        <p>Loading announcements...</p>
+      }
+      {
+        asyncRequestIsComplete(announcements) &&
         <>
           <Helmet>
             <title>Announcements</title>
@@ -53,10 +58,10 @@ const Announcements: React.FC<AnnouncementsContainerProps> = (props) => {
             <Content>
               <StyledTitle>Announcements</StyledTitle>
             </Content>
-            <AnnouncementsList announcements={props.announcements.result} />
+            <AnnouncementsList announcements={announcements.result} />
           </ChungusContentContainer>
         </>
-      )}
+      }
     </>
   );
 };
