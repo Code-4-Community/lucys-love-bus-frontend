@@ -10,14 +10,14 @@ import { announcements } from './actions';
 import { C4CAction } from '../../../store';
 
 export const initialAnnouncementsState: AnnouncementsReducerState = {
-    announcements: AsyncRequestNotStarted<Announcement[], any>(),
+  announcements: AsyncRequestNotStarted<Announcement[], any>(),
 };
 
 const announcementsReducer = generateAsyncRequestReducer<
-    AnnouncementsReducerState,
-    Announcement[],
-    void
-    >(announcements.key);
+  AnnouncementsReducerState,
+  Announcement[],
+  void
+>(announcements.key);
 
 const reducers = (
   state: AnnouncementsReducerState = initialAnnouncementsState,

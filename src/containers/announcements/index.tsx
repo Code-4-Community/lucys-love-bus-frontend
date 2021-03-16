@@ -5,7 +5,11 @@ import AnnouncementsList from '../../components/announcements-listing/Announceme
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
 import { getAnnouncements } from './ducks/thunks';
-import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
+import {
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+} from '../../utils/asyncRequest';
 import { connect, useDispatch } from 'react-redux';
 import { AnnouncementsReducerState } from './ducks/types';
 import { C4CState } from '../../store';
@@ -31,7 +35,10 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Announcements: React.FC<AnnouncementsContainerProps> = ({ announcements, limit }) => {
+const Announcements: React.FC<AnnouncementsContainerProps> = ({
+  announcements,
+  limit,
+}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAnnouncements(limit));
@@ -39,16 +46,11 @@ const Announcements: React.FC<AnnouncementsContainerProps> = ({ announcements, l
 
   return (
     <>
-      {
-        asyncRequestIsFailed(announcements) &&
+      {asyncRequestIsFailed(announcements) && (
         <p>The announcements could not be retrieved.</p>
-      }
-      {
-        asyncRequestIsLoading(announcements) &&
-        <p>Loading announcements...</p>
-      }
-      {
-        asyncRequestIsComplete(announcements) &&
+      )}
+      {asyncRequestIsLoading(announcements) && <p>Loading announcements...</p>}
+      {asyncRequestIsComplete(announcements) && (
         <>
           <Helmet>
             <title>Announcements</title>
@@ -61,7 +63,7 @@ const Announcements: React.FC<AnnouncementsContainerProps> = ({ announcements, l
             <AnnouncementsList announcements={announcements.result} />
           </ChungusContentContainer>
         </>
-      }
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
@@ -68,7 +68,7 @@ export interface AnnouncementsListProps {
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   announcements,
 }) => {
-  const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(6);
+  const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = (event: any) => {
@@ -105,17 +105,21 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
     pageNumbers.push(i);
   }
 
-  const renderPageNumbers = pageNumbers.map((number: number) => {
-    if (number !== currentPage) {
+  useEffect(() => {
+    setAnnouncementsPerPage(6);
+  });
+
+  const renderPageNumbers = pageNumbers.map((num: number) => {
+    if (num !== currentPage) {
       return (
-        <PageNumber key={number} value={number} onClick={handlePageClick}>
-          {number}
+        <PageNumber key={num} value={num} onClick={handlePageClick}>
+          {num}
         </PageNumber>
       );
     } else {
       return (
-        <SelectedPageNumber key={number} value={number}>
-          {number}
+        <SelectedPageNumber key={num} value={num}>
+          {num}
         </SelectedPageNumber>
       );
     }
@@ -129,7 +133,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
         <>
           <AnnouncementsListWrapper>
             {currentAnnouncements.map((announcement, i) => {
-              return <AnnouncementCard {...announcement} key={i}/>;
+              return <AnnouncementCard {...announcement} key={i} />;
             })}
           </AnnouncementsListWrapper>
 
