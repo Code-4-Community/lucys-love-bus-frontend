@@ -8,7 +8,7 @@ import { AnnouncementsDataProps } from '../announcements';
 import { getAnnouncements } from '../announcements/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
 import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
-import AnnouncementsList from '../../components/announcementsList';
+import AnnouncementsList from '../../components/announcements-listing/AnnouncementsList';
 import { C4CState } from '../../store';
 import { Card, Col, Row, Typography } from 'antd';
 const { Text, Paragraph } = Typography;
