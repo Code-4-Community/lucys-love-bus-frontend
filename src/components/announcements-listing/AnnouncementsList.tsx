@@ -107,7 +107,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
 
   useEffect(() => {
     setAnnouncementsPerPage(6);
-  });
+  }, []);
 
   const renderPageNumbers = pageNumbers.map((num: number) => {
     if (num !== currentPage) {
