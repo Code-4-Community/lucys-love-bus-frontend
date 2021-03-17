@@ -4,10 +4,11 @@ import React from 'react';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
-  field,
-}) => {
-  const fieldWithoutKey: any = field;
+const RegistrationFormBody: React.FC<{
+  field: FormListFieldData;
+  isChildForm: boolean;
+}> = ({ field, isChildForm }) => {
+  const fieldWithoutKey: FormListFieldData = field;
   delete fieldWithoutKey.key;
   return (
     <>
@@ -21,7 +22,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <Input placeholder="First Name" />
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'lastName']}
@@ -32,7 +32,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <Input placeholder="Last Name" />
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'pronouns']}
@@ -52,7 +51,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
           </Radio>
         </Radio.Group>
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'email']}
@@ -68,24 +66,26 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <Input placeholder="Email" />
       </Form.Item>
-
-      <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'phoneNumber']}
-        fieldKey={[field.fieldKey, 'phoneNumber']}
-        label="Phone Number"
-        className="block-half"
-        rules={[
-          {
-            required: true,
-            pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
-            message: 'Please input a valid phone number',
-          },
-        ]}
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-      >
-        <Input placeholder="Phone Number" />
-      </Form.Item>
+      {!isChildForm && <>
+          <Form.Item
+          {...fieldWithoutKey}
+          name={[field.name, 'phoneNumber']}
+          fieldKey={[field.fieldKey, 'phoneNumber']}
+          label="Phone Number"
+          className="block-half"
+          rules={[
+            {
+              required: true,
+              pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
+              message: 'Please input a valid phone number',
+            },
+          ]}
+          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+        >
+          <Input placeholder="Phone Number" />
+        </Form.Item>
+        </>
+      }
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'birthday']}
@@ -101,7 +101,51 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <DatePicker />
       </Form.Item>
-
+      {isChildForm && (
+        <>
+          <Form.Item
+            {...fieldWithoutKey}
+            name={[field.name, 'birthday']}
+            fieldKey={[field.fieldKey, 'birthday']}
+            label="Date of Birth"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your date of birth.',
+              },
+            ]}
+          >
+            <DatePicker />
+          </Form.Item>
+          <Form.Item
+            {...fieldWithoutKey}
+            name={[field.name, 'school']}
+            fieldKey={[field.fieldKey, 'school']}
+            label="School"
+            className="inline-block-half"
+            rules={[
+              { required: true, message: "Please input your child's school" },
+            ]}
+          >
+            <Input placeholder="School" />
+          </Form.Item>
+          <Form.Item
+            {...fieldWithoutKey}
+            name={[field.name, 'grade']}
+            fieldKey={[field.fieldKey, 'grade']}
+            label="Grade"
+            className="inline-block-half"
+            rules={[
+              {
+                required: true,
+                message: "Please input your child's current grade",
+              },
+            ]}
+          >
+            <Input placeholder="Grade" />
+          </Form.Item>
+        </>
+      )}
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'allergies']}
@@ -110,7 +154,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <TextArea rows={3} placeholder="Allergies" />
       </Form.Item>
-
       <Form.Item
         name={[field.name, 'diagnosis']}
         fieldKey={[field.fieldKey, 'diagnosis']}
@@ -118,7 +161,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'medication']}
@@ -127,7 +169,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'otherNotes']}
@@ -136,7 +177,6 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       >
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
-
       <Form.Item
         {...fieldWithoutKey}
         name={[field.name, 'profilePicture']}

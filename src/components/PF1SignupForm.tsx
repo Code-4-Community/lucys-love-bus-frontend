@@ -32,11 +32,11 @@ interface SignupData {
   diagnosis?: string;
   otherNotes?: string;
   password: string;
-  profilePicture?: any;
+  profilePicture?: File | FileList;
 }
 
 const PF1SignupForm: React.FC<{
-  setPMForm: React.Dispatch<React.SetStateAction<any | null>>;
+  setPMForm: React.Dispatch<React.SetStateAction<SignupData>>;
 }> = ({ setPMForm }) => {
   const history = useHistory();
 
@@ -93,13 +93,13 @@ const PF1SignupForm: React.FC<{
           rules={[{ required: true, message: 'Please select your pronouns' }]}
         >
           <Radio.Group>
-            <Radio className="radio-item" value={'He/Him'}>
+            <Radio className="radio-item" value="He/Him">
               He/Him
             </Radio>
-            <Radio className="radio-item" value={'She/Her'}>
+            <Radio className="radio-item" value="She/Her">
               She/Her
             </Radio>
-            <Radio className="radio-item" value={'They/Them'}>
+            <Radio className="radio-item" value="They/Them">
               They/Them
             </Radio>
           </Radio.Group>

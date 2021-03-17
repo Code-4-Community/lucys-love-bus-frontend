@@ -41,7 +41,7 @@ const PF2SignupForm: React.FC<{
               <div>
                 {fields.map((field) => (
                   <div key={field.key}>
-                    <RegistrationFormBody field={field} />
+                    <RegistrationFormBody field={field} isChildForm={false} />
 
                     <Button
                       onClick={() => {
@@ -73,7 +73,7 @@ const PF2SignupForm: React.FC<{
               <div>
                 {fields.map((field) => (
                   <div key={field.key}>
-                    <ChildFormFragment field={field} />
+                    <RegistrationFormBody field={field} isChildForm={true} />
 
                     <Button
                       onClick={() => {

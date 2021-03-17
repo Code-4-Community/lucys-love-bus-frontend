@@ -7,7 +7,7 @@ const { TextArea } = Input;
 const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
   field,
 }) => {
-  const fieldWithoutKey: any = field;
+  const fieldWithoutKey: FormListFieldData = field;
   delete fieldWithoutKey.key;
 
   return (
@@ -42,13 +42,13 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={'He/Him'}>
+          <Radio className="radio-item" value="He/Him">
             He/Him
           </Radio>
-          <Radio className="radio-item" value={'She/Her'}>
+          <Radio className="radio-item" value="She/Her">
             She/Her
           </Radio>
-          <Radio className="radio-item" value={'They/Them'}>
+          <Radio className="radio-item" value="They/Them">
             They/Them
           </Radio>
         </Radio.Group>

@@ -40,7 +40,7 @@ export const signup = (
         AppAxiosInstance.defaults.headers['X-Access-Token'] =
           response.accessToken;
         dispatch(authenticateUser.loaded(response));
-        authClient.setContacts(contactInfo, response.accessToken);
+        authClient.setContacts(contactInfo);
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));

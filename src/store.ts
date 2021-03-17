@@ -23,6 +23,9 @@ import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
   initialEventsState,
 } from './containers/upcoming-events/ducks/reducers';
+import protectedApiClient, {
+  ProtectedApiClient,
+} from './api/protectedApiClient';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -36,7 +39,9 @@ export interface Action<T, P> {
 
 export type C4CAction = UserAuthenticationActions | EventsActions;
 
-export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
+export type ThunkExtraArgs = UserAuthenticationExtraArgs &
+  ApiExtraArgs &
+  ProtectedApiClient;
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
@@ -48,7 +53,7 @@ export const initialStoreState: C4CState = {
   eventsState: initialEventsState,
 };
 
-export const LOCALSTORAGE_STATE_KEY: string = 'state';
+export const LOCALSTORAGE_STATE_KEY = 'state';
 
 const loadStateFromLocalStorage = (): C4CState | undefined => {
   try {
@@ -72,6 +77,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
   publicApiClient,
+  protectedApiClient,
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
