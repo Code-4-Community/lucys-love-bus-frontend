@@ -4,7 +4,6 @@ import FormInitialText from './FormInitialText';
 import FormContainer from './FormContainer';
 import { Helmet } from 'react-helmet';
 import RegistrationFormBody from './RegistrationFormBody';
-import ChildFormFragment from './ChildFormFragment';
 import { useHistory } from 'react-router-dom';
 
 const { Title, Paragraph } = Typography;

@@ -8,12 +8,12 @@ const RegistrationFormBody: React.FC<{
   field: FormListFieldData;
   isChildForm: boolean;
 }> = ({ field, isChildForm }) => {
-  const fieldWithoutKey: FormListFieldData = field;
-  delete fieldWithoutKey.key;
+  // const fieldWithoutKey: FormListFieldData = field;
+  // delete fieldWithoutKey.key;
   return (
     <>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'firstName']}
         fieldKey={[field.fieldKey, 'firstName']}
         label="First Name"
@@ -23,7 +23,7 @@ const RegistrationFormBody: React.FC<{
         <Input placeholder="First Name" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'lastName']}
         fieldKey={[field.fieldKey, 'firstName']}
         label="Last Name"
@@ -33,7 +33,7 @@ const RegistrationFormBody: React.FC<{
         <Input placeholder="Last Name" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'pronouns']}
         fieldKey={[field.fieldKey, 'pronouns']}
         label="Pronouns"
@@ -52,7 +52,7 @@ const RegistrationFormBody: React.FC<{
         </Radio.Group>
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'email']}
         fieldKey={[field.fieldKey, 'email']}
         label="Email"
@@ -68,7 +68,7 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
       {!isChildForm && <>
           <Form.Item
-          {...fieldWithoutKey}
+          // {...fieldWithoutKey}
           name={[field.name, 'phoneNumber']}
           fieldKey={[field.fieldKey, 'phoneNumber']}
           label="Phone Number"
@@ -87,7 +87,7 @@ const RegistrationFormBody: React.FC<{
         </>
       }
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'birthday']}
         fieldKey={[field.fieldKey, 'birthday']}
         label="Date of Birth"
@@ -104,7 +104,7 @@ const RegistrationFormBody: React.FC<{
       {isChildForm && (
         <>
           <Form.Item
-            {...fieldWithoutKey}
+            // {...fieldWithoutKey}
             name={[field.name, 'birthday']}
             fieldKey={[field.fieldKey, 'birthday']}
             label="Date of Birth"
@@ -118,7 +118,7 @@ const RegistrationFormBody: React.FC<{
             <DatePicker />
           </Form.Item>
           <Form.Item
-            {...fieldWithoutKey}
+            // {...fieldWithoutKey}
             name={[field.name, 'school']}
             fieldKey={[field.fieldKey, 'school']}
             label="School"
@@ -130,7 +130,7 @@ const RegistrationFormBody: React.FC<{
             <Input placeholder="School" />
           </Form.Item>
           <Form.Item
-            {...fieldWithoutKey}
+            // {...fieldWithoutKey}
             name={[field.name, 'grade']}
             fieldKey={[field.fieldKey, 'grade']}
             label="Grade"
@@ -147,7 +147,7 @@ const RegistrationFormBody: React.FC<{
         </>
       )}
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'allergies']}
         fieldKey={[field.fieldKey, 'allergies']}
         label="Allergies (if applicable)"
@@ -162,7 +162,7 @@ const RegistrationFormBody: React.FC<{
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'medication']}
         fieldKey={[field.fieldKey, 'medication']}
         label="Medication (if applicable)"
@@ -170,7 +170,7 @@ const RegistrationFormBody: React.FC<{
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'otherNotes']}
         fieldKey={[field.fieldKey, 'otherNotes']}
         label="Other Notes"
@@ -178,7 +178,7 @@ const RegistrationFormBody: React.FC<{
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
+        // {...fieldWithoutKey}
         name={[field.name, 'profilePicture']}
         fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"

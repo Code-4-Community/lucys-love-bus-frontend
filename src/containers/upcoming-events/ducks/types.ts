@@ -2,7 +2,7 @@ import { AsyncRequest } from '../../../utils/asyncRequest';
 import { C4CState } from '../../../store';
 import { ThunkAction } from 'redux-thunk';
 import { EventsActions } from './actions';
-import { ApiExtraArgs } from '../../../api/publicApiClient';
+import { PublicApiExtraArgs } from '../../../api/publicApiClient';
 
 export interface EventsReducerState {
   readonly upcomingEvents: AsyncRequest<EventProps[], any>;
@@ -11,7 +11,7 @@ export interface EventsReducerState {
 export type EventsThunkAction<R> = ThunkAction<
   R,
   C4CState,
-  ApiExtraArgs,
+  PublicApiExtraArgs,
   EventsActions
 >;
 

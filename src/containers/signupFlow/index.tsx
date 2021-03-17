@@ -40,24 +40,24 @@ const SignupFlow: React.FC = () => {
           },
           photoRelease,
         },
-        {
-          mainContact: {
-            email: GMForm.email,
-            firstName: GMForm.firstName,
-            lastName: GMForm.lastName,
-            dateOfBirth: convertToYearMonthDateString(GMForm.birthday),
-            phoneNumber: GMForm.phoneNumber,
-            pronouns: GMForm.pronouns,
-            allergies: GMForm.allergies ?? null,
-            diagnosis: GMForm.diagnosis ?? null,
-            medications: GMForm.medication ?? null,
-            notes: GMForm.otherNotes ?? null,
-            referrer: GMForm.referrer === 'none' ? null : GMForm.referrer,
-            profilePicture,
-          },
-          additionalContacts: [],
-          children: [],
-        },
+        // {
+        //   mainContact: {
+        //     email: GMForm.email,
+        //     firstName: GMForm.firstName,
+        //     lastName: GMForm.lastName,
+        //     dateOfBirth: convertToYearMonthDateString(GMForm.birthday),
+        //     phoneNumber: GMForm.phoneNumber,
+        //     pronouns: GMForm.pronouns,
+        //     allergies: GMForm.allergies ?? null,
+        //     diagnosis: GMForm.diagnosis ?? null,
+        //     medications: GMForm.medication ?? null,
+        //     notes: GMForm.otherNotes ?? null,
+        //     referrer: GMForm.referrer === 'none' ? null : GMForm.referrer,
+        //     profilePicture,
+        //   },
+        //   additionalContacts: [],
+        //   children: [],
+        // },
       ),
     );
   };
@@ -79,64 +79,64 @@ const SignupFlow: React.FC = () => {
           },
           photoRelease,
         },
-        {
-          mainContact: {
-            firstName: PFForm1.firstName,
-            lastName: PFForm1.lastName,
-            dateOfBirth: convertToYearMonthDateString(PFForm1.birthday),
-            phoneNumber: PFForm1.phoneNumber,
-            pronouns: PFForm1.pronouns,
-            allergies: PFForm1.allergies ?? null,
-            diagnosis: PFForm1.diagnosis ?? null,
-            medications: PFForm1.medication ?? null,
-            notes: PFForm1.otherNotes ?? null,
-            profilePicture: await encodeProfileFieldFile(
-              PFForm1.profilePicture,
-            ),
-            email: PFForm1.email,
-            referrer: PFForm1.referrer,
-          },
-          additionalContacts: PFForm2.contacts
-            ? await Promise.all(
-                PFForm2.contacts.map(async (contact: any) => ({
-                  firstName: contact.firstName,
-                  lastName: contact.lastName,
-                  dateOfBirth: convertToYearMonthDateString(contact.birthday),
-                  phoneNumber: contact.phoneNumber,
-                  pronouns: contact.pronouns,
-                  allergies: contact.allergies ?? null,
-                  diagnosis: contact.diagnosis ?? null,
-                  medications: contact.medication ?? null,
-                  notes: contact.otherNotes ?? null,
-                  email: contact.email,
-                  shouldSendEmails: true,
-                  profilePicture: await encodeProfileFieldFile(
-                    contact.profilePicture,
-                  ),
-                })),
-              )
-            : [],
-          children: PFForm2.children
-            ? await Promise.all(
-                PFForm2.children.map(async (child: any) => ({
-                  firstName: child.firstName,
-                  lastName: child.lastName,
-                  dateOfBirth: convertToYearMonthDateString(child.birthday),
-                  phoneNumber: child.phoneNumber,
-                  pronouns: child.pronouns,
-                  allergies: child.allergies ?? null,
-                  diagnosis: child.diagnosis ?? null,
-                  medications: child.medication ?? null,
-                  notes: child.otherNotes ?? null,
-                  school: child.school,
-                  schoolYear: child.grade,
-                  profilePicture: await encodeProfileFieldFile(
-                    child.profilePicture,
-                  ),
-                })),
-              )
-            : [],
-        },
+        // {
+        //   mainContact: {
+        //     firstName: PFForm1.firstName,
+        //     lastName: PFForm1.lastName,
+        //     dateOfBirth: convertToYearMonthDateString(PFForm1.birthday),
+        //     phoneNumber: PFForm1.phoneNumber,
+        //     pronouns: PFForm1.pronouns,
+        //     allergies: PFForm1.allergies ?? null,
+        //     diagnosis: PFForm1.diagnosis ?? null,
+        //     medications: PFForm1.medication ?? null,
+        //     notes: PFForm1.otherNotes ?? null,
+        //     profilePicture: await encodeProfileFieldFile(
+        //       PFForm1.profilePicture,
+        //     ),
+        //     email: PFForm1.email,
+        //     referrer: PFForm1.referrer,
+        //   },
+        //   additionalContacts: PFForm2.contacts
+        //     ? await Promise.all(
+        //         PFForm2.contacts.map(async (contact: any) => ({
+        //           firstName: contact.firstName,
+        //           lastName: contact.lastName,
+        //           dateOfBirth: convertToYearMonthDateString(contact.birthday),
+        //           phoneNumber: contact.phoneNumber,
+        //           pronouns: contact.pronouns,
+        //           allergies: contact.allergies ?? null,
+        //           diagnosis: contact.diagnosis ?? null,
+        //           medications: contact.medication ?? null,
+        //           notes: contact.otherNotes ?? null,
+        //           email: contact.email,
+        //           shouldSendEmails: true,
+        //           profilePicture: await encodeProfileFieldFile(
+        //             contact.profilePicture,
+        //           ),
+        //         })),
+        //       )
+        //     : [],
+        //   children: PFForm2.children
+        //     ? await Promise.all(
+        //         PFForm2.children.map(async (child: any) => ({
+        //           firstName: child.firstName,
+        //           lastName: child.lastName,
+        //           dateOfBirth: convertToYearMonthDateString(child.birthday),
+        //           phoneNumber: child.phoneNumber,
+        //           pronouns: child.pronouns,
+        //           allergies: child.allergies ?? null,
+        //           diagnosis: child.diagnosis ?? null,
+        //           medications: child.medication ?? null,
+        //           notes: child.otherNotes ?? null,
+        //           school: child.school,
+        //           schoolYear: child.grade,
+        //           profilePicture: await encodeProfileFieldFile(
+        //             child.profilePicture,
+        //           ),
+        //         })),
+        //       )
+        //     : [],
+        // },
       ),
     );
   };

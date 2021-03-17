@@ -4,6 +4,7 @@ import { authenticateUser } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
 import publicApiClient from '../../api/publicApiClient';
+import protectedApiClient from '../../api/protectedApiClient';
 
 export const generateState = (partialState: Partial<C4CState>): C4CState => ({
   ...initialStoreState,
@@ -29,6 +30,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
+        protectedApiClient
       };
 
       await login({
@@ -60,6 +62,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
+        protectedApiClient
       };
 
       await login({
@@ -94,6 +97,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
+        protectedApiClient
       };
 
       await signup(
@@ -111,24 +115,24 @@ describe('User Authentication Thunks', () => {
             zipCode: '',
           },
         },
-        {
-          mainContact: {
-            firstName: '',
-            lastName: '',
-            dateOfBirth: '', // YYYY-MM-DD
-            phoneNumber: '',
-            pronouns: '',
-            allergies: '',
-            diagnosis: '',
-            medications: '',
-            notes: '',
-            profilePicture: '',
-            referrer: '',
-            email: '',
-          },
-          additionalContacts: [],
-          children: [],
-        },
+        // {
+        //   mainContact: {
+        //     firstName: '',
+        //     lastName: '',
+        //     dateOfBirth: '', // YYYY-MM-DD
+        //     phoneNumber: '',
+        //     pronouns: '',
+        //     allergies: '',
+        //     diagnosis: '',
+        //     medications: '',
+        //     notes: '',
+        //     profilePicture: '',
+        //     referrer: '',
+        //     email: '',
+        //   },
+        //   additionalContacts: [],
+        //   children: [],
+        // },
       )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
@@ -154,6 +158,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
+        protectedApiClient
       };
 
       await signup(
@@ -171,24 +176,24 @@ describe('User Authentication Thunks', () => {
             zipCode: '',
           },
         },
-        {
-          mainContact: {
-            firstName: '',
-            lastName: '',
-            dateOfBirth: '', // YYYY-MM-DD
-            phoneNumber: '',
-            pronouns: '',
-            allergies: '',
-            diagnosis: '',
-            medications: '',
-            notes: '',
-            profilePicture: '',
-            referrer: '',
-            email: '',
-          },
-          additionalContacts: [],
-          children: [],
-        },
+        // {
+        //   mainContact: {
+        //     firstName: '',
+        //     lastName: '',
+        //     dateOfBirth: '', // YYYY-MM-DD
+        //     phoneNumber: '',
+        //     pronouns: '',
+        //     allergies: '',
+        //     diagnosis: '',
+        //     medications: '',
+        //     notes: '',
+        //     profilePicture: '',
+        //     referrer: '',
+        //     email: '',
+        //   },
+        //   additionalContacts: [],
+        //   children: [],
+        // },
       )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);

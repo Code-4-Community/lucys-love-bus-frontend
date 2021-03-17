@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from 'axios';
 import {
   LoginRequest,
   RefreshTokenResponse,
-  SetContactsRequest,
   SignupRequest,
   TokenPayload,
 } from './ducks/types';

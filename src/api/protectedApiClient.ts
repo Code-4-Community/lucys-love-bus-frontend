@@ -1,5 +1,9 @@
 import AppAxiosInstance from '../auth/axios';
-import { SetContactsRequest } from '../auth/ducks/types';
+import { SetContactsRequest } from '../containers/setContacts/types';
+
+export interface ProtectedApiExtraArgs {
+  readonly protectedApiClient: ProtectedApiClient;
+}
 
 export interface ProtectedApiClient {
   readonly setContacts: (contactInfo: SetContactsRequest) => Promise<void>;

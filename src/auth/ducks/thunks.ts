@@ -2,7 +2,7 @@ import AppAxiosInstance from '../axios';
 import { authenticateUser, logoutUser } from './actions';
 import {
   LoginRequest,
-  SetContactsRequest,
+  // SetContactsRequest,
   SignupRequest,
   TokenPayload,
   UserAuthenticationThunkAction,
@@ -30,7 +30,7 @@ export const login = (
 
 export const signup = (
   signupRequest: SignupRequest,
-  contactInfo: SetContactsRequest,
+  // contactInfo: SetContactsRequest,
 ): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient }): Promise<void> => {
     dispatch(authenticateUser.loading());
@@ -40,7 +40,7 @@ export const signup = (
         AppAxiosInstance.defaults.headers['X-Access-Token'] =
           response.accessToken;
         dispatch(authenticateUser.loaded(response));
-        authClient.setContacts(contactInfo);
+        // protectedApiClient.setContacts(contactInfo);
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));
