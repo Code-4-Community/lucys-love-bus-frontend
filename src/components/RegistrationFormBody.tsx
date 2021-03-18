@@ -66,26 +66,27 @@ const RegistrationFormBody: React.FC<{
       >
         <Input placeholder="Email" />
       </Form.Item>
-      {!isChildForm && <>
+      {!isChildForm && (
+        <>
           <Form.Item
-          // {...fieldWithoutKey}
-          name={[field.name, 'phoneNumber']}
-          fieldKey={[field.fieldKey, 'phoneNumber']}
-          label="Phone Number"
-          className="block-half"
-          rules={[
-            {
-              required: true,
-              pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
-              message: 'Please input a valid phone number',
-            },
-          ]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
-        >
-          <Input placeholder="Phone Number" />
-        </Form.Item>
+            // {...fieldWithoutKey}
+            name={[field.name, 'phoneNumber']}
+            fieldKey={[field.fieldKey, 'phoneNumber']}
+            label="Phone Number"
+            className="block-half"
+            rules={[
+              {
+                required: true,
+                pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){10}$/),
+                message: 'Please input a valid phone number',
+              },
+            ]}
+            style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
+          >
+            <Input placeholder="Phone Number" />
+          </Form.Item>
         </>
-      }
+      )}
       <Form.Item
         // {...fieldWithoutKey}
         name={[field.name, 'birthday']}

@@ -1,7 +1,7 @@
-import { ThunkAction } from "redux-thunk";
-import { ProtectedApiExtraArgs } from "../../api/protectedApiClient";
-import { C4CState } from "../../store";
-import { SetContactsActions } from './actions'
+import { ThunkAction } from 'redux-thunk';
+import { ProtectedApiExtraArgs } from '../../api/protectedApiClient';
+import { C4CState } from '../../store';
+import { SetContactsActions } from './actions';
 
 export type SetContactsThunkAction<R> = ThunkAction<
   R,
