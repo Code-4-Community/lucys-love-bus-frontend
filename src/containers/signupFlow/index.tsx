@@ -11,16 +11,14 @@ import SignupConfirmation from '../../components/SignupConfirmationForm';
 import SignupDirectory from '../../components/SignupDirectory';
 import SignupVerification from '../../components/SignupVerification';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
-
+import { convertToYearMonthDateString } from '../../utils/dateUtils'
 const SignupFlow: React.FC = () => {
   const [GMForm, setGMForm] = useState<any | null>(null);
   const [PFForm1, setPFForm1] = useState<any | null>(null);
   const [PFForm2, setPFForm2] = useState<any | null>(null);
   const dispatch = useDispatch();
 
-  function convertToYearMonthDateString(d: Date): string {
-    return d.toISOString().split('T')[0];
-  }
+  
 
   const submitGMForm = async (photoRelease: boolean) => {
     const profilePicture = await encodeProfileFieldFile(GMForm.profilePicture);
