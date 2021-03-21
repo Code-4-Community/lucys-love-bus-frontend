@@ -7,11 +7,13 @@ import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
-import { C4CState } from '../../store';
+import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
 import { connect } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PRIMARY } from '../../utils/colors';
 import { Routes } from '../../App';
+import AuthClient from '../../auth/authClient';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 
 const { Text } = Typography;
 
@@ -93,6 +95,19 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
         }}
       >
         Settings
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          if (asyncRequestIsComplete(tokens)) {
+            AuthClient.logout(tokens.result.refreshToken).then(() => {
+              localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
+            });
+            history.push(Routes.HOME);
+            history.go(0) // force refresh to update privilege level
+          }
+        }}
+      >
+        Log Out
       </Menu.Item>
     </Menu>
   );
