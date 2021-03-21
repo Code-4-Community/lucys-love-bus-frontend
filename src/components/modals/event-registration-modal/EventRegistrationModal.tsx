@@ -3,6 +3,8 @@ import { InputNumber, Modal, Typography } from 'antd';
 import styled from 'styled-components';
 import { AsyncRequest, AsyncRequestKinds } from '../../../utils/asyncRequest';
 import { TokenPayload } from '../../../auth/ducks/types';
+import { C4CState } from '../../../store';
+import { connect } from 'react-redux';
 interface EventRegistrationModalProps {
   eventTitle: string;
   showEventRegistrationModal: boolean;
@@ -53,4 +55,10 @@ const EventRegistrationModal: React.FC<
   );
 };
 
-export default EventRegistrationModal;
+const mapStateToProps = (state: C4CState): StateProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(EventRegistrationModal);

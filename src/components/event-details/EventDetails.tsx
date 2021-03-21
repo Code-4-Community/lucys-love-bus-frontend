@@ -1,9 +1,11 @@
 import { Button, Col, Row, Typography } from 'antd';
 import dateFormat from 'dateformat';
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
+import { PrivilegeLevel } from '../../auth/ducks/types';
+import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 const { Title } = Typography;
 
 const TopRow = styled(Row)`
@@ -58,6 +60,11 @@ const AnnouncementBox = styled.div`
 `;
 
 const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
+  const [
+    displayEventRegistrationModal,
+    setDisplayEventRegistrationModal,
+  ] = useState<boolean>(false);
+
   const defaultImg =
     'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
 
@@ -94,7 +101,13 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
               <Time>{computeTimeString(start, end)}</Time>
 
               <Location>Location: {location}</Location>
-              <GreenButton>Register</GreenButton>
+              <GreenButton
+                onClick={() => {
+                  setDisplayEventRegistrationModal(true);
+                }}
+              >
+                Register
+              </GreenButton>
             </Info>
           </Col>
         </CardContent>
@@ -103,7 +116,13 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
-          <GreenButton>Register</GreenButton>
+          <GreenButton
+            onClick={() => {
+              setDisplayEventRegistrationModal(true);
+            }}
+          >
+            Register
+          </GreenButton>
         </Col>
         <Col span={10}>
           <Title level={5}>Announcements</Title>
@@ -112,6 +131,13 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
           </AnnouncementBox>
         </Col>
       </BottomRow>
+      <EventRegistrationModal
+        eventTitle={title}
+        showEventRegistrationModal={displayEventRegistrationModal}
+        onCloseEventRegistrationModal={() => {
+          setDisplayEventRegistrationModal(false);
+        }}
+      />
     </>
   );
 };
