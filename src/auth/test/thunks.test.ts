@@ -114,6 +114,7 @@ describe('User Authentication Thunks', () => {
             state: '',
             zipCode: '',
           },
+          dateOfBirth: '2001-01-15'
         },
         // {
         //   mainContact: {
@@ -175,6 +176,7 @@ describe('User Authentication Thunks', () => {
             state: '',
             zipCode: '',
           },
+          dateOfBirth: '2001-01-15'
         },
         // {
         //   mainContact: {

@@ -49,6 +49,7 @@ describe('Authentication Client Tests', () => {
           state: '',
           zipCode: '',
         },
+        dateOfBirth: '2001-01-15'
       });
 
       expect(result).toEqual(response);

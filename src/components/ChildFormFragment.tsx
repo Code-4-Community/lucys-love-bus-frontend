@@ -8,7 +8,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
   field,
 }) => {
   const fieldWithoutKey: FormListFieldData = field;
-  delete fieldWithoutKey.key;
 
   return (
     <>
