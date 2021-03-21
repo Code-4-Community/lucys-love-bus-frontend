@@ -26,6 +26,7 @@ import {
   AsyncRequest,
   asyncRequestIsComplete,
   asyncRequestIsFailed,
+  asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
 import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
@@ -484,7 +485,12 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
               />
             )}
             <Form.Item>
-              <Button type="primary" className="button-style" htmlType="submit">
+              <Button
+                type="primary"
+                disabled={asyncRequestIsLoading(tokens)}
+                className="button-style"
+                htmlType="submit"
+              >
                 Submit
               </Button>
             </Form.Item>
