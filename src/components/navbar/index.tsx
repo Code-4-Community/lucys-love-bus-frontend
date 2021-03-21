@@ -103,7 +103,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
               localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
             });
             history.push(Routes.HOME);
-            history.go(0) // force refresh to update privilege level
+            history.go(0); // force refresh if user is already on home page
           }
         }}
       >
