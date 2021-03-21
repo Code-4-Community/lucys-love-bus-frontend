@@ -199,7 +199,7 @@ const SignupConfirmationForm: React.FC<{
           </div>
 
           <Form.Item className="centered">
-            <LinkButton to={backURL} type="secondary" className="button-style">
+            <LinkButton to={backURL} className="button-style">
               Back
             </LinkButton>
             <Button type="primary" className="button-style" htmlType="submit">

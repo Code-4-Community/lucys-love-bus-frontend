@@ -47,6 +47,15 @@ export interface SignupRequest {
   readonly diagnosis?: string;
 }
 
+export interface ForgotPasswordRequest {
+  readonly email: string;
+}
+
+export interface ForgotPasswordResetRequest {
+  readonly newPassword: string;
+  readonly secretKey: string;
+}
+
 export interface TokenPayload {
   readonly accessToken: string;
   readonly refreshToken: string;

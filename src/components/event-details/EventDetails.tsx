@@ -51,7 +51,7 @@ const Info = styled.div`
   max-height: 350px;
 `;
 
-const AnnoucementBox = styled.div`
+const AnnouncementBox = styled.div`
   align-items: center;
   border: 1px solid #d9d9d9;
   min-height: 80px;
@@ -107,9 +107,9 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
         </Col>
         <Col span={10}>
           <Title level={5}>Announcements</Title>
-          <AnnoucementBox>
-            There are no annoucements for this event
-          </AnnoucementBox>
+          <AnnouncementBox>
+            There are no announcements for this event
+          </AnnouncementBox>
         </Col>
       </BottomRow>
     </>

@@ -1,21 +1,25 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
-import { getPrivilegeLevel } from './auth/ducks/selectors';
-import { PrivilegeLevel } from './auth/ducks/types';
-import NavBar from './components/navbar';
 import Home from './containers/home';
 import Login from './containers/login';
+import ForgotPassword from './containers/forgotPasswordRequest';
+import ForgotPasswordReset from './containers/forgotPasswordReset';
+import VerifyEmail from './containers/verifyEmail';
+import NavBar from './components/navbar';
+import styled from 'styled-components';
+import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
 import SignupForm from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import Announcements from './containers/announcements';
+import { useSelector } from 'react-redux';
 import { C4CState } from './store';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
 
 const { Content } = Layout;
 
@@ -29,8 +33,12 @@ export enum Routes {
   SIGNUP = '/signup',
   SIGNUP_FORM = '/signup/form',
   SETTINGS = '/settings',
+  FORGOT_PASSWORD_REQUEST = '/forgot-password',
+  FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key',
+  VERIFY_EMAIL = '/verify/:key',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
+  ANNOUNCEMENTS = '/announcements',
 }
 
 const App: React.FC = () => {
@@ -69,6 +77,11 @@ const App: React.FC = () => {
                         component={SingleEvent}
                       />
                       <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
+                      />
+                      <Route
                         path={Routes.SETTINGS}
                         exact
                         component={Settings}
@@ -79,6 +92,11 @@ const App: React.FC = () => {
                         component={SignupForm}
                       />
                       <Route path="*" exact component={NotFound} />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
+                      />
                     </Switch>
                   );
                 case PrivilegeLevel.NONE:
@@ -101,6 +119,27 @@ const App: React.FC = () => {
                         path={Routes.EVENT}
                         exact
                         component={SingleEvent}
+                      />
+                      <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
+                      />
+
+                      <Route
+                        path={Routes.FORGOT_PASSWORD_REQUEST}
+                        exact
+                        component={ForgotPassword}
+                      />
+                      <Route
+                        path={Routes.FORGOT_PASSWORD_RESET}
+                        exact
+                        component={ForgotPasswordReset}
+                      />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
