@@ -66,7 +66,7 @@ export interface SignupData {
   zip: string;
   allergies?: string;
   diagnosis?: string;
-  medication?: string;
+  medications?: string;
   otherNotes?: string;
   password: string;
   profilePicture?: {
@@ -74,5 +74,5 @@ export interface SignupData {
   };
   photoRelease: boolean;
   referrer: string;
-  birthday: Date;
+  dateOfBirth: Date;
 }

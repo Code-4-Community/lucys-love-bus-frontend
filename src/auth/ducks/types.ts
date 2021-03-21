@@ -37,6 +37,14 @@ export interface SignupRequest {
     readonly zipCode: string;
   };
   readonly photoRelease: boolean;
+  readonly allergies?: string;
+  readonly referrer?: string;
+  readonly notes?: string;
+  readonly pronouns?: string;
+  readonly profilePicture?: string | null;
+  readonly dateOfBirth: string;
+  readonly medication?: string;
+  readonly diagnosis?: string;
 }
 
 export interface TokenPayload {

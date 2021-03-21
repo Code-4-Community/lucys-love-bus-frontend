@@ -27,8 +27,10 @@ import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
 } from '../../utils/asyncRequest';
+import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 import { SignupData } from './ducks/types';
+
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
 const { Dragger } = Upload;
@@ -51,20 +53,18 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
 
   if (asyncRequestIsComplete(tokens)) {
     console.log('going to route home');
-    // if (registeringAsParticipatingFamily) {
-    //   // TODO: if PF then route to set contacts with the PF query parameter pf
-    //   history.push(Routes.HOME);
-    // } else {
-    //   history.push(Routes.HOME);
-    // }
-    history.push(Routes.HOME);
+    if (registeringAsParticipatingFamily) {
+      // TODO: if PF then route to set contacts with the PF query parameter pf
+      history.push(Routes.HOME);
+    } else {
+      history.push(Routes.HOME);
+    }
   }
 
   const onFinish = async (data: SignupData) => {
     const profilePicture =
       data.profilePicture &&
       (await encodeProfileFieldFile(data.profilePicture));
-    // TODO: send the rest of main contact information with signup request
     dispatch(
       signup({
         email: data.email,
@@ -79,6 +79,14 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
           zipCode: data.zip,
         },
         photoRelease: data.photoRelease,
+        referrer: data.referrer,
+        profilePicture,
+        allergies: data.allergies,
+        medication: data.medications,
+        notes: data.otherNotes,
+        dateOfBirth: convertToYearMonthDateString(data.dateOfBirth),
+        pronouns: data.pronouns,
+        diagnosis: data.diagnosis,
       }),
     );
   };
@@ -95,7 +103,7 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
       <ContentContainer>
         <FormContainer>
           <Helmet>
-            <title>Signup - Participating Family</title>
+            <title>Signup</title>
           </Helmet>
           <FormInitialText>
             <Title level={5}>SIGN UP</Title>
@@ -236,8 +244,8 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
               <Input placeholder="Phone Number" />
             </Form.Item>
             <Form.Item
-              name="birthday"
-              fieldKey="birthday"
+              name="dateOfBirth"
+              fieldKey="dateOfBirth"
               label="Date of Birth"
               rules={[
                 {
