@@ -39,7 +39,6 @@ const { TextArea } = Input;
 
 const PaddedAlert = styled(Alert)`
   margin-top: 1em;
-
   margin-bottom: 2em;
 `;
 
