@@ -43,11 +43,11 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   return (
     <>
       {numRows ? (
-        getAnnouncementRows(numRows, announcements).map((row) => {
+        getAnnouncementRows(numRows, announcements).map((row, i) => {
           return (
-            <AnnouncementRow>
-              {row.map((announcement) => (
-                <AnnouncementCard {...announcement} />
+            <AnnouncementRow key={i}>
+              {row.map((announcement, j) => (
+                <AnnouncementCard key={j} {...announcement} />
               ))}
             </AnnouncementRow>
           );
