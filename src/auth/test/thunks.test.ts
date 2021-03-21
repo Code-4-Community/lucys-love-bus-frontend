@@ -30,7 +30,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
-        protectedApiClient
+        protectedApiClient,
       };
 
       await login({
@@ -62,7 +62,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
-        protectedApiClient
+        protectedApiClient,
       };
 
       await login({
@@ -97,7 +97,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
-        protectedApiClient
+        protectedApiClient,
       };
 
       await signup(
@@ -114,7 +114,7 @@ describe('User Authentication Thunks', () => {
             state: '',
             zipCode: '',
           },
-          dateOfBirth: '2001-01-15'
+          dateOfBirth: '2001-01-15',
         },
         // {
         //   mainContact: {
@@ -159,7 +159,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
-        protectedApiClient
+        protectedApiClient,
       };
 
       await signup(
@@ -176,7 +176,7 @@ describe('User Authentication Thunks', () => {
             state: '',
             zipCode: '',
           },
-          dateOfBirth: '2001-01-15'
+          dateOfBirth: '2001-01-15',
         },
         // {
         //   mainContact: {

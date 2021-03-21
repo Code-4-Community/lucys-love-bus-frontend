@@ -7,7 +7,7 @@ import {
   // SetContactsRequest,
   SignupRequest,
   TokenPayload,
-  UserAuthenticationThunkAction
+  UserAuthenticationThunkAction,
 } from './types';
 
 export const login = (
