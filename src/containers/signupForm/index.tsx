@@ -52,7 +52,6 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
     new URLSearchParams(location.search).get('pf') != null;
 
   if (asyncRequestIsComplete(tokens)) {
-    console.log('going to route home');
     if (registeringAsParticipatingFamily) {
       // TODO: if PF then route to set contacts with the PF query parameter pf
       history.push(Routes.HOME);

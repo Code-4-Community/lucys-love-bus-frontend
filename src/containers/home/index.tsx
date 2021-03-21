@@ -74,7 +74,7 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
-export interface HomeContainerProps extends AnnouncementsDataProps {}
+export type HomeContainerProps = AnnouncementsDataProps;
 
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();

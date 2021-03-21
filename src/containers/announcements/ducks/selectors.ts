@@ -1,4 +1,4 @@
-import { Announcement } from "./types";
+import { Announcement } from './types';
 
 const COLUMNS_PER_ROW = 3;
 

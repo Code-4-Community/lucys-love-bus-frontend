@@ -3,34 +3,34 @@ import { Announcement } from '../ducks/types';
 
 const COLUMNS_PER_ROW = 3;
 const a1: Announcement = {
-    title: "title 1",
-    created: new Date("2021-03-08 17:30:30 +0000"),
-    description: "description1",
-    imageSrc: "https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
+    title: 'title 1',
+    created: new Date('2021-03-08 17:30:30 +0000'),
+    description: 'description1',
+    imageSrc: 'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg'
 };
 const a2: Announcement = {
-    title: "title 1",
-    created: new Date("2021-03-08 17:30:30 +0000"),
-    description: "description1",
-    imageSrc: "https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
+    title: 'title 1',
+    created: new Date('2021-03-08 17:30:30 +0000'),
+    description: 'description1',
+    imageSrc: 'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg'
 };
 const a3: Announcement = {
-    title: "title 1",
-    created: new Date("2021-03-08 17:30:30 +0000"),
-    description: "description1",
-    imageSrc: "https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
+    title: 'title 1',
+    created: new Date('2021-03-08 17:30:30 +0000'),
+    description: 'description1',
+    imageSrc: 'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg'
 };
 const a4: Announcement = {
-    title: "title 1",
-    created: new Date("2021-03-08 17:30:30 +0000"),
-    description: "description1",
-    imageSrc: "https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
+    title: 'title 1',
+    created: new Date('2021-03-08 17:30:30 +0000'),
+    description: 'description1',
+    imageSrc: 'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg'
 };
 const a5: Announcement = {
-    title: "title 1",
-    created: new Date("2021-03-08 17:30:30 +0000"),
-    description: "description1",
-    imageSrc: "https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg"
+    title: 'title 1',
+    created: new Date('2021-03-08 17:30:30 +0000'),
+    description: 'description1',
+    imageSrc: 'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg'
 };
 
 describe('Announcements Selectors', () => {

@@ -8,7 +8,7 @@ import { getAnnouncementRows } from '../../containers/announcements/ducks/select
 const COLUMNS_PER_ROW = 3;
 const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
 const NO_ANNOUNCEMENTS_SUBHEADER = 'Come back later for future updates!';
-const NO_ANNOUNCEMENTS_HEADER_COLOR = "#ce4a00";
+const NO_ANNOUNCEMENTS_HEADER_COLOR = '#ce4a00';
 
 const AnnouncementRow = styled(Row)`
   display: grid;
@@ -30,7 +30,9 @@ export interface AnnouncementsListProps {
   announcements: Announcement[];
 }
 
-const AnnouncementsList: React.FC<AnnouncementsListProps> = ({ announcements }) => {
+const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
+  announcements,
+}) => {
   const [numRows, setNumRows] = useState(0);
 
   useEffect(() => {
@@ -41,12 +43,12 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({ announcements }) 
   return (
     <>
       {numRows ? (
-        getAnnouncementRows(numRows, announcements).map(row => {
+        getAnnouncementRows(numRows, announcements).map((row) => {
           return (
             <AnnouncementRow>
-              {row.map(announcement => (
-                  <AnnouncementCard {...announcement} />
-                ))}
+              {row.map((announcement) => (
+                <AnnouncementCard {...announcement} />
+              ))}
             </AnnouncementRow>
           );
         })
