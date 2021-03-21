@@ -1,6 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
 import { AuthClient } from '../authClient';
-import { TokenService } from '../token';
 import { AsyncRequest } from '../../utils/asyncRequest';
 import { UserAuthenticationActions } from './actions';
 import { C4CState } from '../../store';
@@ -11,7 +10,6 @@ export interface UserAuthenticationReducerState {
 
 export interface UserAuthenticationExtraArgs {
   readonly authClient: AuthClient;
-  readonly tokenService: TokenService;
 }
 
 export type UserAuthenticationThunkAction<R> = ThunkAction<
@@ -33,6 +31,15 @@ export interface SignupRequest {
   readonly lastName: string;
 }
 
+export interface ForgotPasswordRequest {
+  readonly email: string;
+}
+
+export interface ForgotPasswordResetRequest {
+  readonly newPassword: string;
+  readonly secretKey: string;
+}
+
 export interface TokenPayload {
   readonly accessToken: string;
   readonly refreshToken: string;
@@ -43,9 +50,9 @@ export interface RefreshTokenResponse {
 }
 
 export enum PrivilegeLevel {
-  NONE = -1,
-  STANDARD = 0,
-  ADMIN = 1,
+  NONE = 'none',
+  STANDARD = 'standard',
+  ADMIN = 'admin',
 }
 
 export const NO_USER_ID = -1;

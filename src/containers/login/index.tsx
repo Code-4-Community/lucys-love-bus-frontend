@@ -7,6 +7,8 @@ import { connect, useDispatch } from 'react-redux';
 import { AsyncRequestKinds } from '../../utils/asyncRequest';
 import { C4CState } from '../../store';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { ContentContainer } from '../../components';
+import { Routes } from '../../App';
 
 const { Title, Paragraph } = Typography;
 
@@ -23,7 +25,7 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
         <title>Login</title>
         <meta name="description" content="Description goes here." />
       </Helmet>
-      <div className="content-container">
+      <ContentContainer>
         <Title>Login</Title>
         <Form name="basic" onFinish={onFinish}>
           <Form.Item
@@ -42,14 +44,17 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
           </Form.Item>
           <Paragraph>
             Need an account? Sign up{' '}
-            <Link to="/signup" component={Typography.Link}>
+            <Link to={Routes.SIGNUP} component={Typography.Link}>
               here
             </Link>
             !
           </Paragraph>
           <Paragraph>
             Forgot your password? Click{' '}
-            <Link to="/" component={Typography.Link}>
+            <Link
+              to={Routes.FORGOT_PASSWORD_REQUEST}
+              component={Typography.Link}
+            >
               here
             </Link>{' '}
             to reset it.
@@ -63,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ tokens }) => {
             </Button>
           </Form.Item>
         </Form>
-      </div>
+      </ContentContainer>
     </>
   );
 };

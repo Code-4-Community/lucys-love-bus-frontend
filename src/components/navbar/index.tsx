@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Menu, Dropdown, Typography, Row, Col, Button, Image } from 'antd';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginModal from '../modals/login-modal/LoginModal';
-import { ORANGE } from '../../colors';
+import {
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
+import { C4CState } from '../../store';
+import { connect } from 'react-redux';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+
+import { Routes } from '../../App';
+import { ORANGE } from '../../utils/colors';
 
 const { Text } = Typography;
 
@@ -27,7 +35,7 @@ const ActiveNavBarButton = styled(NavBarButton)`
   font-weight: 500;
 `;
 
-const LLBLogo = styled(Image)`
+const Logo = styled(Image)`
   width: 100px;
   margin: 16px;
 `;
@@ -48,31 +56,35 @@ const LogoContainer = styled.div`
   padding-right: 24px;
 `;
 
-const LLBTextColumn = styled(Col)`
+const TextColumn = styled(Col)`
   padding-right: 16px;
 `;
-const LLBText = styled(Text)`
+const NavBarText = styled(Text)`
   font-size: 1.6em;
   font-weight: 700;
   line-height: 1.15;
 `;
 
-const LLBSubtitle = styled(Text)`
-  color: #ce4a00;
+const Subtitle = styled(Text)`
+  color: ${ORANGE};
 `;
 
 const UserContainer = styled.div`
   margin-right: 16px;
 `;
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  readonly tokens: UserAuthenticationReducerState['tokens'];
+}
+
+const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const history = useHistory();
   const location = useLocation();
-  const authenticated = false;
+
+  const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
-    Home: '/',
-    'Upcoming Events': '/upcoming-events',
-    'My Events': '/grid-template',
+    Home: Routes.HOME,
+    'Upcoming Events': Routes.UPCOMING_EVENTS,
   };
 
   // Dropdown menu options for the logged in
@@ -82,6 +94,13 @@ const NavBar: React.FC = () => {
       <Menu.Item>Account Details</Menu.Item>
       <Menu.Item>Change Password</Menu.Item>
       <Menu.Item>Deactivate Account</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.SETTINGS);
+        }}
+      >
+        Settings
+      </Menu.Item>
     </Menu>
   );
 
@@ -99,14 +118,14 @@ const NavBar: React.FC = () => {
                   history.push('/');
                 }}
               >
-                <LLBLogo
+                <Logo
                   src="https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_logo_no_text.png"
                   alt="LLB Logo"
                   preview={false}
                 />
               </Link>
             </Col>
-            <LLBTextColumn>
+            <TextColumn>
               <Link
                 to="/"
                 onClick={() => {
@@ -114,13 +133,13 @@ const NavBar: React.FC = () => {
                 }}
               >
                 <Row>
-                  <LLBText>Lucy's Love Bus</LLBText>
+                  <NavBarText>Lucy's Love Bus</NavBarText>
                 </Row>
                 <Row>
-                  <LLBSubtitle>Event Registration </LLBSubtitle>
+                  <Subtitle>Event Registration</Subtitle>
                 </Row>
               </Link>
-            </LLBTextColumn>
+            </TextColumn>
             <Col>
               <Row justify="space-between">
                 {Object.entries(links).map(([link, path], i) => (
@@ -154,11 +173,12 @@ const NavBar: React.FC = () => {
 
         <UserContainer>
           <Row gutter={[8, 0]}>
-            {authenticated ? (
+            {privilegeLevel !== PrivilegeLevel.NONE ? (
               <Col>
                 <Dropdown overlay={userMenu}>
                   <Button>
-                    <UserOutlined /> John Smith <DownOutlined />
+                    <UserOutlined />
+                    <DownOutlined />
                   </Button>
                 </Dropdown>
               </Col>
@@ -179,7 +199,7 @@ const NavBar: React.FC = () => {
                     tab-index="0"
                     type="primary"
                     onClick={() => {
-                      history.push('/signup');
+                      history.push(Routes.SIGNUP);
                     }}
                   >
                     Sign Up
@@ -191,7 +211,9 @@ const NavBar: React.FC = () => {
         </UserContainer>
       </NavBarContainer>
       <LoginModal
-        showLoginModal={displayLoginModal}
+        showLoginModal={
+          privilegeLevel === PrivilegeLevel.NONE && displayLoginModal
+        }
         onCloseLoginModal={() => {
           setDisplayLoginModal(false);
         }}
@@ -200,4 +222,10 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state: C4CState): NavBarProps => {
+  return {
+    tokens: state.authenticationState.tokens,
+  };
+};
+
+export default connect(mapStateToProps)(NavBar);
