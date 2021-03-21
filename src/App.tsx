@@ -11,9 +11,10 @@ import Home from './containers/home';
 import Login from './containers/login';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
-import SignupFlow from './containers/signupFlow';
+import Signup from './containers/signup';
+import SignupForm from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
-import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import UpcomingEvents from './containers/upcoming-events';
 import { C4CState } from './store';
 
 const { Content } = Layout;
@@ -26,6 +27,7 @@ export enum Routes {
   HOME = '/',
   LOGIN = '/login',
   SIGNUP = '/signup',
+  SIGNUP_FORM = '/signup/form',
   SETTINGS = '/settings',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
@@ -56,8 +58,6 @@ const App: React.FC = () => {
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
-                      <Route path={Routes.SIGNUP} component={SignupFlow} />
-                      <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}
                         exact
@@ -73,6 +73,11 @@ const App: React.FC = () => {
                         exact
                         component={Settings}
                       />
+                      <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupForm}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -80,7 +85,12 @@ const App: React.FC = () => {
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
-                      <Route path={Routes.SIGNUP} component={SignupFlow} />
+                      <Route path={Routes.SIGNUP} exact component={Signup} />
+                      <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupForm}
+                      />
                       <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}

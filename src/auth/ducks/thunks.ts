@@ -1,3 +1,5 @@
+import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import AppAxiosInstance from '../axios';
 import { authenticateUser, logoutUser } from './actions';
 import {
@@ -5,10 +7,8 @@ import {
   // SetContactsRequest,
   SignupRequest,
   TokenPayload,
-  UserAuthenticationThunkAction,
+  UserAuthenticationThunkAction
 } from './types';
-import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 
 export const login = (
   loginRequest: LoginRequest,
@@ -40,7 +40,6 @@ export const signup = (
         AppAxiosInstance.defaults.headers['X-Access-Token'] =
           response.accessToken;
         dispatch(authenticateUser.loaded(response));
-        // protectedApiClient.setContacts(contactInfo);
       })
       .catch((error) => {
         dispatch(authenticateUser.failed(error.response.data));

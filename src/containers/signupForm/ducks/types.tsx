@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
-import { C4CState } from '../../../store';
 import { ProtectedApiExtraArgs } from '../../../api/protectedApiClient';
+import { C4CState } from '../../../store';
 import { SetContactsActions } from '../../setContacts/actions';
 
 export enum SignupState {
@@ -52,4 +52,27 @@ interface AdditionalContact extends AdultContact {
 interface ChildContact extends Contact {
   readonly school: string;
   readonly schoolYear: string;
+}
+
+export interface SignupData {
+  firstName: string;
+  lastName: string;
+  pronouns: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  allergies?: string;
+  diagnosis?: string;
+  medication?: string;
+  otherNotes?: string;
+  password: string;
+  profilePicture?: {
+    file: File;
+  };
+  photoRelease: boolean;
+  referrer: string;
+  birthday: Date;
 }

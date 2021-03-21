@@ -1,9 +1,9 @@
+import { Card, Col, Image, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
-import { Card, Typography, Row, Col, Image } from 'antd';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { DARK_GREY, ORANGE } from '../utils/colors';
 
-import { useHistory } from 'react-router-dom';
 const { Text, Link } = Typography;
 
 const SignupDirectoryCard = styled(Card)`
@@ -105,7 +105,7 @@ const SignupDirectory: React.FC = () => {
           <SignupDirectoryCard
             hoverable
             onClick={() => {
-              history.push('/signup/pf/1');
+              history.push('/signup/form?pf=true');
             }}
           >
             <SignupDirectoryCardBody>
@@ -127,7 +127,7 @@ const SignupDirectory: React.FC = () => {
           <SignupDirectoryCard
             hoverable
             onClick={() => {
-              history.push('/signup/gm/1');
+              history.push('/signup/form');
             }}
             // onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
           >

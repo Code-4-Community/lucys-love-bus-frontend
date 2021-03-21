@@ -1,11 +1,11 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
 import { Card, Col, Row, Typography } from 'antd';
+import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { ORANGE } from '../../utils/colors';
-import { LinkButton } from '../../components/LinkButton';
-import EventCard from '../../components/EventCard';
 import AnnoucementCard from '../../components/AnnoucementCard';
+import EventCard from '../../components/EventCard';
+import { LinkButton } from '../../components/LinkButton';
+import { ORANGE } from '../../utils/colors';
 
 const { Text, Paragraph } = Typography;
 const image1v2 =
@@ -65,6 +65,10 @@ const ViewMoreButton = styled(LinkButton)`
 `;
 
 const Home: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Helmet>
