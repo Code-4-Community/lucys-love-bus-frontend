@@ -3,10 +3,10 @@ import EventListing from '../event-listing/EventListing';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
 
 export interface EventsListProps {
-  readonly events: EventProps[]
+  readonly events: EventProps[];
 }
 
-const EventsList: React.FC<EventsListProps> = ({events}) => {
+const EventsList: React.FC<EventsListProps> = ({ events }) => {
   return (
     <div className="cards">
       {events.map((event, i) => (

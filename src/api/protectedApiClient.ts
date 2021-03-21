@@ -2,7 +2,7 @@ import { EventProps } from '../containers/upcoming-events/ducks/types';
 import AppAxiosInstance from '../auth/axios';
 
 export interface ApiExtraArgs {
-  readonly protectedApiClient: ProtectedApiClient
+  readonly protectedApiClient: ProtectedApiClient;
 }
 
 export interface ProtectedApiClient {
