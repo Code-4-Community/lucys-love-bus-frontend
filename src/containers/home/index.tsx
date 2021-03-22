@@ -18,7 +18,6 @@ import { Card, Col, Row, Typography } from 'antd';
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
-const ANNOUNCEMENTS_LIMIT = 3;
 
 const LandingContainer = styled.div`
   width: 100%;
@@ -78,7 +77,7 @@ export type HomeContainerProps = AnnouncementsDataProps;
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
+    dispatch(getAnnouncements());
   }, [dispatch]);
 
   return (
@@ -159,7 +158,7 @@ const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
           <p>Loading announcements...</p>
         )}
         {asyncRequestIsComplete(announcements) && (
-          <AnnouncementsList announcements={announcements.result} />
+          <AnnouncementsList announcements={announcements.result.length > 3 ? announcements.result.slice(0,3) : announcements.result} />
         )}
       </HomeContainer>
     </>
