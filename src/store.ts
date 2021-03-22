@@ -17,7 +17,9 @@ import thunk from 'redux-thunk';
 import throttle from 'lodash/throttle';
 import AppAxiosInstance from './auth/axios';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
-import publicApiClient, { ApiExtraArgs } from './api/publicApiClient';
+import publicApiClient from './api/publicApiClient';
+import protectedApiClient from './api/protectedApiClient';
+import { ApiExtraArgs } from './api/apiExtraArgs'
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
@@ -28,12 +30,16 @@ import { AnnouncementsActions } from './containers/announcements/ducks/actions';
 import announcementsReducer, {
   initialAnnouncementsState,
 } from './containers/announcements/ducks/reducers';
-
+import deactivateAccountReducer, {
+  initialDeactivateAccountState,
+} from './containers/deactivateAccount/ducks/reducers';
+import { DeactivateAccountReducerState } from './containers/deactivateAccount/ducks/types';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
   eventsState: EventsReducerState;
   announcementsState: AnnouncementsReducerState
+  deactivateAccountState: DeactivateAccountReducerState
 }
 
 export interface Action<T, P> {
@@ -48,13 +54,15 @@ export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
   eventsState: eventsReducer,
-  announcementsState: announcementsReducer
+  announcementsState: announcementsReducer,
+  deactivateAccountState: deactivateAccountReducer
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
-  announcementsState: initialAnnouncementsState
+  announcementsState: initialAnnouncementsState,
+  deactivateAccountState: initialDeactivateAccountState
 };
 
 export const LOCALSTORAGE_STATE_KEY: string = 'state';
@@ -81,6 +89,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
   publicApiClient,
+  protectedApiClient
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

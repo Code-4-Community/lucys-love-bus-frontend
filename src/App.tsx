@@ -14,6 +14,7 @@ import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
 import SignupFlow from './containers/signupFlow';
 import SingleEvent from './containers/singleEvent';
+import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
 import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
@@ -37,6 +38,7 @@ export enum Routes {
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
+  DEACTIVATE_ACCOUNT = '/deactivate-account',
 }
 
 const App: React.FC = () => {
@@ -90,12 +92,18 @@ const App: React.FC = () => {
                         exact
                         component={Settings}
                       />
-                      <Route path="*" exact component={NotFound} />
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
+                      />
                       <Route
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
                       />
+                      <Route path="*" exact component={NotFound} />
+                      
                     </Switch>
                   );
                 case PrivilegeLevel.NONE:
