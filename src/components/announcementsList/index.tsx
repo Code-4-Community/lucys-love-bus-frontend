@@ -1,14 +1,15 @@
 import { Row } from 'antd';
-import React, { useState, useEffect } from 'react';
-import { AnnouncementCard } from '../AnnouncementCard';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Announcement } from '../../containers/announcements/ducks/types';
 import { getAnnouncementRows } from '../../containers/announcements/ducks/selectors';
+import { Announcement } from '../../containers/announcements/ducks/types';
+import { ORANGE } from '../../utils/colors';
+import { AnnouncementCard } from '../AnnouncementCard';
 
 const COLUMNS_PER_ROW = 3;
 const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
 const NO_ANNOUNCEMENTS_SUBHEADER = 'Come back later for future updates!';
-const NO_ANNOUNCEMENTS_HEADER_COLOR = '#ce4a00';
+const NO_ANNOUNCEMENTS_HEADER_COLOR = ORANGE;
 
 const AnnouncementRow = styled(Row)`
   display: grid;
