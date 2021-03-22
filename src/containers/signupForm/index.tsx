@@ -30,6 +30,7 @@ import {
 } from '../../utils/asyncRequest';
 import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
+import { participatingFamilySearchQueryFlag } from '../../utils/signupFlow';
 import { SignupData } from './ducks/types';
 
 const { Title, Paragraph, Text } = Typography;
@@ -49,7 +50,9 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
   const history = useHistory();
   const location = useLocation();
   const registeringAsParticipatingFamily =
-    new URLSearchParams(location.search).get('pf') != null;
+    new URLSearchParams(location.search).get(
+      participatingFamilySearchQueryFlag,
+    ) != null;
 
   if (asyncRequestIsComplete(tokens)) {
     if (registeringAsParticipatingFamily) {
@@ -198,7 +201,7 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
               rules={[
                 {
                   required: true,
-                  pattern: new RegExp(/^(?=.*\d).{8,20}$/),
+                  pattern: new RegExp(/^(?=.*\d).{8,100}$/),
                   message:
                     'Password must be 8-20 characters, containing at least one digit',
                 },

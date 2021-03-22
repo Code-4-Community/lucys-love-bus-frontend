@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { DARK_GREY, ORANGE } from '../utils/colors';
-
+import { participatingFamilySearchQuery } from '../utils/signupFlow';
 const { Text, Link } = Typography;
 
 const SignupDirectoryCard = styled(Card)`
@@ -105,7 +105,10 @@ const SignupDirectory: React.FC = () => {
           <SignupDirectoryCard
             hoverable
             onClick={() => {
-              history.push('/signup/form?pf=true');
+              history.push({
+                pathname: '/signup/form',
+                search: participatingFamilySearchQuery,
+              });
             }}
           >
             <SignupDirectoryCardBody>
