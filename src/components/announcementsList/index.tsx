@@ -70,7 +70,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   announcements,
 }) => {
 
-  const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(6);
+  const announcementsPerPage = 6;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = () => {
