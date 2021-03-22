@@ -1,2 +1,2 @@
-export const participatingFamilySearchQueryFlag = 'pf'
-export const participatingFamilySearchQuery = `?${participatingFamilySearchQueryFlag}=true`
+export const participatingFamilySearchQueryFlag = 'pf';
+export const participatingFamilySearchQuery = `?${participatingFamilySearchQueryFlag}=true`;

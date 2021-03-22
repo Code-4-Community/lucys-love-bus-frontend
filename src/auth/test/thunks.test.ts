@@ -100,23 +100,21 @@ describe('User Authentication Thunks', () => {
         protectedApiClient,
       };
 
-      await signup(
-        {
-          password: 'password',
-          firstName: 'Jack',
-          lastName: 'Blanc',
-          email: 'jack@jackblanc.com',
-          photoRelease: true,
-          phoneNumber: '',
-          location: {
-            address: '',
-            city: '',
-            state: '',
-            zipCode: '',
-          },
-          dateOfBirth: '2001-01-15',
+      await signup({
+        password: 'password',
+        firstName: 'Jack',
+        lastName: 'Blanc',
+        email: 'jack@jackblanc.com',
+        photoRelease: true,
+        phoneNumber: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
         },
-      )(mockDispatch, getState, mockExtraArgs);
+        dateOfBirth: '2001-01-15',
+      })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
       expect(mockDispatch).toHaveBeenNthCalledWith(
@@ -144,23 +142,21 @@ describe('User Authentication Thunks', () => {
         protectedApiClient,
       };
 
-      await signup(
-        {
-          email: 'jblanc222@gmail.com',
-          password: 'password',
-          firstName: 'Jack',
-          lastName: 'Blanc',
-          photoRelease: true,
-          phoneNumber: '',
-          location: {
-            address: '',
-            city: '',
-            state: '',
-            zipCode: '',
-          },
-          dateOfBirth: '2001-01-15',
+      await signup({
+        email: 'jblanc222@gmail.com',
+        password: 'password',
+        firstName: 'Jack',
+        lastName: 'Blanc',
+        photoRelease: true,
+        phoneNumber: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
         },
-      )(mockDispatch, getState, mockExtraArgs);
+        dateOfBirth: '2001-01-15',
+      })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
       expect(mockDispatch).toHaveBeenNthCalledWith(
