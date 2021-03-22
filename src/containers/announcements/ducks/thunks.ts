@@ -7,9 +7,6 @@ export const getAnnouncements = (): AnnouncementsThunkAction<void> => {
     return publicApiClient
       .getAnnouncements()
       .then((response: Announcement[]) => {
-        return response;
-      })
-      .then((response: Announcement[]) => {
         dispatch(announcements.loaded(response));
       })
       .catch((error: any) => {

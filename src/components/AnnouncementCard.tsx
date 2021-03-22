@@ -43,7 +43,6 @@ export const AnnouncementCard: React.FC<Announcement> = ({
   description,
 }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-
   const cardContent: JSX.Element = (
     <>
       <div>

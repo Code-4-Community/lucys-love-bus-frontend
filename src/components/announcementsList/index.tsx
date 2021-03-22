@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
 import { LINK, ORANGE } from '../../utils/colors';
@@ -69,7 +69,8 @@ export interface AnnouncementsListProps {
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   announcements,
 }) => {
-  const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(0);
+
+  const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(6);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = () => {
@@ -105,10 +106,6 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   ) {
     pageNumbers.push(i);
   }
-
-  useEffect(() => {
-    setAnnouncementsPerPage(6);
-  }, []);
 
   const renderPageNumbers = pageNumbers.map((num: number) => {
     if (num !== currentPage) {
