@@ -2,6 +2,7 @@ import { Card, Col, Image, Row, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { Routes } from '../App';
 import { DARK_GREY, ORANGE } from '../utils/colors';
 import { participatingFamilySearchQuery } from '../utils/signupFlow';
 const { Text, Link } = Typography;
@@ -106,7 +107,7 @@ const SignupDirectory: React.FC = () => {
             hoverable
             onClick={() => {
               history.push({
-                pathname: '/signup/form',
+                pathname: Routes.SIGNUP_FORM,
                 search: participatingFamilySearchQuery,
               });
             }}
@@ -130,9 +131,8 @@ const SignupDirectory: React.FC = () => {
           <SignupDirectoryCard
             hoverable
             onClick={() => {
-              history.push('/signup/form');
+              history.push(Routes.SIGNUP_FORM);
             }}
-            // onClick={()=>setSignupState(SignupState.GeneralMemberFormOne)}
           >
             <SignupDirectoryCardBody>
               <RoundImage
