@@ -1,12 +1,10 @@
 import AppAxiosInstance from '../auth/axios';
-import { SetContactsRequest } from '../containers/setContacts/types';
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
 }
 
 export interface ProtectedApiClient {
-  readonly setContacts: (contactInfo: SetContactsRequest) => Promise<void>;
   readonly changePassword: (request: {
     currentPassword: string;
     newPassword: string;
@@ -15,7 +13,6 @@ export interface ProtectedApiClient {
 
 enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
-  SET_CONTACTS = '/api/v1/protected/user/contact_info/',
 }
 
 const changePassword = (request: {
@@ -30,14 +27,8 @@ const changePassword = (request: {
     .catch((e) => e);
 };
 
-const setContacts: (contactInfo: SetContactsRequest) => Promise<void> = (
-  contactInfo: SetContactsRequest,
-) =>
-  AppAxiosInstance.post(ProtectedApiClientRoutes.SET_CONTACTS, contactInfo, {});
-
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
-  setContacts,
 });
 
 export default Client;

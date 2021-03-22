@@ -4,7 +4,6 @@ import AppAxiosInstance from '../axios';
 import { authenticateUser, logoutUser } from './actions';
 import {
   LoginRequest,
-  // SetContactsRequest,
   SignupRequest,
   TokenPayload,
   UserAuthenticationThunkAction,
@@ -30,7 +29,6 @@ export const login = (
 
 export const signup = (
   signupRequest: SignupRequest,
-  // contactInfo: SetContactsRequest,
 ): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient }): Promise<void> => {
     dispatch(authenticateUser.loading());

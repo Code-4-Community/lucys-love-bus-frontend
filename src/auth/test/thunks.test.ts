@@ -116,24 +116,6 @@ describe('User Authentication Thunks', () => {
           },
           dateOfBirth: '2001-01-15',
         },
-        // {
-        //   mainContact: {
-        //     firstName: '',
-        //     lastName: '',
-        //     dateOfBirth: '', // YYYY-MM-DD
-        //     phoneNumber: '',
-        //     pronouns: '',
-        //     allergies: '',
-        //     diagnosis: '',
-        //     medications: '',
-        //     notes: '',
-        //     profilePicture: '',
-        //     referrer: '',
-        //     email: '',
-        //   },
-        //   additionalContacts: [],
-        //   children: [],
-        // },
       )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
@@ -178,24 +160,6 @@ describe('User Authentication Thunks', () => {
           },
           dateOfBirth: '2001-01-15',
         },
-        // {
-        //   mainContact: {
-        //     firstName: '',
-        //     lastName: '',
-        //     dateOfBirth: '', // YYYY-MM-DD
-        //     phoneNumber: '',
-        //     pronouns: '',
-        //     allergies: '',
-        //     diagnosis: '',
-        //     medications: '',
-        //     notes: '',
-        //     profilePicture: '',
-        //     referrer: '',
-        //     email: '',
-        //   },
-        //   additionalContacts: [],
-        //   children: [],
-        // },
       )(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
