@@ -158,7 +158,13 @@ const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
           <p>Loading announcements...</p>
         )}
         {asyncRequestIsComplete(announcements) && (
-          <AnnouncementsList announcements={announcements.result.length > 3 ? announcements.result.slice(0,3) : announcements.result} />
+          <AnnouncementsList
+            announcements={
+              announcements.result.length > 3
+                ? announcements.result.slice(0, 3)
+                : announcements.result
+            }
+          />
         )}
       </HomeContainer>
     </>

@@ -20,7 +20,6 @@ export interface AnnouncementsDataProps {
   readonly announcements: AnnouncementsReducerState['announcements'];
 }
 
-
 const Content = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,9 +31,7 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Announcements: React.FC<AnnouncementsDataProps> = ({
-  announcements,
-}) => {
+const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAnnouncements());
@@ -50,7 +47,10 @@ const Announcements: React.FC<AnnouncementsDataProps> = ({
         <>
           <Helmet>
             <title>Announcements</title>
-            <meta name="Announcements" content="All announcements about upcoming Lucy's Love Bus events!" />
+            <meta
+              name="Announcements"
+              content="All announcements about upcoming Lucy's Love Bus events!"
+            />
           </Helmet>
           <ChungusContentContainer>
             <Content>
