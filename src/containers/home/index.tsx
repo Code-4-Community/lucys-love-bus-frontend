@@ -12,7 +12,7 @@ import {
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
-import AnnouncementsList from '../../components/announcements-listing/AnnouncementsList';
+import AnnouncementsList from '../../components/announcementsList';
 import { C4CState } from '../../store';
 import { Card, Col, Row, Typography } from 'antd';
 const { Text, Paragraph } = Typography;

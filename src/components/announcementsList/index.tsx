@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { AnnouncementCard } from '../AnnouncementCard';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
-import { ORANGE, LINK } from '../../utils/colors';
-
-const NO_ANNOUNCEMENTS_HEADER = 'There are currently no announcements!';
-const NO_ANNOUNCEMENTS_SUBHEADER = 'Come back later for future updates!';
+import { LINK, ORANGE } from '../../utils/colors';
+import {
+  NO_ANNOUNCEMENTS_HEADER,
+  NO_ANNOUNCEMENTS_SUBHEADER,
+} from '../../utils/copy';
+import { AnnouncementCard } from '../AnnouncementCard';
 
 const NoAnnouncementsSubText = styled.span`
   display: block;
@@ -52,7 +53,7 @@ const ArrowButton = styled(PageNumber)`
   color: #bfbfbf;
 `;
 
-const noAnnouncementsTexts = (
+const noAnnouncementsTexts: JSX.Element = (
   <>
     <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
     <NoAnnouncementsSubText>

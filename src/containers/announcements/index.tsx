@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Typography } from 'antd';
-import AnnouncementsList from '../../components/announcements-listing/AnnouncementsList';
+import AnnouncementsList from '../../components/announcementsList';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
 import { getAnnouncements } from './ducks/thunks';
@@ -20,9 +20,6 @@ export interface AnnouncementsDataProps {
   readonly announcements: AnnouncementsReducerState['announcements'];
 }
 
-export interface AnnouncementsContainerProps extends AnnouncementsDataProps {
-  limit?: number;
-}
 
 const Content = styled.div`
   display: flex;
@@ -35,14 +32,13 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Announcements: React.FC<AnnouncementsContainerProps> = ({
+const Announcements: React.FC<AnnouncementsDataProps> = ({
   announcements,
-  limit,
 }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAnnouncements(limit));
-  }, [dispatch, limit]);
+    dispatch(getAnnouncements());
+  }, [dispatch]);
 
   return (
     <>
@@ -54,7 +50,7 @@ const Announcements: React.FC<AnnouncementsContainerProps> = ({
         <>
           <Helmet>
             <title>Announcements</title>
-            <meta name="Announcements" content="Description goes here." />
+            <meta name="Announcements" content="All announcements about upcoming Lucy's Love Bus events!" />
           </Helmet>
           <ChungusContentContainer>
             <Content>
