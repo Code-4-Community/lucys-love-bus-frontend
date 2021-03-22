@@ -72,20 +72,20 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   const [announcementsPerPage, setAnnouncementsPerPage] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const handleNextPage = (event: any) => {
+  const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  const handlePreviousPage = (event: any) => {
+  const handlePreviousPage = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  const handleNoOnClick = (event: any) => {
+  const handleNoOnClick = () => {
     setCurrentPage(currentPage);
   };
 
-  const handlePageClick = (event: any) => {
-    setCurrentPage(event.target.value);
+  const handlePageClick = (pageNum: number) => {
+    setCurrentPage(pageNum);
   };
 
   const noAnnouncements = announcements.length === 0;
@@ -113,7 +113,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   const renderPageNumbers = pageNumbers.map((num: number) => {
     if (num !== currentPage) {
       return (
-        <PageNumber key={num} value={num} onClick={handlePageClick}>
+        <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
           {num}
         </PageNumber>
       );

@@ -60,9 +60,7 @@ export const AnnouncementCard: React.FC<Announcement> = ({
   return imageSrc ? (
     <>
       <AnnouncementCardCover
-        cover={
-          <img className="cardImg" alt="Announcement" src={props.imageSrc} />
-        }
+        cover={<img className="cardImg" alt="Announcement" src={imageSrc} />}
         onClick={() => setIsModalVisible((prevState) => !prevState)}
       >
         {cardContent}
