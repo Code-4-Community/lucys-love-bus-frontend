@@ -36,23 +36,28 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<Announcement> = (props) => {
+export const AnnouncementCard: React.FC<Announcement> = ({
+  imageSrc,
+  title,
+  created,
+  description,
+}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
 
   const cardContent: JSX.Element = (
     <>
       <div>
-        <DateText strong>{dateFormat(props.created, 'longDate')}</DateText>
+        <DateText strong>{dateFormat(created, 'longDate')}</DateText>
       </div>
       <div>
-        <CardTitle>{props.title}</CardTitle>
+        <CardTitle>{title}</CardTitle>
       </div>
       <div>
-        <Paragraph ellipsis={{ rows: 3 }}>{props.description}</Paragraph>
+        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
       </div>
     </>
   );
-  return props.imageSrc ? (
+  return imageSrc ? (
     <>
       <AnnouncementCardCover
         cover={
@@ -64,10 +69,10 @@ export const AnnouncementCard: React.FC<Announcement> = (props) => {
       </AnnouncementCardCover>
 
       <AnnouncementModal
-        imageSrc={props.imageSrc}
-        title={props.title}
-        created={props.created}
-        description={props.description}
+        imageSrc={imageSrc}
+        title={title}
+        created={created}
+        description={description}
         isVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
@@ -81,9 +86,9 @@ export const AnnouncementCard: React.FC<Announcement> = (props) => {
       </AnnouncementCardNoCover>
 
       <AnnouncementModal
-        title={props.title}
-        created={props.created}
-        description={props.description}
+        title={title}
+        created={created}
+        description={description}
         isVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
