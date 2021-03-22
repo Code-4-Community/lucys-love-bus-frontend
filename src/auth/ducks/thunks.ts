@@ -1,13 +1,13 @@
+import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import AppAxiosInstance from '../axios';
+import { authenticateUser, logoutUser } from './actions';
 import {
   LoginRequest,
   SignupRequest,
   TokenPayload,
   UserAuthenticationThunkAction,
 } from './types';
-import { authenticateUser, logoutUser } from './actions';
-import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import AppAxiosInstance from '../axios';
 
 export const login = (
   loginRequest: LoginRequest,

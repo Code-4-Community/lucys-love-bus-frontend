@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
-import { AuthClient } from '../authClient';
-import { AsyncRequest } from '../../utils/asyncRequest';
-import { UserAuthenticationActions } from './actions';
 import { C4CState } from '../../store';
+import { AsyncRequest } from '../../utils/asyncRequest';
+import { AuthClient } from '../authClient';
+import { UserAuthenticationActions } from './actions';
 
 export interface UserAuthenticationReducerState {
   readonly tokens: AsyncRequest<TokenPayload, any>;
@@ -29,6 +29,22 @@ export interface SignupRequest {
   readonly password: string;
   readonly firstName: string;
   readonly lastName: string;
+  readonly phoneNumber: string;
+  readonly location: {
+    readonly address: string;
+    readonly city: string;
+    readonly state: string;
+    readonly zipCode: string;
+  };
+  readonly photoRelease: boolean;
+  readonly allergies?: string;
+  readonly referrer?: string;
+  readonly notes?: string;
+  readonly pronouns?: string;
+  readonly profilePicture?: string | null;
+  readonly dateOfBirth: string;
+  readonly medication?: string;
+  readonly diagnosis?: string;
 }
 
 export interface ForgotPasswordRequest {

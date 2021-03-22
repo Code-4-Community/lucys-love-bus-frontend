@@ -1,12 +1,12 @@
+import axios, { AxiosInstance } from 'axios';
 import {
-  TokenPayload,
   LoginRequest,
-  SignupRequest,
   RefreshTokenResponse,
+  SignupRequest,
+  TokenPayload,
   ForgotPasswordRequest,
   ForgotPasswordResetRequest,
 } from './ducks/types';
-import axios, { AxiosInstance } from 'axios';
 
 export interface AuthClient {
   login: (user: LoginRequest) => Promise<TokenPayload>;
