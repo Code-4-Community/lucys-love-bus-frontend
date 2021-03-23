@@ -99,7 +99,7 @@ export function asyncRequestIsComplete<R, E = void>(
 
 export function asyncRequestIsLoading<R, E = void>(
   request: AsyncRequest<R, E>,
-): boolean {
+): request is Loading {
   switch (request.kind) {
     case AsyncRequestKinds.Loading:
       return true;
@@ -112,7 +112,7 @@ export function asyncRequestIsLoading<R, E = void>(
 
 export function asyncRequestIsFailed<R, E = void>(
   request: AsyncRequest<R, E>,
-): boolean {
+): request is Failed<E> {
   switch (request.kind) {
     case AsyncRequestKinds.Failed:
       return true;
@@ -125,7 +125,7 @@ export function asyncRequestIsFailed<R, E = void>(
 
 export function asyncRequestIsNotStarted<R, E = void>(
   request: AsyncRequest<R, E>,
-): boolean {
+): request is NotStarted {
   switch (request.kind) {
     case AsyncRequestKinds.NotStarted:
       return true;
