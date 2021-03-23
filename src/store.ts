@@ -1,39 +1,40 @@
-import {
-  UserAuthenticationExtraArgs,
-  UserAuthenticationReducerState,
-} from './auth/ducks/types';
-import { UserAuthenticationActions } from './auth/ducks/actions';
-import authClient from './auth/authClient';
+import { ThunkDispatch } from '@reduxjs/toolkit';
+import throttle from 'lodash/throttle';
 import {
   applyMiddleware,
   combineReducers,
   compose,
   createStore,
-  Store,
+  Store
 } from 'redux';
-import userReducer, { initialUserState } from './auth/ducks/reducers';
-import { ThunkDispatch } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import throttle from 'lodash/throttle';
-import AppAxiosInstance from './auth/axios';
-import { asyncRequestIsComplete } from './utils/asyncRequest';
+import protectedApiClient, {
+  ProtectedApiExtraArgs
+} from './api/protectedApiClient';
 import publicApiClient from './api/publicApiClient';
-import protectedApiClient from './api/protectedApiClient';
-import { ApiExtraArgs } from './api/apiExtraArgs'
-import { EventsReducerState } from './containers/upcoming-events/ducks/types';
-import { EventsActions } from './containers/upcoming-events/ducks/actions';
-import eventsReducer, {
-  initialEventsState,
-} from './containers/upcoming-events/ducks/reducers';
-import { AnnouncementsReducerState } from './containers/announcements/ducks/types';
+import authClient from './auth/authClient';
+import AppAxiosInstance from './auth/axios';
+import { UserAuthenticationActions } from './auth/ducks/actions';
+import userReducer, { initialUserState } from './auth/ducks/reducers';
+import {
+  UserAuthenticationExtraArgs,
+  UserAuthenticationReducerState
+} from './auth/ducks/types';
 import { AnnouncementsActions } from './containers/announcements/ducks/actions';
 import announcementsReducer, {
-  initialAnnouncementsState,
+  initialAnnouncementsState
 } from './containers/announcements/ducks/reducers';
+import { AnnouncementsReducerState } from './containers/announcements/ducks/types';
 import deactivateAccountReducer, {
-  initialDeactivateAccountState,
+  initialDeactivateAccountState
 } from './containers/deactivateAccount/ducks/reducers';
 import { DeactivateAccountReducerState } from './containers/deactivateAccount/ducks/types';
+import { EventsActions } from './containers/upcoming-events/ducks/actions';
+import eventsReducer, {
+  initialEventsState
+} from './containers/upcoming-events/ducks/reducers';
+import { EventsReducerState } from './containers/upcoming-events/ducks/types';
+import { asyncRequestIsComplete } from './utils/asyncRequest';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -47,9 +48,14 @@ export interface Action<T, P> {
   readonly payload: P;
 }
 
-export type C4CAction = UserAuthenticationActions | EventsActions | AnnouncementsActions;
+export type C4CAction =
+  | UserAuthenticationActions
+  | EventsActions
+  | AnnouncementsActions;
 
-export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
+export type ThunkExtraArgs = UserAuthenticationExtraArgs &
+  PublicApiExtraArgs &
+  ProtectedApiExtraArgs;
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
@@ -65,7 +71,7 @@ export const initialStoreState: C4CState = {
   deactivateAccountState: initialDeactivateAccountState
 };
 
-export const LOCALSTORAGE_STATE_KEY: string = 'state';
+export const LOCALSTORAGE_STATE_KEY = 'state';
 
 const loadStateFromLocalStorage = (): C4CState | undefined => {
   try {

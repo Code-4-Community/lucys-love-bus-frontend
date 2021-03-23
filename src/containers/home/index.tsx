@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import { Card, Col, Row, Typography } from 'antd';
+import { default as React, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { ORANGE } from '../../utils/colors';
-import { LinkButton } from '../../components/LinkButton';
+import AnnouncementsList from '../../components/announcementsList';
 import EventCard from '../../components/EventCard';
+import { LinkButton } from '../../components/LinkButton';
+import { C4CState } from '../../store';
+import {
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+} from '../../utils/asyncRequest';
+import { ORANGE } from '../../utils/colors';
 import { AnnouncementsDataProps } from '../announcements';
 import { getAnnouncements } from '../announcements/ducks/thunks';
-import { connect, useDispatch } from 'react-redux';
-import { asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading } from '../../utils/asyncRequest';
-import AnnouncementsList from '../../components/announcementsList';
-import { C4CState } from '../../store';
-import { Card, Col, Row, Typography } from 'antd';
+
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
@@ -69,14 +74,18 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
-export interface HomeContainerProps extends AnnouncementsDataProps { }
+export type HomeContainerProps = AnnouncementsDataProps;
 
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Helmet>
@@ -148,18 +157,15 @@ const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
             View All Announcements
           </ViewMoreButton>
         </Row>
-        {
-          asyncRequestIsFailed(announcements) &&
+        {asyncRequestIsFailed(announcements) && (
           <p>The announcements could not be retrieved.</p>
-        }
-        {
-          asyncRequestIsLoading(announcements) &&
+        )}
+        {asyncRequestIsLoading(announcements) && (
           <p>Loading announcements...</p>
-        }
-        {
-          asyncRequestIsComplete(announcements) &&
+        )}
+        {asyncRequestIsComplete(announcements) && (
           <AnnouncementsList announcements={announcements.result} />
-        }
+        )}
       </HomeContainer>
     </>
   );

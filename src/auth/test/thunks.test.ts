@@ -4,6 +4,7 @@ import { authenticateUser } from '../ducks/actions';
 import authClient from '../authClient';
 import { C4CState, initialStoreState, ThunkExtraArgs } from '../../store';
 import publicApiClient from '../../api/publicApiClient';
+import protectedApiClient from '../../api/protectedApiClient';
 
 export const generateState = (partialState: Partial<C4CState>): C4CState => ({
   ...initialStoreState,
@@ -29,6 +30,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
+        protectedApiClient,
       };
 
       await login({
@@ -60,6 +62,7 @@ describe('User Authentication Thunks', () => {
           login: mockLogin,
         },
         publicApiClient,
+        protectedApiClient,
       };
 
       await login({
@@ -94,6 +97,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
+        protectedApiClient,
       };
 
       await signup({
@@ -101,6 +105,15 @@ describe('User Authentication Thunks', () => {
         firstName: 'Jack',
         lastName: 'Blanc',
         email: 'jack@jackblanc.com',
+        photoRelease: true,
+        phoneNumber: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
+        },
+        dateOfBirth: '2001-01-15',
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);
@@ -126,6 +139,7 @@ describe('User Authentication Thunks', () => {
           signup: mockSignup,
         },
         publicApiClient,
+        protectedApiClient,
       };
 
       await signup({
@@ -133,6 +147,15 @@ describe('User Authentication Thunks', () => {
         password: 'password',
         firstName: 'Jack',
         lastName: 'Blanc',
+        photoRelease: true,
+        phoneNumber: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
+        },
+        dateOfBirth: '2001-01-15',
       })(mockDispatch, getState, mockExtraArgs);
 
       expect(mockDispatch).toHaveBeenCalledTimes(2);

@@ -12,10 +12,11 @@ import styled from 'styled-components';
 import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
-import SignupFlow from './containers/signupFlow';
+import Signup from './containers/signup';
+import SignupForm from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import DeactivateAccount from './containers/deactivateAccount';
-import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import UpcomingEvents from './containers/upcoming-events';
 import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
@@ -31,6 +32,7 @@ export enum Routes {
   HOME = '/',
   LOGIN = '/login',
   SIGNUP = '/signup',
+  SIGNUP_FORM = '/signup/form',
   SETTINGS = '/settings',
   FORGOT_PASSWORD_REQUEST = '/forgot-password',
   FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key',
@@ -67,12 +69,6 @@ const App: React.FC = () => {
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
                       <Route
-                        path={Routes.SIGNUP}
-                        exact
-                        component={SignupFlow}
-                      />
-                      <Route path={Routes.LOGIN} exact component={Login} />
-                      <Route
                         path={Routes.UPCOMING_EVENTS}
                         exact
                         component={UpcomingEvents}
@@ -98,6 +94,12 @@ const App: React.FC = () => {
                         component={DeactivateAccount}
                       />
                       <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupForm}
+                      />
+                      <Route path="*" exact component={NotFound} />
+                      <Route
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
@@ -110,10 +112,11 @@ const App: React.FC = () => {
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
+                      <Route path={Routes.SIGNUP} exact component={Signup} />
                       <Route
-                        path={Routes.SIGNUP}
+                        path={Routes.SIGNUP_FORM}
                         exact
-                        component={SignupFlow}
+                        component={SignupForm}
                       />
                       <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
