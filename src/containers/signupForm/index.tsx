@@ -17,13 +17,12 @@ import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Routes } from '../../App';
 import { signup } from '../../auth/ducks/thunks';
-import { TokenPayload } from '../../auth/ducks/types';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import FormContainer from '../../components/FormContainer';
 import FormInitialText from '../../components/FormInitialText';
 import { C4CState } from '../../store';
 import {
-  AsyncRequest,
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsLoading,
@@ -43,9 +42,11 @@ const PaddedAlert = styled(Alert)`
   margin-bottom: 2em;
 `;
 
-const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
-  tokens,
-}) => {
+interface SignupFormProps {
+  readonly tokens: UserAuthenticationReducerState['tokens'];
+}
+
+const SignupForm: React.FC<SignupFormProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -503,7 +504,7 @@ const SignupForm: React.FC<{ tokens: AsyncRequest<TokenPayload, any> }> = ({
   );
 };
 
-const mapStateToProps = (state: C4CState) => {
+const mapStateToProps = (state: C4CState): SignupFormProps => {
   return {
     tokens: state.authenticationState.tokens,
   };
