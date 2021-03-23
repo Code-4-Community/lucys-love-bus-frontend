@@ -13,4 +13,4 @@ export type UserAuthenticationActions =
   | ReturnType<typeof authenticateUser.failed>
   | ReturnType<typeof logoutUser.loading>
   | ReturnType<typeof logoutUser.loaded>
-  | ReturnType<typeof logoutUser.failed>
+  | ReturnType<typeof logoutUser.failed>;
