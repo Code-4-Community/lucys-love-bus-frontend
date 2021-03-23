@@ -2,7 +2,7 @@ import { range } from 'lodash';
 import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
-import { LINK, ORANGE } from '../../utils/colors';
+import { LIGHT_GREY, LINK, ORANGE } from '../../utils/colors';
 import {
   NO_ANNOUNCEMENTS_HEADER,
   NO_ANNOUNCEMENTS_SUBHEADER,
@@ -39,7 +39,7 @@ const PageNumber = styled.li`
   list-style-type: none;
   cursor: pointer;
   padding: 0px 16px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid ${LIGHT_GREY};
   box-sizing: border-box;
   border-radius: 4px;
   margin: 0px 8px;
@@ -51,7 +51,7 @@ const SelectedPageNumber = styled(PageNumber)`
 `;
 
 const ArrowButton = styled(PageNumber)`
-  color: #bfbfbf;
+  color: ${LIGHT_GREY};
 `;
 
 const noAnnouncementsTexts: JSX.Element = (
@@ -100,18 +100,6 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
 
   const lastPage: number =
     Math.ceil(announcements.length / ANNOUNCEMENTS_PER_PAGE) + 1;
-  const renderPageNumbers: JSX.Element[] = range(1, lastPage).map(
-    (num: number) =>
-      num !== currentPage ? (
-        <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
-          {num}
-        </PageNumber>
-      ) : (
-        <SelectedPageNumber key={num} value={num}>
-          {num}
-        </SelectedPageNumber>
-      ),
-  );
 
   return (
     <>
@@ -135,7 +123,21 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
               >
                 {'<'}
               </ArrowButton>
-              {renderPageNumbers}
+              {range(1, lastPage).map((num: number) =>
+                num !== currentPage ? (
+                  <PageNumber
+                    key={num}
+                    value={num}
+                    onClick={() => handlePageClick(num)}
+                  >
+                    {num}
+                  </PageNumber>
+                ) : (
+                  <SelectedPageNumber key={num} value={num}>
+                    {num}
+                  </SelectedPageNumber>
+                ),
+              )}
               <ArrowButton
                 key="next"
                 onClick={
