@@ -8,9 +8,6 @@ import {
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
 
-const COLUMNS_PER_ROW = 3;
-const NO_ANNOUNCEMENTS_HEADER_COLOR = ORANGE;
-
 const NoAnnouncementsSubText = styled.span`
   display: block;
   text-align: center;
