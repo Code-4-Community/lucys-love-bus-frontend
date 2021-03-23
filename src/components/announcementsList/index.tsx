@@ -1,3 +1,4 @@
+import { range } from 'lodash';
 import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
@@ -65,62 +66,53 @@ const noAnnouncementsTexts: JSX.Element = (
 export interface AnnouncementsListProps {
   announcements: Announcement[];
 }
+const ANNOUNCEMENTS_PER_PAGE = 6;
 
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   announcements,
 }) => {
-  const announcementsPerPage = 6;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = () => {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage((currentPage) => currentPage + 1);
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage((currentPage) => currentPage - 1);
   };
 
   const handleNoOnClick = () => {
-    setCurrentPage(currentPage);
+    setCurrentPage((currentPage) => currentPage);
   };
 
   const handlePageClick = (pageNum: number) => {
-    setCurrentPage(pageNum);
+    setCurrentPage(() => pageNum);
   };
 
-  const noAnnouncements = announcements.length === 0;
-  const indexOfLastAnnouncement = currentPage * announcementsPerPage;
-  const indexOfFirstAnnouncement =
-    indexOfLastAnnouncement - announcementsPerPage;
-  const currentAnnouncements = announcements.slice(
+  const noAnnouncements: boolean = announcements.length === 0;
+  const indexOfLastAnnouncement: number = currentPage * ANNOUNCEMENTS_PER_PAGE;
+  const indexOfFirstAnnouncement: number =
+    indexOfLastAnnouncement - ANNOUNCEMENTS_PER_PAGE;
+  const currentAnnouncements: Announcement[] = announcements.slice(
     indexOfFirstAnnouncement,
     indexOfLastAnnouncement,
   );
 
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(announcements.length / announcementsPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  const renderPageNumbers = pageNumbers.map((num: number) => {
-    if (num !== currentPage) {
-      return (
-        <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
-          {num}
-        </PageNumber>
-      );
-    } else {
-      return (
-        <SelectedPageNumber key={num} value={num}>
-          {num}
-        </SelectedPageNumber>
-      );
-    }
-  });
+  const lastPage: number = Math.ceil(announcements.length / ANNOUNCEMENTS_PER_PAGE) + 1 
+  const renderPageNumbers: JSX.Element[] = range(
+    1,
+    lastPage,
+  ).map((num: number) =>
+    num !== currentPage ? (
+      <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
+        {num}
+      </PageNumber>
+    ) : (
+      <SelectedPageNumber key={num} value={num}>
+        {num}
+      </SelectedPageNumber>
+    ),
+  );
 
   return (
     <>
@@ -134,7 +126,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
             })}
           </AnnouncementsListWrapper>
 
-          {announcements.length > announcementsPerPage ? (
+          {announcements.length > ANNOUNCEMENTS_PER_PAGE ? (
             <PageNumbersWrapper>
               <ArrowButton
                 key="prev"
@@ -148,7 +140,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
               <ArrowButton
                 key="next"
                 onClick={
-                  currentPage === pageNumbers[pageNumbers.length - 1]
+                  currentPage === lastPage
                     ? handleNoOnClick
                     : handleNextPage
                 }

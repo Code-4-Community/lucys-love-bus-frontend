@@ -72,6 +72,8 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
+const ANNOUNCEMENTS_LIMIT = 3
+
 export type HomeContainerProps = AnnouncementsDataProps;
 
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
@@ -164,8 +166,8 @@ const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
         {asyncRequestIsComplete(announcements) && (
           <AnnouncementsList
             announcements={
-              announcements.result.length > 3
-                ? announcements.result.slice(0, 3)
+              announcements.result.length > ANNOUNCEMENTS_LIMIT
+                ? announcements.result.slice(0, ANNOUNCEMENTS_LIMIT)
                 : announcements.result
             }
           />
