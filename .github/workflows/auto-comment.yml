@@ -1,0 +1,19 @@
+name: Auto Comment
+on: [issues, pull_request]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: bubkoo/auto-comment@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          pullRequestOpened: 
+            🎉 Congrats on opening a PR @{{ author }}! 
+            
+            Remember to request a review on Github to make sure you get feedback as soon as possible. 😄
+
+          pullRequestClosed: >
+            🎉 Awesome work @{{ author }}!!
+
+            <img src="https://media1.tenor.com/images/d4f7d0f7afe89822e3492eba582c5976/tenor.gif" width="600"/>
