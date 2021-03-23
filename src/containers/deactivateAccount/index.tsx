@@ -2,17 +2,20 @@ import { Alert, Button, Checkbox, Form, Typography } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  asyncRequestIsComplete,
+  asyncRequestIsLoading,
+} from '../../utils/asyncRequest';
 import { requestToDeactivateAccount } from './ducks/thunks';
+const { Title, Paragraph, Text, Link } = Typography;
 
-const { Title, Paragraph, Text } = Typography;
-
-const DeactivateAccount: React.FC<{ deactivateAccount }> = ({
-  deactivateAccount,
-}) => {
+const DeactivateAccount: React.FC<{
+  deactivateAccount: AsyncRequest<void, any>;
+}> = ({ deactivateAccount }) => {
   const dispatch = useDispatch();
   const onFinish = () => {
     // delete the account
@@ -30,9 +33,9 @@ const DeactivateAccount: React.FC<{ deactivateAccount }> = ({
         {asyncRequestIsComplete(deactivateAccount) ? (
           <>
             <Title level={3}>Account Successfully Deactivated</Title>
-            <Link to="/">
-              <Text>Go back to the home page</Text>
-            </Link>
+            <RouterLink to="/">
+              <Link>Back to the home page</Link>
+            </RouterLink>
           </>
         ) : (
           <>
@@ -71,12 +74,13 @@ const DeactivateAccount: React.FC<{ deactivateAccount }> = ({
 
               <Form.Item>
                 <Button
-                  type="primary"
+                  size="large"
+                  disabled={asyncRequestIsLoading(deactivateAccount)}
+                  type="ghost"
                   danger
-                  className="button-style"
                   htmlType="submit"
                 >
-                  Submit
+                  Delete My Account
                 </Button>
               </Form.Item>
             </Form>

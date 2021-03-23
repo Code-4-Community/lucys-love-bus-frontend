@@ -1,5 +1,6 @@
 import { DeactivateAccountThunkAction } from './types';
 import { deactivateAccount } from './actions';
+
 import { LOCALSTORAGE_STATE_KEY } from '../../../store';
 
 export const requestToDeactivateAccount = (): DeactivateAccountThunkAction<void> => {
@@ -9,7 +10,13 @@ export const requestToDeactivateAccount = (): DeactivateAccountThunkAction<void>
       .decactivateAccount()
       .then(() => {
         dispatch(deactivateAccount.loaded());
-        localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
+
+        // want to force log out user:
+
+        localStorage.removeItem(LOCALSTORAGE_STATE_KEY); // ???
+        console.log(localStorage.getItem(LOCALSTORAGE_STATE_KEY))
+
+
       })
       .catch((error: any) => {
         dispatch(deactivateAccount.failed(error));

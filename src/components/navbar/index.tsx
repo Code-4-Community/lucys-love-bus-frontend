@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import LoginModal from '../modals/login-modal/LoginModal';
+import { Routes } from '../../App';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 import { C4CState } from '../../store';
-import { connect } from 'react-redux';
-import { getPrivilegeLevel } from '../../auth/ducks/selectors';
-
-import { Routes } from '../../App';
 import { ORANGE } from '../../utils/colors';
+import LoginModal from '../modals/login-modal/LoginModal';
 
 const { Text } = Typography;
 
@@ -93,7 +92,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
       <Menu.Item>Change Primary Account Email</Menu.Item>
       <Menu.Item>Account Details</Menu.Item>
       <Menu.Item>Change Password</Menu.Item>
-      <Menu.Item>Deactivate Account</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.DEACTIVATE_ACCOUNT);
+        }}
+      >
+        Deactivate Account
+      </Menu.Item>
       <Menu.Item
         onClick={() => {
           history.push(Routes.SETTINGS);
