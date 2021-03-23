@@ -85,6 +85,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const links = {
     Home: Routes.HOME,
     'Upcoming Events': Routes.UPCOMING_EVENTS,
+    Announcements: Routes.ANNOUNCEMENTS,
   };
 
   // Dropdown menu options for the logged in
