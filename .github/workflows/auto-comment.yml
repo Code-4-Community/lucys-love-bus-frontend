@@ -8,7 +8,10 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          pullRequestOpened: Congrats on opening a PR @{{ author }}! Remember to request a review on Github to make sure you get feedback as soon as possible. 😄
+          pullRequestOpened: 
+            🎉 Congrats on opening a PR @{{ author }}! 
+            
+            Remember to request a review on Github to make sure you get feedback as soon as possible. 😄
 
           pullRequestClosed: >
             🎉 Awesome work @{{ author }}!!
