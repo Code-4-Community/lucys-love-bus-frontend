@@ -74,15 +74,15 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const handleNextPage = () => {
-    setCurrentPage((currentPage) => currentPage + 1);
+    setCurrentPage((page) => page + 1);
   };
 
   const handlePreviousPage = () => {
-    setCurrentPage((currentPage) => currentPage - 1);
+    setCurrentPage((page) => page - 1);
   };
 
   const handleNoOnClick = () => {
-    setCurrentPage((currentPage) => currentPage);
+    setCurrentPage((page) => page);
   };
 
   const handlePageClick = (pageNum: number) => {
@@ -98,20 +98,19 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
     indexOfLastAnnouncement,
   );
 
-  const lastPage: number = Math.ceil(announcements.length / ANNOUNCEMENTS_PER_PAGE) + 1 
-  const renderPageNumbers: JSX.Element[] = range(
-    1,
-    lastPage,
-  ).map((num: number) =>
-    num !== currentPage ? (
-      <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
-        {num}
-      </PageNumber>
-    ) : (
-      <SelectedPageNumber key={num} value={num}>
-        {num}
-      </SelectedPageNumber>
-    ),
+  const lastPage: number =
+    Math.ceil(announcements.length / ANNOUNCEMENTS_PER_PAGE) + 1;
+  const renderPageNumbers: JSX.Element[] = range(1, lastPage).map(
+    (num: number) =>
+      num !== currentPage ? (
+        <PageNumber key={num} value={num} onClick={() => handlePageClick(num)}>
+          {num}
+        </PageNumber>
+      ) : (
+        <SelectedPageNumber key={num} value={num}>
+          {num}
+        </SelectedPageNumber>
+      ),
   );
 
   return (
@@ -140,7 +139,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
               <ArrowButton
                 key="next"
                 onClick={
-                  currentPage === lastPage
+                  currentPage === lastPage - 1
                     ? handleNoOnClick
                     : handleNextPage
                 }

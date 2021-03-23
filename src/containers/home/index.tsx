@@ -72,7 +72,7 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
-const ANNOUNCEMENTS_LIMIT = 3
+const ANNOUNCEMENTS_LIMIT = 3;
 
 export type HomeContainerProps = AnnouncementsDataProps;
 
