@@ -3,7 +3,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './containers/home';
-import Login from './containers/login';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
 import VerifyEmail from './containers/verifyEmail';
@@ -29,7 +28,6 @@ const AppInnerContainer = styled(Layout)`
 
 export enum Routes {
   HOME = '/',
-  LOGIN = '/login',
   SIGNUP = '/signup',
   SIGNUP_FORM = '/signup/form',
   SETTINGS = '/settings',
@@ -109,7 +107,6 @@ const App: React.FC = () => {
                         exact
                         component={SignupForm}
                       />
-                      <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}
                         exact
