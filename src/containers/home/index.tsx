@@ -15,11 +15,9 @@ import {
 import { ORANGE } from '../../utils/colors';
 import { AnnouncementsDataProps } from '../announcements';
 import { getAnnouncements } from '../announcements/ducks/thunks';
-
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
-const ANNOUNCEMENTS_LIMIT = 3;
 
 const LandingContainer = styled.div`
   width: 100%;
@@ -74,13 +72,15 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
+const ANNOUNCEMENTS_LIMIT = 3;
+
 export type HomeContainerProps = AnnouncementsDataProps;
 
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAnnouncements(ANNOUNCEMENTS_LIMIT));
+    dispatch(getAnnouncements());
   }, [dispatch]);
 
   useEffect(() => {
@@ -164,7 +164,13 @@ const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
           <p>Loading announcements...</p>
         )}
         {asyncRequestIsComplete(announcements) && (
-          <AnnouncementsList announcements={announcements.result} />
+          <AnnouncementsList
+            announcements={
+              announcements.result.length > ANNOUNCEMENTS_LIMIT
+                ? announcements.result.slice(0, ANNOUNCEMENTS_LIMIT)
+                : announcements.result
+            }
+          />
         )}
       </HomeContainer>
     </>
