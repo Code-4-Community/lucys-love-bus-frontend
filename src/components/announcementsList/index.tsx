@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
 import { LINK, ORANGE } from '../../utils/colors';
@@ -7,6 +7,9 @@ import {
   NO_ANNOUNCEMENTS_SUBHEADER,
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
+
+const COLUMNS_PER_ROW = 3;
+const NO_ANNOUNCEMENTS_HEADER_COLOR = ORANGE;
 
 const NoAnnouncementsSubText = styled.span`
   display: block;
@@ -69,7 +72,6 @@ export interface AnnouncementsListProps {
 const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   announcements,
 }) => {
-
   const announcementsPerPage = 6;
   const [currentPage, setCurrentPage] = useState<number>(1);
 

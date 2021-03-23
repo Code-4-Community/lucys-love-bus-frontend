@@ -1,6 +1,6 @@
-import { RefreshTokenResponse, TokenPayload } from '../ducks/types';
-import AuthClient, { API_ROUTE } from '../authClient';
 import nock from 'nock';
+import AuthClient, { API_ROUTE } from '../authClient';
+import { RefreshTokenResponse, TokenPayload } from '../ducks/types';
 
 const BASE_URL = 'http://localhost';
 
@@ -41,6 +41,15 @@ describe('Authentication Client Tests', () => {
         firstName: 'Jack',
         lastName: 'Blanc',
         email: 'jblanc222@gmail.com',
+        photoRelease: true,
+        phoneNumber: '',
+        location: {
+          address: '',
+          city: '',
+          state: '',
+          zipCode: '',
+        },
+        dateOfBirth: '2001-01-15',
       });
 
       expect(result).toEqual(response);

@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
+import { Card, Col, Row, Typography } from 'antd';
+import { default as React, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
-import { ORANGE } from '../../utils/colors';
-import { LinkButton } from '../../components/LinkButton';
-import EventCard from '../../components/EventCard';
-import { AnnouncementsDataProps } from '../announcements';
-import { getAnnouncements } from '../announcements/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import AnnouncementsList from '../../components/announcementsList';
+import EventCard from '../../components/EventCard';
+import { LinkButton } from '../../components/LinkButton';
+import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
-import AnnouncementsList from '../../components/announcementsList';
-import { C4CState } from '../../store';
-import { Card, Col, Row, Typography } from 'antd';
+import { ORANGE } from '../../utils/colors';
+import { AnnouncementsDataProps } from '../announcements';
+import { getAnnouncements } from '../announcements/ducks/thunks';
 const { Text, Paragraph } = Typography;
 const image1v2 =
   'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
@@ -76,10 +76,14 @@ export type HomeContainerProps = AnnouncementsDataProps;
 
 const Home: React.FC<HomeContainerProps> = ({ announcements }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAnnouncements());
   }, [dispatch]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Helmet>
