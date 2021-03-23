@@ -6,7 +6,7 @@ import {
   LoginRequest,
   SignupRequest,
   TokenPayload,
-  UserAuthenticationThunkAction
+  UserAuthenticationThunkAction,
 } from './types';
 
 export const login = (
@@ -48,7 +48,7 @@ export const signup = (
 export const logout = (): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient }): Promise<void> => {
     localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
-    dispatch(authenticateUser.notStarted())
+    dispatch(authenticateUser.notStarted());
     const state: C4CState = getState();
 
     if (asyncRequestIsComplete(state.authenticationState.tokens)) {

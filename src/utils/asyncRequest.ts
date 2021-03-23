@@ -179,7 +179,10 @@ export type AsyncRequestAction<R, E> =
   | Action<typeof ASYNC_REQUEST_FAILED_ACTION, FailedPayload<E>>;
 
 export function genericAsyncActions<R, E>(): {
-  notStarted: () => Action<typeof ASYNC_REQUEST_NOT_STARTED_ACTION, NotStartedPayload>;
+  notStarted: () => Action<
+    typeof ASYNC_REQUEST_NOT_STARTED_ACTION,
+    NotStartedPayload
+  >;
   loading: () => Action<typeof ASYNC_REQUEST_LOADING_ACTION, LoadingPayload>;
   loaded: (
     r: R,

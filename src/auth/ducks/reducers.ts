@@ -1,12 +1,11 @@
 import { C4CAction } from '../../store';
 import {
-  AsyncRequestNotStarted, ASYNC_REQUEST_FAILED_ACTION,
+  AsyncRequestNotStarted,
+  ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
   ASYNC_REQUEST_LOADING_ACTION,
-
   ASYNC_REQUEST_NOT_STARTED_ACTION,
-
-  generateAsyncRequestReducer
+  generateAsyncRequestReducer,
 } from '../../utils/asyncRequest';
 import { authenticateUser } from './actions';
 import { TokenPayload, UserAuthenticationReducerState } from './types';
