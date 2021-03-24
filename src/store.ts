@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 import protectedApiClient, {
   ProtectedApiExtraArgs
 } from './api/protectedApiClient';
-import publicApiClient from './api/publicApiClient';
+import publicApiClient, { PublicApiExtraArgs } from './api/publicApiClient';
 import authClient from './auth/authClient';
 import AppAxiosInstance from './auth/axios';
 import { UserAuthenticationActions } from './auth/ducks/actions';

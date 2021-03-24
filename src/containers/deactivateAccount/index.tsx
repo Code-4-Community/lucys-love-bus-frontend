@@ -8,6 +8,7 @@ import { C4CState } from '../../store';
 import {
   AsyncRequest,
   asyncRequestIsComplete,
+  asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
 import { requestToDeactivateAccount } from './ducks/thunks';
@@ -63,7 +64,7 @@ const DeactivateAccount: React.FC<{
                   Participating Family status.
                 </Checkbox>
               </Form.Item>
-              {asyncRequestIsComplete(deactivateAccount) && (
+              {asyncRequestIsFailed(deactivateAccount) && (
                 <Alert
                   message="Error"
                   description={deactivateAccount.error}
