@@ -1,22 +1,27 @@
-import { DeactivateAccountThunkAction } from './types';
-import { deactivateAccount } from './actions';
+import { ThunkAction } from 'redux-thunk';
+import { ApiExtraArgs } from '../../../api/apiExtraArgs';
+import { authenticateUser, UserAuthenticationActions } from '../../../auth/ducks/actions';
+import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../../store';
+import { deactivateAccount, DeactivateAccountActions } from './actions';
 
-import { LOCALSTORAGE_STATE_KEY } from '../../../store';
 
-export const requestToDeactivateAccount = (): DeactivateAccountThunkAction<void> => {
-  return (dispatch, getState, { protectedApiClient }) => {
+type UserAuthenticationAndDeactivateAccountThunkAction<R> = ThunkAction<
+  R,
+  C4CState,
+  ApiExtraArgs,
+  UserAuthenticationActions | DeactivateAccountActions
+>;
+
+
+export const requestToDeactivateAccount = ():  UserAuthenticationAndDeactivateAccountThunkAction<void> => {
+  return (dispatch, _getState, { protectedApiClient }) => {
     dispatch(deactivateAccount.loading());
     return protectedApiClient
       .decactivateAccount()
       .then(() => {
         dispatch(deactivateAccount.loaded());
-
-        // want to force log out user:
-
-        localStorage.removeItem(LOCALSTORAGE_STATE_KEY); // ???
-        console.log(localStorage.getItem(LOCALSTORAGE_STATE_KEY))
-
-
+        localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
+        dispatch(authenticateUser.notStarted())
       })
       .catch((error: any) => {
         dispatch(deactivateAccount.failed(error));
