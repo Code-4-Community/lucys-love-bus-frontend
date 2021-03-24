@@ -518,7 +518,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ tokens }) => {
                 </Button>
               </Form.Item>
             </Form>
-            )
           </FormContainer>
         ) : (
           <>
