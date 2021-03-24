@@ -103,7 +103,6 @@ const App: React.FC = () => {
                         component={VerifyEmail}
                       />
                       <Route path="*" exact component={NotFound} />
-                      
                     </Switch>
                   );
                 case PrivilegeLevel.NONE:
@@ -131,7 +130,11 @@ const App: React.FC = () => {
                         exact
                         component={Announcements}
                       />
-
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
+                      />
                       <Route
                         path={Routes.FORGOT_PASSWORD_REQUEST}
                         exact

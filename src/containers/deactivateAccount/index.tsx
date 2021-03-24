@@ -2,21 +2,23 @@ import { Alert, Button, Checkbox, Form, Typography } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import {
-  AsyncRequest,
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
 import { requestToDeactivateAccount } from './ducks/thunks';
+import { DeactivateAccountReducerState } from './ducks/types';
 const { Title, Link } = Typography;
 
 const DeactivateAccount: React.FC<{
-  deactivateAccount: AsyncRequest<void, any>;
-}> = ({ deactivateAccount }) => {
+  deactivateAccount: DeactivateAccountReducerState['deactivateAccount'];
+  tokens: UserAuthenticationReducerState['tokens'];
+}> = ({ deactivateAccount, tokens }) => {
   const dispatch = useDispatch();
   const onFinish = () => {
     // delete the account
@@ -38,7 +40,7 @@ const DeactivateAccount: React.FC<{
               <Link>Back to the home page</Link>
             </RouterLink>
           </>
-        ) : (
+        ) : asyncRequestIsComplete(tokens) ? (
           <>
             <Title level={3}>
               Warning: This action is permanent and cannot be undone
@@ -86,6 +88,8 @@ const DeactivateAccount: React.FC<{
               </Form.Item>
             </Form>
           </>
+        ) : (
+          <Redirect to="/" /> // if you arent authenticated and you didnt just delete your account, we dont want to show anything
         )}
       </ContentContainer>
     </>
