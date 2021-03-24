@@ -22,20 +22,4 @@ describe('Protected API Client Tests', () => {
       expect(result).toEqual(response);
     });
   });
-
-  describe('deleteUser', () => {
-    it('makes the right request', async () => {
-      const response = '';
-
-      nock(BASE_URL)
-        .post(ProtectedApiClientRoutes.DELETE_USER)
-        .reply(200, response);
-
-      const result = await ProtectedApiClient.deleteUser({
-        password: 'password',
-      });
-
-      expect(result).toEqual(response);
-    });
-  });
 });
