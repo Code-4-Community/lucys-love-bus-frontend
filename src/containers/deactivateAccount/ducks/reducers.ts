@@ -1,4 +1,4 @@
-import {  DeactivateAccountReducerState } from './types';
+import { DeactivateAccountReducerState } from './types';
 import {
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
@@ -14,7 +14,7 @@ export const initialDeactivateAccountState: DeactivateAccountReducerState = {
 };
 
 const deactivateAccountReducer = generateAsyncRequestReducer<
-DeactivateAccountReducerState,
+  DeactivateAccountReducerState,
   void,
   void
 >(deactivateAccount.key);
@@ -29,7 +29,10 @@ const reducers = (
     case ASYNC_REQUEST_FAILED_ACTION:
       return {
         ...state,
-        deactivateAccount: deactivateAccountReducer(state.deactivateAccount, action),
+        deactivateAccount: deactivateAccountReducer(
+          state.deactivateAccount,
+          action,
+        ),
       };
     default:
       return state;

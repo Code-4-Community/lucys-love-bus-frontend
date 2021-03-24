@@ -14,7 +14,7 @@ export interface ProtectedApiClient {
 
 export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
-  USER = '/api/v1/protected/user'
+  USER = '/api/v1/protected/user',
 }
 
 const changePassword = (request: {
@@ -29,18 +29,15 @@ const changePassword = (request: {
     .catch((e) => e);
 };
 
-
 const decactivateAccount = (): Promise<void> => {
-  return AppAxiosInstance.delete(
-    ProtectedApiClientRoutes.USER
-  )
+  return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
     .then((r) => r)
     .catch((e) => e);
 };
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
-  decactivateAccount
+  decactivateAccount,
 });
 
 export default Client;

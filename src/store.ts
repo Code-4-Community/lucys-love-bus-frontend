@@ -5,11 +5,11 @@ import {
   combineReducers,
   compose,
   createStore,
-  Store
+  Store,
 } from 'redux';
 import thunk from 'redux-thunk';
 import protectedApiClient, {
-  ProtectedApiExtraArgs
+  ProtectedApiExtraArgs,
 } from './api/protectedApiClient';
 import publicApiClient, { PublicApiExtraArgs } from './api/publicApiClient';
 import authClient from './auth/authClient';
@@ -18,20 +18,20 @@ import { UserAuthenticationActions } from './auth/ducks/actions';
 import userReducer, { initialUserState } from './auth/ducks/reducers';
 import {
   UserAuthenticationExtraArgs,
-  UserAuthenticationReducerState
+  UserAuthenticationReducerState,
 } from './auth/ducks/types';
 import { AnnouncementsActions } from './containers/announcements/ducks/actions';
 import announcementsReducer, {
-  initialAnnouncementsState
+  initialAnnouncementsState,
 } from './containers/announcements/ducks/reducers';
 import { AnnouncementsReducerState } from './containers/announcements/ducks/types';
 import deactivateAccountReducer, {
-  initialDeactivateAccountState
+  initialDeactivateAccountState,
 } from './containers/deactivateAccount/ducks/reducers';
 import { DeactivateAccountReducerState } from './containers/deactivateAccount/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
-  initialEventsState
+  initialEventsState,
 } from './containers/upcoming-events/ducks/reducers';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
@@ -39,8 +39,8 @@ import { asyncRequestIsComplete } from './utils/asyncRequest';
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
   eventsState: EventsReducerState;
-  announcementsState: AnnouncementsReducerState
-  deactivateAccountState: DeactivateAccountReducerState
+  announcementsState: AnnouncementsReducerState;
+  deactivateAccountState: DeactivateAccountReducerState;
 }
 
 export interface Action<T, P> {
@@ -61,14 +61,14 @@ const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
   eventsState: eventsReducer,
   announcementsState: announcementsReducer,
-  deactivateAccountState: deactivateAccountReducer
+  deactivateAccountState: deactivateAccountReducer,
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
   announcementsState: initialAnnouncementsState,
-  deactivateAccountState: initialDeactivateAccountState
+  deactivateAccountState: initialDeactivateAccountState,
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'state';
@@ -95,7 +95,7 @@ const preloadedState: C4CState | undefined = loadStateFromLocalStorage();
 const thunkExtraArgs: ThunkExtraArgs = {
   authClient,
   publicApiClient,
-  protectedApiClient
+  protectedApiClient,
 };
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
