@@ -12,7 +12,7 @@ export interface ProtectedApiClient {
   readonly decactivateAccount: () => Promise<void>;
 }
 
-enum ProtectedApiClientRoutes {
+export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
   USER = '/api/v1/protected/user'
 }
@@ -25,9 +25,10 @@ const changePassword = (request: {
     ProtectedApiClientRoutes.CHANGE_PASSWORD,
     request,
   )
-    .then((r) => r)
+    .then((r) => r.data)
     .catch((e) => e);
 };
+
 
 const decactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(

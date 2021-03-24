@@ -48,7 +48,7 @@ export const signup = (
 export const logout = (): UserAuthenticationThunkAction<void> => {
   return (dispatch, getState, { authClient }): Promise<void> => {
     localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
-
+    dispatch(authenticateUser.notStarted());
     const state: C4CState = getState();
 
     if (asyncRequestIsComplete(state.authenticationState.tokens)) {

@@ -1,8 +1,8 @@
 import { Typography } from 'antd';
+import Modal from 'antd/lib/modal/Modal';
+import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
-import dateFormat from 'dateformat';
-import Modal from 'antd/lib/modal/Modal';
 import { Announcement } from '../containers/announcements/ducks/types';
 
 const { Text, Paragraph } = Typography;
@@ -44,21 +44,19 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
   isVisible,
   setIsModalVisible,
 }) => {
-  const getModalContent = (() => {
-    return (
-      <>
-        <div>
-          <DateText strong>{dateFormat(created, 'longDate')}</DateText>
-        </div>
-        <div>
-          <ModalTitle>{title}</ModalTitle>
-        </div>
-        <div>
-          <Paragraph>{description}</Paragraph>
-        </div>
-      </>
-    );
-  })();
+  const modalContent: JSX.Element = (
+    <>
+      <div>
+        <DateText strong>{dateFormat(created, 'longDate')}</DateText>
+      </div>
+      <div>
+        <ModalTitle>{title}</ModalTitle>
+      </div>
+      <div>
+        <Paragraph>{description}</Paragraph>
+      </div>
+    </>
+  );
 
   return imageSrc ? (
     <AnnouncementsModal
@@ -68,7 +66,7 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
       onCancel={() => setIsModalVisible(false)}
     >
       <img className="cardImg" alt="Announcement" src={imageSrc} />
-      {getModalContent}
+      {modalContent}
     </AnnouncementsModal>
   ) : (
     <AnnouncementsModalNoCover
@@ -77,7 +75,7 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
       footer={null}
       onCancel={() => setIsModalVisible(false)}
     >
-      {getModalContent}
+      {modalContent}
     </AnnouncementsModalNoCover>
   );
 };
