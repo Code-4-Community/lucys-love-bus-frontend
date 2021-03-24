@@ -13,7 +13,7 @@ interface NewPasswords {
 }
 
 const ForgotPasswordReset: React.FC = () => {
-  const { key } = useParams();
+  const { key } = useParams<{key: string}>();
   const [error, setError] = useState<boolean>(false);
   const history = useHistory();
 
