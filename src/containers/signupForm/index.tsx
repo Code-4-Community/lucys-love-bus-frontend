@@ -27,6 +27,7 @@ import {
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
+import { ORANGE } from '../../utils/colors';
 import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 import { participatingFamilySearchQueryFlag } from '../../utils/signupFlow';
@@ -40,6 +41,19 @@ const { TextArea } = Input;
 const PaddedAlert = styled(Alert)`
   margin-top: 1em;
   margin-bottom: 2em;
+`;
+
+const CenteredTitle = styled(Title)`
+  text-align: center;
+`;
+const CenteredOrangeTitle = styled.h1`
+  text-align: center;
+  font-weight: 800;
+  font-size: 2em;
+  color: ${ORANGE};
+`;
+const CenteredParagraph = styled(Paragraph)`
+  text-align: center;
 `;
 
 interface SignupFormProps {
@@ -102,7 +116,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ tokens }) => {
         />
       </Helmet>
       <ContentContainer>
-        {asyncRequestIsComplete(tokens) ? (
+        {!asyncRequestIsComplete(tokens) ? (
           <FormContainer>
             <Helmet>
               <title>Signup</title>
@@ -512,16 +526,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ tokens }) => {
               <title>Signup Confirmation</title>
             </Helmet>
             <FormContainer>
-              <Title level={5} className="centered-text">
-                VERIFY EMAIL
-              </Title>
-              <Title level={3} className="centered-text">
+              <CenteredTitle level={5}>VERIFY EMAIL</CenteredTitle>
+              <CenteredOrangeTitle>
                 Thank you for signing up!
-              </Title>
-              <Paragraph className="centered-text">
+              </CenteredOrangeTitle>
+              <CenteredParagraph>
                 We are incredibly excited for you to become a member of The
                 Sajni Center. You will receive a confirmation email shortly.
-              </Paragraph>
+              </CenteredParagraph>
             </FormContainer>
           </>
         )}
