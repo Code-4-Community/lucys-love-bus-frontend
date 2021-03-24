@@ -12,7 +12,7 @@ import {
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
 import { requestToDeactivateAccount } from './ducks/thunks';
-const { Title, Paragraph, Text, Link } = Typography;
+const { Title, Link } = Typography;
 
 const DeactivateAccount: React.FC<{
   deactivateAccount: AsyncRequest<void, any>;
