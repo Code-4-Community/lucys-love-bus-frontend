@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# runs prettier fix before every commit
 npm run prettier-fix
-npm run lint-fix
