@@ -16,6 +16,7 @@ import Signup from './containers/signup';
 import SignupForm from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import MyEvents from './containers/myEvents';
 import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
@@ -39,6 +40,7 @@ export enum Routes {
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
+  MY_EVENTS = '/my-events',
 }
 
 const App: React.FC = () => {
@@ -90,6 +92,11 @@ const App: React.FC = () => {
                         path={Routes.SIGNUP_FORM}
                         exact
                         component={SignupForm}
+                      />
+                      <Route
+                        path={Routes.MY_EVENTS}
+                        exact
+                        component={MyEvents}
                       />
                       <Route path="*" exact component={NotFound} />
                       <Route

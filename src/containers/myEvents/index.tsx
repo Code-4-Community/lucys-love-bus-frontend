@@ -53,7 +53,7 @@ const MyEvents: React.FC<MyEventsProps> = ({ events }) => {
       </Helmet>
       <ChungusContentContainer>
         <Content>
-          <StyledTitle>Upcoming Events</StyledTitle>
+          <StyledTitle>My Events</StyledTitle>
           <StyledRadio buttonStyle="solid" defaultValue={view}>
             <Radio.Button
               value={EventView.List}
