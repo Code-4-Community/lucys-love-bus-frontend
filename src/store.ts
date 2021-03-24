@@ -23,6 +23,11 @@ import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
   initialEventsState,
 } from './containers/upcoming-events/ducks/reducers';
+import { MyEventsReducerState } from './containers/myEvents/ducks/types';
+import { MyEventsActions } from './containers/myEvents/ducks/actions';
+import myEventsReducer, {
+  initialMyEventsState,
+} from './containers/myEvents/ducks/reducers';
 import protectedApiClient, {
   ProtectedApiExtraArgs,
 } from './api/protectedApiClient';
@@ -34,6 +39,7 @@ import announcementsReducer, {
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
+  myEventsState: MyEventsReducerState;
   eventsState: EventsReducerState;
   announcementsState: AnnouncementsReducerState;
 }
@@ -46,6 +52,7 @@ export interface Action<T, P> {
 export type C4CAction =
   | UserAuthenticationActions
   | EventsActions
+  | MyEventsActions
   | AnnouncementsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
@@ -54,6 +61,7 @@ export type ThunkExtraArgs = UserAuthenticationExtraArgs &
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
+  myEventsState: myEventsReducer,
   eventsState: eventsReducer,
   announcementsState: announcementsReducer,
 });
@@ -61,6 +69,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
+  myEventsState: initialMyEventsState,
   announcementsState: initialAnnouncementsState,
 };
 
