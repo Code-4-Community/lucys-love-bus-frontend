@@ -2,6 +2,7 @@ import { Card, Divider, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
+import { DEFAULT_IMAGE } from '../utils/copy';
 import { LinkButton } from './LinkButton';
 
 const { Text, Paragraph } = Typography;
@@ -43,7 +44,7 @@ const EventsCardComponent: React.FC<EventsCardProps> = ({
   to,
 }) => {
   return (
-    <EventsCard cover={src && <img alt="example" src={src} />}>
+    <EventsCard cover={<img alt="example" src={src || DEFAULT_IMAGE} />}>
       <CardTitle>{title}</CardTitle>
       <br />
       <DateText strong>{dateFormat(date, 'longDate')}</DateText>
