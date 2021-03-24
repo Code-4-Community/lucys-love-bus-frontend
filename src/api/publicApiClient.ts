@@ -1,7 +1,7 @@
 import AppAxiosInstance from '../auth/axios';
 import { Announcement } from '../containers/announcements/ducks/types';
 import { EventProps } from '../containers/upcoming-events/ducks/types';
-import {MyEventProps} from '../containers/myEvents/ducks/types';
+import { MyEventProps } from '../containers/myEvents/ducks/types';
 
 export interface PublicApiExtraArgs {
   readonly publicApiClient: PublicApiClient;
@@ -22,7 +22,6 @@ const getUpcomingEvents = (): Promise<EventProps[]> => {
     (response) => response.data?.events,
   );
 };
-
 
 const getAnnouncements = (): Promise<Announcement[]> => {
   return AppAxiosInstance.get(PublicApiClientRoutes.ANNOUNCEMENTS).then(
