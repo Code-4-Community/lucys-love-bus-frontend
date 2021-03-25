@@ -18,7 +18,7 @@ export const requestToDeactivateAccount = (): UserAuthenticationAndDeactivateAcc
   return (dispatch, _getState, { protectedApiClient }) => {
     dispatch(deactivateAccount.loading());
     return protectedApiClient
-      .decactivateAccount()
+      .deactivateAccount()
       .then(() => {
         dispatch(deactivateAccount.loaded());
         localStorage.removeItem(LOCALSTORAGE_STATE_KEY);

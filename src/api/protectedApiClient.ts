@@ -9,7 +9,7 @@ export interface ProtectedApiClient {
     currentPassword: string;
     newPassword: string;
   }) => Promise<void>;
-  readonly decactivateAccount: () => Promise<void>;
+  readonly deactivateAccount: () => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -29,15 +29,15 @@ const changePassword = (request: {
     .catch((e) => e);
 };
 
-const decactivateAccount = (): Promise<void> => {
+const deactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
-    .then((r) => r)
-    .catch((e) => e);
+    .then((res) => res)
+    .catch((err) => err);
 };
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
-  decactivateAccount,
+  deactivateAccount: deactivateAccount,
 });
 
 export default Client;

@@ -15,13 +15,17 @@ import { requestToDeactivateAccount } from './ducks/thunks';
 import { DeactivateAccountReducerState } from './ducks/types';
 const { Title, Link } = Typography;
 
-const DeactivateAccount: React.FC<{
+interface DeactivateAccountProps {
   deactivateAccount: DeactivateAccountReducerState['deactivateAccount'];
   tokens: UserAuthenticationReducerState['tokens'];
-}> = ({ deactivateAccount, tokens }) => {
+}
+
+const DeactivateAccount: React.FC<DeactivateAccountProps> = ({
+  deactivateAccount,
+  tokens,
+}) => {
   const dispatch = useDispatch();
   const onFinish = () => {
-    // delete the account
     dispatch(requestToDeactivateAccount());
   };
 
@@ -95,9 +99,7 @@ const DeactivateAccount: React.FC<{
     </>
   );
 };
-const mapStateToProps = (
-  state: C4CState,
-): { tokens: any; deactivateAccount: any } => {
+const mapStateToProps = (state: C4CState): DeactivateAccountProps => {
   return {
     tokens: state.authenticationState.tokens,
     deactivateAccount: state.deactivateAccountState.deactivateAccount,
