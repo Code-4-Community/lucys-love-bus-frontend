@@ -49,7 +49,8 @@
     "prettier": "prettier --check src",
     "prettier-fix": "prettier --write src",
     "type-check": "tsc",
-    "check": "npm run lint-fix && npm run prettier-fix && npm run type-check"
+    "check": "npm run lint-fix && npm run prettier-fix && npm run type-check",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -74,6 +75,7 @@
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
+    "husky": "^5.2.0",
     "nock": "^13.0.9",
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",

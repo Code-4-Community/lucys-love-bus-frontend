@@ -1,9 +1,7 @@
-import { Alert, Input, Select, Typography, Upload } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import { Routes } from '../../App';
 import { signup } from '../../auth/ducks/thunks';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
@@ -12,35 +10,10 @@ import ConfirmationMessage from '../../components/confirmationMessage';
 import SignupForm from '../../components/signupForm';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { ORANGE } from '../../utils/colors';
 import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 import { participatingFamilySearchQueryFlag } from '../../utils/signupFlow';
 import { SignupData } from './ducks/types';
-
-const { Title, Paragraph, Text } = Typography;
-const { Option } = Select;
-const { Dragger } = Upload;
-const { TextArea } = Input;
-
-const PaddedAlert = styled(Alert)`
-  margin-top: 1em;
-  margin-bottom: 2em;
-`;
-
-const CenteredTitle = styled(Title)`
-  text-align: center;
-`;
-const CenteredOrangeTitle = styled.h1`
-  text-align: center;
-  font-weight: 800;
-  font-size: 2em;
-  color: ${ORANGE};
-`;
-const CenteredParagraph = styled(Paragraph)`
-  text-align: center;
-`;
-
 interface SignupFormContainerProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
 }
