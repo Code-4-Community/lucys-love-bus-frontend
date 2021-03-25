@@ -37,7 +37,7 @@ const DeactivateAccount: React.FC<DeactivateAccountProps> = ({
       </Helmet>
       <ContentContainer>
         <Title>Deactivate Account</Title>
-        {() => {
+        {(() => {
           if (asyncRequestIsComplete(deactivateAccount)) {
             return (
               <>
@@ -103,7 +103,7 @@ const DeactivateAccount: React.FC<DeactivateAccountProps> = ({
               <Redirect to="/" />
             );
           }
-        }}
+        })()}
       </ContentContainer>
     </>
   );
