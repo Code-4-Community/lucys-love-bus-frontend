@@ -20,7 +20,7 @@ import { AnnouncementsReducerState } from '../announcements/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
 const { Text, Paragraph } = Typography;
- 
+
 const LandingContainer = styled.div`
   width: 100%;
   height: calc(100vh - 110px);
@@ -79,7 +79,7 @@ const CARD_ROW_LIMIT = 3;
 export interface HomeContainerProps {
   events: EventsReducerState['upcomingEvents'];
   announcements: AnnouncementsReducerState['announcements'];
-};
+}
 
 const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
   const dispatch = useDispatch();
