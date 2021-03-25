@@ -76,7 +76,7 @@ const ViewMoreButton = styled(LinkButton)`
 
 const CARD_ROW_LIMIT = 3;
 
-export type HomeContainerProps = {
+export interface HomeContainerProps {
   events: EventsReducerState['upcomingEvents'];
   announcements: AnnouncementsReducerState['announcements'];
 };
@@ -135,7 +135,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
             ).map((event: EventProps, i) => (
               <Col key={i}>
                 <EventCard
-                  src={event.thumbnail}
+                  imageSrc={event.thumbnail}
                   title={event.title}
                   date={event.details.start}
                   description={event.details.description}

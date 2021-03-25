@@ -29,7 +29,7 @@ const DateText = styled(Text)`
 `;
 
 interface EventsCardProps {
-  src?: string;
+  imageSrc?: string;
   title: string;
   date: Date;
   description: string;
@@ -37,14 +37,14 @@ interface EventsCardProps {
 }
 
 const EventsCardComponent: React.FC<EventsCardProps> = ({
-  src,
+  imageSrc = DEFAULT_IMAGE,
   title,
   date,
   description,
   to,
 }) => {
   return (
-    <EventsCard cover={<img alt="example" src={src || DEFAULT_IMAGE} />}>
+    <EventsCard cover={<img alt={title} src={imageSrc} />}>
       <CardTitle>{title}</CardTitle>
       <br />
       <DateText strong>{dateFormat(date, 'longDate')}</DateText>
