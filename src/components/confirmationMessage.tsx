@@ -40,12 +40,8 @@ const ConfirmationMessage: React.FC<ConfirmationMessageProps> = ({
   return (
     <FormContainer>
       <CenteredTitle level={5}>{title}</CenteredTitle>
-      <CenteredOrangeTitle>
-        {message}
-      </CenteredOrangeTitle>
-      <CenteredParagraph>
-        {details}
-      </CenteredParagraph>
+      <CenteredOrangeTitle>{message}</CenteredOrangeTitle>
+      <CenteredParagraph>{details}</CenteredParagraph>
     </FormContainer>
   );
 };
