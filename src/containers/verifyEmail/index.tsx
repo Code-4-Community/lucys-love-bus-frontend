@@ -16,7 +16,7 @@ import {
 } from '../../utils/asyncRequest';
 
 const VerifyEmail: React.FC = () => {
-  const { key } = useParams();
+  const { key } = useParams<{ key: string }>();
   const [status, setStatus] = useState<AsyncRequest>(AsyncRequestNotStarted());
 
   useEffect(() => {
