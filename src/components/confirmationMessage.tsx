@@ -1,17 +1,9 @@
-import { Alert, Input, Select, Typography, Upload } from 'antd';
+import { Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import { ORANGE } from '../utils/colors';
 import FormContainer from './FormContainer';
-const { Title, Paragraph, Text } = Typography;
-const { Option } = Select;
-const { Dragger } = Upload;
-const { TextArea } = Input;
-
-const PaddedAlert = styled(Alert)`
-  margin-top: 1em;
-  margin-bottom: 2em;
-`;
+const { Title, Paragraph } = Typography;
 
 const CenteredTitle = styled(Title)`
   text-align: center;

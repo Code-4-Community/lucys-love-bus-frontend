@@ -14,8 +14,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { UserAuthenticationReducerState } from '../auth/ducks/types';
-import FormContainer from '../components/FormContainer';
-import FormInitialText from '../components/FormInitialText';
+import FormContainer from './FormContainer';
+import FormInitialText from './FormInitialText';
 import { SignupData } from '../containers/signupForm/ducks/types';
 import {
   asyncRequestIsFailed,
