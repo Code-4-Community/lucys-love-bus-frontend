@@ -37,7 +37,7 @@ const deactivateAccount = (): Promise<void> => {
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
-  deactivateAccount: deactivateAccount,
+  deactivateAccount,
 });
 
 export default Client;
