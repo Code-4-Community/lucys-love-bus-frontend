@@ -430,7 +430,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
           </Button>
         </Form.Item>
       </Form>
-      )
     </FormContainer>
   );
 };
