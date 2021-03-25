@@ -14,13 +14,13 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { UserAuthenticationReducerState } from '../auth/ducks/types';
-import FormContainer from './FormContainer';
-import FormInitialText from './FormInitialText';
 import { SignupData } from '../containers/signupForm/ducks/types';
 import {
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../utils/asyncRequest';
+import FormContainer from './FormContainer';
+import FormInitialText from './FormInitialText';
 
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
