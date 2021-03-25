@@ -37,64 +37,73 @@ const DeactivateAccount: React.FC<DeactivateAccountProps> = ({
       </Helmet>
       <ContentContainer>
         <Title>Deactivate Account</Title>
-        {asyncRequestIsComplete(deactivateAccount) ? (
-          <>
-            <Title level={3}>Account Successfully Deactivated</Title>
-            <RouterLink to="/">
-              <Link>Back to the home page</Link>
-            </RouterLink>
-          </>
-        ) : asyncRequestIsComplete(tokens) ? (
-          <>
-            <Title level={3}>
-              Warning: This action is permanent and cannot be undone
-            </Title>
-            <Form onFinish={onFinish}>
-              <Form.Item
-                name="deactivateAccount"
-                valuePropName="checked"
-                rules={[
-                  {
-                    required: true,
-                    type: 'enum',
-                    enum: [true],
-                    message:
-                      'Please check this box to confirm account deletion',
-                  },
-                ]}
-              >
-                <Checkbox>
-                  By checking this box you acknowledge that your information
-                  will be erased from our system and cannot be recovered
-                  including any registrations for future events or requests for
-                  Participating Family status.
-                </Checkbox>
-              </Form.Item>
-              {asyncRequestIsFailed(deactivateAccount) && (
-                <Alert
-                  message="Error"
-                  description={deactivateAccount.error}
-                  type="error"
-                  showIcon
-                />
-              )}
+        {() => {
+          if (asyncRequestIsComplete(deactivateAccount)) {
+            return (
+              <>
+                <Title level={3}>Account Successfully Deactivated</Title>
+                <RouterLink to="/">
+                  <Link>Back to the home page</Link>
+                </RouterLink>
+              </>
+            );
+          } else if (asyncRequestIsComplete(tokens)) {
+            return (
+              <>
+                <Title level={3}>
+                  Warning: This action is permanent and cannot be undone
+                </Title>
+                <Form onFinish={onFinish}>
+                  <Form.Item
+                    name="deactivateAccount"
+                    valuePropName="checked"
+                    rules={[
+                      {
+                        required: true,
+                        type: 'enum',
+                        enum: [true],
+                        message:
+                          'Please check this box to confirm account deletion',
+                      },
+                    ]}
+                  >
+                    <Checkbox>
+                      By checking this box you acknowledge that your information
+                      will be erased from our system and cannot be recovered
+                      including any registrations for future events or requests
+                      for Participating Family status.
+                    </Checkbox>
+                  </Form.Item>
+                  {asyncRequestIsFailed(deactivateAccount) && (
+                    <Alert
+                      message="Error"
+                      description={deactivateAccount.error}
+                      type="error"
+                      showIcon
+                    />
+                  )}
 
-              <Form.Item>
-                <Button
-                  size="large"
-                  disabled={asyncRequestIsLoading(deactivateAccount)}
-                  type="ghost"
-                  danger
-                  htmlType="submit"
-                >
-                  Delete My Account
-                </Button>
-              </Form.Item>
-            </Form>
-          </>
-        ) : (
-          <Redirect to="/" /> // if you arent authenticated and you didnt just delete your account, we dont want to show anything
-        )}
+                  <Form.Item>
+                    <Button
+                      size="large"
+                      disabled={asyncRequestIsLoading(deactivateAccount)}
+                      type="ghost"
+                      danger
+                      htmlType="submit"
+                    >
+                      Delete My Account
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </>
+            );
+          } else {
+            return (
+              // if you arent authenticated and you didnt just delete your account, we dont want to show anything
+              <Redirect to="/" />
+            );
+          }
+        }}
       </ContentContainer>
     </>
   );
