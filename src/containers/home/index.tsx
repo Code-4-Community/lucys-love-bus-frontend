@@ -14,19 +14,18 @@ import {
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
 import { ORANGE } from '../../utils/colors';
+import { HOME_IMAGE } from '../../utils/copy';
 import { getAnnouncements } from '../announcements/ducks/thunks';
 import { AnnouncementsReducerState } from '../announcements/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
 const { Text, Paragraph } = Typography;
-const image1v2 =
-  'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/sajni+center+thiago+music(1).jpg';
-
+ 
 const LandingContainer = styled.div`
   width: 100%;
   height: calc(100vh - 110px);
   object-fit: cover;
-  background-image: url('${image1v2}');
+  background-image: url('${HOME_IMAGE}');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
@@ -126,9 +125,9 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
         </Row>
         <Row gutter={[24, 24]} justify="center">
           {asyncRequestIsFailed(events) && (
-            <p>The announcements could not be retrieved.</p>
+            <p>The events could not be retrieved.</p>
           )}
-          {asyncRequestIsLoading(announcements) && <p>Loading events...</p>}
+          {asyncRequestIsLoading(events) && <p>Loading events...</p>}
           {asyncRequestIsComplete(events) &&
             (events.result.length > CARD_ROW_LIMIT
               ? events.result.slice(0, CARD_ROW_LIMIT)
