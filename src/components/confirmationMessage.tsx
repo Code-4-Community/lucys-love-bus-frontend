@@ -39,14 +39,12 @@ const ConfirmationMessage: React.FC<ConfirmationMessageProps> = ({
 }) => {
   return (
     <FormContainer>
-      <CenteredTitle level={5}>{title}VERIFY EMAIL</CenteredTitle>
+      <CenteredTitle level={5}>{title}</CenteredTitle>
       <CenteredOrangeTitle>
-        {message}Thank you for signing up!
+        {message}
       </CenteredOrangeTitle>
       <CenteredParagraph>
         {details}
-        We are incredibly excited for you to become a member of The Sajni
-        Center. You will receive a confirmation email shortly.
       </CenteredParagraph>
     </FormContainer>
   );
