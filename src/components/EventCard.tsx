@@ -37,14 +37,14 @@ interface EventsCardProps {
 }
 
 const EventsCardComponent: React.FC<EventsCardProps> = ({
-  imageSrc = DEFAULT_IMAGE,
+  imageSrc,
   title,
   date,
   description,
   to,
 }) => {
   return (
-    <EventsCard cover={<img alt={title} src={imageSrc} />}>
+    <EventsCard cover={<img alt={title} src={imageSrc || DEFAULT_IMAGE} />}>
       <CardTitle>{title}</CardTitle>
       <br />
       <DateText strong>{dateFormat(date, 'longDate')}</DateText>

@@ -45,14 +45,14 @@ const Info = styled.div`
 
 const EventListing: React.FC<EventProps> = ({
   id,
-  thumbnail = DEFAULT_IMAGE,
+  thumbnail,
   title,
   details,
 }) => {
   return (
     <StyledCard>
       <CardContent>
-        <Thumbnail src={thumbnail} />
+        <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
           <Title level={3}>{title}</Title>
           <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
