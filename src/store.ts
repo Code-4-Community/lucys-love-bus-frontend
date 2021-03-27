@@ -14,7 +14,7 @@ import {
 import userReducer, { initialUserState } from './auth/ducks/reducers';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import throttle from 'lodash/throttle';
+// import throttle from 'lodash/throttle';
 import AppAxiosInstance from './auth/axios';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
 import publicApiClient, { ApiExtraArgs } from './api/publicApiClient';
@@ -103,6 +103,7 @@ const store: Store<C4CState, C4CAction> = createStore<
   {}
 >(reducers, preloadedState || initialStoreState, enhancer);
 
+/*
 store.subscribe(
   throttle(() => {
     const state: C4CState = store.getState();
@@ -114,5 +115,6 @@ store.subscribe(
     }
   }, 10000),
 );
+*/
 
 export default store;

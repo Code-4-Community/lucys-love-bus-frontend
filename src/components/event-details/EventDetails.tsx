@@ -59,7 +59,7 @@ const AnnouncementBox = styled.div`
   min-height: 80px;
 `;
 
-const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
+const EventListing: React.FC<EventProps> = ({ thumbnail, id, title, details }) => {
   const [
     displayEventRegistrationModal,
     setDisplayEventRegistrationModal,
@@ -132,6 +132,7 @@ const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
         </Col>
       </BottomRow>
       <EventRegistrationModal
+        eventId={id}
         eventTitle={title}
         showEventRegistrationModal={displayEventRegistrationModal}
         onCloseEventRegistrationModal={() => {
