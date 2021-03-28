@@ -29,11 +29,10 @@ import announcementsReducer, {
   initialAnnouncementsState,
 } from './containers/announcements/ducks/reducers';
 
-
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
   eventsState: EventsReducerState;
-  announcementsState: AnnouncementsReducerState
+  announcementsState: AnnouncementsReducerState;
 }
 
 export interface Action<T, P> {
@@ -41,20 +40,23 @@ export interface Action<T, P> {
   readonly payload: P;
 }
 
-export type C4CAction = UserAuthenticationActions | EventsActions | AnnouncementsActions;
+export type C4CAction =
+  | UserAuthenticationActions
+  | EventsActions
+  | AnnouncementsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs & ApiExtraArgs;
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
   eventsState: eventsReducer,
-  announcementsState: announcementsReducer
+  announcementsState: announcementsReducer,
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
-  announcementsState: initialAnnouncementsState
+  announcementsState: initialAnnouncementsState,
 };
 
 export const LOCALSTORAGE_STATE_KEY: string = 'state';

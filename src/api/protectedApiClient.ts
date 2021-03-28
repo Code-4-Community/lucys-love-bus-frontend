@@ -11,12 +11,12 @@ export interface ProtectedApiClient {
   }) => Promise<void>;
 
   readonly registerTickets: (request: {
-    lineItems : [
+    lineItemRequests: [
       {
         eventId: number;
         quantity: number;
-      }
-    ]
+      },
+    ];
   }) => Promise<void>;
 }
 
@@ -37,20 +37,20 @@ const changePassword = (request: {
     .catch((e) => e);
 };
 
-const registerTickets = (request : {
-  lineItems : [
+const registerTickets = (request: {
+  lineItemRequests: [
     {
       eventId: number;
       quantity: number;
-    }
-  ]
+    },
+  ];
 }) => {
   return AppAxiosInstance.post(
     ProtectedApiClientRoutes.REGISTER_TICKETS,
-      request
+    request,
   )
     .then((r) => r)
-  .catch((e) => e);
+    .catch((e) => e);
 };
 
 const Client: ProtectedApiClient = Object.freeze({

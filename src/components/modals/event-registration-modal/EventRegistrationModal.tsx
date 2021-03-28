@@ -35,27 +35,32 @@ const TicketInputNumber = styled(InputNumber)`
 
 const EventRegistrationModal: React.FC<
   EventRegistrationModalProps & StateProps
-> = ({ tokens, onCloseEventRegistrationModal, showEventRegistrationModal, eventId, eventTitle }) => {
-
+> = ({
+  tokens,
+  onCloseEventRegistrationModal,
+  showEventRegistrationModal,
+  eventId,
+  eventTitle,
+}) => {
   const [quantity, setQuantity] = React.useState<number>(0);
 
   const updateQuantity = (newValue: string | number | undefined) => {
     if (typeof newValue === 'number') {
-      setQuantity(newValue)
+      setQuantity(newValue);
+    } else {
+      setQuantity(0);
     }
-    else {
-      setQuantity(0)
-    }
-  }
+  };
 
   const handleOk = (): void => {
+    // TODO: if the user is a PF then register, otherwise redirect to stripe checkout (use the Redux global PrivilegeLevel)
     protectedApiClient.registerTickets({
-      'lineItems': [
+      lineItemRequests: [
         {
-          'eventId': eventId,
-          'quantity': quantity,
-        }
-      ]
+          eventId,
+          quantity,
+        },
+      ],
     });
     onCloseEventRegistrationModal();
   };
@@ -72,7 +77,14 @@ const EventRegistrationModal: React.FC<
         width={'625px'}
       >
         <ContentDiv>
-          <TicketInputNumber size="large" min={0} precision={0} value={quantity} placeholder="Number of Tickets" onChange={updateQuantity} />
+          <TicketInputNumber
+            size="large"
+            min={0}
+            precision={0}
+            value={quantity}
+            placeholder="Number of Tickets"
+            onChange={updateQuantity}
+          />
         </ContentDiv>
       </StyledModal>
     </div>

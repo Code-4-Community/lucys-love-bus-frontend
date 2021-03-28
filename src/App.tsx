@@ -118,7 +118,7 @@ const App: React.FC = () => {
                         exact
                         component={SingleEvent}
                       />
-                     < Route
+                      <Route
                         path={Routes.ANNOUNCEMENTS}
                         exact
                         component={Announcements}

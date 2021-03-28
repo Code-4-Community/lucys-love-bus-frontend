@@ -59,7 +59,12 @@ const AnnouncementBox = styled.div`
   min-height: 80px;
 `;
 
-const EventListing: React.FC<EventProps> = ({ thumbnail, id, title, details }) => {
+const EventListing: React.FC<EventProps> = ({
+  thumbnail,
+  id,
+  title,
+  details,
+}) => {
   const [
     displayEventRegistrationModal,
     setDisplayEventRegistrationModal,
