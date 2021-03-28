@@ -9,6 +9,7 @@ import {
   AsyncRequestFailed,
   AsyncRequestCompleted,
   rehydrateAsyncRequest,
+  ASYNC_REQUEST_NOT_STARTED_ACTION,
 } from '../asyncRequest';
 import {
   PrivilegeLevel,
@@ -34,6 +35,10 @@ describe('asyncRequest ', () => {
       const err = new Error();
       const response = 'myResponse';
 
+      expect(generator1.notStarted()).toEqual({
+        type: ASYNC_REQUEST_NOT_STARTED_ACTION,
+        payload: { key: generator1.key },
+      });
       expect(generator1.loading()).toEqual({
         type: ASYNC_REQUEST_LOADING_ACTION,
         payload: { key: generator1.key },
@@ -57,6 +62,12 @@ describe('asyncRequest ', () => {
       TokenPayload,
       Error
     >(actions.key);
+
+    it('updates the state for a not started action with given key', () => {
+      expect(reducer(initialState, actions.notStarted())).toEqual(
+        AsyncRequestNotStarted<TokenPayload, Error>(),
+      );
+    });
 
     it('updates the state for a loading action with given key', () => {
       expect(reducer(initialState, actions.loading())).toEqual(

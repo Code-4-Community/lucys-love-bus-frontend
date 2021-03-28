@@ -1,6 +1,6 @@
-import { Action } from '../store';
 import { Reducer } from 'redux';
 import { v4 } from 'uuid';
+import { Action } from '../store';
 
 export enum AsyncRequestKinds {
   NotStarted = 'NotStarted',
@@ -152,10 +152,14 @@ export function rehydrateAsyncRequest<R, E = void>(
       return request;
   }
 }
-
+export const ASYNC_REQUEST_NOT_STARTED_ACTION = 'asyncNotStarted';
 export const ASYNC_REQUEST_LOADING_ACTION = 'asyncLoading';
 export const ASYNC_REQUEST_LOADED_ACTION = 'asyncLoaded';
 export const ASYNC_REQUEST_FAILED_ACTION = 'asyncFailed';
+
+interface NotStartedPayload {
+  readonly key: string;
+}
 interface LoadingPayload {
   readonly key: string;
 }
@@ -169,11 +173,16 @@ interface FailedPayload<E> {
 }
 
 export type AsyncRequestAction<R, E> =
+  | Action<typeof ASYNC_REQUEST_NOT_STARTED_ACTION, NotStartedPayload>
   | Action<typeof ASYNC_REQUEST_LOADING_ACTION, LoadingPayload>
   | Action<typeof ASYNC_REQUEST_LOADED_ACTION, LoadedPayload<R>>
   | Action<typeof ASYNC_REQUEST_FAILED_ACTION, FailedPayload<E>>;
 
 export function genericAsyncActions<R, E>(): {
+  notStarted: () => Action<
+    typeof ASYNC_REQUEST_NOT_STARTED_ACTION,
+    NotStartedPayload
+  >;
   loading: () => Action<typeof ASYNC_REQUEST_LOADING_ACTION, LoadingPayload>;
   loaded: (
     r: R,
@@ -184,6 +193,14 @@ export function genericAsyncActions<R, E>(): {
   key: string;
 } {
   const key = v4(); // UUID4
+
+  const notStarted = (): Action<
+    typeof ASYNC_REQUEST_NOT_STARTED_ACTION,
+    NotStartedPayload
+  > => ({
+    type: ASYNC_REQUEST_NOT_STARTED_ACTION,
+    payload: { key },
+  });
 
   const loading = (): Action<
     typeof ASYNC_REQUEST_LOADING_ACTION,
@@ -208,6 +225,7 @@ export function genericAsyncActions<R, E>(): {
   });
 
   return {
+    notStarted,
     loading,
     loaded,
     failed,
@@ -224,6 +242,11 @@ export function generateAsyncRequestReducer<S, R, E>(key: string) {
     action: AsyncRequestAction<any, any>,
   ) => {
     switch (action.type) {
+      case ASYNC_REQUEST_NOT_STARTED_ACTION:
+        if (action.payload.key === key) {
+          return AsyncRequestNotStarted<R, E>();
+        }
+        break;
       case ASYNC_REQUEST_LOADING_ACTION:
         if (action.payload.key === key) {
           return AsyncRequestLoading<R, E>();

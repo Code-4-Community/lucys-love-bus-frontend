@@ -6,6 +6,7 @@ export const authenticateUser = genericAsyncActions<TokenPayload, any>();
 export const logoutUser = genericAsyncActions<void, void>();
 
 export type UserAuthenticationActions =
+  | ReturnType<typeof authenticateUser.notStarted>
   | ReturnType<typeof authenticateUser.loading>
   | ReturnType<typeof authenticateUser.loaded>
   | ReturnType<typeof authenticateUser.failed>
