@@ -7,13 +7,13 @@ import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
-import { C4CState, LOCALSTORAGE_STATE_KEY } from '../../store';
-import { connect } from 'react-redux';
+import { C4CState } from '../../store';
+import { connect, useDispatch } from 'react-redux';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PRIMARY } from '../../utils/colors';
 import { Routes } from '../../App';
-import AuthClient from '../../auth/authClient';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { logout } from '../../auth/ducks/thunks';
 
 const { Text } = Typography;
 
@@ -80,6 +80,7 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
@@ -99,9 +100,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
       <Menu.Item
         onClick={() => {
           if (asyncRequestIsComplete(tokens)) {
-            AuthClient.logout(tokens.result.refreshToken).then(() => {
-              localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
-            });
+            dispatch(logout());
             history.push(Routes.HOME);
             history.go(0); // force refresh if user is already on home page
           }
