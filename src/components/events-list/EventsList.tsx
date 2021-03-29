@@ -1,9 +1,9 @@
 import React from 'react';
 import EventListing from '../event-listing/EventListing';
-import { EventDetails } from '../../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 
 export interface EventsListProps {
-  readonly events: EventDetails[];
+  readonly events: EventInformation[];
 }
 
 const EventsList: React.FC<EventsListProps> = ({ events }) => {

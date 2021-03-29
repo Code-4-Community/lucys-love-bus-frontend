@@ -1,7 +1,7 @@
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import { MyEventDetails } from './types';
+import { MyEventInformation } from './types';
 
-export const myEvents = genericAsyncActions<MyEventDetails[], any>();
+export const myEvents = genericAsyncActions<MyEventInformation[], any>();
 
 export type MyEventsActions =
   | ReturnType<typeof myEvents.loading>

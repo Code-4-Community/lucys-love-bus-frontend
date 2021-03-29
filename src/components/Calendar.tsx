@@ -2,7 +2,7 @@ import { Badge, Calendar } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { EventDetails } from '../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
 import { LINK } from '../utils/colors';
 
 const EventsCalendarList = styled.ul`
@@ -40,7 +40,7 @@ interface CalendarMoment {
 }
 
 interface CalendarProps {
-  events: EventDetails[];
+  events: EventInformation[];
 }
 
 type DatePredicate = (d: Date, moment: CalendarMoment) => boolean;

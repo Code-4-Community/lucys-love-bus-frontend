@@ -1,4 +1,4 @@
-import { EventDetails, EventsReducerState } from './types';
+import { EventInformation, EventsReducerState } from './types';
 import {
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
@@ -10,12 +10,12 @@ import { upcomingEvents } from './actions';
 import { C4CAction } from '../../../store';
 
 export const initialEventsState: EventsReducerState = {
-  upcomingEvents: AsyncRequestNotStarted<EventDetails[], any>(),
+  upcomingEvents: AsyncRequestNotStarted<EventInformation[], any>(),
 };
 
 const upcomingEventsReducer = generateAsyncRequestReducer<
   EventsReducerState,
-  EventDetails[],
+    EventInformation[],
   void
 >(upcomingEvents.key);
 

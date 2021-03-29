@@ -1,4 +1,4 @@
-import { Radio, Typography } from 'antd';
+import {Radio, Tag, Typography} from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
@@ -54,6 +54,7 @@ const MyEvents: React.FC<MyEventsProps> = ({ events }) => {
       <ChungusContentContainer>
         <Content>
           <StyledTitle>My Events</StyledTitle>
+          <Tag color="green">green</Tag>
           <StyledRadio buttonStyle="solid" defaultValue={view}>
             <Radio.Button
               value={EventView.List}

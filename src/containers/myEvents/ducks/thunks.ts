@@ -1,4 +1,4 @@
-import { MyEventDetails, MyEventsThunkAction } from './types';
+import { MyEventInformation, MyEventsThunkAction } from './types';
 import { myEvents } from './actions';
 
 export const getMyEvents = (): MyEventsThunkAction<void> => {
@@ -6,7 +6,7 @@ export const getMyEvents = (): MyEventsThunkAction<void> => {
         dispatch(myEvents.loading());
         return protectedApiClient
             .getMyEvents()
-            .then((response: MyEventDetails[]) => {
+            .then((response: MyEventInformation[]) => {
                 dispatch(myEvents.loaded(response));
             })
             .catch((error: any) => {

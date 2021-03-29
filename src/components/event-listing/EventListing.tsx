@@ -3,7 +3,7 @@ import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
-import { EventDetails } from '../../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -42,7 +42,7 @@ const Info = styled.div`
   width: 67%;
 `;
 
-const EventListing: React.FC<EventDetails> = ({
+const EventListing: React.FC<EventInformation> = ({
   id,
   thumbnail,
   title,
