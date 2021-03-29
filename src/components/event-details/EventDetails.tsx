@@ -3,7 +3,7 @@ import dateFormat from 'dateformat';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
+import { EventDetails } from '../../containers/upcoming-events/ducks/types';
 const { Title } = Typography;
 
 const TopRow = styled(Row)`
@@ -57,7 +57,7 @@ const AnnouncementBox = styled.div`
   min-height: 80px;
 `;
 
-const EventListing: React.FC<EventProps> = ({ thumbnail, title, details }) => {
+const EventListing: React.FC<EventDetails> = ({ thumbnail, title, details }) => {
   const defaultImg =
     'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
 

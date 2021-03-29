@@ -1,4 +1,4 @@
-import { EventProps, EventsThunkAction } from './types';
+import { EventDetails, EventsThunkAction } from './types';
 import { upcomingEvents } from './actions';
 
 export const getUpcomingEvents = (): EventsThunkAction<void> => {
@@ -6,7 +6,7 @@ export const getUpcomingEvents = (): EventsThunkAction<void> => {
     dispatch(upcomingEvents.loading());
     return publicApiClient
       .getUpcomingEvents()
-      .then((response: EventProps[]) => {
+      .then((response: EventDetails[]) => {
         dispatch(upcomingEvents.loaded(response));
       })
       .catch((error: any) => {

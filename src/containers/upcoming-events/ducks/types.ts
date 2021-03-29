@@ -5,7 +5,7 @@ import { EventsActions } from './actions';
 import { PublicApiExtraArgs } from '../../../api/publicApiClient';
 
 export interface EventsReducerState {
-  readonly upcomingEvents: AsyncRequest<EventProps[], any>;
+  readonly upcomingEvents: AsyncRequest<EventDetails[], any>;
 }
 
 export type EventsThunkAction<R> = ThunkAction<
@@ -15,7 +15,7 @@ export type EventsThunkAction<R> = ThunkAction<
   EventsActions
 >;
 
-export interface EventProps {
+export interface EventDetails {
   id: number;
   title: string;
   spotsAvailable: number;
