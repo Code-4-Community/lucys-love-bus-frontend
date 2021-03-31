@@ -54,7 +54,7 @@ const MyEvents: React.FC<MyEventsProps> = ({ events }) => {
       <ChungusContentContainer>
         <Content>
           <StyledTitle>My Events</StyledTitle>
-          <Tag color="green">green</Tag>
+
           <StyledRadio buttonStyle="solid" defaultValue={view}>
             <Radio.Button
               value={EventView.List}
