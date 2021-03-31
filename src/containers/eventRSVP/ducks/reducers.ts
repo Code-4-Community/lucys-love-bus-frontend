@@ -4,15 +4,14 @@ import {
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
   ASYNC_REQUEST_LOADING_ACTION,
-
-  generateAsyncRequestReducer
+  generateAsyncRequestReducer,
 } from '../../../utils/asyncRequest';
 import { eventRegistrations } from './actions';
 import { EventRegistrationsReducerState, Registration } from './types';
 
 export const initialEventRegistrationsState: EventRegistrationsReducerState = {
-  eventRegistrations:  AsyncRequestNotStarted<Registration[], any>(),
-}
+  eventRegistrations: AsyncRequestNotStarted<Registration[], any>(),
+};
 
 const eventRegistrationsReducer = generateAsyncRequestReducer<
   EventRegistrationsReducerState,
@@ -30,7 +29,10 @@ const reducers = (
     case ASYNC_REQUEST_FAILED_ACTION:
       return {
         ...state,
-        eventRegistrations: eventRegistrationsReducer(state.eventRegistrations, action),
+        eventRegistrations: eventRegistrationsReducer(
+          state.eventRegistrations,
+          action,
+        ),
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import {  Registration } from './types';
+import { Registration } from './types';
 
 export const eventRegistrations = genericAsyncActions<Registration[], any>();
 
