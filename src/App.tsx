@@ -12,7 +12,7 @@ import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
-import SignupForm from './containers/signupForm';
+import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events';
@@ -94,7 +94,7 @@ const App: React.FC = () => {
                       <Route
                         path={Routes.SIGNUP_FORM}
                         exact
-                        component={SignupForm}
+                        component={SignupFormContainer}
                       />
                       <Route path="*" exact component={NotFound} />
                       <Route
@@ -113,7 +113,7 @@ const App: React.FC = () => {
                       <Route
                         path={Routes.SIGNUP_FORM}
                         exact
-                        component={SignupForm}
+                        component={SignupFormContainer}
                       />
                       <Route
                         path={Routes.UPCOMING_EVENTS}
