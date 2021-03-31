@@ -1,7 +1,7 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Routes } from '../../App';
@@ -13,6 +13,8 @@ import {
 import { C4CState } from '../../store';
 import { ORANGE } from '../../utils/colors';
 import LoginModal from '../modals/login-modal/LoginModal';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { logout } from '../../auth/ducks/thunks';
 
 const { Text } = Typography;
 
@@ -79,6 +81,7 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
@@ -106,6 +109,16 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
         }}
       >
         Settings
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          if (asyncRequestIsComplete(tokens)) {
+            dispatch(logout());
+            history.push(Routes.HOME);
+          }
+        }}
+      >
+        Log Out
       </Menu.Item>
     </Menu>
   );
