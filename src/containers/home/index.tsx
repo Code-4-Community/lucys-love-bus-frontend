@@ -3,7 +3,6 @@ import { default as React, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Routes } from '../../App';
 import AnnouncementsList from '../../components/announcementsList';
 import EventCard from '../../components/EventCard';
 import { LinkButton } from '../../components/LinkButton';
