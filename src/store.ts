@@ -41,7 +41,7 @@ export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
   eventsState: EventsReducerState;
   announcementsState: AnnouncementsReducerState;
-  personalRequestsState: PersonalRequestsReducerState
+  personalRequestsState: PersonalRequestsReducerState;
 }
 
 export interface Action<T, P> {
@@ -63,14 +63,14 @@ const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
   eventsState: eventsReducer,
   announcementsState: announcementsReducer,
-  personalRequestsState: personalRequestsReducer
+  personalRequestsState: personalRequestsReducer,
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
   announcementsState: initialAnnouncementsState,
-  personalRequestsState: initialPersonalRequestsState 
+  personalRequestsState: initialPersonalRequestsState,
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'state';

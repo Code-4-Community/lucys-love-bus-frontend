@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const { Text, Paragraph } = Typography;
 
 const ModalBody = styled.div`
-    padding-top: 15px;
+  padding-top: 15px;
 `;
 
 const ModalTitle = styled(Text)`
@@ -20,36 +20,31 @@ const StyledModal = styled(Modal)`
 `;
 
 export interface InfoModalProps {
-    header: string | JSX.Element,
-    subHeader?: string | JSX.Element,
-    isVisible: boolean;
-    setIsModalVisible: (visible: boolean) => void;
+  header: string | JSX.Element;
+  subHeader?: string | JSX.Element;
+  isVisible: boolean;
+  setIsModalVisible: (visible: boolean) => void;
 }
 
 export const InfoModal: React.FC<InfoModalProps> = ({
-    header,
-    subHeader,
-    isVisible,
-    setIsModalVisible
+  header,
+  subHeader,
+  isVisible,
+  setIsModalVisible,
 }) => {
-
-    return (
-        <StyledModal
-            visible={isVisible}
-            maskClosable={false}
-            footer={null}
-            onCancel={() => setIsModalVisible(false)}
-        >
-            {
-                <ModalBody>
-                    <ModalTitle>
-                        {header}
-                    </ModalTitle>
-                    <Paragraph>
-                        {subHeader ?? ""}
-                    </Paragraph>
-                </ModalBody>
-            }
-        </StyledModal>
-    )
+  return (
+    <StyledModal
+      visible={isVisible}
+      maskClosable={false}
+      footer={null}
+      onCancel={() => setIsModalVisible(false)}
+    >
+      {
+        <ModalBody>
+          <ModalTitle>{header}</ModalTitle>
+          <Paragraph>{subHeader ?? ''}</Paragraph>
+        </ModalBody>
+      }
+    </StyledModal>
+  );
 };

@@ -16,7 +16,7 @@ import SignupForm from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
 import Announcements from './containers/announcements';
-import PersonalRequests from './containers/personalRequests'
+import PersonalRequests from './containers/personalRequests';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
@@ -39,7 +39,7 @@ export enum Routes {
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
   PERSONAL_REQUESTS = '/personal-requests',
-  EDIT_FAMILY_INFO = '/edit-family-information'
+  EDIT_FAMILY_INFO = '/edit-family-information',
 }
 
 const App: React.FC = () => {
