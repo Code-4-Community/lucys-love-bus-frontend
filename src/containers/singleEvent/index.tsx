@@ -1,9 +1,11 @@
-import { Spin } from 'antd';
-import React, { useEffect } from 'react';
+import { Button, Spin } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import EventDetails from '../../components/event-details/EventDetails';
 import { C4CState } from '../../store';
 import {
@@ -27,6 +29,42 @@ const CenteredContainer = styled.div`
   justify-content: center;
 `;
 
+const AdminActionButtonList = styled.div`
+  display: flex;
+`;
+
+const GreenButton = styled(Button)`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: #2d870d;
+  margin-bottom: 32px;
+  margin-right: 16px;
+  padding: 8px 16px;
+  color: #ffffff;
+`;
+
+const RedButton = styled(GreenButton)`
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+
+  &:hover {
+    border-color: #ff4d4f;
+    color: #ff4d4f;
+  }
+`;
+const GrayButton = styled(GreenButton)`
+  background-color: white;
+  color: #595959;
+
+  &:hover {
+    border-color: #595959;
+    color: white;
+    background-color: #595959;
+  }
+`;
+
 interface SingleEventProps {
   readonly events: EventsReducerState['upcomingEvents'];
 }
@@ -42,6 +80,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
       dispatch(getUpcomingEvents());
     }
   }, [dispatch, events]);
+
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
 
   const id = Number(useParams<SingleEventParams>().id);
 
@@ -77,6 +119,14 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
         />
       </Helmet>
       <ContentContainer>
+        {privilegeLevel === PrivilegeLevel.ADMIN ? (
+          <AdminActionButtonList>
+            <GreenButton>Edit</GreenButton>
+            <GreenButton>Make Announcement</GreenButton>
+            <RedButton>Delete Event</RedButton>
+            <GrayButton>View RSVP</GrayButton>
+          </AdminActionButtonList>
+        ) : null}
         {conditionalRenderEventDetails(events)}
       </ContentContainer>
     </>
