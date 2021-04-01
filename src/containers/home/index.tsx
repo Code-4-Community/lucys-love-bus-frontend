@@ -139,7 +139,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
                   title={event.title}
                   date={event.details.start}
                   description={event.details.description}
-                  to={`${Routes.EVENT}/${event.id}`}
+                  to={`/events/${event.id}`}
                 />
               </Col>
             ))}
