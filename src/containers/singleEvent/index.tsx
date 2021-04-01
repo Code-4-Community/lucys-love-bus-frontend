@@ -1,5 +1,5 @@
 import { Button, Spin } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -54,6 +54,7 @@ const RedButton = styled(GreenButton)`
     color: #ff4d4f;
   }
 `;
+
 const GrayButton = styled(GreenButton)`
   background-color: white;
   color: #595959;
