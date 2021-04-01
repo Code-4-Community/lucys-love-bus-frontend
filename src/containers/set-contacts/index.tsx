@@ -6,7 +6,6 @@ import ContactsForm from '../../components/ContactsForm';
 import { C4CState } from '../../store';
 import { ContactsReducerState } from './ducks/types';
 
-
 interface UpcomingEventsProps {
   readonly contacts: ContactsReducerState['contacts'];
 }

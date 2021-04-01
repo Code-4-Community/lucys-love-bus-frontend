@@ -15,7 +15,6 @@ export type EventsThunkAction<R> = ThunkAction<
   EventsActions
 >;
 
-
 export interface Contact {
   email: string;
   firstName: string;
@@ -31,7 +30,6 @@ export interface Contact {
   profilePicture: string;
   dateOfBirth: Date;
 }
-
 
 export interface Child {
   firstName: string;
@@ -51,8 +49,6 @@ export interface AdditionalContact extends Contact {
 }
 
 export interface ContactInfo {
-  mainContact: Contact,
-  additionalContacts: AdditionalContact[],
-
-  
+  mainContact: Contact;
+  additionalContacts: AdditionalContact[];
 }

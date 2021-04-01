@@ -1,7 +1,3 @@
-
-
-
-
 import React from 'react';
 import { Form, Input, Radio, Upload, DatePicker } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
