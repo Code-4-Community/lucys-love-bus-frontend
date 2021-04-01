@@ -72,6 +72,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ tokens }) => {
   if (asyncRequestIsComplete(tokens)) {
     if (registeringAsParticipatingFamily) {
       // TODO: if PF then route to set contacts with the PF query parameter pf
+      // After setting contacts, route to PF requests page with query param
       history.push(Routes.HOME);
     }
   }
