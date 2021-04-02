@@ -20,15 +20,15 @@ const StyledModal = styled(Modal)`
 `;
 
 export interface InfoModalProps {
-  header: string | JSX.Element;
-  subHeader?: string | JSX.Element;
+  title?: string | JSX.Element;
+  message: string | JSX.Element;
   isVisible: boolean;
   setIsModalVisible: (visible: boolean) => void;
 }
 
 export const InfoModal: React.FC<InfoModalProps> = ({
-  header,
-  subHeader,
+  title,
+  message,
   isVisible,
   setIsModalVisible,
 }) => {
@@ -41,8 +41,8 @@ export const InfoModal: React.FC<InfoModalProps> = ({
     >
       {
         <ModalBody>
-          <ModalTitle>{header}</ModalTitle>
-          <Paragraph>{subHeader ?? ''}</Paragraph>
+          {title && <ModalTitle>{title}</ModalTitle>}
+          <Paragraph>{message}</Paragraph>
         </ModalBody>
       }
     </StyledModal>

@@ -154,8 +154,8 @@ const PersonalRequests: React.FC<PersonalRequestsProps> = ({
                 <InfoModal
                   isVisible={isInfoModalVisible}
                   setIsModalVisible={setIsInfoModalVisible}
-                  header={`Your Account Role is: ${getUserRole()}`}
-                  subHeader={getRoleDescription()}
+                  title={`Your Account Role is: ${getUserRole()}`}
+                  message={getRoleDescription()}
                 />
               </StyledSubTitle>
               {asyncRequestIsComplete(personalRequests) && (
