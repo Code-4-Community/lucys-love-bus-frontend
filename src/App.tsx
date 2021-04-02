@@ -17,6 +17,7 @@ import SingleEvent from './containers/singleEvent';
 import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events';
 import Announcements from './containers/announcements';
+import PersonalRequests from './containers/personalRequests';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
@@ -38,6 +39,8 @@ export enum Routes {
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
+  PERSONAL_REQUESTS = '/personal-requests',
+  EDIT_FAMILY_INFO = '/edit-family-information',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
 }
 
@@ -63,6 +66,7 @@ const App: React.FC = () => {
               switch (privilegeLevel) {
                 case PrivilegeLevel.ADMIN:
                 case PrivilegeLevel.STANDARD:
+                case PrivilegeLevel.PF:
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
@@ -96,11 +100,15 @@ const App: React.FC = () => {
                         exact
                         component={SignupFormContainer}
                       />
-                      <Route path="*" exact component={NotFound} />
                       <Route
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
+                      />
+                      <Route
+                        path={Routes.PERSONAL_REQUESTS}
+                        exact
+                        component={PersonalRequests}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
