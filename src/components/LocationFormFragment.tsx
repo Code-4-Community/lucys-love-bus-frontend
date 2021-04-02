@@ -1,7 +1,7 @@
 import { Form, Input } from 'antd';
 import React from 'react';
 
-//TODO: use this fragment in signup form, note that "zip" was renamed to "zipCode"
+// TODO: use this fragment in signup form, note that "zip" was renamed to "zipCode"
 const LocationFormFragment: React.FC = () => {
   return (
     <>
@@ -36,7 +36,7 @@ const LocationFormFragment: React.FC = () => {
         <Input placeholder="State" />
       </Form.Item>
       <Form.Item
-        name="zipCode" 
+        name="zipCode"
         label="Zip Code"
         className="block-third"
         rules={[

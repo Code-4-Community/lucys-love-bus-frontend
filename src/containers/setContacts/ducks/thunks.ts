@@ -1,7 +1,6 @@
 import { contacts, setContacts } from './actions';
 import { ContactInfo, ContactsThunkAction } from './types';
 
-
 export const getContactInfo = (): ContactsThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(contacts.loading());
@@ -16,20 +15,21 @@ export const getContactInfo = (): ContactsThunkAction<void> => {
   };
 };
 
-
-export const setContactInfo = (request: ContactInfo): ContactsThunkAction<void> => {  
+export const setContactInfo = (
+  request: ContactInfo,
+): ContactsThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(contacts.loading());
-    dispatch(setContacts.loading())
+    dispatch(setContacts.loading());
     return protectedApiClient
       .setContactInfo(request)
       .then(() => {
         dispatch(contacts.loaded(request));
-        dispatch(setContacts.loaded())
+        dispatch(setContacts.loaded());
       })
       .catch((error) => {
         dispatch(contacts.failed(error));
-        dispatch(setContacts.failed(error))
+        dispatch(setContacts.failed(error));
       });
   };
 };

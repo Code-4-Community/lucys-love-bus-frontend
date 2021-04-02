@@ -1,10 +1,10 @@
 import { C4CAction } from '../../../store';
 import {
-  AsyncRequestNotStarted, ASYNC_REQUEST_FAILED_ACTION,
+  AsyncRequestNotStarted,
+  ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
   ASYNC_REQUEST_LOADING_ACTION,
-
-  generateAsyncRequestReducer
+  generateAsyncRequestReducer,
 } from '../../../utils/asyncRequest';
 import { contacts, setContacts } from './actions';
 import { ContactInfo, ContactsReducerState } from './types';
@@ -37,7 +37,7 @@ const reducers = (
       return {
         ...state,
         contacts: contactsReducer(state.contacts, action),
-        setContacts: setContactsReducer(state.setContacts, action)
+        setContacts: setContactsReducer(state.setContacts, action),
       };
     default:
       return state;

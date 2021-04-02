@@ -6,7 +6,6 @@ import { AsyncRequest } from '../../../utils/asyncRequest';
 import { FileField } from '../../../utils/fileEncoding';
 import { ContactsActions } from './actions';
 
-
 export interface ContactsReducerState {
   readonly contacts: AsyncRequest<ContactInfo, any>;
   readonly setContacts: AsyncRequest<void, any>;
@@ -32,7 +31,7 @@ interface GenericContact<D, P> {
   notes?: string;
   photoRelease?: boolean;
   referrer?: string;
-  profilePicture?: P; 
+  profilePicture?: P;
 }
 
 interface GenericChild<D, P> {
@@ -54,7 +53,7 @@ export interface ContactInfo {
   mainContact: Contact;
   additionalContacts: AdditionalContact[];
   children: Child[];
-  location: Location,
+  location: Location;
 }
 
 export type Contact = GenericContact<Date, string>;
@@ -66,20 +65,21 @@ export interface AdditionalContact extends Contact {
 }
 export interface Location {
   address: string;
-  city: string,
-  state: string,
-  zipCode: string
+  city: string;
+  state: string;
+  zipCode: string;
 }
 
-type MainContactFormFields = GenericContact<Moment, FileField> & Location
+type MainContactFormFields = GenericContact<Moment, FileField> & Location;
 
 export interface ContactFormFields extends MainContactFormFields {
   additionalContacts: AdditionalContactFormField[];
   children: ChildContactFormField[];
 }
 
-export interface AdditionalContactFormField extends GenericContact<Moment, FileField>{
+export interface AdditionalContactFormField
+  extends GenericContact<Moment, FileField> {
   shouldSendEmails?: boolean;
 }
 
-export type ChildContactFormField = GenericChild<Moment, FileField>
+export type ChildContactFormField = GenericChild<Moment, FileField>;

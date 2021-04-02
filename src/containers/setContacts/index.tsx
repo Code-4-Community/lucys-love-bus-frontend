@@ -42,7 +42,7 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
     ) != null;
 
   if (asyncRequestIsComplete(setContacts) && registeringAsParticipatingFamily) {
-    //TODO: Make PF Request, not implemented as to not duplicate work from the PF Requests ticket
+    // TODO: Make PF Request, not implemented as to not duplicate work from the PF Requests ticket
     history.push({
       pathname: Routes.SIGNUP_CONFIRMATION,
       search: participatingFamilySearchQuery,
