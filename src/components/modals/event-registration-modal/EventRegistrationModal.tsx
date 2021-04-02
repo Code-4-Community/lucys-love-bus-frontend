@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { InputNumber, Modal, Typography } from 'antd';
 import styled from 'styled-components';
-import { AsyncRequest, AsyncRequestKinds } from '../../../utils/asyncRequest';
-import { TokenPayload } from '../../../auth/ducks/types';
+import { AsyncRequest } from '../../../utils/asyncRequest';
+import { PrivilegeLevel, TokenPayload } from '../../../auth/ducks/types';
 import { C4CState } from '../../../store';
 import { connect } from 'react-redux';
 import protectedApiClient from '../../../api/protectedApiClient';
-import { EventProps } from '../../../containers/upcoming-events/ducks/types';
+import { getPrivilegeLevel } from '../../../auth/ducks/selectors';
+
+const { Text } = Typography;
 
 interface EventRegistrationModalProps {
   eventId: number;
@@ -21,16 +23,25 @@ const StyledModal = styled(Modal)`
   horiz-align: center;
 `;
 const ContentDiv = styled.div`
-  display: flex;
+  display: block;
+  margin: auto;
+  padding-left: 25%;
+  padding-right: 25%;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
 `;
 const TicketInputNumber = styled(InputNumber)`
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 272px;
+  width: 100%;
+`;
+const LeftAlignedText = styled(Text)`
+  display: block;
+  text-align: left;
+`;
+const BoldCenterText = styled(Text)`
+  font-size: 16px;
+  font-weight: 600;
 `;
 
 const EventRegistrationModal: React.FC<
@@ -43,6 +54,7 @@ const EventRegistrationModal: React.FC<
   eventTitle,
 }) => {
   const [quantity, setQuantity] = React.useState<number>(0);
+  const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
 
   const updateQuantity = (newValue: string | number | undefined) => {
     if (typeof newValue === 'number') {
@@ -69,6 +81,7 @@ const EventRegistrationModal: React.FC<
       <StyledModal
         visible={showEventRegistrationModal}
         title={eventTitle}
+        okButtonProps={{ disabled: privilegeLevel === PrivilegeLevel.NONE }}
         onOk={handleOk}
         okText={'Register'}
         onCancel={() => {
@@ -77,14 +90,23 @@ const EventRegistrationModal: React.FC<
         width={'625px'}
       >
         <ContentDiv>
-          <TicketInputNumber
-            size="large"
-            min={0}
-            precision={0}
-            value={quantity}
-            placeholder="Number of Tickets"
-            onChange={updateQuantity}
-          />
+          {privilegeLevel === PrivilegeLevel.NONE ? (
+            <BoldCenterText>
+              Please log in to register for this event.
+            </BoldCenterText>
+          ) : (
+            <>
+              <LeftAlignedText>Number of Tickets</LeftAlignedText>
+              <TicketInputNumber
+                size="large"
+                min={0}
+                precision={0}
+                value={quantity}
+                placeholder="Number of Tickets"
+                onChange={updateQuantity}
+              />
+            </>
+          )}
         </ContentDiv>
       </StyledModal>
     </div>
