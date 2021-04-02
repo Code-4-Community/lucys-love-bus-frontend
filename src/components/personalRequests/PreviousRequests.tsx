@@ -49,7 +49,7 @@ const GridItemLeftLabel = styled(GridItem)`
 export const PreviousRequests: React.FC<PreviousRequestsProps> = ({
   requests,
 }) => {
-  return requests.length > 0 ? (
+  return (
     <Wrapper>
       <RequestsContainer>
         <StyledTitle>Previous Requests</StyledTitle>
@@ -68,7 +68,5 @@ export const PreviousRequests: React.FC<PreviousRequestsProps> = ({
         })}
       </RequestsContainer>
     </Wrapper>
-  ) : (
-    <></>
   );
 };

@@ -18,7 +18,8 @@ import { Link } from 'react-router-dom';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import { PreviousRequests } from '../../components/personalRequests/PreviousRequests';
-import { CurrentRequest } from '../../components/personalRequests/CurrentRequest';
+import { SubmitPFRequest } from '../../components/personalRequests/SubmitPFRequest';
+import { hasPendingRequest } from './ducks/selectors';
 
 const { Title } = Typography;
 
@@ -159,11 +160,12 @@ const PersonalRequests: React.FC<PersonalRequestsProps> = ({
               </StyledSubTitle>
               {asyncRequestIsComplete(personalRequests) && (
                 <>
-                  <PreviousRequests requests={personalRequests.result} />
-                  <CurrentRequest
-                    requests={personalRequests.result}
-                    onNewRequest={onNewRequest}
-                  />
+                  {personalRequests.result.length && (
+                    <PreviousRequests requests={personalRequests.result} />
+                  )}
+                  {!hasPendingRequest(personalRequests.result) && (
+                    <SubmitPFRequest onNewRequest={onNewRequest} />
+                  )}
                 </>
               )}
             </Content>
