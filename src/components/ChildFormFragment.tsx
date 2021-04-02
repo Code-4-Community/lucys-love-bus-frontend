@@ -35,20 +35,19 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'pronouns']}
+        {...(field ?? {})}
+        name={[field.fieldKey, 'pronouns']}
         fieldKey={[field.fieldKey, 'pronouns']}
         label="Pronouns"
-        rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={1}>
+          <Radio className="radio-item" value={'He/Him'}>
             He/Him
           </Radio>
-          <Radio className="radio-item" value={2}>
+          <Radio className="radio-item" value={'She/Her'}>
             She/Her
           </Radio>
-          <Radio className="radio-item" value={4}>
+          <Radio className="radio-item" value={'They/Them'}>
             They/Them
           </Radio>
         </Radio.Group>
@@ -56,8 +55,8 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'birthday']}
-        fieldKey={[field.fieldKey, 'birthday']}
+        name={[field.name, 'dateOfBirth']}
+        fieldKey={[field.fieldKey, 'dateOfBirth']}
         label="Date of Birth"
         rules={[
           {
@@ -81,8 +80,8 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'grade']}
-        fieldKey={[field.fieldKey, 'grade']}
+        name={[field.name, 'schoolYear']}
+        fieldKey={[field.fieldKey, 'schoolYear']}
         label="Grade"
         className="inline-block-half"
         rules={[
@@ -112,8 +111,8 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'medication']}
-        fieldKey={[field.fieldKey, 'medication']}
+        name={[field.name, 'medications']}
+        fieldKey={[field.fieldKey, 'medications']}
         label="Medication (if applicable)"
       >
         <TextArea rows={1} placeholder="Medication" />
@@ -121,8 +120,8 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'otherNotes']}
-        fieldKey={[field.fieldKey, 'otherNotes']}
+        name={[field.name, 'notes']}
+        fieldKey={[field.fieldKey, 'notes']}
         label="Other Notes"
       >
         <TextArea rows={3} placeholder="Other Notes" />
@@ -130,11 +129,11 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
 
       <Form.Item
         {...fieldWithoutKey}
-        name={[field.name, 'picture']}
-        fieldKey={[field.fieldKey, 'picture']}
+        name={[field.name, 'profilePicture']}
+        fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"
       >
-        <Dragger>
+        <Dragger multiple={false} beforeUpload={() => false}>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>

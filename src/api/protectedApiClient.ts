@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { ContactInfo } from '../containers/setContacts/ducks/types';
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
@@ -10,11 +11,14 @@ export interface ProtectedApiClient {
     newPassword: string;
   }) => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
+  readonly getContactInfo: () => Promise<ContactInfo>,
+  readonly setContactInfo: (request: ContactInfo) => Promise<void>,
 }
 
 export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
   USER = '/api/v1/protected/user',
+  CONTACT_INFO = '/api/v1/protected/user/contact_info'
 }
 
 const changePassword = (request: {
@@ -35,9 +39,20 @@ const deactivateAccount = (): Promise<void> => {
     .catch((err) => err);
 };
 
+const getContactInfo = (): Promise<ContactInfo> => {
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.CONTACT_INFO).then((res) => (res.data))
+}
+
+const setContactInfo = (request: ContactInfo): Promise<void> => {
+  return AppAxiosInstance.put(ProtectedApiClientRoutes.CONTACT_INFO, request)
+}
+
+
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   deactivateAccount,
+  getContactInfo,
+  setContactInfo,
 });
 
 export default Client;

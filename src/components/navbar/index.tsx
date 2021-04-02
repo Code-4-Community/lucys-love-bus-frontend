@@ -6,15 +6,15 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Routes } from '../../App';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { logout } from '../../auth/ducks/thunks';
 import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 import { C4CState } from '../../store';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { ORANGE } from '../../utils/colors';
 import LoginModal from '../modals/login-modal/LoginModal';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { logout } from '../../auth/ducks/thunks';
 
 const { Text } = Typography;
 
@@ -109,6 +109,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
         }}
       >
         Settings
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.SET_CONTACTS);
+        }}
+      >
+        Update Profile Information
       </Menu.Item>
       <Menu.Item
         onClick={() => {

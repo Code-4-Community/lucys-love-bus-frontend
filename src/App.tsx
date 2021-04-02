@@ -1,25 +1,27 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './containers/home';
+import styled from 'styled-components';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
+import { PrivilegeLevel } from './auth/ducks/types';
+import NavBar from './components/navbar';
+import Announcements from './containers/announcements';
+import DeactivateAccount from './containers/deactivateAccount';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
-import VerifyEmail from './containers/verifyEmail';
-import NavBar from './components/navbar';
-import styled from 'styled-components';
-import { PrivilegeLevel } from './auth/ducks/types';
+import Home from './containers/home';
 import NotFound from './containers/notFound/';
+import SetContacts from './containers/setContacts';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
+import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
-import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events';
-import Announcements from './containers/announcements';
-import { useSelector } from 'react-redux';
+import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
-import { getPrivilegeLevel } from './auth/ducks/selectors';
 
 const { Content } = Layout;
 
@@ -39,6 +41,8 @@ export enum Routes {
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
+  SET_CONTACTS = '/set-contacts',
+  SIGNUP_CONFIRMATION = '/signup/confirmation',
 }
 
 const App: React.FC = () => {
@@ -96,11 +100,20 @@ const App: React.FC = () => {
                         exact
                         component={SignupFormContainer}
                       />
-                      <Route path="*" exact component={NotFound} />
                       <Route
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
+                      />
+                      <Route
+                        path={Routes.SET_CONTACTS}
+                        exact
+                        component={SetContacts}
+                      />
+                      <Route
+                        path={Routes.SIGNUP_CONFIRMATION}
+                        exact
+                        component={SignupConfirmation}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>

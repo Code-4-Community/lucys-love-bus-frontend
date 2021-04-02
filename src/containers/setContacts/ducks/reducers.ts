@@ -1,23 +1,30 @@
-import { ContactInfo, ContactsReducerState } from './types';
+import { C4CAction } from '../../../store';
 import {
-  ASYNC_REQUEST_FAILED_ACTION,
+  AsyncRequestNotStarted, ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
   ASYNC_REQUEST_LOADING_ACTION,
-  AsyncRequestNotStarted,
-  generateAsyncRequestReducer,
+
+  generateAsyncRequestReducer
 } from '../../../utils/asyncRequest';
-import { upcomingEvents } from './actions';
-import { C4CAction } from '../../../store';
+import { contacts, setContacts } from './actions';
+import { ContactInfo, ContactsReducerState } from './types';
 
 export const initialContactsState: ContactsReducerState = {
-  contacts: AsyncRequestNotStarted<ContactInfo[], any>(),
+  contacts: AsyncRequestNotStarted<ContactInfo, any>(),
+  setContacts: AsyncRequestNotStarted<void, any>(),
 };
 
 const contactsReducer = generateAsyncRequestReducer<
   ContactsReducerState,
-  ContactInfo[],
+  ContactInfo,
   void
->(upcomingEvents.key);
+>(contacts.key);
+
+const setContactsReducer = generateAsyncRequestReducer<
+  ContactsReducerState,
+  void,
+  void
+>(setContacts.key);
 
 const reducers = (
   state: ContactsReducerState = initialContactsState,
@@ -30,6 +37,7 @@ const reducers = (
       return {
         ...state,
         contacts: contactsReducer(state.contacts, action),
+        setContacts: setContactsReducer(state.setContacts, action)
       };
     default:
       return state;

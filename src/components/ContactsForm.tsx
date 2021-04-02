@@ -1,42 +1,60 @@
 import { Button, Divider, Form, Typography } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { ContactFormFields } from '../containers/setContacts/ducks/types';
 import ChildFormFragment from './ChildFormFragment';
+import ConfirmationMessage from './ConfirmationMessage';
 import FormContainer from './FormContainer';
-import FormInitialText from './FormInitialText';
+import LocationFormFragment from './LocationFormFragment';
 import RegistrationFormBody from './RegistrationFormBody';
 
 const { Title, Paragraph } = Typography;
 
 interface ContactsFormProps {
-  //TODO create ContactsForm type
-  onFinish: (values: any) => void;
-  initialValues: any;
+  onFinish: (values: ContactFormFields) => void;
+  initialValues: ContactFormFields;
+  isParticipatingFamily?: boolean;
 }
 
 const ContactsForm: React.FC<ContactsFormProps> = ({
   onFinish,
   initialValues,
+  isParticipatingFamily,
 }) => {
   return (
     <FormContainer>
       <Helmet>
         <title>Set Profile Information</title>
       </Helmet>
-      <FormInitialText>
-        <Title level={5}>
-          Set Profile, Additional Contact, and Child Information
-        </Title>
-        <Paragraph>Fields marked * are required.</Paragraph>
-      </FormInitialText>
+      {isParticipatingFamily ? (
+        <ConfirmationMessage
+          title="SIGN UP"
+          message="Registering as a Participating Family"
+          details="Tell us about your children and/or any other members you are registering under this account. This information will be sent to an admin to review your application."
+        />
+      ) : (
+        <ConfirmationMessage
+          title="UPDATE PROFILE INFORMATION"
+          message="Contacts, Children, and Profile Information"
+          details="Tell us about your children and/or any other members you are registering under this account."
+        />
+      )}
 
       <Form onFinish={onFinish} layout="vertical" initialValues={initialValues}>
-        <Form.List name="contacts">
+        <Title level={5}>Main Contact Information</Title>
+        <RegistrationFormBody isMainContact />
+        <Divider />
+        <LocationFormFragment />
+        <Divider />
+
+        <Form.List name="additionalContacts">
           {(fields, { add, remove }) => {
             return (
               <div>
-                {fields.map((field) => (
-                  <div key={field.key}>
+                {fields.map((field, i) => (
+                  <div key={`additional-contact-${i + 1}`}>
+                    <Title level={5}>Additional Contact {i + 1}</Title>
+
                     <RegistrationFormBody field={field} />
 
                     <Button
@@ -67,8 +85,10 @@ const ContactsForm: React.FC<ContactsFormProps> = ({
           {(fields, { add, remove }) => {
             return (
               <div>
-                {fields.map((field) => (
-                  <div key={field.key}>
+                {fields.map((field, i) => (
+                  <div key={`child-${i + 1}`}>
+                    <Title level={5}>Child {i + 1}</Title>
+
                     <ChildFormFragment field={field} />
 
                     <Button
@@ -95,7 +115,7 @@ const ContactsForm: React.FC<ContactsFormProps> = ({
           }}
         </Form.List>
         <Button type="primary" htmlType="submit">
-          Next
+          Submit
         </Button>
       </Form>
     </FormContainer>

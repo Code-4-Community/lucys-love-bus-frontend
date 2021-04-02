@@ -6,13 +6,15 @@ import { Routes } from '../../App';
 import { signup } from '../../auth/ducks/thunks';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
-import ConfirmationMessage from '../../components/ConfirmationMessage';
 import SignupForm from '../../components/SignupForm';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { convertToYearMonthDateString } from '../../utils/dateUtils';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
-import { participatingFamilySearchQueryFlag } from '../../utils/signupFlow';
+import {
+  participatingFamilySearchQuery,
+  participatingFamilySearchQueryFlag,
+} from '../../utils/signupFlow';
 import { SignupData } from './ducks/types';
 interface SignupFormContainerProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -31,8 +33,12 @@ const SignupFormContainer: React.FC<SignupFormContainerProps> = ({
 
   if (asyncRequestIsComplete(tokens)) {
     if (registeringAsParticipatingFamily) {
-      // TODO: if PF then route to set contacts with the PF query parameter pf
-      history.push(Routes.HOME);
+      history.push({
+        pathname: Routes.SET_CONTACTS,
+        search: participatingFamilySearchQuery,
+      });
+    } else {
+      history.push(Routes.SIGNUP_CONFIRMATION);
     }
   }
 
@@ -76,26 +82,11 @@ const SignupFormContainer: React.FC<SignupFormContainerProps> = ({
         />
       </Helmet>
       <ContentContainer>
-        {asyncRequestIsComplete(tokens) ? (
-          <>
-            <Helmet>
-              <title>Signup Confirmation</title>
-            </Helmet>
-            <ConfirmationMessage
-              title="VERIFY EMAIL"
-              message="Thank you for signing up!"
-              details={
-                'We are incredibly excited for you to become a member of The Sajni Center. You will receive a confirmation email shortly.'
-              }
-            />
-          </>
-        ) : (
-          <SignupForm
-            onFinish={onFinish}
-            registeringAsParticipatingFamily={registeringAsParticipatingFamily}
-            tokens={tokens}
-          />
-        )}
+        <SignupForm
+          onFinish={onFinish}
+          registeringAsParticipatingFamily={registeringAsParticipatingFamily}
+          tokens={tokens}
+        />
       </ContentContainer>
     </>
   );

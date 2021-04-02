@@ -1,20 +1,36 @@
-import React from 'react';
-import { Form, Input, Radio, Upload, DatePicker } from 'antd';
+import { DatePicker, Form, Input, Radio, Upload } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
+import React from 'react';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
-  field,
-}) => {
-  const fieldWithoutKey: any = field;
-  delete fieldWithoutKey.key;
+const RegistrationFormBody: React.FC<{
+  isMainContact?: boolean;
+  field?: FormListFieldData;
+}> = ({ isMainContact, field }) => {
+
+  function generateName(name: string) {
+    if (field) {
+      return [field.name, name];
+    } else {
+      return name;
+    }
+  }
+
+  function generateFieldKey(key: string) {
+    if (field) {
+      return [field.fieldKey, key];
+    } else {
+      return key;
+    }
+  }
+
   return (
     <>
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'firstName']}
-        fieldKey={[field.fieldKey, 'firstName']}
+        // {...(field ?? {})}
+        name={generateName('firstName')}
+        fieldKey={generateFieldKey('firstName')}
         label="First Name"
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your first name' }]}
@@ -23,9 +39,9 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'lastName']}
-        fieldKey={[field.fieldKey, 'firstName']}
+        // {...(field ?? {})}
+        name={generateName('lastName')}
+        fieldKey={generateFieldKey('firstName')}
         label="Last Name"
         className="inline-block-half"
         rules={[{ required: true, message: 'Please input your last name' }]}
@@ -34,45 +50,63 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'pronouns']}
-        fieldKey={[field.fieldKey, 'pronouns']}
+        // {...(field ?? {})}
+        name={generateName('pronouns')}
+        fieldKey={generateFieldKey('pronouns')}
         label="Pronouns"
-        rules={[{ required: true, message: 'Please select your pronouns' }]}
       >
         <Radio.Group>
-          <Radio className="radio-item" value={1}>
+          <Radio className="radio-item" value={'He/Him'}>
             He/Him
           </Radio>
-          <Radio className="radio-item" value={2}>
+          <Radio className="radio-item" value={'She/Her'}>
             She/Her
           </Radio>
-          <Radio className="radio-item" value={4}>
+          <Radio className="radio-item" value={'They/Them'}>
             They/Them
           </Radio>
         </Radio.Group>
       </Form.Item>
+      {!isMainContact && (
+        <>
+          <Form.Item
+            // {...(field ?? {})}
+            name={generateName('email')}
+            fieldKey={generateFieldKey('email')}
+            label="Email"
+            rules={[
+              {
+                required: true,
+                type: 'email',
+                message: 'Please input a valid email address',
+              },
+            ]}
+          >
+            <Input placeholder="Email" />
+          </Form.Item>
 
+          <Form.Item
+            // {...(field ?? {})}
+            name={generateName('shouldSendEmails')}
+            fieldKey={generateFieldKey('shouldSendEmails')}
+            label="Should Receive Emails"
+            rules={[{ required: true, message: 'Please select one option.' }]}
+          >
+            <Radio.Group>
+              <Radio value={true} className="radio-style">
+                Yes
+              </Radio>
+              <Radio value={false} className="radio-style">
+                No
+              </Radio>
+            </Radio.Group>
+          </Form.Item>
+        </>
+      )}
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'email']}
-        fieldKey={[field.fieldKey, 'email']}
-        label="Email"
-        rules={[
-          {
-            required: true,
-            type: 'email',
-            message: 'Please input a valid email address',
-          },
-        ]}
-      >
-        <Input placeholder="Email" />
-      </Form.Item>
-
-      <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'phoneNumber']}
-        fieldKey={[field.fieldKey, 'phoneNumber']}
+        // {...(field ?? {})}
+        name={generateName('phoneNumber')}
+        fieldKey={generateFieldKey('phoneNumber')}
         label="Phone Number"
         className="block-half"
         rules={[
@@ -87,9 +121,9 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
         <Input placeholder="Phone Number" />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'birthday']}
-        fieldKey={[field.fieldKey, 'birthday']}
+        // {...(field ?? {})}
+        name={generateName('dateOfBirth')}
+        fieldKey={generateFieldKey('dateOfBirth')}
         label="Date of Birth"
         rules={[
           {
@@ -103,47 +137,47 @@ const RegistrationFormBody: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'allergies']}
-        fieldKey={[field.fieldKey, 'allergies']}
+        // {...(field ?? {})}
+        name={generateName('allergies')}
+        fieldKey={generateFieldKey('allergies')}
         label="Allergies (if applicable)"
       >
         <TextArea rows={3} placeholder="Allergies" />
       </Form.Item>
 
       <Form.Item
-        name={[field.name, 'diagnosis']}
-        fieldKey={[field.fieldKey, 'diagnosis']}
+        name={generateName('diagnosis')}
+        fieldKey={generateFieldKey('diagnosis')}
         label="Diagnosis"
       >
         <TextArea rows={1} placeholder="Diagnosis" />
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'medication']}
-        fieldKey={[field.fieldKey, 'medication']}
+        // {...(field ?? {})}
+        name={generateName('medications')}
+        fieldKey={generateFieldKey('medications')}
         label="Medication (if applicable)"
       >
         <TextArea rows={1} placeholder="Medication" />
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'otherNotes']}
-        fieldKey={[field.fieldKey, 'otherNotes']}
+        // {...(field ?? {})}
+        name={generateName('notes')}
+        fieldKey={generateFieldKey('notes')}
         label="Other Notes"
       >
         <TextArea rows={3} placeholder="Other Notes" />
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
-        name={[field.name, 'picture']}
-        fieldKey={[field.fieldKey, 'picture']}
+        // {...(field ?? {})}
+        name={generateName('profilePicture')}
+        fieldKey={generateFieldKey('profilePicture')}
         label="Upload Profile Picture"
       >
-        <Dragger>
+        <Dragger multiple={false} beforeUpload={() => false}>
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
         </Dragger>
