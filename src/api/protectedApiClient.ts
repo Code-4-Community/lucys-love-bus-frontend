@@ -10,7 +10,6 @@ export interface ProtectedApiClient {
     currentPassword: string;
     newPassword: string;
   }) => Promise<void>;
-  readonly deleteUser: (request: { password: string }) => Promise<void>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
@@ -18,7 +17,6 @@ export interface ProtectedApiClient {
 
 export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
-  DELETE_USER = '/api/v1/protected/user/',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
@@ -56,7 +54,6 @@ const makePFRequest = (): Promise<void> => {
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
-  deleteUser,
   getRequestStatuses,
   makePFRequest,
   deactivateAccount,
