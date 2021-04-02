@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { AxiosResponse } from 'axios';
 
 export interface ApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
@@ -17,7 +18,7 @@ export interface ProtectedApiClient {
         quantity: number;
       },
     ];
-  }) => Promise<void>;
+  }) => Promise<AxiosResponse<any>>;
 }
 
 enum ProtectedApiClientRoutes {
@@ -48,9 +49,7 @@ const registerTickets = (request: {
   return AppAxiosInstance.post(
     ProtectedApiClientRoutes.REGISTER_TICKETS,
     request,
-  )
-    .then((r) => r)
-    .catch((e) => e);
+  );
 };
 
 const Client: ProtectedApiClient = Object.freeze({

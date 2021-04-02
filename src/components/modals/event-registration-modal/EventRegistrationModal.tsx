@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputNumber, Modal, Typography } from 'antd';
+import { InputNumber, Modal, Typography, Alert } from 'antd';
 import styled from 'styled-components';
 import { AsyncRequest } from '../../../utils/asyncRequest';
 import { PrivilegeLevel, TokenPayload } from '../../../auth/ducks/types';
@@ -54,6 +54,7 @@ const EventRegistrationModal: React.FC<
   eventTitle,
 }) => {
   const [quantity, setQuantity] = React.useState<number>(0);
+  const [error, setError] = React.useState<Error | undefined>(undefined);
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
 
   const updateQuantity = (newValue: string | number | undefined) => {
@@ -64,17 +65,25 @@ const EventRegistrationModal: React.FC<
     }
   };
 
-  const handleOk = (): void => {
-    // TODO: if the user is a PF then register, otherwise redirect to stripe checkout (use the Redux global PrivilegeLevel)
-    protectedApiClient.registerTickets({
-      lineItemRequests: [
-        {
-          eventId,
-          quantity,
-        },
-      ],
-    });
-    onCloseEventRegistrationModal();
+  const handleOk = async () => {
+    try {
+      console.log('before');
+      await protectedApiClient.registerTickets({
+        lineItemRequests: [
+          {
+            eventId,
+            quantity,
+          },
+        ],
+      });
+      console.log('after');
+      onCloseEventRegistrationModal();
+      setError(undefined);
+    } catch (e) {
+      // tslint:disable-next-line:no-console
+      console.log('CATCHED');
+      setError(e);
+    }
   };
   return (
     <div>
@@ -89,6 +98,7 @@ const EventRegistrationModal: React.FC<
         }}
         width={'625px'}
       >
+        {error !== undefined && <Alert type="error" message={error.message}></Alert>}
         <ContentDiv>
           {privilegeLevel === PrivilegeLevel.NONE ? (
             <BoldCenterText>
