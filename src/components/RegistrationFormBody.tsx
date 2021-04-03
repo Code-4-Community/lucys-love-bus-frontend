@@ -27,7 +27,6 @@ const RegistrationFormBody: React.FC<{
   return (
     <>
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('firstName')}
         fieldKey={generateFieldKey('firstName')}
         label="First Name"
@@ -38,7 +37,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('lastName')}
         fieldKey={generateFieldKey('firstName')}
         label="Last Name"
@@ -49,7 +47,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('pronouns')}
         fieldKey={generateFieldKey('pronouns')}
         label="Pronouns"
@@ -69,7 +66,6 @@ const RegistrationFormBody: React.FC<{
       {!isMainContact && (
         <>
           <Form.Item
-            // {...(field ?? {})}
             name={generateName('email')}
             fieldKey={generateFieldKey('email')}
             label="Email"
@@ -85,7 +81,6 @@ const RegistrationFormBody: React.FC<{
           </Form.Item>
 
           <Form.Item
-            // {...(field ?? {})}
             name={generateName('shouldSendEmails')}
             fieldKey={generateFieldKey('shouldSendEmails')}
             label="Should Receive Emails"
@@ -103,7 +98,6 @@ const RegistrationFormBody: React.FC<{
         </>
       )}
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('phoneNumber')}
         fieldKey={generateFieldKey('phoneNumber')}
         label="Phone Number"
@@ -120,7 +114,6 @@ const RegistrationFormBody: React.FC<{
         <Input placeholder="Phone Number" />
       </Form.Item>
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('dateOfBirth')}
         fieldKey={generateFieldKey('dateOfBirth')}
         label="Date of Birth"
@@ -136,7 +129,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('allergies')}
         fieldKey={generateFieldKey('allergies')}
         label="Allergies (if applicable)"
@@ -153,7 +145,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('medications')}
         fieldKey={generateFieldKey('medications')}
         label="Medication (if applicable)"
@@ -162,7 +153,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('notes')}
         fieldKey={generateFieldKey('notes')}
         label="Other Notes"
@@ -171,7 +161,6 @@ const RegistrationFormBody: React.FC<{
       </Form.Item>
 
       <Form.Item
-        // {...(field ?? {})}
         name={generateName('profilePicture')}
         fieldKey={generateFieldKey('profilePicture')}
         label="Upload Profile Picture"
