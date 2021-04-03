@@ -8,7 +8,7 @@ import FormContainer from './FormContainer';
 import LocationFormFragment from './LocationFormFragment';
 import RegistrationFormBody from './RegistrationFormBody';
 
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 interface ContactsFormProps {
   onFinish: (values: ContactFormFields) => void;
