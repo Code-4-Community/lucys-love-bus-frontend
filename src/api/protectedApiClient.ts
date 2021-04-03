@@ -52,7 +52,7 @@ const getContactInfo = (): Promise<ContactInfo> => {
 
 const setContactInfo = (request: ContactInfo): Promise<void> => {
   return AppAxiosInstance.put(ProtectedApiClientRoutes.CONTACT_INFO, request);
-}
+};
 
 const getRequestStatuses = (): Promise<PersonalRequest[]> => {
   return AppAxiosInstance.get(ProtectedApiClientRoutes.REQUEST_STATUSES)
