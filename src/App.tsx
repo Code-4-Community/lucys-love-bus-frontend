@@ -13,6 +13,7 @@ import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
 import Home from './containers/home';
 import NotFound from './containers/notFound/';
+import PersonalRequests from './containers/personalRequests';
 import SetContacts from './containers/setContacts';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
@@ -40,6 +41,8 @@ export enum Routes {
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
+  PERSONAL_REQUESTS = '/personal-requests',
+  EDIT_FAMILY_INFO = '/edit-family-information',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
   SET_CONTACTS = '/set-contacts',
   SIGNUP_CONFIRMATION = '/signup/confirmation',
@@ -67,6 +70,7 @@ const App: React.FC = () => {
               switch (privilegeLevel) {
                 case PrivilegeLevel.ADMIN:
                 case PrivilegeLevel.STANDARD:
+                case PrivilegeLevel.PF:
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
@@ -114,6 +118,11 @@ const App: React.FC = () => {
                         path={Routes.SIGNUP_CONFIRMATION}
                         exact
                         component={SignupConfirmation}
+                      />
+                      <Route
+                        path={Routes.PERSONAL_REQUESTS}
+                        exact
+                        component={PersonalRequests}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
