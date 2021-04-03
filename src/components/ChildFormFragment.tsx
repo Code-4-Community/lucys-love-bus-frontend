@@ -7,13 +7,10 @@ const { TextArea } = Input;
 const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
   field,
 }) => {
-  const fieldWithoutKey: any = field;
-  delete fieldWithoutKey.key;
 
   return (
     <>
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'firstName']}
         fieldKey={[field.fieldKey, 'firstName']}
         label="First Name"
@@ -24,7 +21,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'lastName']}
         fieldKey={[field.fieldKey, 'lastName']}
         label="Last Name"
@@ -35,7 +31,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...(field ?? {})}
         name={[field.fieldKey, 'pronouns']}
         fieldKey={[field.fieldKey, 'pronouns']}
         label="Pronouns"
@@ -54,7 +49,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'dateOfBirth']}
         fieldKey={[field.fieldKey, 'dateOfBirth']}
         label="Date of Birth"
@@ -68,7 +62,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         <DatePicker />
       </Form.Item>
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'school']}
         fieldKey={[field.fieldKey, 'school']}
         label="School"
@@ -79,7 +72,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'schoolYear']}
         fieldKey={[field.fieldKey, 'schoolYear']}
         label="Grade"
@@ -92,7 +84,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'allergies']}
         fieldKey={[field.fieldKey, 'allergies']}
         label="Allergies (if applicable)"
@@ -101,7 +92,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'diagnosis']}
         fieldKey={[field.fieldKey, 'diagnosis']}
         label="Diagnosis"
@@ -110,7 +100,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'medications']}
         fieldKey={[field.fieldKey, 'medications']}
         label="Medication (if applicable)"
@@ -119,7 +108,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'notes']}
         fieldKey={[field.fieldKey, 'notes']}
         label="Other Notes"
@@ -128,7 +116,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
       </Form.Item>
 
       <Form.Item
-        {...fieldWithoutKey}
         name={[field.name, 'profilePicture']}
         fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"
