@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
+import protectedApiClient from '../../api/protectedApiClient';
 import { Routes } from '../../App';
 import ContactsForm from '../../components/ContactsForm';
 import { C4CState } from '../../store';
@@ -42,7 +43,7 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
     ) != null;
 
   if (asyncRequestIsComplete(setContacts) && registeringAsParticipatingFamily) {
-    // TODO: Make PF Request, not implemented as to not duplicate work from the PF Requests ticket
+    protectedApiClient.makePFRequest();
     history.push({
       pathname: Routes.SIGNUP_CONFIRMATION,
       search: participatingFamilySearchQuery,
