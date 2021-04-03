@@ -7,7 +7,6 @@ const { TextArea } = Input;
 const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
   field,
 }) => {
-
   return (
     <>
       <Form.Item
