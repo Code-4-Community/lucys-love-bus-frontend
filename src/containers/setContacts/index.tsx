@@ -16,7 +16,11 @@ import {
   participatingFamilySearchQuery,
   participatingFamilySearchQueryFlag,
 } from '../../utils/signupFlow';
-import { getContactInfo, setContactInfo } from './ducks/thunks';
+import {
+  getContactInfo,
+  resetSetContactState,
+  setContactInfo,
+} from './ducks/thunks';
 import {
   AdditionalContact,
   Child,
@@ -60,6 +64,10 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
       return undefined;
     }
   }
+
+  const handleCloseSuccessAlert = () => {
+    dispatch(resetSetContactState());
+  };
 
   const onFinish = async (values: ContactFormFields) => {
     if (!asyncRequestIsComplete(contacts)) {
@@ -167,6 +175,7 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
             description={'Contact Info Updated Successfully'}
             showIcon
             closable
+            onClose={() => handleCloseSuccessAlert()}
           />
         )
       )}

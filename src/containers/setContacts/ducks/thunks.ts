@@ -33,3 +33,9 @@ export const setContactInfo = (
       });
   };
 };
+
+export const resetSetContactState = (): ContactsThunkAction<void> => {
+  return (dispatch, getState, {}) => {
+    dispatch(setContacts.loading());
+  };
+};
