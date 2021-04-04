@@ -6,6 +6,7 @@ import ConfirmationMessage from '../../components/ConfirmationMessage';
 import { Link as RouterLink } from 'react-router-dom';
 import ProtectedApiClient from '../../api/protectedApiClient';
 import styled from 'styled-components';
+import { ChangeEmailRequest } from './ducks/types';
 
 const { Title, Link } = Typography;
 
@@ -14,11 +15,11 @@ const UpdateButton = styled(Button)`
 `;
 
 const ChangeAccountEmail: React.FC = () => {
-  const [loading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [emailChanged, setEmailChanged] = useState(false);
+  const [loading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [emailChanged, setEmailChanged] = useState<boolean>(false);
 
-  const onFinishChangeEmail = async (values: any) => {
+  const onFinishChangeEmail = async (values: ChangeEmailRequest) => {
     try {
       setError(false);
       setIsLoading(true);
@@ -36,7 +37,7 @@ const ChangeAccountEmail: React.FC = () => {
       <Helmet>
         <title>Change Account Email</title>
         <meta
-          name="Change account email"
+          name="description"
           content="Change primary account email"
         />
       </Helmet>

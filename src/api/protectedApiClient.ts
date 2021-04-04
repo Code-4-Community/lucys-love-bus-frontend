@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 
 export interface ProtectedApiExtraArgs {
@@ -13,10 +14,7 @@ export interface ProtectedApiClient {
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
-  readonly changeAccountEmail: (request: {
-    newEmail: string;
-    password: string;
-  }) => Promise<void>;
+  readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -57,10 +55,7 @@ const makePFRequest = (): Promise<void> => {
     .catch((err) => err);
 };
 
-const changeAccountEmail = (request: {
-  newEmail: string;
-  password: string;
-}): Promise<void> => {
+const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
 };
 
