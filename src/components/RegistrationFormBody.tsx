@@ -19,6 +19,8 @@ const RegistrationFormBody: React.FC<{
   }
 
   function generateFieldKey(key: string) {
+     return field ? [field.fieldKey, key] : key;
+  }
     if (field) {
       return [field.fieldKey, key];
     } else {
