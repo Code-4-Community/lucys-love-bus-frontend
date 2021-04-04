@@ -24,7 +24,7 @@ export enum ProtectedApiClientRoutes {
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
-  CHANGE_EMAIL = '/api/v1/user/change_email',
+  CHANGE_EMAIL = '/api/v1/protected/user/change_email',
 }
 
 const changePassword = (request: {
@@ -61,19 +61,15 @@ const changeAccountEmail = (request: {
   newEmail: string;
   password: string;
 }): Promise<void> => {
-  return AppAxiosInstance.post(
-    ProtectedApiClientRoutes.CHANGE_EMAIL,
-    request,
-  )
-    .catch((err) => err);
-}
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
+};
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   getRequestStatuses,
   makePFRequest,
   deactivateAccount,
-  changeAccountEmail
+  changeAccountEmail,
 });
 
 export default Client;
