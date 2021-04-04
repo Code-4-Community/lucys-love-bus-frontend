@@ -40,7 +40,7 @@ const EventRSVP: React.FC<EventRSVPProps> = ({ events, registrations }) => {
   useEffect(() => {
     dispatch(getUpcomingEvents());
     dispatch(getEventRegistrations(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const columns = [
     {
