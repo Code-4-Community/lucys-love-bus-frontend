@@ -9,6 +9,8 @@ const RegistrationFormBody: React.FC<{
   field?: FormListFieldData;
 }> = ({ isMainContact, field }) => {
   function generateName(name: string) {
+     return field ? [field.name, name] : name;
+  }
     if (field) {
       return [field.name, name];
     } else {
