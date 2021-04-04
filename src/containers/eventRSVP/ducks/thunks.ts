@@ -1,5 +1,5 @@
-import { Registration, EventRegistrationsThunkAction } from './types';
 import { eventRegistrations } from './actions';
+import { EventRegistrationsThunkAction, Registration } from './types';
 
 export const getEventRegistrations = (
   eventId: number,

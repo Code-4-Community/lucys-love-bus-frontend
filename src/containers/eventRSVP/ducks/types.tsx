@@ -3,7 +3,7 @@ import { ProtectedApiExtraArgs } from '../../../api/protectedApiClient';
 import { PrivilegeLevel } from '../../../auth/ducks/types';
 import { C4CState } from '../../../store';
 import { AsyncRequest } from '../../../utils/asyncRequest';
-import { EventsRSVPActions } from './actions';
+import { EventRegistrationsActions } from './actions';
 
 export interface Registration {
   firstName: string;
@@ -24,5 +24,5 @@ export type EventRegistrationsThunkAction<R> = ThunkAction<
   R,
   C4CState,
   ProtectedApiExtraArgs,
-  EventsRSVPActions
+  EventRegistrationsActions
 >;
