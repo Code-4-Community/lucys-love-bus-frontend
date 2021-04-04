@@ -13,6 +13,10 @@ export interface ProtectedApiClient {
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
+  readonly changeAccountEmail: (request: {
+    newEmail: string;
+    password: string;
+  }) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -20,6 +24,7 @@ export enum ProtectedApiClientRoutes {
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
+  CHANGE_EMAIL = '/api/v1/user/change_email',
 }
 
 const changePassword = (request: {
@@ -52,11 +57,23 @@ const makePFRequest = (): Promise<void> => {
     .catch((err) => err);
 };
 
+const changeAccountEmail = (request: {
+  newEmail: string;
+  password: string;
+}): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.CHANGE_EMAIL,
+    request,
+  )
+    .catch((err) => err);
+}
+
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   getRequestStatuses,
   makePFRequest,
   deactivateAccount,
+  changeAccountEmail
 });
 
 export default Client;

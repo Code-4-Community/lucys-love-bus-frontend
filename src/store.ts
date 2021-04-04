@@ -40,6 +40,11 @@ import eventsReducer, {
 } from './containers/upcoming-events/ducks/reducers';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
+import { ChangeAccountEmailActions } from './containers/changeAccountEmail/ducks/actions';
+import changeAccountEmailReducer, {
+  initialChangeAccountEmailState,
+} from './containers/changeAccountEmail/ducks/reducers';
+import { ChangeAccountEmailReducerState } from './containers/changeAccountEmail/ducks/types';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -47,6 +52,7 @@ export interface C4CState {
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
   deactivateAccountState: DeactivateAccountReducerState;
+  changeAccountEmailState: ChangeAccountEmailReducerState;
 }
 
 export interface Action<T, P> {
@@ -58,7 +64,8 @@ export type C4CAction =
   | UserAuthenticationActions
   | EventsActions
   | AnnouncementsActions
-  | PersonalRequestsActions;
+  | PersonalRequestsActions
+  | ChangeAccountEmailActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
   PublicApiExtraArgs &
@@ -70,6 +77,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
   deactivateAccountState: deactivateAccountReducer,
+  changeAccountEmailState: changeAccountEmailReducer
 });
 
 export const initialStoreState: C4CState = {
@@ -78,6 +86,7 @@ export const initialStoreState: C4CState = {
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,
+  changeAccountEmailState: initialChangeAccountEmailState
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'state';

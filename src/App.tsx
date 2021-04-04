@@ -18,6 +18,7 @@ import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events';
 import Announcements from './containers/announcements';
 import PersonalRequests from './containers/personalRequests';
+import ChangeAccountEmail from './containers/changeAccountEmail';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
@@ -42,6 +43,7 @@ export enum Routes {
   PERSONAL_REQUESTS = '/personal-requests',
   EDIT_FAMILY_INFO = '/edit-family-information',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
+  CHANGE_ACCOUNT_EMAIL = '/change-email',
 }
 
 const App: React.FC = () => {
@@ -109,6 +111,11 @@ const App: React.FC = () => {
                         path={Routes.PERSONAL_REQUESTS}
                         exact
                         component={PersonalRequests}
+                      />
+                      <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
