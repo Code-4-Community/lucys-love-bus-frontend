@@ -13,7 +13,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         name={[field.name, 'firstName']}
         fieldKey={[field.fieldKey, 'firstName']}
         label="First Name"
-        className="inline-block-half"
         rules={[{ required: true, message: 'Please input your first name' }]}
       >
         <Input placeholder="First Name" />
@@ -23,7 +22,6 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         name={[field.name, 'lastName']}
         fieldKey={[field.fieldKey, 'lastName']}
         label="Last Name"
-        className="inline-block-half"
         rules={[{ required: true, message: 'Please input your last name' }]}
       >
         <Input placeholder="Last Name" />
@@ -35,15 +33,9 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         label="Pronouns"
       >
         <Radio.Group>
-          <Radio className="radio-item" value={'He/Him'}>
-            He/Him
-          </Radio>
-          <Radio className="radio-item" value={'She/Her'}>
-            She/Her
-          </Radio>
-          <Radio className="radio-item" value={'They/Them'}>
-            They/Them
-          </Radio>
+          <Radio value={'He/Him'}>He/Him</Radio>
+          <Radio value={'She/Her'}>She/Her</Radio>
+          <Radio value={'They/Them'}>They/Them</Radio>
         </Radio.Group>
       </Form.Item>
 
@@ -64,8 +56,9 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         name={[field.name, 'school']}
         fieldKey={[field.fieldKey, 'school']}
         label="School"
-        className="inline-block-half"
-        rules={[{ required: true, message: 'Please input your childs school' }]}
+        rules={[
+          { required: true, message: "Please input your child's school" },
+        ]}
       >
         <Input placeholder="First Name" />
       </Form.Item>
@@ -74,9 +67,11 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         name={[field.name, 'schoolYear']}
         fieldKey={[field.fieldKey, 'schoolYear']}
         label="Grade"
-        className="inline-block-half"
         rules={[
-          { required: true, message: 'Please input your childs current grade' },
+          {
+            required: true,
+            message: "Please input your child's current grade",
+          },
         ]}
       >
         <Input placeholder="Last Name" />

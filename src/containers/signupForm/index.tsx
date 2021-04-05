@@ -26,10 +26,9 @@ const SignupFormContainer: React.FC<SignupFormContainerProps> = ({
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const registeringAsParticipatingFamily =
-    new URLSearchParams(location.search).get(
-      participatingFamilySearchQueryFlag,
-    ) != null;
+  const registeringAsParticipatingFamily = new URLSearchParams(
+    location.search,
+  ).has(participatingFamilySearchQueryFlag);
 
   if (asyncRequestIsComplete(tokens)) {
     if (registeringAsParticipatingFamily) {
@@ -57,7 +56,7 @@ const SignupFormContainer: React.FC<SignupFormContainerProps> = ({
           address: data.address,
           city: data.city,
           state: data.state,
-          zipCode: data.zip,
+          zipCode: data.zipCode,
         },
         photoRelease: data.photoRelease,
         referrer: data.referrer,

@@ -22,7 +22,6 @@ const RegistrationFormBody: React.FC<{
         name={generateName('firstName')}
         fieldKey={generateFieldKey('firstName')}
         label="First Name"
-        className="inline-block-half"
         rules={[{ required: true, message: 'Please input your first name' }]}
       >
         <Input placeholder="First Name" />
@@ -32,7 +31,6 @@ const RegistrationFormBody: React.FC<{
         name={generateName('lastName')}
         fieldKey={generateFieldKey('firstName')}
         label="Last Name"
-        className="inline-block-half"
         rules={[{ required: true, message: 'Please input your last name' }]}
       >
         <Input placeholder="Last Name" />
@@ -44,15 +42,9 @@ const RegistrationFormBody: React.FC<{
         label="Pronouns"
       >
         <Radio.Group>
-          <Radio className="radio-item" value={'He/Him'}>
-            He/Him
-          </Radio>
-          <Radio className="radio-item" value={'She/Her'}>
-            She/Her
-          </Radio>
-          <Radio className="radio-item" value={'They/Them'}>
-            They/Them
-          </Radio>
+          <Radio value={'He/Him'}>He/Him</Radio>
+          <Radio value={'She/Her'}>She/Her</Radio>
+          <Radio value={'They/Them'}>They/Them</Radio>
         </Radio.Group>
       </Form.Item>
       {!isMainContact && (
@@ -79,12 +71,8 @@ const RegistrationFormBody: React.FC<{
             rules={[{ required: true, message: 'Please select one option.' }]}
           >
             <Radio.Group>
-              <Radio value={true} className="radio-style">
-                Yes
-              </Radio>
-              <Radio value={false} className="radio-style">
-                No
-              </Radio>
+              <Radio value={true}>Yes</Radio>
+              <Radio value={false}>No</Radio>
             </Radio.Group>
           </Form.Item>
         </>
@@ -93,7 +81,6 @@ const RegistrationFormBody: React.FC<{
         name={generateName('phoneNumber')}
         fieldKey={generateFieldKey('phoneNumber')}
         label="Phone Number"
-        className="block-half"
         rules={[
           {
             required: true,

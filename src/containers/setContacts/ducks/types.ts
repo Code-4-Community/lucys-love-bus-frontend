@@ -18,8 +18,7 @@ export type ContactsThunkAction<R> = ThunkAction<
   ContactsActions
 >;
 
-interface GenericContact<D, P> {
-  email: string;
+interface AbstractContact<D, P> {
   firstName: string;
   lastName: string;
   phoneNumber: string;
@@ -30,23 +29,18 @@ interface GenericContact<D, P> {
   medications?: string;
   notes?: string;
   photoRelease?: boolean;
-  referrer?: string;
   profilePicture?: P;
 }
 
-interface GenericChild<D, P> {
-  firstName: string;
-  lastName: string;
-  pronouns?: string;
+interface GenericContact<D, P> extends AbstractContact<D, P> {
+  email: string;
+  phoneNumber: string;
+  referrer?: string;
+}
+
+interface GenericChild<D, P> extends AbstractContact<D, P> {
   school: string;
   schoolYear: string;
-  allergies?: string;
-  diagnosis?: string;
-  medications?: string;
-  notes?: string;
-  photoRelease?: boolean;
-  profilePicture?: P;
-  dateOfBirth: D;
 }
 
 export interface ContactInfo {
@@ -63,6 +57,7 @@ export type Child = GenericChild<Date, string>;
 export interface AdditionalContact extends Contact {
   shouldSendEmails?: boolean;
 }
+
 export interface Location {
   address: string;
   city: string;

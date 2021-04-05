@@ -38,13 +38,14 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
+
   useEffect(() => {
     dispatch(getContactInfo());
   }, [dispatch]);
-  const registeringAsParticipatingFamily =
-    new URLSearchParams(location.search).get(
-      participatingFamilySearchQueryFlag,
-    ) != null;
+
+  const registeringAsParticipatingFamily = new URLSearchParams(
+    location.search,
+  ).has(participatingFamilySearchQueryFlag);
 
   if (asyncRequestIsComplete(setContacts) && registeringAsParticipatingFamily) {
     protectedApiClient.makePFRequest();
@@ -64,6 +65,29 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
       return undefined;
     }
   }
+
+  const mapContactToFormFields = (info: ContactInfo): ContactFormFields => {
+    return {
+      ...info.location,
+      ...info.mainContact,
+      dateOfBirth: moment(new Date()),
+      profilePicture: undefined,
+      additionalContacts:
+        info.additionalContacts &&
+        info.additionalContacts.map((c) => ({
+          ...c,
+          dateOfBirth: moment(new Date()),
+          profilePicture: undefined,
+        })),
+      children:
+        info.children &&
+        info.children.map((c) => ({
+          ...c,
+          dateOfBirth: moment(new Date()),
+          profilePicture: undefined,
+        })),
+    };
+  };
 
   const handleCloseSuccessAlert = () => {
     dispatch(resetSetContactState());
@@ -134,29 +158,6 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
     );
   };
 
-  const contactsToFormFields = (info: ContactInfo): ContactFormFields => {
-    return {
-      ...info.location,
-      ...info.mainContact,
-      dateOfBirth: moment(new Date()),
-      profilePicture: undefined,
-      additionalContacts:
-        info.additionalContacts &&
-        info.additionalContacts.map((c) => ({
-          ...c,
-          dateOfBirth: moment(new Date()),
-          profilePicture: undefined,
-        })),
-      children:
-        info.children &&
-        info.children.map((c) => ({
-          ...c,
-          dateOfBirth: moment(new Date()),
-          profilePicture: undefined,
-        })),
-    };
-  };
-
   return (
     <>
       {asyncRequestIsFailed(setContacts) ? (
@@ -181,7 +182,7 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
       )}
       {asyncRequestIsComplete(contacts) ? (
         <ContactsForm
-          initialValues={contactsToFormFields(contacts.result)}
+          initialValues={mapContactToFormFields(contacts.result)}
           onFinish={onFinish}
           isParticipatingFamily={registeringAsParticipatingFamily}
         />
