@@ -9,11 +9,11 @@ const RegistrationFormBody: React.FC<{
   field?: FormListFieldData;
 }> = ({ isMainContact, field }) => {
   function generateName(name: string) {
-     return field ? [field.name, name] : name;
+    return field ? [field.name, name] : name;
   }
 
   function generateFieldKey(key: string) {
-     return field ? [field.fieldKey, key] : key;
+    return field ? [field.fieldKey, key] : key;
   }
 
   return (
