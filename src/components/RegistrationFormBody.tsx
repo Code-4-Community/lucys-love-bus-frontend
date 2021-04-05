@@ -11,21 +11,9 @@ const RegistrationFormBody: React.FC<{
   function generateName(name: string) {
      return field ? [field.name, name] : name;
   }
-    if (field) {
-      return [field.name, name];
-    } else {
-      return name;
-    }
-  }
 
   function generateFieldKey(key: string) {
      return field ? [field.fieldKey, key] : key;
-  }
-    if (field) {
-      return [field.fieldKey, key];
-    } else {
-      return key;
-    }
   }
 
   return (
