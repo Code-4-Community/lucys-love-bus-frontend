@@ -1,4 +1,4 @@
-import {Card, Divider, Tag, Typography} from 'antd';
+import { Card, Divider, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
@@ -47,17 +47,21 @@ const EventListing: React.FC<EventInformation> = ({
   thumbnail,
   title,
   details,
+    numTickets,
 }) => {
   const defaultImg =
     'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
-
   return (
     <StyledCard>
       <CardContent>
         <Thumbnail src={thumbnail || defaultImg} />
         <Info>
           <Title level={3}>{title}</Title>
-          <Tag color="green">green</Tag>
+          { numTickets && <> (
+            <Tag color="green">Registered {numTickets} tickets</Tag> )
+            </>
+          }
+
           <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
           <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>

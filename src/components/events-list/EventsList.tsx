@@ -7,15 +7,14 @@ export interface EventsListProps {
 }
 
 const EventsList: React.FC<EventsListProps> = ({ events }) => {
-  // tslint:disable-next-line:no-console
-  console.log(events);
-  return (
+      return (
     <div className="cards">
       {events.map((event, i) => (
-        <EventListing {...event} key={i} />
+          <EventListing {...event} key={i}/>
       ))}{' '}
     </div>
-  );
+    );
 };
+
 
 export default EventsList;

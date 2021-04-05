@@ -15,7 +15,7 @@ export type EventsThunkAction<R> = ThunkAction<
   EventsActions
 >;
 
-export interface EventInformation {
+export interface EventInformation  {
   id: number;
   title: string;
   spotsAvailable: number;
@@ -28,4 +28,5 @@ export interface EventInformation {
     end: Date;
   };
   price: number;
+  numTickets?: number | undefined;
 }

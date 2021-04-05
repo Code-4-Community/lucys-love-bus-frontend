@@ -1,5 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
-import {MyEventInformation} from '../containers/myEvents/ducks/types';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
@@ -11,7 +11,7 @@ export interface ProtectedApiClient {
     newPassword: string;
   }) => Promise<void>;
 
-  readonly getMyEvents: () => Promise<MyEventInformation[]>;
+  readonly getMyEvents: () => Promise<EventInformation[]>;
 }
 
 enum ProtectedApiClientRoutes {
@@ -31,12 +31,10 @@ const changePassword = (request: {
     .catch((e) => e);
 };
 
-const getMyEvents = (): Promise<MyEventInformation[]> => {
-  return AppAxiosInstance.get(
-      ProtectedApiClientRoutes.MY_EVENTS
-  )
-      .then((r) => r.data?.events)
-      .catch((e) => e);
+const getMyEvents = (): Promise<EventInformation[]> => {
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.MY_EVENTS).then(
+    (r) => r.data?.events,
+  );
 };
 
 const Client: ProtectedApiClient = Object.freeze({

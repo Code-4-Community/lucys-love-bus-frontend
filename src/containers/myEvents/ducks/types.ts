@@ -3,10 +3,10 @@ import { C4CState } from '../../../store';
 import { ThunkAction } from 'redux-thunk';
 import { MyEventsActions } from './actions';
 import { ProtectedApiExtraArgs } from '../../../api/protectedApiClient';
-import {EventInformation} from '../../upcoming-events/ducks/types';
+import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export interface MyEventsReducerState {
-    readonly myEvents: AsyncRequest<MyEventInformation[], any>;
+  readonly myEvents: AsyncRequest<EventInformation[], any>;
 }
 
 export type MyEventsThunkAction<R> = ThunkAction<
@@ -15,7 +15,3 @@ export type MyEventsThunkAction<R> = ThunkAction<
   ProtectedApiExtraArgs,
   MyEventsActions
 >;
-
-export interface MyEventInformation extends EventInformation {
-    numTickets: number;
-}
