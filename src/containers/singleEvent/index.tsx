@@ -12,7 +12,9 @@ import {
   asyncRequestIsFailed,
   asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
+import { AnnouncementsReducerState } from '../announcements/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
+import { getEventAnnouncements } from './ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
 
 const ContentContainer = styled.div`
@@ -29,30 +31,54 @@ const CenteredContainer = styled.div`
 
 interface SingleEventProps {
   readonly events: EventsReducerState['upcomingEvents'];
+  readonly eventAnnouncements: AnnouncementsReducerState['announcements'];
 }
 
 interface SingleEventParams {
   id: string;
 }
 
-const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (asyncRequestIsNotStarted(events) || asyncRequestIsFailed(events)) {
-      dispatch(getUpcomingEvents());
-    }
-  }, [dispatch, events]);
-
+const SingleEvent: React.FC<SingleEventProps> = ({
+  events,
+  eventAnnouncements,
+}) => {
+  const eventsDispatch = useDispatch();
+  const announcementsDispatch = useDispatch();
   const id = Number(useParams<SingleEventParams>().id);
+
+  useEffect(() => {
+    if (
+      asyncRequestIsNotStarted(events) ||
+      asyncRequestIsFailed(events) ||
+      asyncRequestIsNotStarted(eventAnnouncements) ||
+      asyncRequestIsFailed(eventAnnouncements)
+    ) {
+      eventsDispatch(getUpcomingEvents());
+      announcementsDispatch(getEventAnnouncements(id));
+    }
+  }, [eventsDispatch, announcementsDispatch, events, eventAnnouncements, id]);
+
+  useEffect(() => {
+    eventsDispatch(getUpcomingEvents());
+    announcementsDispatch(getEventAnnouncements(id));
+  }, [eventsDispatch, announcementsDispatch, id]);
 
   const conditionalRenderEventDetails = (
     eventsList: AsyncRequest<EventProps[], any>,
   ) => {
-    if (asyncRequestIsComplete(eventsList)) {
+    if (
+      asyncRequestIsComplete(eventsList) &&
+      asyncRequestIsComplete(eventAnnouncements)
+    ) {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
-        return <EventDetails {...event[0]} />;
+        return (
+          <EventDetails
+            {...event[0]}
+            announcements={eventAnnouncements.result}
+          />
+        );
       } else {
         return <p>That event does not exist!</p>;
       }
@@ -86,6 +112,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
 const mapStateToProps = (state: C4CState): SingleEventProps => {
   return {
     events: state.eventsState.upcomingEvents,
+    eventAnnouncements: state.eventAnnouncementsState.eventAnnouncements,
   };
 };
 
