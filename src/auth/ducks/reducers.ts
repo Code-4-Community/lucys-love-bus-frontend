@@ -1,13 +1,14 @@
-import { TokenPayload, UserAuthenticationReducerState } from './types';
-import { authenticateUser } from './actions';
 import { C4CAction } from '../../store';
 import {
+  AsyncRequestNotStarted,
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
   ASYNC_REQUEST_LOADING_ACTION,
-  AsyncRequestNotStarted,
+  ASYNC_REQUEST_NOT_STARTED_ACTION,
   generateAsyncRequestReducer,
 } from '../../utils/asyncRequest';
+import { authenticateUser } from './actions';
+import { TokenPayload, UserAuthenticationReducerState } from './types';
 
 export const initialUserState: UserAuthenticationReducerState = {
   tokens: AsyncRequestNotStarted<TokenPayload, any>(),
@@ -24,6 +25,7 @@ const reducers = (
   action: C4CAction,
 ): UserAuthenticationReducerState => {
   switch (action.type) {
+    case ASYNC_REQUEST_NOT_STARTED_ACTION:
     case ASYNC_REQUEST_LOADING_ACTION:
     case ASYNC_REQUEST_LOADED_ACTION:
     case ASYNC_REQUEST_FAILED_ACTION:

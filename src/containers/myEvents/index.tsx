@@ -1,4 +1,4 @@
-import {Radio, Tag, Typography} from 'antd';
+import { Radio, Tag, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';

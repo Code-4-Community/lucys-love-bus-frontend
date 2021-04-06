@@ -13,7 +13,10 @@ import {
   asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
-import {EventInformation, EventsReducerState} from '../upcoming-events/ducks/types';
+import {
+  EventInformation,
+  EventsReducerState,
+} from '../upcoming-events/ducks/types';
 
 const ContentContainer = styled.div`
   padding: 24px;

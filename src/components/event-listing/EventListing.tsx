@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
+import { DEFAULT_IMAGE } from '../../utils/copy';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -47,20 +48,20 @@ const EventListing: React.FC<EventInformation> = ({
   thumbnail,
   title,
   details,
-    numTickets,
+  numTickets,
 }) => {
-  const defaultImg =
-    'https://today.tamu.edu/wp-content/uploads/2019/03/GettyImages-184621282.jpg';
   return (
     <StyledCard>
       <CardContent>
-        <Thumbnail src={thumbnail || defaultImg} />
+        <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
           <Title level={3}>{title}</Title>
-          { numTickets && <> (
-            <Tag color="green">Registered {numTickets} tickets</Tag> )
+          {numTickets && (
+            <>
+              {' '}
+              (<Tag color="green">Registered {numTickets} tickets</Tag> )
             </>
-          }
+          )}
 
           <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
