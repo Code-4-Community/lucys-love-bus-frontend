@@ -8,7 +8,6 @@ const LocationFormFragment: React.FC = () => {
       <Form.Item
         name="address"
         label="Address"
-        className="stacked-inputs"
         rules={[{ required: true, message: 'Please input your address' }]}
       >
         <Input placeholder="Address" />
@@ -16,7 +15,6 @@ const LocationFormFragment: React.FC = () => {
       <Form.Item
         name="city"
         label="City"
-        className="inline-block-third"
         rules={[{ required: true, message: 'Please input city' }]}
       >
         <Input placeholder="City" />
@@ -24,7 +22,6 @@ const LocationFormFragment: React.FC = () => {
       <Form.Item
         name="state"
         label="State"
-        className="inline-block-third"
         rules={[
           {
             required: true,
@@ -38,7 +35,6 @@ const LocationFormFragment: React.FC = () => {
       <Form.Item
         name="zipCode"
         label="Zip Code"
-        className="block-third"
         rules={[
           {
             required: true,
