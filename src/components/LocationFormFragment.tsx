@@ -1,7 +1,6 @@
 import { Form, Input } from 'antd';
 import React from 'react';
 
-// TODO: use this fragment in signup form, note that "zip" was renamed to "zipCode"
 const LocationFormFragment: React.FC = () => {
   return (
     <>
