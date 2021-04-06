@@ -43,26 +43,35 @@ const Info = styled.div`
   width: 67%;
 `;
 
+const InlineTitle = styled(Title)`
+  display: inline;
+`;
+
+const EventTag = styled(Tag)`
+  margin: 1em;
+`;
+
 const EventListing: React.FC<EventInformation> = ({
   id,
   thumbnail,
   title,
   details,
-  numTickets,
+  ticketCount,
 }) => {
   return (
     <StyledCard>
       <CardContent>
         <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
-          <Title level={3}>{title}</Title>
-          {numTickets && (
+          <InlineTitle level={3}>{title}</InlineTitle>
+          {ticketCount && (
             <>
-              {' '}
-              (<Tag color="green">Registered {numTickets} tickets</Tag> )
+              <EventTag color="green">
+                Registered {ticketCount} tickets
+              </EventTag>
             </>
           )}
-
+          <br />
           <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
           <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
