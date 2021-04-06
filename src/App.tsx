@@ -117,11 +117,6 @@ const App: React.FC = () => {
                         exact
                         component={EventRSVP}
                       />
-                      <Route
-                        path={Routes.MY_EVENTS}
-                        exact
-                        component={MyEvents}
-                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -134,6 +129,11 @@ const App: React.FC = () => {
                         path={Routes.UPCOMING_EVENTS}
                         exact
                         component={UpcomingEvents}
+                      />
+                      <Route
+                        path={Routes.MY_EVENTS}
+                        exact
+                        component={MyEvents}
                       />
                       <Route
                         path={Routes.EVENT}
