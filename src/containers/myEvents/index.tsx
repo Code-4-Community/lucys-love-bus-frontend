@@ -1,4 +1,4 @@
-import { Radio, Tag, Typography } from 'antd';
+import { Alert, Radio, Spin, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
@@ -7,7 +7,11 @@ import { ChungusContentContainer } from '../../components';
 import Calendar from '../../components/Calendar';
 import EventsList from '../../components/events-list/EventsList';
 import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import {
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+} from '../../utils/asyncRequest';
 import { getMyEvents } from './ducks/thunks';
 import { MyEventsReducerState } from './ducks/types';
 const { Title } = Typography;
@@ -77,6 +81,15 @@ const MyEvents: React.FC<MyEventsProps> = ({ events }) => {
           ) : (
             <Calendar events={events.result} />
           ))}
+        {asyncRequestIsFailed(events) && (
+          <Alert
+            message="Error"
+            description={`There was an error loading events: ${events.error.message}`}
+            type="error"
+            showIcon
+          />
+        )}
+        {asyncRequestIsLoading(events) && <Spin />}
       </ChungusContentContainer>
     </>
   );

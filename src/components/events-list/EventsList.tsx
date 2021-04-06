@@ -11,7 +11,7 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
     <div className="cards">
       {events.map((event, i) => (
         <EventListing {...event} key={i} />
-      ))}{' '}
+      ))}
     </div>
   );
 };
