@@ -1,5 +1,6 @@
 import AppAxiosInstance from '../auth/axios';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
+import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 
 export interface ProtectedApiExtraArgs {
@@ -16,6 +17,7 @@ export interface ProtectedApiClient {
   readonly deactivateAccount: () => Promise<void>;
   readonly getContactInfo: () => Promise<ContactInfo>;
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
+  readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -24,6 +26,7 @@ export enum ProtectedApiClientRoutes {
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
+  EVENTS = 'api/v1/protected/events',
 }
 
 const changePassword = (request: {
@@ -66,6 +69,14 @@ const makePFRequest = (): Promise<void> => {
     .catch((err) => err);
 };
 
+const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
+  eventId: number,
+) => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.EVENTS}/${eventId}/registrations`,
+  ).then((res) => res.data.registrations);
+};
+
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   getRequestStatuses,
@@ -73,6 +84,7 @@ const Client: ProtectedApiClient = Object.freeze({
   deactivateAccount,
   getContactInfo,
   setContactInfo,
+  getEventRegistrations,
 });
 
 export default Client;
