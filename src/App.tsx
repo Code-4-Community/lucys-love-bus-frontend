@@ -21,6 +21,7 @@ import PersonalRequests from './containers/personalRequests';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
+import EventRSVP from './containers/eventRSVP';
 
 const { Content } = Layout;
 
@@ -42,6 +43,7 @@ export enum Routes {
   PERSONAL_REQUESTS = '/personal-requests',
   EDIT_FAMILY_INFO = '/edit-family-information',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
+  EVENT_REGISTRATIONS = '/events/:id/rsvp',
 }
 
 const App: React.FC = () => {
@@ -65,6 +67,57 @@ const App: React.FC = () => {
             {(() => {
               switch (privilegeLevel) {
                 case PrivilegeLevel.ADMIN:
+                  return (
+                    <Switch>
+                      <Route path={Routes.HOME} exact component={Home} />
+                      <Route
+                        path={Routes.UPCOMING_EVENTS}
+                        exact
+                        component={UpcomingEvents}
+                      />
+                      <Route
+                        path={Routes.EVENT}
+                        exact
+                        component={SingleEvent}
+                      />
+                      <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
+                      />
+                      <Route
+                        path={Routes.SETTINGS}
+                        exact
+                        component={Settings}
+                      />
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
+                      />
+                      <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupFormContainer}
+                      />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
+                      />
+                      <Route
+                        path={Routes.PERSONAL_REQUESTS}
+                        exact
+                        component={PersonalRequests}
+                      />
+                      <Route
+                        path={Routes.EVENT_REGISTRATIONS}
+                        exact
+                        component={EventRSVP}
+                      />
+                      <Route path="*" exact component={NotFound} />
+                    </Switch>
+                  );
                 case PrivilegeLevel.STANDARD:
                 case PrivilegeLevel.PF:
                   return (

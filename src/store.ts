@@ -24,16 +24,21 @@ import { AnnouncementsActions } from './containers/announcements/ducks/actions';
 import announcementsReducer, {
   initialAnnouncementsState,
 } from './containers/announcements/ducks/reducers';
-import { PersonalRequestsReducerState } from './containers/personalRequests/ducks/types';
-import { PersonalRequestsActions } from './containers/personalRequests/ducks/actions';
-import personalRequestsReducer, {
-  initialPersonalRequestsState,
-} from './containers/personalRequests/ducks/reducers';
 import { AnnouncementsReducerState } from './containers/announcements/ducks/types';
 import deactivateAccountReducer, {
   initialDeactivateAccountState,
 } from './containers/deactivateAccount/ducks/reducers';
 import { DeactivateAccountReducerState } from './containers/deactivateAccount/ducks/types';
+import { EventRegistrationsActions } from './containers/eventRSVP/ducks/actions';
+import eventRegistrationsReducer, {
+  initialEventRegistrationsState,
+} from './containers/eventRSVP/ducks/reducers';
+import { EventRegistrationsReducerState } from './containers/eventRSVP/ducks/types';
+import { PersonalRequestsActions } from './containers/personalRequests/ducks/actions';
+import personalRequestsReducer, {
+  initialPersonalRequestsState,
+} from './containers/personalRequests/ducks/reducers';
+import { PersonalRequestsReducerState } from './containers/personalRequests/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
   initialEventsState,
@@ -47,6 +52,7 @@ export interface C4CState {
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
   deactivateAccountState: DeactivateAccountReducerState;
+  eventRegistrationsState: EventRegistrationsReducerState;
 }
 
 export interface Action<T, P> {
@@ -58,7 +64,8 @@ export type C4CAction =
   | UserAuthenticationActions
   | EventsActions
   | AnnouncementsActions
-  | PersonalRequestsActions;
+  | PersonalRequestsActions
+  | EventRegistrationsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
   PublicApiExtraArgs &
@@ -70,6 +77,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
   deactivateAccountState: deactivateAccountReducer,
+  eventRegistrationsState: eventRegistrationsReducer,
 });
 
 export const initialStoreState: C4CState = {
@@ -78,6 +86,7 @@ export const initialStoreState: C4CState = {
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,
+  eventRegistrationsState: initialEventRegistrationsState,
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'state';
