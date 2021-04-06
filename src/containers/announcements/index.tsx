@@ -20,10 +20,6 @@ export interface AnnouncementsDataProps {
   readonly announcements: AnnouncementsReducerState['announcements'];
 }
 
-export interface AnnouncementsContainerProps extends AnnouncementsDataProps {
-  limit?: number;
-}
-
 const Content = styled.div`
   display: flex;
   flex-direction: row;
@@ -35,14 +31,11 @@ const StyledTitle = styled(Title)`
   margin-left: 0px;
 `;
 
-const Announcements: React.FC<AnnouncementsContainerProps> = ({
-  announcements,
-  limit,
-}) => {
+const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAnnouncements(limit));
-  }, [dispatch, limit]);
+    dispatch(getAnnouncements());
+  }, [dispatch]);
 
   return (
     <>
@@ -54,7 +47,10 @@ const Announcements: React.FC<AnnouncementsContainerProps> = ({
         <>
           <Helmet>
             <title>Announcements</title>
-            <meta name="Announcements" content="Description goes here." />
+            <meta
+              name="Announcements"
+              content="All announcements about upcoming Lucy's Love Bus events!"
+            />
           </Helmet>
           <ChungusContentContainer>
             <Content>

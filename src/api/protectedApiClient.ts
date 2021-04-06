@@ -5,6 +5,10 @@ export interface ApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
 }
 
+export interface ProtectedApiExtraArgs {
+  readonly protectedApiClient: ProtectedApiClient;
+}
+
 export interface ProtectedApiClient {
   readonly changePassword: (request: {
     currentPassword: string;
@@ -19,11 +23,13 @@ export interface ProtectedApiClient {
       },
     ];
   }) => Promise<AxiosResponse<any>>;
+  readonly deactivateAccount: () => Promise<void>;
 }
 
-enum ProtectedApiClientRoutes {
+export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
   REGISTER_TICKETS = '/api/v1/protected/checkout/register',
+  USER = '/api/v1/protected/user',
 }
 
 const changePassword = (request: {
@@ -34,7 +40,7 @@ const changePassword = (request: {
     ProtectedApiClientRoutes.CHANGE_PASSWORD,
     request,
   )
-    .then((r) => r)
+    .then((r) => r.data)
     .catch((e) => e);
 };
 
@@ -51,10 +57,16 @@ const registerTickets = (request: {
     request,
   );
 };
+const deactivateAccount = (): Promise<void> => {
+  return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
+    .then((res) => res)
+    .catch((err) => err);
+};
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   registerTickets,
+  deactivateAccount,
 });
 
 export default Client;

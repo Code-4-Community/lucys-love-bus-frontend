@@ -1,9 +1,9 @@
 import { Card, Typography } from 'antd';
+import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
-import dateFormat from 'dateformat';
-import { AnnouncementModal } from './AnnouncementModal';
 import { Announcement } from '../containers/announcements/ducks/types';
+import { AnnouncementModal } from './AnnouncementModal';
 
 const { Text, Paragraph } = Typography;
 
@@ -17,6 +17,12 @@ const AnnouncementCardNoCover = styled(Card)`
   height: 100%;
   min-width: 200px;
   max-width: 400px;
+  margin: 16px 16px;
+  min-height: 400px;
+
+  @media screen and (min-width: 800px) {
+    min-width: 400px;
+  }
 `;
 
 const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
@@ -31,41 +37,40 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<Announcement> = (props) => {
+export const AnnouncementCard: React.FC<Announcement> = ({
+  imageSrc,
+  title,
+  created,
+  description,
+}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
-
-  const getCardContent = (() => {
-    return (
-      <>
-        <div>
-          <DateText strong>{dateFormat(props.created, 'longDate')}</DateText>
-        </div>
-        <div>
-          <CardTitle>{props.title}</CardTitle>
-        </div>
-        <div>
-          <Paragraph ellipsis={{ rows: 3 }}>{props.description}</Paragraph>
-        </div>
-      </>
-    );
-  })();
-
-  return props.imageSrc ? (
+  const cardContent: JSX.Element = (
+    <>
+      <div>
+        <DateText strong>{dateFormat(created, 'longDate')}</DateText>
+      </div>
+      <div>
+        <CardTitle>{title}</CardTitle>
+      </div>
+      <div>
+        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+      </div>
+    </>
+  );
+  return imageSrc ? (
     <>
       <AnnouncementCardCover
-        cover={
-          <img className="cardImg" alt="Announcement" src={props.imageSrc} />
-        }
+        cover={<img className="cardImg" alt="Announcement" src={imageSrc} />}
         onClick={() => setIsModalVisible((prevState) => !prevState)}
       >
-        {getCardContent}
+        {cardContent}
       </AnnouncementCardCover>
 
       <AnnouncementModal
-        imageSrc={props.imageSrc}
-        title={props.title}
-        created={props.created}
-        description={props.description}
+        imageSrc={imageSrc}
+        title={title}
+        created={created}
+        description={description}
         isVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />
@@ -75,13 +80,13 @@ export const AnnouncementCard: React.FC<Announcement> = (props) => {
       <AnnouncementCardNoCover
         onClick={() => setIsModalVisible((prevState) => !prevState)}
       >
-        {getCardContent}
+        {cardContent}
       </AnnouncementCardNoCover>
 
       <AnnouncementModal
-        title={props.title}
-        created={props.created}
-        description={props.description}
+        title={title}
+        created={created}
+        description={description}
         isVisible={isModalVisible}
         setIsModalVisible={setIsModalVisible}
       />

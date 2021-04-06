@@ -1,8 +1,9 @@
-import { Divider, Card, Typography } from 'antd';
+import { Card, Divider, Typography } from 'antd';
+import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
+import { DEFAULT_IMAGE } from '../utils/copy';
 import { LinkButton } from './LinkButton';
-import dateFormat from 'dateformat';
 
 const { Text, Paragraph } = Typography;
 const CardTitle = styled(Text)`
@@ -16,8 +17,7 @@ const CardDivider = styled(Divider)`
 
 const EventsCard = styled(Card)`
   height: fit-content;
-  min-width: 200px;
-  max-width: 400px;
+  width: 400px;
   img {
     height: 250px;
     object-fit: cover;
@@ -29,7 +29,7 @@ const DateText = styled(Text)`
 `;
 
 interface EventsCardProps {
-  src: string;
+  imageSrc?: string;
   title: string;
   date: Date;
   description: string;
@@ -37,14 +37,14 @@ interface EventsCardProps {
 }
 
 const EventsCardComponent: React.FC<EventsCardProps> = ({
-  src,
+  imageSrc,
   title,
   date,
   description,
   to,
 }) => {
   return (
-    <EventsCard cover={<img alt="example" src={src} />}>
+    <EventsCard cover={<img alt={title} src={imageSrc || DEFAULT_IMAGE} />}>
       <CardTitle>{title}</CardTitle>
       <br />
       <DateText strong>{dateFormat(date, 'longDate')}</DateText>

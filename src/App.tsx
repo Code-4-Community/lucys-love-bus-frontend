@@ -3,7 +3,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './containers/home';
-import Login from './containers/login';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
 import VerifyEmail from './containers/verifyEmail';
@@ -12,9 +11,11 @@ import styled from 'styled-components';
 import { PrivilegeLevel } from './auth/ducks/types';
 import NotFound from './containers/notFound/';
 import Settings from './containers/settings';
-import SignupFlow from './containers/signupFlow';
+import Signup from './containers/signup';
+import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
-import UpcomingEvents from './containers/upcoming-events/UpcomingEvents';
+import DeactivateAccount from './containers/deactivateAccount';
+import UpcomingEvents from './containers/upcoming-events';
 import Announcements from './containers/announcements';
 import { useSelector } from 'react-redux';
 import { C4CState } from './store';
@@ -28,8 +29,8 @@ const AppInnerContainer = styled(Layout)`
 
 export enum Routes {
   HOME = '/',
-  LOGIN = '/login',
   SIGNUP = '/signup',
+  SIGNUP_FORM = '/signup/form',
   SETTINGS = '/settings',
   FORGOT_PASSWORD_REQUEST = '/forgot-password',
   FORGOT_PASSWORD_RESET = '/forgot-password-reset/:key',
@@ -37,6 +38,7 @@ export enum Routes {
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
   ANNOUNCEMENTS = '/announcements',
+  DEACTIVATE_ACCOUNT = '/deactivate-account',
 }
 
 const App: React.FC = () => {
@@ -65,12 +67,6 @@ const App: React.FC = () => {
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
                       <Route
-                        path={Routes.SIGNUP}
-                        exact
-                        component={SignupFlow}
-                      />
-                      <Route path={Routes.LOGIN} exact component={Login} />
-                      <Route
                         path={Routes.UPCOMING_EVENTS}
                         exact
                         component={UpcomingEvents}
@@ -90,24 +86,35 @@ const App: React.FC = () => {
                         exact
                         component={Settings}
                       />
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
+                      />
+                      <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupFormContainer}
+                      />
                       <Route path="*" exact component={NotFound} />
                       <Route
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
                       />
+                      <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
                 case PrivilegeLevel.NONE:
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
+                      <Route path={Routes.SIGNUP} exact component={Signup} />
                       <Route
-                        path={Routes.SIGNUP}
+                        path={Routes.SIGNUP_FORM}
                         exact
-                        component={SignupFlow}
+                        component={SignupFormContainer}
                       />
-                      <Route path={Routes.LOGIN} exact component={Login} />
                       <Route
                         path={Routes.UPCOMING_EVENTS}
                         exact
@@ -122,6 +129,11 @@ const App: React.FC = () => {
                         path={Routes.ANNOUNCEMENTS}
                         exact
                         component={Announcements}
+                      />
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
                       />
                       <Route
                         path={Routes.FORGOT_PASSWORD_REQUEST}
