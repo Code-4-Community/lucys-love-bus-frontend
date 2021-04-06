@@ -15,7 +15,7 @@ export const initialEventsState: EventsReducerState = {
 
 const upcomingEventsReducer = generateAsyncRequestReducer<
   EventsReducerState,
-    EventInformation[],
+  EventInformation[],
   void
 >(upcomingEvents.key);
 
