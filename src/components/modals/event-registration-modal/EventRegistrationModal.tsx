@@ -98,7 +98,9 @@ const EventRegistrationModal: React.FC<
         }}
         width={'625px'}
       >
-        {error !== undefined && <Alert type="error" message={error.message}></Alert>}
+        {error !== undefined && (
+          <Alert type="error" message={error.message}></Alert>
+        )}
         <ContentDiv>
           {privilegeLevel === PrivilegeLevel.NONE ? (
             <BoldCenterText>
