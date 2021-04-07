@@ -44,6 +44,10 @@ const BoldCenterText = styled(Text)`
   font-weight: 600;
 `;
 
+const AlertWithMargin = styled(Alert)`
+  margin-bottom: 20px;
+`;
+
 const EventRegistrationModal: React.FC<
   EventRegistrationModalProps & StateProps
 > = ({
@@ -53,21 +57,22 @@ const EventRegistrationModal: React.FC<
   eventId,
   eventTitle,
 }) => {
-  const [quantity, setQuantity] = React.useState<number>(0);
-  const [error, setError] = React.useState<Error | undefined>(undefined);
+  const [quantity, setQuantity] = React.useState<number>(1);
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
+    undefined,
+  );
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
 
   const updateQuantity = (newValue: string | number | undefined) => {
     if (typeof newValue === 'number') {
       setQuantity(newValue);
     } else {
-      setQuantity(0);
+      setQuantity(1);
     }
   };
 
   const handleOk = async () => {
     try {
-      console.log('before');
       await protectedApiClient.registerTickets({
         lineItemRequests: [
           {
@@ -76,13 +81,10 @@ const EventRegistrationModal: React.FC<
           },
         ],
       });
-      console.log('after');
       onCloseEventRegistrationModal();
-      setError(undefined);
+      setErrorMessage(undefined);
     } catch (e) {
-      // tslint:disable-next-line:no-console
-      console.log('CATCHED');
-      setError(e);
+      setErrorMessage(e.response.data);
     }
   };
   return (
@@ -98,8 +100,8 @@ const EventRegistrationModal: React.FC<
         }}
         width={'625px'}
       >
-        {error !== undefined && (
-          <Alert type="error" message={error.message}></Alert>
+        {errorMessage !== undefined && (
+          <AlertWithMargin type="error" message={errorMessage} />
         )}
         <ContentDiv>
           {privilegeLevel === PrivilegeLevel.NONE ? (
@@ -111,7 +113,7 @@ const EventRegistrationModal: React.FC<
               <LeftAlignedText>Number of Tickets</LeftAlignedText>
               <TicketInputNumber
                 size="large"
-                min={0}
+                min={1}
                 precision={0}
                 value={quantity}
                 placeholder="Number of Tickets"

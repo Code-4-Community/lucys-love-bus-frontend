@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
-import { PrivilegeLevel } from '../../auth/ducks/types';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
+import { DEFAULT_IMAGE } from '../../utils/copy';
 const { Title } = Typography;
 
 const TopRow = styled(Row)`
@@ -70,9 +70,6 @@ const EventListing: React.FC<EventProps> = ({
     setDisplayEventRegistrationModal,
   ] = useState<boolean>(false);
 
-  const defaultImg =
-    'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
-
   const { description, location, start, end } = details;
 
   const computeDateString = (startDate: Date) => {
@@ -97,7 +94,7 @@ const EventListing: React.FC<EventProps> = ({
       <TopRow>
         <CardContent>
           <Col span={14}>
-            <Thumbnail src={thumbnail || defaultImg}></Thumbnail>
+            <Thumbnail src={thumbnail || DEFAULT_IMAGE}></Thumbnail>
           </Col>
           <Col span={10}>
             <Info>

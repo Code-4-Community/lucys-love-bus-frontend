@@ -1,8 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
 import { AxiosResponse } from 'axios';
-export interface ApiExtraArgs {
-  readonly protectedApiClient: ProtectedApiClient;
-}
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 
