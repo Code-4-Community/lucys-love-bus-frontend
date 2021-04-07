@@ -136,7 +136,6 @@ const store: Store<C4CState, C4CAction> = createStore<
   {}
 >(reducers, preloadedState || initialStoreState, enhancer);
 
-/*
 store.subscribe(
   throttle(() => {
     const state: C4CState = store.getState();
@@ -148,6 +147,5 @@ store.subscribe(
     }
   }, 10000),
 );
-*/
 
 export default store;

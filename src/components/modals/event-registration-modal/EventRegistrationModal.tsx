@@ -61,6 +61,7 @@ const EventRegistrationModal: React.FC<
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
     undefined,
   );
+  const [loading, setLoading] = React.useState<boolean>(false);
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
 
   const updateQuantity = (newValue: string | number | undefined) => {
@@ -73,6 +74,7 @@ const EventRegistrationModal: React.FC<
 
   const handleOk = async () => {
     try {
+      setLoading(true);
       await protectedApiClient.registerTickets({
         lineItemRequests: [
           {
@@ -83,8 +85,10 @@ const EventRegistrationModal: React.FC<
       });
       onCloseEventRegistrationModal();
       setErrorMessage(undefined);
+      setLoading(false);
     } catch (e) {
       setErrorMessage(e.response.data);
+      setLoading(false);
     }
   };
   return (
@@ -92,7 +96,9 @@ const EventRegistrationModal: React.FC<
       <StyledModal
         visible={showEventRegistrationModal}
         title={eventTitle}
-        okButtonProps={{ disabled: privilegeLevel === PrivilegeLevel.NONE }}
+        okButtonProps={{
+          disabled: loading || privilegeLevel === PrivilegeLevel.NONE,
+        }}
         onOk={handleOk}
         okText={'Register'}
         onCancel={() => {
