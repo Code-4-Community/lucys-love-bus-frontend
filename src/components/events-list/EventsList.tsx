@@ -19,7 +19,7 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
   return (
     <div className="cards">
       {events.map((event, i) => (
-        <EventListing admin={isAdmin} {...event} key={i} />
+        <EventListing {...event} admin={isAdmin} key={i} />
       ))}
     </div>
   );
