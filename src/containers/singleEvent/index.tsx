@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import EventDetails from '../../components/event-details/EventDetails';
+import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
 import {
   AsyncRequest,
@@ -33,7 +34,7 @@ const AdminActionButtonList = styled.div`
   display: flex;
 `;
 
-const GreenButton = styled(Button)`
+const StyledButton = styled(LinkButton)`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -42,10 +43,14 @@ const GreenButton = styled(Button)`
   margin-bottom: 32px;
   margin-right: 16px;
   padding: 8px 16px;
+`;
+
+const GreenButton = styled(StyledButton)`
+  background-color: #2d870d;
   color: #ffffff;
 `;
 
-const RedButton = styled(GreenButton)`
+const RedButton = styled(StyledButton)`
   background-color: #ff4d4f;
   border-color: #ff4d4f;
 
@@ -53,9 +58,15 @@ const RedButton = styled(GreenButton)`
     border-color: #ff4d4f;
     color: #ff4d4f;
   }
+
+  &:focus {
+    background-color: white;
+    color: #ff4d4f;
+    border-color: #ff4d4f;
+  }
 `;
 
-const GrayButton = styled(GreenButton)`
+const GrayButton = styled(StyledButton)`
   background-color: white;
   color: #595959;
 
@@ -63,6 +74,12 @@ const GrayButton = styled(GreenButton)`
     border-color: #595959;
     color: white;
     background-color: #595959;
+  }
+
+  &:focus {
+    background-color: white;
+    color: #595959;
+    border-color: #595959;
   }
 `;
 
@@ -95,7 +112,21 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
-        return <EventDetails {...event[0]} />;
+        return (
+          <>
+            {privilegeLevel === PrivilegeLevel.ADMIN ? (
+              <AdminActionButtonList>
+                <GreenButton to={'/events/' + id}>Edit</GreenButton>
+                <GreenButton to={'/events/' + id}>
+                  Make Announcement
+                </GreenButton>
+                <RedButton to={'/events/' + id}>Delete Event</RedButton>
+                <GrayButton to={'/events/' + id}>View RSVP</GrayButton>
+              </AdminActionButtonList>
+            ) : null}
+            <EventDetails {...event[0]} />
+          </>
+        );
       } else {
         return <p>That event does not exist!</p>;
       }
@@ -120,14 +151,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
         />
       </Helmet>
       <ContentContainer>
-        {privilegeLevel === PrivilegeLevel.ADMIN ? (
-          <AdminActionButtonList>
-            <GreenButton>Edit</GreenButton>
-            <GreenButton>Make Announcement</GreenButton>
-            <RedButton>Delete Event</RedButton>
-            <GrayButton>View RSVP</GrayButton>
-          </AdminActionButtonList>
-        ) : null}
         {conditionalRenderEventDetails(events)}
       </ContentContainer>
     </>
