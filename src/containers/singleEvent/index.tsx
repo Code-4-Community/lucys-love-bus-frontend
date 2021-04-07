@@ -18,6 +18,8 @@ import {
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
 
+const BASE_EVENTS_ROUTE = '/events/';
+
 const ContentContainer = styled.div`
   padding: 24px;
   margin: auto;
@@ -40,8 +42,7 @@ const StyledButton = styled(LinkButton)`
   text-align: center;
   justify-content: center;
   background-color: #2d870d;
-  margin-bottom: 32px;
-  margin-right: 16px;
+  margin: 0 16px 32px 0;
   padding: 8px 16px;
 `;
 
@@ -114,16 +115,16 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
       if (event.length > 0) {
         return (
           <>
-            {privilegeLevel === PrivilegeLevel.ADMIN ? (
+            {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
-                <GreenButton to={'/events/' + id}>Edit</GreenButton>
-                <GreenButton to={'/events/' + id}>
+                <GreenButton to={BASE_EVENTS_ROUTE + id}>Edit</GreenButton>
+                <GreenButton to={BASE_EVENTS_ROUTE + id}>
                   Make Announcement
                 </GreenButton>
-                <RedButton to={'/events/' + id}>Delete Event</RedButton>
-                <GrayButton to={'/events/' + id}>View RSVP</GrayButton>
+                <RedButton to={BASE_EVENTS_ROUTE + id}>Delete Event</RedButton>
+                <GrayButton to={BASE_EVENTS_ROUTE + id}>View RSVP</GrayButton>
               </AdminActionButtonList>
-            ) : null}
+            )}
             <EventDetails {...event[0]} />
           </>
         );
