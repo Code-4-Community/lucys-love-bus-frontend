@@ -60,6 +60,7 @@ const makePFRequest = (): Promise<void> => {
 
 const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
+}
 
 const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   eventId: number,
