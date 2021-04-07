@@ -3,7 +3,6 @@ import { default as React, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Routes } from '../../App';
 import AnnouncementsList from '../../components/announcementsList';
 import EventCard from '../../components/EventCard';
 import { LinkButton } from '../../components/LinkButton';
@@ -139,7 +138,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
                   title={event.title}
                   date={event.details.start}
                   description={event.details.description}
-                  to={`${Routes.EVENT}/${event.id}`}
+                  to={`/events/${event.id}`}
                 />
               </Col>
             ))}
