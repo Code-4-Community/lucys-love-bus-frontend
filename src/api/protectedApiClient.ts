@@ -43,7 +43,7 @@ const changePassword = (request: {
 
 const getMyEvents = (): Promise<EventInformation[]> => {
   return AppAxiosInstance.get(ProtectedApiClientRoutes.MY_EVENTS).then(
-    (r) => r.data?.events,
+    (res) => res.data.events,
   );
 };
 const deactivateAccount = (): Promise<void> => {
