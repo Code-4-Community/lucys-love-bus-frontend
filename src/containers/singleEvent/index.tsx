@@ -1,4 +1,4 @@
-import { Button, Spin } from 'antd';
+import { Spin } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
