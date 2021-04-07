@@ -14,12 +14,13 @@ const EventsList: React.FC<EventsListProps> = ({ events }) => {
   const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
+  const isAdmin = privilegeLevel === PrivilegeLevel.ADMIN;
 
   return (
     <div className="cards">
       {events.map((event, i) => (
         <EventListing
-          admin={privilegeLevel === PrivilegeLevel.ADMIN}
+          admin={isAdmin}
           {...event}
           key={i}
         />
