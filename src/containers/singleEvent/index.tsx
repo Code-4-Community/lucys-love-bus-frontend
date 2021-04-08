@@ -122,8 +122,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
-  const id = Number(useParams<SingleEventParams>().id);
-
   const conditionalRenderEventDetails = () => {
     if (
       asyncRequestIsComplete(events) &&
@@ -133,10 +131,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
       if (event.length > 0) {
         return (
-          <EventDetails
-            {...event[0]}
-            announcements={eventAnnouncements.result}
-          />
           <>
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
@@ -148,7 +142,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                 <GrayButton to={BASE_EVENTS_ROUTE + id}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}
-            <EventDetails {...event[0]} />
+            <EventDetails
+              {...event[0]}
+              announcements={eventAnnouncements.result}
+            />
           </>
         );
       } else {

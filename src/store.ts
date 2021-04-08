@@ -71,7 +71,7 @@ export type C4CAction =
   | EventsActions
   | AnnouncementsActions
   | PersonalRequestsActions
-  | EventAnnouncementsActions;
+  | EventAnnouncementsActions
   | EventRegistrationsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &

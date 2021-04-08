@@ -71,7 +71,7 @@ const getEventAnnouncements = (
   )
     .then((res) => res.data.announcements)
     .catch((err) => err);
-}
+};
 
 const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
