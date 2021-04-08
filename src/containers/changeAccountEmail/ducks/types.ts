@@ -1,4 +1,4 @@
 export interface ChangeEmailRequest {
-    newEmail: string;
-    password: string;
+  newEmail: string;
+  password: string;
 }

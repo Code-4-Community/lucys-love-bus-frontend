@@ -7,6 +7,16 @@ import { Link as RouterLink } from 'react-router-dom';
 import ProtectedApiClient from '../../api/protectedApiClient';
 import styled from 'styled-components';
 import { ChangeEmailRequest } from './ducks/types';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
 
 const { Title, Link } = Typography;
 
@@ -15,20 +25,17 @@ const UpdateButton = styled(Button)`
 `;
 
 const ChangeAccountEmail: React.FC = () => {
-  const [loading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const [emailChanged, setEmailChanged] = useState<boolean>(false);
+  const [changeEmail, setChangeEmail] = useState<AsyncRequest<void, any>>(
+    AsyncRequestNotStarted(),
+  );
 
   const onFinishChangeEmail = async (values: ChangeEmailRequest) => {
     try {
-      setError(false);
-      setIsLoading(true);
+      setChangeEmail(AsyncRequestLoading());
       await ProtectedApiClient.changeAccountEmail(values);
-      setEmailChanged(true);
+      setChangeEmail(AsyncRequestCompleted(undefined));
     } catch (err) {
-      setError(true);
-    } finally {
-      setIsLoading(false);
+      setChangeEmail(AsyncRequestFailed(err));
     }
   };
 
@@ -36,14 +43,11 @@ const ChangeAccountEmail: React.FC = () => {
     <>
       <Helmet>
         <title>Change Account Email</title>
-        <meta
-          name="description"
-          content="Change primary account email"
-        />
+        <meta name="description" content="Change primary account email" />
       </Helmet>
       <ContentContainer>
         <Title>Change Account Email</Title>
-        {!emailChanged ? (
+        {!asyncRequestIsComplete(changeEmail) ? (
           <Form name="basic" onFinish={onFinishChangeEmail}>
             <Form.Item
               label="New Email"
@@ -69,7 +73,7 @@ const ChangeAccountEmail: React.FC = () => {
             >
               <Input.Password />
             </Form.Item>
-            {error && (
+            {asyncRequestIsFailed(changeEmail) && (
               <Alert
                 message="Error"
                 description={
@@ -80,7 +84,11 @@ const ChangeAccountEmail: React.FC = () => {
               />
             )}
             <Form.Item>
-              <UpdateButton type="primary" htmlType="submit" disabled={loading}>
+              <UpdateButton
+                type="primary"
+                htmlType="submit"
+                disabled={asyncRequestIsLoading(changeEmail)}
+              >
                 Update Email
               </UpdateButton>
             </Form.Item>
