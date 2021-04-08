@@ -3,7 +3,6 @@ import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
 import { LIGHT_GREY, LINK, ORANGE } from '../../utils/colors';
-import { DEFAULT_IMAGE } from '../../utils/copy';
 import {
   NO_ANNOUNCEMENTS_HEADER,
   NO_ANNOUNCEMENTS_SUBHEADER,
@@ -110,13 +109,7 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
         <>
           <AnnouncementsListWrapper>
             {currentAnnouncements.map((announcement, i) => {
-              return (
-                <AnnouncementCard
-                  {...announcement}
-                  imageSrc={announcement.imageSrc || DEFAULT_IMAGE}
-                  key={i}
-                />
-              );
+              return <AnnouncementCard {...announcement} key={i} />;
             })}
           </AnnouncementsListWrapper>
 

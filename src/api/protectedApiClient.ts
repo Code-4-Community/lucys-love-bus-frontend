@@ -63,7 +63,7 @@ const getEventAnnouncements = (
   return AppAxiosInstance.get(
     `${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${eventId}`,
   )
-    .then((res) => res.data?.announcements)
+    .then((res) => res.data.announcements)
     .catch((err) => err);
 };
 

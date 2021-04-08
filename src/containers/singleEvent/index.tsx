@@ -7,15 +7,14 @@ import styled from 'styled-components';
 import EventDetails from '../../components/event-details/EventDetails';
 import { C4CState } from '../../store';
 import {
-  AsyncRequest,
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
-import { AnnouncementsReducerState } from '../announcements/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { getEventAnnouncements } from './ducks/thunks';
-import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
+import { EventsReducerState } from '../upcoming-events/ducks/types';
+import { EventAnnouncementsReducerState } from './ducks/types';
 
 const ContentContainer = styled.div`
   padding: 24px;
@@ -31,7 +30,7 @@ const CenteredContainer = styled.div`
 
 interface SingleEventProps {
   readonly events: EventsReducerState['upcomingEvents'];
-  readonly eventAnnouncements: AnnouncementsReducerState['announcements'];
+  readonly eventAnnouncements: EventAnnouncementsReducerState['eventAnnouncements'];
 }
 
 interface SingleEventParams {
@@ -42,8 +41,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   events,
   eventAnnouncements,
 }) => {
-  const eventsDispatch = useDispatch();
-  const announcementsDispatch = useDispatch();
+  const dispatch = useDispatch();
   const id = Number(useParams<SingleEventParams>().id);
 
   useEffect(() => {
@@ -53,24 +51,22 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       asyncRequestIsNotStarted(eventAnnouncements) ||
       asyncRequestIsFailed(eventAnnouncements)
     ) {
-      eventsDispatch(getUpcomingEvents());
-      announcementsDispatch(getEventAnnouncements(id));
+      dispatch(getUpcomingEvents());
+      dispatch(getEventAnnouncements(id));
     }
-  }, [eventsDispatch, announcementsDispatch, events, eventAnnouncements, id]);
+  }, [dispatch, events, eventAnnouncements, id]);
 
   useEffect(() => {
-    eventsDispatch(getUpcomingEvents());
-    announcementsDispatch(getEventAnnouncements(id));
-  }, [eventsDispatch, announcementsDispatch, id]);
+    dispatch(getUpcomingEvents());
+    dispatch(getEventAnnouncements(id));
+  }, [dispatch, id]);
 
-  const conditionalRenderEventDetails = (
-    eventsList: AsyncRequest<EventProps[], any>,
-  ) => {
+  const conditionalRenderEventDetails = () => {
     if (
-      asyncRequestIsComplete(eventsList) &&
+      asyncRequestIsComplete(events) &&
       asyncRequestIsComplete(eventAnnouncements)
     ) {
-      const event = eventsList.result.filter((e) => e.id === id);
+      const event = events.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
         return (
@@ -82,7 +78,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       } else {
         return <p>That event does not exist!</p>;
       }
-    } else if (asyncRequestIsFailed(eventsList)) {
+    } else if (asyncRequestIsFailed(events)) {
       return <p>The request failed.</p>;
     } else {
       return (
@@ -102,9 +98,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
           content="An event hosted through Lucy's Love Bus Programs."
         />
       </Helmet>
-      <ContentContainer>
-        {conditionalRenderEventDetails(events)}
-      </ContentContainer>
+      <ContentContainer>{conditionalRenderEventDetails()}</ContentContainer>
     </>
   );
 };

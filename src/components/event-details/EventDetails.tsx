@@ -3,6 +3,7 @@ import dateFormat from 'dateformat';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
@@ -57,7 +58,11 @@ const AnnouncementBox = styled.div`
   min-height: 80px;
 `;
 
-const EventListing: React.FC<EventProps> = ({
+export interface EventListingProps extends EventProps {
+  announcements?: EventAnnouncement[];
+}
+
+const EventListing: React.FC<EventListingProps> = ({
   thumbnail,
   title,
   details,
@@ -108,22 +113,26 @@ const EventListing: React.FC<EventProps> = ({
           <GreenButton>Register</GreenButton>
         </Col>
         <Col span={10}>
-          <Title level={5}>Updates for this Event</Title>
-          <AnnouncementBox>
-            {announcements.length > 0
-              ? announcements.map((announcement, i) => {
-                  return (
-                    <AnnouncementCard
-                      key={i}
-                      imageSrc={announcement.imageSrc || DEFAULT_IMAGE}
-                      title={announcement.title}
-                      created={announcement.created}
-                      description={announcement.description}
-                    />
-                  );
-                })
-              : 'There are no announcements for this event'}
-          </AnnouncementBox>
+          {announcements && (
+            <>
+              <Title level={5}>Updates for this Event</Title>
+              <AnnouncementBox>
+                {announcements.length > 0
+                  ? announcements.map((announcement, i) => {
+                      return (
+                        <AnnouncementCard
+                          key={i}
+                          imageSrc={announcement.imageSrc}
+                          title={announcement.title}
+                          created={announcement.created}
+                          description={announcement.description}
+                        />
+                      );
+                    })
+                  : 'There are no announcements for this event'}
+              </AnnouncementBox>
+            </>
+          )}
         </Col>
       </BottomRow>
     </>

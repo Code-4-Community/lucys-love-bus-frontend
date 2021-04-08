@@ -3,6 +3,7 @@ import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../containers/announcements/ducks/types';
+import { DEFAULT_IMAGE } from '../utils/copy';
 import { AnnouncementModal } from './AnnouncementModal';
 
 const { Text, Paragraph } = Typography;
@@ -12,9 +13,9 @@ const CardTitle = styled(Text)`
   font-weight: 800;
 `;
 
-const AnnouncementCardNoCover = styled(Card)`
+const AnnouncementCardCover = styled(Card)`
   cursor: pointer;
-  height: 100%;
+  height: fit-content;
   min-width: 200px;
   max-width: 400px;
   margin: 16px 16px;
@@ -23,10 +24,7 @@ const AnnouncementCardNoCover = styled(Card)`
   @media screen and (min-width: 800px) {
     min-width: 400px;
   }
-`;
 
-const AnnouncementCardCover = styled(AnnouncementCardNoCover)`
-  height: fit-content;
   .cardImg {
     height: 250px;
     object-fit: cover;
@@ -57,10 +55,16 @@ export const AnnouncementCard: React.FC<Announcement> = ({
       </div>
     </>
   );
-  return imageSrc ? (
+  return (
     <>
       <AnnouncementCardCover
-        cover={<img className="cardImg" alt="Announcement" src={imageSrc} />}
+        cover={
+          <img
+            className="cardImg"
+            alt="Announcement"
+            src={imageSrc || DEFAULT_IMAGE}
+          />
+        }
         onClick={() => setIsModalVisible((prevState) => !prevState)}
       >
         {cardContent}
@@ -68,22 +72,6 @@ export const AnnouncementCard: React.FC<Announcement> = ({
 
       <AnnouncementModal
         imageSrc={imageSrc}
-        title={title}
-        created={created}
-        description={description}
-        isVisible={isModalVisible}
-        setIsModalVisible={setIsModalVisible}
-      />
-    </>
-  ) : (
-    <>
-      <AnnouncementCardNoCover
-        onClick={() => setIsModalVisible((prevState) => !prevState)}
-      >
-        {cardContent}
-      </AnnouncementCardNoCover>
-
-      <AnnouncementModal
         title={title}
         created={created}
         description={description}
