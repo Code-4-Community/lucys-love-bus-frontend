@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 
@@ -14,6 +15,7 @@ export interface ProtectedApiClient {
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
+  readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
 }
 
@@ -22,6 +24,7 @@ export enum ProtectedApiClientRoutes {
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
+  CHANGE_EMAIL = '/api/v1/protected/user/change_email',
   EVENTS = 'api/v1/protected/events',
 }
 
@@ -55,6 +58,10 @@ const makePFRequest = (): Promise<void> => {
     .catch((err) => err);
 };
 
+const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
+};
+
 const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   eventId: number,
 ) => {
@@ -68,6 +75,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getRequestStatuses,
   makePFRequest,
   deactivateAccount,
+  changeAccountEmail,
   getEventRegistrations,
 });
 

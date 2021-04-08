@@ -19,12 +19,12 @@ export interface AuthClient {
 }
 
 export enum API_ROUTE {
-  LOGIN = '/api/v1/user/login/',
-  SIGNUP = '/api/v1/user/signup/',
-  REFRESH = '/api/v1/user/login/refresh/',
+  LOGIN = '/api/v1/user/login',
+  SIGNUP = '/api/v1/user/signup',
+  REFRESH = '/api/v1/user/login/refresh',
   FORGOT_PASSWORD = '/api/v1/user/forgot_password/request',
   FORGOT_PASSWORD_RESET = '/api/v1/user/forgot_password/reset',
-  VERIFY_EMAIL = '/api/v1/user/verify/',
+  VERIFY_EMAIL = '/api/v1/user/verify',
 }
 
 const AuthAxiosInstance: AxiosInstance = axios.create({
