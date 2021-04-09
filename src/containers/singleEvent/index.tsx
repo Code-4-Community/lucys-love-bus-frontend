@@ -14,6 +14,8 @@ import {
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 
 const ContentContainer = styled.div`
   padding: 24px;
@@ -28,6 +30,7 @@ const CenteredContainer = styled.div`
 `;
 
 interface SingleEventProps {
+  readonly tokens: UserAuthenticationReducerState['tokens'];
   readonly events: EventsReducerState['upcomingEvents'];
 }
 
@@ -35,7 +38,7 @@ interface SingleEventParams {
   id: string;
 }
 
-const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
+const SingleEvent: React.FC<SingleEventProps> = ({ tokens, events }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (asyncRequestIsNotStarted(events) || asyncRequestIsFailed(events)) {
@@ -52,7 +55,12 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
       const event = eventsList.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
-        return <EventDetails {...event[0]} />;
+        return (
+          <EventDetails
+            {...event[0]}
+            privilegeLevel={getPrivilegeLevel(tokens)}
+          />
+        );
       } else {
         return <p>That event does not exist!</p>;
       }
@@ -85,6 +93,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
 
 const mapStateToProps = (state: C4CState): SingleEventProps => {
   return {
+    tokens: state.authenticationState.tokens,
     events: state.eventsState.upcomingEvents,
   };
 };

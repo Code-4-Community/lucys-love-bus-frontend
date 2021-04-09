@@ -6,7 +6,21 @@ import styled from 'styled-components';
 import { EventProps } from '../../containers/upcoming-events/ducks/types';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 import { DEFAULT_IMAGE } from '../../utils/copy';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 const { Title } = Typography;
+
+interface EventDetailsProps {
+  id: number;
+  title: string;
+  thumbnail?: string;
+  details: {
+    description: string;
+    location: string;
+    start: Date;
+    end: Date;
+  };
+  privilegeLevel: PrivilegeLevel;
+}
 
 const TopRow = styled(Row)`
   margin-bottom: 12px;
@@ -59,11 +73,12 @@ const AnnouncementBox = styled.div`
   min-height: 80px;
 `;
 
-const EventListing: React.FC<EventProps> = ({
+const EventDetails: React.FC<EventDetailsProps> = ({
   thumbnail,
   id,
   title,
   details,
+  privilegeLevel,
 }) => {
   const [
     displayEventRegistrationModal,
@@ -136,6 +151,7 @@ const EventListing: React.FC<EventProps> = ({
       <EventRegistrationModal
         eventId={id}
         eventTitle={title}
+        privilegeLevel={privilegeLevel}
         showEventRegistrationModal={displayEventRegistrationModal}
         onCloseEventRegistrationModal={() => {
           setDisplayEventRegistrationModal(false);
@@ -145,4 +161,4 @@ const EventListing: React.FC<EventProps> = ({
   );
 };
 
-export default EventListing;
+export default EventDetails;

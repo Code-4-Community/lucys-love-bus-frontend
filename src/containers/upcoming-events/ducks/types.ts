@@ -3,6 +3,7 @@ import { C4CState } from '../../../store';
 import { ThunkAction } from 'redux-thunk';
 import { EventsActions } from './actions';
 import { PublicApiExtraArgs } from '../../../api/publicApiClient';
+import { PrivilegeLevel } from '../../../auth/ducks/types';
 
 export interface EventsReducerState {
   readonly upcomingEvents: AsyncRequest<EventProps[], any>;

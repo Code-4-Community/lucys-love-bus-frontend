@@ -1,7 +1,15 @@
 import React from 'react';
 import { InputNumber, Modal, Typography, Alert } from 'antd';
 import styled from 'styled-components';
-import { AsyncRequest } from '../../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../../utils/asyncRequest';
 import { PrivilegeLevel, TokenPayload } from '../../../auth/ducks/types';
 import { C4CState } from '../../../store';
 import { connect } from 'react-redux';
@@ -13,15 +21,15 @@ const { Text } = Typography;
 interface EventRegistrationModalProps {
   eventId: number;
   eventTitle: string;
+  privilegeLevel: PrivilegeLevel;
   showEventRegistrationModal: boolean;
   onCloseEventRegistrationModal: () => void;
 }
-interface StateProps {
-  tokens: AsyncRequest<TokenPayload, any>;
-}
+
 const StyledModal = styled(Modal)`
   horiz-align: center;
 `;
+
 const ContentDiv = styled.div`
   display: block;
   margin: auto;
@@ -30,15 +38,18 @@ const ContentDiv = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
+
 const TicketInputNumber = styled(InputNumber)`
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
 `;
+
 const LeftAlignedText = styled(Text)`
   display: block;
   text-align: left;
 `;
+
 const BoldCenterText = styled(Text)`
   font-size: 16px;
   font-weight: 600;
@@ -48,21 +59,17 @@ const AlertWithMargin = styled(Alert)`
   margin-bottom: 20px;
 `;
 
-const EventRegistrationModal: React.FC<
-  EventRegistrationModalProps & StateProps
-> = ({
-  tokens,
-  onCloseEventRegistrationModal,
-  showEventRegistrationModal,
+const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
   eventId,
   eventTitle,
+  privilegeLevel,
+  onCloseEventRegistrationModal,
+  showEventRegistrationModal,
 }) => {
   const [quantity, setQuantity] = React.useState<number>(1);
-  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
-    undefined,
-  );
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
+  const [registrationRequest, setRegistrationRequest] = React.useState<
+    AsyncRequest<void, any>
+  >(AsyncRequestNotStarted());
 
   const updateQuantity = (newValue: string | number | undefined) => {
     if (typeof newValue === 'number') {
@@ -74,8 +81,8 @@ const EventRegistrationModal: React.FC<
 
   const handleOk = async () => {
     try {
-      setLoading(true);
-      await protectedApiClient.registerTickets({
+      setRegistrationRequest(AsyncRequestLoading());
+      const result: void = await protectedApiClient.registerTickets({
         lineItemRequests: [
           {
             eventId,
@@ -84,11 +91,9 @@ const EventRegistrationModal: React.FC<
         ],
       });
       onCloseEventRegistrationModal();
-      setErrorMessage(undefined);
-      setLoading(false);
+      setRegistrationRequest(AsyncRequestCompleted(result));
     } catch (e) {
-      setErrorMessage(e.response.data);
-      setLoading(false);
+      setRegistrationRequest(AsyncRequestFailed(e));
     }
   };
   return (
@@ -97,17 +102,22 @@ const EventRegistrationModal: React.FC<
         visible={showEventRegistrationModal}
         title={eventTitle}
         okButtonProps={{
-          disabled: loading || privilegeLevel === PrivilegeLevel.NONE,
+          disabled:
+            asyncRequestIsLoading(registrationRequest) ||
+            privilegeLevel === PrivilegeLevel.NONE,
         }}
         onOk={handleOk}
         okText={'Register'}
         onCancel={() => {
           onCloseEventRegistrationModal();
         }}
-        width={'625px'}
+        width="625px"
       >
-        {errorMessage !== undefined && (
-          <AlertWithMargin type="error" message={errorMessage} />
+        {asyncRequestIsFailed(registrationRequest) && (
+          <AlertWithMargin
+            type="error"
+            message={registrationRequest.error.response.data}
+          />
         )}
         <ContentDiv>
           {privilegeLevel === PrivilegeLevel.NONE ? (
@@ -133,10 +143,4 @@ const EventRegistrationModal: React.FC<
   );
 };
 
-const mapStateToProps = (state: C4CState): StateProps => {
-  return {
-    tokens: state.authenticationState.tokens,
-  };
-};
-
-export default connect(mapStateToProps)(EventRegistrationModal);
+export default EventRegistrationModal;
