@@ -55,7 +55,12 @@ const Info = styled.div`
 `;
 
 const AnnouncementBox = styled.div`
-  min-height: 80px;
+  padding: 15px;
+`;
+
+const AnnouncementNoContent = styled(AnnouncementBox)`
+  border: 1px solid black;
+  text-align: center;
 `;
 
 export interface EventListingProps extends EventProps {
@@ -115,22 +120,29 @@ const EventListing: React.FC<EventListingProps> = ({
         <Col span={10}>
           {announcements && (
             <>
-              <Title level={5}>Updates for this Event</Title>
-              <AnnouncementBox>
-                {announcements.length > 0
-                  ? announcements.map((announcement, i) => {
-                      return (
-                        <AnnouncementCard
-                          key={i}
-                          imageSrc={announcement.imageSrc}
-                          title={announcement.title}
-                          created={announcement.created}
-                          description={announcement.description}
-                        />
-                      );
-                    })
-                  : 'There are no announcements for this event'}
-              </AnnouncementBox>
+              {announcements.length ? (
+                <AnnouncementBox>
+                  <Title level={5}>Updates for this Event</Title>
+                  {announcements.map((announcement, i) => {
+                    return (
+                      <AnnouncementCard
+                        key={i}
+                        imageSrc={announcement.imageSrc}
+                        title={announcement.title}
+                        created={announcement.created}
+                        description={announcement.description}
+                      />
+                    );
+                  })}
+                </AnnouncementBox>
+              ) : (
+                <>
+                  <Title level={5}>Updates for this Event</Title>
+                  <AnnouncementNoContent>
+                    There are no announcements for this event
+                  </AnnouncementNoContent>
+                </>
+              )}
             </>
           )}
         </Col>

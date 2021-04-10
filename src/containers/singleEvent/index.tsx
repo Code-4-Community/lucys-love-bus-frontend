@@ -12,7 +12,6 @@ import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
-  asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { getEventAnnouncements } from './ducks/thunks';
