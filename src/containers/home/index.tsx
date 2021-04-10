@@ -122,7 +122,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
           <UpcomingEventsTitle>Upcoming Events</UpcomingEventsTitle>
           <ViewMoreButton to="upcoming-events">View All Events</ViewMoreButton>
         </Row>
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[24, 24]}>
           {asyncRequestIsFailed(events) && (
             <p>The events could not be retrieved.</p>
           )}
