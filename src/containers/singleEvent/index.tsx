@@ -102,18 +102,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   const id = Number(useParams<SingleEventParams>().id);
 
   useEffect(() => {
-    if (
-      asyncRequestIsNotStarted(events) ||
-      asyncRequestIsFailed(events) ||
-      asyncRequestIsNotStarted(eventAnnouncements) ||
-      asyncRequestIsFailed(eventAnnouncements)
-    ) {
-      dispatch(getUpcomingEvents());
-      dispatch(getEventAnnouncements(id));
-    }
-  }, [dispatch, events, eventAnnouncements, id]);
-
-  useEffect(() => {
     dispatch(getUpcomingEvents());
     dispatch(getEventAnnouncements(id));
   }, [dispatch, id]);
