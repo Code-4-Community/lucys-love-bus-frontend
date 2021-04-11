@@ -19,14 +19,14 @@ export function convertToBase64String(file: File): Promise<string> {
   });
 }
 
-interface FileField {
+export interface FileField {
   file: File;
 }
 
 export const encodeProfileFieldFile = async (
   field: FileField,
-): Promise<string | null> => {
+): Promise<string | undefined> => {
   return field
-    ? await convertToBase64String(field.file).catch((e) => null)
-    : null;
+    ? await convertToBase64String(field.file).catch((e) => undefined)
+    : undefined;
 };

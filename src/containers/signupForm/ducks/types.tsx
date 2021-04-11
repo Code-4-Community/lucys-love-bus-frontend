@@ -7,7 +7,7 @@ export interface SignupData {
   address: string;
   city: string;
   state: string;
-  zip: string;
+  zipCode: string;
   allergies?: string;
   diagnosis?: string;
   medications?: string;
