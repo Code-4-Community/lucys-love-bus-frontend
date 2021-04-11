@@ -88,7 +88,6 @@ const RegistrationFormBody: React.FC<{
             message: 'Please input a valid phone number',
           },
         ]}
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
       >
         <Input placeholder="Phone Number" />
       </Form.Item>
@@ -102,7 +101,6 @@ const RegistrationFormBody: React.FC<{
             message: 'Please input your date of birth.',
           },
         ]}
-        style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
       >
         <DatePicker />
       </Form.Item>

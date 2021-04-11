@@ -166,7 +166,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please input a valid phone number',
             },
           ]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <Input placeholder="Phone Number" />
         </Form.Item>
@@ -180,7 +179,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please input your date of birth.',
             },
           ]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <DatePicker />
         </Form.Item>
@@ -190,7 +188,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item label="Referrer (if applicable)" name="referrer">
           <Select
             showSearch
-            style={{ width: 200 }}
             placeholder="None"
             optionFilterProp="children"
             filterOption={(input, option) =>
@@ -266,7 +263,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             No family member or attendee will visit The Sajni Center if they
@@ -287,7 +283,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             All parents are to remain at The Sajni Center during programs
@@ -305,7 +300,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             My children are up to date on all vaccinations and I will provide a
