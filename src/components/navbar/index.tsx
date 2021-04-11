@@ -93,7 +93,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   // Dropdown menu options for the logged in
   const userMenu = (
     <Menu>
-      <Menu.Item>Change Primary Account Email</Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.CHANGE_ACCOUNT_EMAIL);
+        }}
+      >
+        Change Primary Account Email
+      </Menu.Item>
       <Menu.Item>Account Details</Menu.Item>
       <Menu.Item>Change Password</Menu.Item>
       <Menu.Item

@@ -8,6 +8,7 @@ import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { PrivilegeLevel } from './auth/ducks/types';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
+import ChangeAccountEmail from './containers/changeAccountEmail';
 import DeactivateAccount from './containers/deactivateAccount';
 import EventRSVP from './containers/eventRSVP';
 import ForgotPassword from './containers/forgotPasswordRequest';
@@ -47,6 +48,7 @@ export enum Routes {
   DEACTIVATE_ACCOUNT = '/deactivate-account',
   SET_CONTACTS = '/set-contacts',
   SIGNUP_CONFIRMATION = '/signup/confirmation',
+  CHANGE_ACCOUNT_EMAIL = '/change-email',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
 }
 
@@ -176,6 +178,11 @@ const App: React.FC = () => {
                         path={Routes.PERSONAL_REQUESTS}
                         exact
                         component={PersonalRequests}
+                      />
+                      <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
