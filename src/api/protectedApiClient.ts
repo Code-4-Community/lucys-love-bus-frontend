@@ -20,9 +20,7 @@ export interface ProtectedApiClient {
     currentPassword: string;
     newPassword: string;
   }) => Promise<void>;
-
   readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
-
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;

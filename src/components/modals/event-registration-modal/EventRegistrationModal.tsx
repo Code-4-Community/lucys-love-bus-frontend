@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputNumber, Modal, Typography, Alert } from 'antd';
+import { Alert, InputNumber, Modal, Typography } from 'antd';
 import styled from 'styled-components';
 import {
   AsyncRequest,
@@ -10,11 +10,8 @@ import {
   AsyncRequestLoading,
   AsyncRequestNotStarted,
 } from '../../../utils/asyncRequest';
-import { PrivilegeLevel, TokenPayload } from '../../../auth/ducks/types';
-import { C4CState } from '../../../store';
-import { connect } from 'react-redux';
+import { PrivilegeLevel } from '../../../auth/ducks/types';
 import protectedApiClient from '../../../api/protectedApiClient';
-import { getPrivilegeLevel } from '../../../auth/ducks/selectors';
 
 const { Text } = Typography;
 
@@ -97,49 +94,47 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
     }
   };
   return (
-    <div>
-      <StyledModal
-        visible={showEventRegistrationModal}
-        title={eventTitle}
-        okButtonProps={{
-          disabled:
-            asyncRequestIsLoading(registrationRequest) ||
-            privilegeLevel === PrivilegeLevel.NONE,
-        }}
-        onOk={handleOk}
-        okText={'Register'}
-        onCancel={() => {
-          onCloseEventRegistrationModal();
-        }}
-        width="625px"
-      >
-        {asyncRequestIsFailed(registrationRequest) && (
-          <AlertWithMargin
-            type="error"
-            message={registrationRequest.error.response.data}
-          />
+    <StyledModal
+      visible={showEventRegistrationModal}
+      title={eventTitle}
+      okButtonProps={{
+        disabled:
+          asyncRequestIsLoading(registrationRequest) ||
+          privilegeLevel === PrivilegeLevel.NONE,
+      }}
+      onOk={handleOk}
+      okText={'Register'}
+      onCancel={() => {
+        onCloseEventRegistrationModal();
+      }}
+      width="625px"
+    >
+      {asyncRequestIsFailed(registrationRequest) && (
+        <AlertWithMargin
+          type="error"
+          message={registrationRequest.error.response.data}
+        />
+      )}
+      <ContentDiv>
+        {privilegeLevel === PrivilegeLevel.NONE ? (
+          <BoldCenterText>
+            Please log in to register for this event.
+          </BoldCenterText>
+        ) : (
+          <>
+            <LeftAlignedText>Number of Tickets</LeftAlignedText>
+            <TicketInputNumber
+              size="large"
+              min={1}
+              precision={0}
+              value={quantity}
+              placeholder="Number of Tickets"
+              onChange={updateQuantity}
+            />
+          </>
         )}
-        <ContentDiv>
-          {privilegeLevel === PrivilegeLevel.NONE ? (
-            <BoldCenterText>
-              Please log in to register for this event.
-            </BoldCenterText>
-          ) : (
-            <>
-              <LeftAlignedText>Number of Tickets</LeftAlignedText>
-              <TicketInputNumber
-                size="large"
-                min={1}
-                precision={0}
-                value={quantity}
-                placeholder="Number of Tickets"
-                onChange={updateQuantity}
-              />
-            </>
-          )}
-        </ContentDiv>
-      </StyledModal>
-    </div>
+      </ContentDiv>
+    </StyledModal>
   );
 };
 
