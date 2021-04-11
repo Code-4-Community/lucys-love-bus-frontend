@@ -3,7 +3,6 @@ import dateFormat from 'dateformat';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 import { PrivilegeLevel } from '../../auth/ducks/types';
