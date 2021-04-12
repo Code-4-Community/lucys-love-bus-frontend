@@ -1,26 +1,30 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './containers/home';
+import styled from 'styled-components';
+import { getPrivilegeLevel } from './auth/ducks/selectors';
+import { PrivilegeLevel } from './auth/ducks/types';
+import NavBar from './components/navbar';
+import Announcements from './containers/announcements';
+import ChangeAccountEmail from './containers/changeAccountEmail';
+import DeactivateAccount from './containers/deactivateAccount';
+import EventRSVP from './containers/eventRSVP';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
-import VerifyEmail from './containers/verifyEmail';
-import NavBar from './components/navbar';
-import styled from 'styled-components';
-import { PrivilegeLevel } from './auth/ducks/types';
+import Home from './containers/home';
 import NotFound from './containers/notFound/';
+import PersonalRequests from './containers/personalRequests';
+import SetContacts from './containers/setContacts';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
+import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
-import DeactivateAccount from './containers/deactivateAccount';
 import UpcomingEvents from './containers/upcoming-events';
-import Announcements from './containers/announcements';
-import PersonalRequests from './containers/personalRequests';
-import { useSelector } from 'react-redux';
+import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
-import { getPrivilegeLevel } from './auth/ducks/selectors';
 
 const { Content } = Layout;
 
@@ -42,6 +46,10 @@ export enum Routes {
   PERSONAL_REQUESTS = '/personal-requests',
   EDIT_FAMILY_INFO = '/edit-family-information',
   DEACTIVATE_ACCOUNT = '/deactivate-account',
+  SET_CONTACTS = '/set-contacts',
+  SIGNUP_CONFIRMATION = '/signup/confirmation',
+  CHANGE_ACCOUNT_EMAIL = '/change-email',
+  EVENT_REGISTRATIONS = '/events/:id/rsvp',
 }
 
 const App: React.FC = () => {
@@ -65,8 +73,6 @@ const App: React.FC = () => {
             {(() => {
               switch (privilegeLevel) {
                 case PrivilegeLevel.ADMIN:
-                case PrivilegeLevel.STANDARD:
-                case PrivilegeLevel.PF:
                   return (
                     <Switch>
                       <Route path={Routes.HOME} exact component={Home} />
@@ -109,6 +115,74 @@ const App: React.FC = () => {
                         path={Routes.PERSONAL_REQUESTS}
                         exact
                         component={PersonalRequests}
+                      />
+                      <Route
+                        path={Routes.EVENT_REGISTRATIONS}
+                        exact
+                        component={EventRSVP}
+                      />
+                      <Route path="*" exact component={NotFound} />
+                    </Switch>
+                  );
+                case PrivilegeLevel.STANDARD:
+                case PrivilegeLevel.PF:
+                  return (
+                    <Switch>
+                      <Route path={Routes.HOME} exact component={Home} />
+                      <Route
+                        path={Routes.UPCOMING_EVENTS}
+                        exact
+                        component={UpcomingEvents}
+                      />
+                      <Route
+                        path={Routes.EVENT}
+                        exact
+                        component={SingleEvent}
+                      />
+                      <Route
+                        path={Routes.ANNOUNCEMENTS}
+                        exact
+                        component={Announcements}
+                      />
+                      <Route
+                        path={Routes.SETTINGS}
+                        exact
+                        component={Settings}
+                      />
+                      <Route
+                        path={Routes.DEACTIVATE_ACCOUNT}
+                        exact
+                        component={DeactivateAccount}
+                      />
+                      <Route
+                        path={Routes.SIGNUP_FORM}
+                        exact
+                        component={SignupFormContainer}
+                      />
+                      <Route
+                        path={Routes.VERIFY_EMAIL}
+                        exact
+                        component={VerifyEmail}
+                      />
+                      <Route
+                        path={Routes.SET_CONTACTS}
+                        exact
+                        component={SetContacts}
+                      />
+                      <Route
+                        path={Routes.SIGNUP_CONFIRMATION}
+                        exact
+                        component={SignupConfirmation}
+                      />
+                      <Route
+                        path={Routes.PERSONAL_REQUESTS}
+                        exact
+                        component={PersonalRequests}
+                      />
+                      <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>

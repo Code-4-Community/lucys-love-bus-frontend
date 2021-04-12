@@ -20,8 +20,8 @@ const CenteredParagraph = styled(Paragraph)`
 
 interface ConfirmationMessageProps {
   title: string;
-  message: string;
-  details: string;
+  message: string | JSX.Element;
+  details: string | JSX.Element;
 }
 
 const ConfirmationMessage: React.FC<ConfirmationMessageProps> = ({
