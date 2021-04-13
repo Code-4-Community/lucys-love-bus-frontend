@@ -52,7 +52,7 @@ const FamilyDetails: React.FC = () => {
       </Helmet>
       <ChungusContentContainer>
         {asyncRequestIsComplete(contacts) && (
-          <ContactInfoSummary info={contacts.result} />
+          <ContactInfoSummary userId={id} info={contacts.result} />
         )}
         {asyncRequestIsLoading(contacts) && <Spin />}
         {asyncRequestIsFailed(contacts) && (

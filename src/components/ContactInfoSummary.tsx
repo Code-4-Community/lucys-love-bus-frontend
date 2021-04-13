@@ -7,6 +7,7 @@ import { DEFAULT_IMAGE } from '../utils/copy';
 const { Title, Text, Paragraph } = Typography;
 
 interface ContactInfoSummaryProps {
+  userId: number;
   info: ContactInfo;
 }
 
@@ -42,7 +43,7 @@ const SectionTitle = styled(Text)`
   margin-bottom: 16px;
 `;
 
-const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ info }) => {
+const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ userId, info }) => {
   return (
     <>
       <SectionTitle>Account Owner</SectionTitle>
@@ -51,7 +52,7 @@ const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ info }) => {
         <CopyContainer>
           <Row>
             <Col span={24}>
-              <Text>User ID: {1}</Text>
+              <Text>User ID: {userId}</Text>
               <NameTitle>
                 {info.mainContact.firstName} {info.mainContact.lastName}
               </NameTitle>
@@ -106,6 +107,11 @@ const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ info }) => {
         </CopyContainer>
       </ContactRow>
       <SectionTitle>Family Members</SectionTitle>
+
+      {info.additionalContacts.length === 0 && info.children.length === 0 && (
+        <NameTitle>No Additional Family Members</NameTitle>
+      )}
+
       {info.additionalContacts.map((contact, i) => (
         <ContactRow key={i}>
           <ProfilePicture src={contact.profilePicture || DEFAULT_IMAGE} />
