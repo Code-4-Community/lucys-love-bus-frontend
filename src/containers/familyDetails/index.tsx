@@ -38,7 +38,7 @@ const FamilyDetails: React.FC = () => {
           setContacts(AsyncRequestFailed(error));
         });
     }
-  }, [dispatch]);
+  }, [dispatch, contacts, id]);
 
   return (
     <>
