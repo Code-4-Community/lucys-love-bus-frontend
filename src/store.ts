@@ -8,6 +8,11 @@ import {
   Store,
 } from 'redux';
 import thunk from 'redux-thunk';
+import { MyEventsReducerState } from './containers/myEvents/ducks/types';
+import { MyEventsActions } from './containers/myEvents/ducks/actions';
+import myEventsReducer, {
+  initialMyEventsState,
+} from './containers/myEvents/ducks/reducers';
 import protectedApiClient, {
   ProtectedApiExtraArgs,
 } from './api/protectedApiClient';
@@ -53,6 +58,7 @@ import { asyncRequestIsComplete } from './utils/asyncRequest';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
+  myEventsState: MyEventsReducerState;
   eventsState: EventsReducerState;
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
@@ -69,6 +75,7 @@ export interface Action<T, P> {
 export type C4CAction =
   | UserAuthenticationActions
   | EventsActions
+  | MyEventsActions
   | AnnouncementsActions
   | ContactsActions
   | PersonalRequestsActions
@@ -81,6 +88,7 @@ export type ThunkExtraArgs = UserAuthenticationExtraArgs &
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
+  myEventsState: myEventsReducer,
   eventsState: eventsReducer,
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
@@ -92,6 +100,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
+  myEventsState: initialMyEventsState,
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,

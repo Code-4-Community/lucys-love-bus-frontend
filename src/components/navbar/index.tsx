@@ -89,6 +89,9 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
     'Upcoming Events': Routes.UPCOMING_EVENTS,
     Announcements: Routes.ANNOUNCEMENTS,
   };
+  const authLinks = {
+    'My Events': Routes.MY_EVENTS,
+  };
 
   // Dropdown menu options for the logged in
   const userMenu = (
@@ -198,6 +201,34 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                     )}
                   </Col>
                 ))}
+                {privilegeLevel !== PrivilegeLevel.NONE && (
+                  <>
+                    {Object.entries(authLinks).map(([link, path], i) => (
+                      <Col key={i}>
+                        {path === location.pathname ? (
+                          <ActiveNavBarButton
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </ActiveNavBarButton>
+                        ) : (
+                          <NavBarButton
+                            tab-index="0"
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </NavBarButton>
+                        )}
+                      </Col>
+                    ))}{' '}
+                  </>
+                )}
               </Row>
             </Col>
           </Row>

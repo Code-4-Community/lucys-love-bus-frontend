@@ -16,7 +16,10 @@ import {
   asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
-import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
+import {
+  EventInformation,
+  EventsReducerState,
+} from '../upcoming-events/ducks/types';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -107,7 +110,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
   const id = Number(useParams<SingleEventParams>().id);
 
   const conditionalRenderEventDetails = (
-    eventsList: AsyncRequest<EventProps[], any>,
+    eventsList: AsyncRequest<EventInformation[], any>,
   ) => {
     if (asyncRequestIsComplete(eventsList)) {
       const event = eventsList.result.filter((e) => e.id === id);

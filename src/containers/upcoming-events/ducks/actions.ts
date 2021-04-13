@@ -1,7 +1,7 @@
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import { EventProps } from './types';
+import { EventInformation } from './types';
 
-export const upcomingEvents = genericAsyncActions<EventProps[], any>();
+export const upcomingEvents = genericAsyncActions<EventInformation[], any>();
 
 export type EventsActions =
   | ReturnType<typeof upcomingEvents.loading>
