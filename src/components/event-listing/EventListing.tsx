@@ -78,13 +78,11 @@ const EventTag = styled(Tag)`
   margin: 1em;
 `;
 
-const EventListing: React.FC<EventInformation> = ({
-  
 const AdminButtonWrapper = styled.div`
   display: flex;
 `;
 
-interface EventListingProps extends EventProps {
+interface EventListingProps extends EventInformation {
   admin?: boolean;
 }
 

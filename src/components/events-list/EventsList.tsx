@@ -1,5 +1,5 @@
 import React from 'react';
-import EventListing from '../event-listing/EventListing';\
+import EventListing from '../event-listing/EventListing';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PrivilegeLevel } from '../../auth/ducks/types';
