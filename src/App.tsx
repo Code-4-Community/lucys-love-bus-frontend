@@ -191,11 +191,6 @@ const App: React.FC = () => {
                         exact
                         component={ChangeAccountEmail}
                       />
-                      <Route
-                        path={Routes.FAMILY_DETAILS}
-                        exact
-                        component={FamilyDetails}
-                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );

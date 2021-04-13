@@ -106,8 +106,8 @@ const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ info }) => {
         </CopyContainer>
       </ContactRow>
       <SectionTitle>Family Members</SectionTitle>
-      {info.additionalContacts.map((contact) => (
-        <ContactRow>
+      {info.additionalContacts.map((contact, i) => (
+        <ContactRow key={i}>
           <ProfilePicture src={contact.profilePicture || DEFAULT_IMAGE} />
           <CopyContainer>
             <Row>
@@ -163,8 +163,8 @@ const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ info }) => {
         </ContactRow>
       ))}
 
-      {info.children.map((child) => (
-        <ContactRow>
+      {info.children.map((child, i) => (
+        <ContactRow key={i}>
           <ProfilePicture src={child.profilePicture || DEFAULT_IMAGE} />
           <CopyContainer>
             <Row>

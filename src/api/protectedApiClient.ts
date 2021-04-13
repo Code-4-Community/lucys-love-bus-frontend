@@ -1,8 +1,8 @@
 import AppAxiosInstance from '../auth/axios';
-import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
+import { ContactInfo } from '../containers/setContacts/ducks/types';
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
@@ -17,6 +17,7 @@ export interface ProtectedApiClient {
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
   readonly getContactInfo: () => Promise<ContactInfo>;
+  readonly getContactInfoById: (id: number) => Promise<ContactInfo>;
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
@@ -56,6 +57,12 @@ const getContactInfo = (): Promise<ContactInfo> => {
   );
 };
 
+const getContactInfoById = (id: number): Promise<ContactInfo> => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.CONTACT_INFO}/${id}`,
+  ).then((res) => res.data);
+};
+
 const setContactInfo = (request: ContactInfo): Promise<void> => {
   return AppAxiosInstance.put(ProtectedApiClientRoutes.CONTACT_INFO, request);
 };
@@ -93,6 +100,7 @@ const Client: ProtectedApiClient = Object.freeze({
   setContactInfo,
   changeAccountEmail,
   getEventRegistrations,
+  getContactInfoById,
 });
 
 export default Client;

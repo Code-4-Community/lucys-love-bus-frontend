@@ -1,34 +1,67 @@
-import { Typography } from 'antd';
-import React, { useEffect } from 'react';
+import { Alert, Spin, Typography } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import protectedApiClient from '../../api/protectedApiClient';
 import { ChungusContentContainer } from '../../components';
 import ContactInfoSummary from '../../components/ContactInfoSummary';
-import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { getContactInfo } from '../setContacts/ducks/thunks';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+  asyncRequestIsNotStarted,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
+import { ContactInfo } from '../setContacts/ducks/types';
 const { Title } = Typography;
 
 const FamilyDetails: React.FC = () => {
   const dispatch = useDispatch();
+  const id = Number(useParams<{ id: string }>().id);
+  const [contacts, setContacts] = useState<AsyncRequest<ContactInfo, any>>(
+    AsyncRequestNotStarted(),
+  );
 
   useEffect(() => {
-    dispatch(getContactInfo());
+    if (asyncRequestIsNotStarted(contacts)) {
+      setContacts(AsyncRequestLoading());
+      protectedApiClient
+        .getContactInfoById(id)
+        .then((c) => {
+          setContacts(AsyncRequestCompleted(c));
+        })
+        .catch((error) => {
+          setContacts(AsyncRequestFailed(error));
+        });
+    }
   }, [dispatch]);
-
-  const contacts = useSelector(
-    (state: C4CState) => state.contactsState.contacts,
-  );
 
   return (
     <>
       <Helmet>
         <title>View Family Details</title>
-        <meta name="Upcoming Events" content="Upcoming events for LLB." />
+        <meta
+          name="description"
+          content="Specific details about a registered family."
+        />
       </Helmet>
       <ChungusContentContainer>
         {asyncRequestIsComplete(contacts) && (
           <ContactInfoSummary info={contacts.result} />
+        )}
+        {asyncRequestIsLoading(contacts) && <Spin />}
+        {asyncRequestIsFailed(contacts) && (
+          <Alert
+            message="Error"
+            description={contacts.error.message}
+            type="error"
+            showIcon
+          />
         )}
       </ChungusContentContainer>
     </>
