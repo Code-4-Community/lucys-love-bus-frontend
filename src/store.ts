@@ -44,6 +44,11 @@ import personalRequestsReducer, {
   initialPersonalRequestsState,
 } from './containers/personalRequests/ducks/reducers';
 import { PersonalRequestsReducerState } from './containers/personalRequests/ducks/types';
+import { ContactsActions } from './containers/setContacts/ducks/actions';
+import contactsReducer, {
+  initialContactsState,
+} from './containers/setContacts/ducks/reducers';
+import { ContactsReducerState } from './containers/setContacts/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
   initialEventsState,
@@ -58,6 +63,7 @@ export interface C4CState {
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
   deactivateAccountState: DeactivateAccountReducerState;
+  contactsState: ContactsReducerState;
   eventRegistrationsState: EventRegistrationsReducerState;
 }
 
@@ -71,6 +77,8 @@ export type C4CAction =
   | EventsActions
   | MyEventsActions
   | AnnouncementsActions
+  | ContactsActions
+  | PersonalRequestsActions
   | PersonalRequestsActions
   | EventRegistrationsActions;
 
@@ -85,6 +93,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
   deactivateAccountState: deactivateAccountReducer,
+  contactsState: contactsReducer,
   eventRegistrationsState: eventRegistrationsReducer,
 });
 
@@ -95,6 +104,7 @@ export const initialStoreState: C4CState = {
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,
+  contactsState: initialContactsState,
   eventRegistrationsState: initialEventRegistrationsState,
 };
 
