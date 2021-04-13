@@ -1,4 +1,4 @@
-import { Alert, Spin, Typography } from 'antd';
+import { Alert, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
@@ -18,7 +18,6 @@ import {
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
 import { ContactInfo } from '../setContacts/ducks/types';
-const { Title } = Typography;
 
 const FamilyDetails: React.FC = () => {
   const dispatch = useDispatch();

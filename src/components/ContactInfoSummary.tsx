@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { DEFAULT_IMAGE } from '../utils/copy';
-const { Title, Text, Paragraph } = Typography;
+const { Text } = Typography;
 
 interface ContactInfoSummaryProps {
   userId: number;
