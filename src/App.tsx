@@ -239,7 +239,6 @@ const App: React.FC = () => {
                         exact
                         component={VerifyEmail}
                       />
-
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
