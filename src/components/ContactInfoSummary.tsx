@@ -39,11 +39,10 @@ const SectionTitle = styled(Text)`
 `;
 
 interface ContactInfoSummaryProps {
-    userId: number;
-    info: ContactInfo;
-  }
+  userId: number;
+  info: ContactInfo;
+}
 
-  
 const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ userId, info }) => {
   return (
     <>

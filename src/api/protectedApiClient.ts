@@ -1,9 +1,9 @@
 import AppAxiosInstance from '../auth/axios';
-import { EventInformation } from '../containers/upcoming-events/ducks/types';
-import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
+import { ContactInfo } from '../containers/setContacts/ducks/types';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
