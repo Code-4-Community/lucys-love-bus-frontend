@@ -9,6 +9,7 @@ import NavBar from './components/navbar';
 import ChangeAccountEmail from './containers/changeAccountEmail';
 import DeactivateAccount from './containers/deactivateAccount';
 import EventRSVP from './containers/eventRSVP';
+import FamilyDetails from './containers/familyDetails';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
 import Home from './containers/home';
@@ -52,6 +53,7 @@ export enum Routes {
   SIGNUP_CONFIRMATION = '/signup/confirmation',
   CHANGE_ACCOUNT_EMAIL = '/change-email',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
+  FAMILY_DETAILS = '/family-details/:id',
 }
 
 const App: React.FC = () => {
@@ -122,6 +124,11 @@ const App: React.FC = () => {
                         path={Routes.EVENT_REGISTRATIONS}
                         exact
                         component={EventRSVP}
+                      />
+                      <Route
+                        path={Routes.FAMILY_DETAILS}
+                        exact
+                        component={FamilyDetails}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
