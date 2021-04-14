@@ -1,7 +1,6 @@
 import { Alert, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import protectedApiClient from '../../api/protectedApiClient';
 import { ChungusContentContainer } from '../../components';
