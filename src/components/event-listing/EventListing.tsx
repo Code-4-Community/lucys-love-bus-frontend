@@ -1,9 +1,9 @@
-import { Card, Divider, Typography } from 'antd';
+import { Card, Divider, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 
 const { Title, Text, Paragraph } = Typography;
@@ -70,11 +70,19 @@ const Info = styled.div`
   width: 67%;
 `;
 
+const InlineTitle = styled(Title)`
+  display: inline;
+`;
+
+const EventTag = styled(Tag)`
+  margin: 1em;
+`;
+
 const AdminButtonWrapper = styled.div`
   display: flex;
 `;
 
-interface EventListingProps extends EventProps {
+interface EventListingProps extends EventInformation {
   admin?: boolean;
 }
 
@@ -83,6 +91,7 @@ const EventListing: React.FC<EventListingProps> = ({
   thumbnail,
   title,
   details,
+  ticketCount,
   admin,
 }) => {
   return (
@@ -90,7 +99,15 @@ const EventListing: React.FC<EventListingProps> = ({
       <CardContent>
         <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
-          <Title level={3}>{title}</Title>
+          <InlineTitle level={3}>{title}</InlineTitle>
+          {ticketCount && (
+            <>
+              <EventTag color="green">
+                Registered {ticketCount} tickets
+              </EventTag>
+            </>
+          )}
+          <br />
           <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
           <br />
           <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>

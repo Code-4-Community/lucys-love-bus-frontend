@@ -1,11 +1,11 @@
-import { AsyncRequest } from '../../../utils/asyncRequest';
-import { C4CState } from '../../../store';
 import { ThunkAction } from 'redux-thunk';
-import { EventsActions } from './actions';
 import { PublicApiExtraArgs } from '../../../api/publicApiClient';
+import { C4CState } from '../../../store';
+import { AsyncRequest } from '../../../utils/asyncRequest';
+import { EventsActions } from './actions';
 
 export interface EventsReducerState {
-  readonly upcomingEvents: AsyncRequest<EventProps[], any>;
+  readonly upcomingEvents: AsyncRequest<EventInformation[], any>;
 }
 
 export type EventsThunkAction<R> = ThunkAction<
@@ -15,7 +15,7 @@ export type EventsThunkAction<R> = ThunkAction<
   EventsActions
 >;
 
-export interface EventProps {
+export interface EventInformation {
   id: number;
   title: string;
   spotsAvailable: number;
@@ -28,4 +28,5 @@ export interface EventProps {
     end: Date;
   };
   price: number;
+  ticketCount?: number;
 }
