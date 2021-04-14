@@ -6,11 +6,6 @@ import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { DEFAULT_IMAGE } from '../utils/copy';
 const { Text } = Typography;
 
-interface ContactInfoSummaryProps {
-  userId: number;
-  info: ContactInfo;
-}
-
 const ContactRow = styled.div`
   height: 200px;
   margin-bottom: 16px;
@@ -43,6 +38,12 @@ const SectionTitle = styled(Text)`
   margin-bottom: 16px;
 `;
 
+interface ContactInfoSummaryProps {
+    userId: number;
+    info: ContactInfo;
+  }
+
+  
 const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ userId, info }) => {
   return (
     <>

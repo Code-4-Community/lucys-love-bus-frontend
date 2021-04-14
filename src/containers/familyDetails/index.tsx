@@ -20,7 +20,6 @@ import {
 import { ContactInfo } from '../setContacts/ducks/types';
 
 const FamilyDetails: React.FC = () => {
-  const dispatch = useDispatch();
   const id = Number(useParams<{ id: string }>().id);
   const [contacts, setContacts] = useState<AsyncRequest<ContactInfo, any>>(
     AsyncRequestNotStarted(),
@@ -38,7 +37,7 @@ const FamilyDetails: React.FC = () => {
           setContacts(AsyncRequestFailed(error));
         });
     }
-  }, [dispatch, contacts, id]);
+  }, [contacts, id]);
 
   return (
     <>
