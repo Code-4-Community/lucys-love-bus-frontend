@@ -55,7 +55,7 @@ const EventsCardComponent: React.FC<EventsCardProps> = ({
 
       <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
       <LinkButton type="primary" to={to}>
-        Register
+        Learn More
       </LinkButton>
     </EventsCard>
   );
