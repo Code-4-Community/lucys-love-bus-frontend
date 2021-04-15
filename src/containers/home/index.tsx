@@ -17,7 +17,10 @@ import { HOME_IMAGE } from '../../utils/copy';
 import { getAnnouncements } from '../announcements/ducks/thunks';
 import { AnnouncementsReducerState } from '../announcements/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
-import { EventProps, EventsReducerState } from '../upcoming-events/ducks/types';
+import {
+  EventInformation,
+  EventsReducerState,
+} from '../upcoming-events/ducks/types';
 const { Text, Paragraph } = Typography;
 
 const LandingContainer = styled.div`
@@ -122,7 +125,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
           <UpcomingEventsTitle>Upcoming Events</UpcomingEventsTitle>
           <ViewMoreButton to="upcoming-events">View All Events</ViewMoreButton>
         </Row>
-        <Row gutter={[24, 24]} justify="center">
+        <Row gutter={[24, 24]}>
           {asyncRequestIsFailed(events) && (
             <p>The events could not be retrieved.</p>
           )}
@@ -131,7 +134,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
             (events.result.length > CARD_ROW_LIMIT
               ? events.result.slice(0, CARD_ROW_LIMIT)
               : events.result
-            ).map((event: EventProps, i) => (
+            ).map((event: EventInformation, i) => (
               <Col key={i}>
                 <EventCard
                   imageSrc={event.thumbnail}

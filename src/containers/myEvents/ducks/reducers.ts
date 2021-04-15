@@ -1,4 +1,5 @@
-import { EventInformation, EventsReducerState } from './types';
+import { MyEventsReducerState } from './types';
+
 import {
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,
@@ -6,30 +7,31 @@ import {
   AsyncRequestNotStarted,
   generateAsyncRequestReducer,
 } from '../../../utils/asyncRequest';
-import { upcomingEvents } from './actions';
+import { myEvents } from './actions';
 import { C4CAction } from '../../../store';
+import { EventInformation } from '../../upcoming-events/ducks/types';
 
-export const initialEventsState: EventsReducerState = {
-  upcomingEvents: AsyncRequestNotStarted<EventInformation[], any>(),
+export const initialMyEventsState: MyEventsReducerState = {
+  myEvents: AsyncRequestNotStarted<EventInformation[], any>(),
 };
 
-const upcomingEventsReducer = generateAsyncRequestReducer<
-  EventsReducerState,
+const myEventsReducer = generateAsyncRequestReducer<
+  MyEventsReducerState,
   EventInformation[],
   void
->(upcomingEvents.key);
+>(myEvents.key);
 
 const reducers = (
-  state: EventsReducerState = initialEventsState,
+  state: MyEventsReducerState = initialMyEventsState,
   action: C4CAction,
-): EventsReducerState => {
+): MyEventsReducerState => {
   switch (action.type) {
     case ASYNC_REQUEST_LOADING_ACTION:
     case ASYNC_REQUEST_LOADED_ACTION:
     case ASYNC_REQUEST_FAILED_ACTION:
       return {
         ...state,
-        upcomingEvents: upcomingEventsReducer(state.upcomingEvents, action),
+        myEvents: myEventsReducer(state.myEvents, action),
       };
     default:
       return state;

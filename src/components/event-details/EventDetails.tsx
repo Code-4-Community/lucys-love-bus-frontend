@@ -6,20 +6,10 @@ import styled from 'styled-components';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 import { PrivilegeLevel } from '../../auth/ducks/types';
+import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
+import { AnnouncementCard } from '../AnnouncementCard';
+import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 const { Title } = Typography;
-
-interface EventDetailsProps {
-  id: number;
-  title: string;
-  thumbnail?: string;
-  details: {
-    description: string;
-    location: string;
-    start: Date;
-    end: Date;
-  };
-  privilegeLevel: PrivilegeLevel;
-}
 
 const TopRow = styled(Row)`
   margin-bottom: 12px;
@@ -67,10 +57,18 @@ const Info = styled.div`
 `;
 
 const AnnouncementBox = styled.div`
-  align-items: center;
-  border: 1px solid #d9d9d9;
-  min-height: 80px;
+  padding: 15px;
 `;
+
+const AnnouncementNoContent = styled(AnnouncementBox)`
+  border: 1px solid black;
+  text-align: center;
+`;
+
+export interface EventDetailsProps extends EventInformation {
+  announcements?: EventAnnouncement[];
+  privilegeLevel: PrivilegeLevel;
+}
 
 const EventDetails: React.FC<EventDetailsProps> = ({
   thumbnail,
@@ -78,6 +76,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   title,
   details,
   privilegeLevel,
+  announcements,
 }) => {
   const [
     displayEventRegistrationModal,
@@ -141,10 +140,33 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           </GreenButton>
         </Col>
         <Col span={10}>
-          <Title level={5}>Announcements</Title>
-          <AnnouncementBox>
-            There are no announcements for this event
-          </AnnouncementBox>
+          {announcements && (
+            <>
+              {announcements.length ? (
+                <AnnouncementBox>
+                  <Title level={5}>Updates for this Event</Title>
+                  {announcements.map((announcement, i) => {
+                    return (
+                      <AnnouncementCard
+                        key={i}
+                        imageSrc={announcement.imageSrc}
+                        title={announcement.title}
+                        created={announcement.created}
+                        description={announcement.description}
+                      />
+                    );
+                  })}
+                </AnnouncementBox>
+              ) : (
+                <>
+                  <Title level={5}>Updates for this Event</Title>
+                  <AnnouncementNoContent>
+                    There are no announcements for this event
+                  </AnnouncementNoContent>
+                </>
+              )}
+            </>
+          )}
         </Col>
       </BottomRow>
       <EventRegistrationModal

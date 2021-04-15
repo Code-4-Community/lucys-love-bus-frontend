@@ -1,13 +1,13 @@
 import AppAxiosInstance from '../auth/axios';
 import { Announcement } from '../containers/announcements/ducks/types';
-import { EventProps } from '../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
 export interface PublicApiExtraArgs {
   readonly publicApiClient: PublicApiClient;
 }
 
 export interface PublicApiClient {
-  readonly getUpcomingEvents: () => Promise<EventProps[]>;
+  readonly getUpcomingEvents: () => Promise<EventInformation[]>;
   readonly getAnnouncements: () => Promise<Announcement[]>;
 }
 
@@ -16,7 +16,7 @@ enum PublicApiClientRoutes {
   ANNOUNCEMENTS = '/api/v1/announcements',
 }
 
-const getUpcomingEvents = (): Promise<EventProps[]> => {
+const getUpcomingEvents = (): Promise<EventInformation[]> => {
   return AppAxiosInstance.get(PublicApiClientRoutes.UPCOMING_EVENTS).then(
     (response) => response.data?.events,
   );
@@ -24,7 +24,7 @@ const getUpcomingEvents = (): Promise<EventProps[]> => {
 
 const getAnnouncements = (): Promise<Announcement[]> => {
   return AppAxiosInstance.get(PublicApiClientRoutes.ANNOUNCEMENTS).then(
-    (response) => response.data?.announcements,
+    (response) => response.data.announcements,
   );
 };
 
