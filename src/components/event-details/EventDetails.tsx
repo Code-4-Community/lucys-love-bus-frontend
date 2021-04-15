@@ -131,13 +131,6 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
-          <GreenButton
-            onClick={() => {
-              setDisplayEventRegistrationModal(true);
-            }}
-          >
-            Register
-          </GreenButton>
         </Col>
         <Col span={10}>
           {announcements && (
