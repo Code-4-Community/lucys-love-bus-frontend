@@ -4,7 +4,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
@@ -64,18 +63,16 @@ const AnnouncementNoContent = styled(AnnouncementBox)`
   text-align: center;
 `;
 
-export interface EventListingProps extends EventProps {
+export interface EventDetailsProps extends EventInformation {
   announcements?: EventAnnouncement[];
 }
 
-const EventListing: React.FC<EventInformation> = ({
+const EventDetails: React.FC<EventDetailsProps> = ({
   thumbnail,
   title,
   details,
   announcements,
 }) => {
-  const defaultImg =
-    'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
   const { description, location, start, end } = details;
 
   const computeDateString = (startDate: Date) => {
@@ -154,4 +151,4 @@ const EventListing: React.FC<EventInformation> = ({
   );
 };
 
-export default EventListing;
+export default EventDetails;
