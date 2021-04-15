@@ -6,6 +6,15 @@ import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
+interface LineItem {
+  eventId: number;
+  quantity: number;
+}
+
+interface RegisterTicketsRequest {
+  lineItemRequests: LineItem[];
+}
+
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
 }
@@ -15,7 +24,7 @@ export interface ProtectedApiClient {
     currentPassword: string;
     newPassword: string;
   }) => Promise<void>;
-
+  readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
@@ -32,6 +41,7 @@ export interface ProtectedApiClient {
 
 export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
+  REGISTER_TICKETS = '/api/v1/protected/checkout/register',
   MY_EVENTS = '/api/v1/protected/events/signed_up',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
@@ -52,6 +62,15 @@ const changePassword = (request: {
   )
     .then((r) => r.data)
     .catch((e) => e);
+};
+
+const registerTickets = (request: RegisterTicketsRequest) => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.REGISTER_TICKETS,
+    request,
+  ).then((res) => {
+    return;
+  });
 };
 
 const getMyEvents = (): Promise<EventInformation[]> => {
@@ -89,7 +108,9 @@ const getRequestStatuses = (): Promise<PersonalRequest[]> => {
 
 const makePFRequest = (): Promise<void> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.MAKE_PF_REQUEST)
-    .then(() => {})
+    .then((res) => {
+      return;
+    })
     .catch((err) => err);
 };
 
@@ -117,6 +138,7 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
 
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
+  registerTickets,
   getMyEvents,
   getRequestStatuses,
   makePFRequest,

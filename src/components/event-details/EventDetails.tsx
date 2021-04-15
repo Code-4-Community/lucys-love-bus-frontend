@@ -1,10 +1,12 @@
 import { Button, Col, Row, Typography } from 'antd';
 import dateFormat from 'dateformat';
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
+import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 import { DEFAULT_IMAGE } from '../../utils/copy';
+import { PrivilegeLevel } from '../../auth/ducks/types';
+import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
 import { AnnouncementCard } from '../AnnouncementCard';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 const { Title } = Typography;
@@ -65,14 +67,22 @@ const AnnouncementNoContent = styled(AnnouncementBox)`
 
 export interface EventDetailsProps extends EventInformation {
   announcements?: EventAnnouncement[];
+  privilegeLevel: PrivilegeLevel;
 }
 
 const EventDetails: React.FC<EventDetailsProps> = ({
   thumbnail,
+  id,
   title,
   details,
+  privilegeLevel,
   announcements,
 }) => {
+  const [
+    displayEventRegistrationModal,
+    setDisplayEventRegistrationModal,
+  ] = useState<boolean>(false);
+
   const { description, location, start, end } = details;
 
   const computeDateString = (startDate: Date) => {
@@ -106,7 +116,13 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               <Time>{computeTimeString(start, end)}</Time>
 
               <Location>Location: {location}</Location>
-              <GreenButton>Register</GreenButton>
+              <GreenButton
+                onClick={() => {
+                  setDisplayEventRegistrationModal(true);
+                }}
+              >
+                Register
+              </GreenButton>
             </Info>
           </Col>
         </CardContent>
@@ -115,7 +131,6 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
-          <GreenButton>Register</GreenButton>
         </Col>
         <Col span={10}>
           {announcements && (
@@ -147,6 +162,15 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           )}
         </Col>
       </BottomRow>
+      <EventRegistrationModal
+        eventId={id}
+        eventTitle={title}
+        privilegeLevel={privilegeLevel}
+        showEventRegistrationModal={displayEventRegistrationModal}
+        onCloseEventRegistrationModal={() => {
+          setDisplayEventRegistrationModal(false);
+        }}
+      />
     </>
   );
 };

@@ -4,8 +4,6 @@ import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPrivilegeLevel } from '../../auth/ducks/selectors';
-import { PrivilegeLevel } from '../../auth/ducks/types';
 import EventDetails from '../../components/event-details/EventDetails';
 import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
@@ -14,9 +12,12 @@ import {
   asyncRequestIsFailed,
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
+import { EventsReducerState } from '../upcoming-events/ducks/types';
+import { UserAuthenticationReducerState } from '../../auth/ducks/types';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
-import { EventsReducerState } from '../upcoming-events/ducks/types';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -85,6 +86,7 @@ const GrayButton = styled(StyledButton)`
 `;
 
 interface SingleEventProps {
+  readonly tokens: UserAuthenticationReducerState['tokens'];
   readonly events: EventsReducerState['upcomingEvents'];
   readonly eventAnnouncements: EventAnnouncementsReducerState['eventAnnouncements'];
 }
@@ -94,6 +96,7 @@ interface SingleEventParams {
 }
 
 const SingleEvent: React.FC<SingleEventProps> = ({
+  tokens,
   events,
   eventAnnouncements,
 }) => {
@@ -131,6 +134,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             )}
             <EventDetails
               {...event[0]}
+              privilegeLevel={getPrivilegeLevel(tokens)}
               announcements={eventAnnouncements.result}
             />
           </>
@@ -165,6 +169,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
 const mapStateToProps = (state: C4CState): SingleEventProps => {
   return {
+    tokens: state.authenticationState.tokens,
     events: state.eventsState.upcomingEvents,
     eventAnnouncements: state.eventAnnouncementsState.eventAnnouncements,
   };

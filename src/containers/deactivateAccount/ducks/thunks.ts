@@ -14,7 +14,9 @@ type UserAuthenticationAndDeactivateAccountThunkAction<R> = ThunkAction<
   UserAuthenticationActions | DeactivateAccountActions
 >;
 
-export const requestToDeactivateAccount = (): UserAuthenticationAndDeactivateAccountThunkAction<void> => {
+export const requestToDeactivateAccount = (): UserAuthenticationAndDeactivateAccountThunkAction<
+  void
+> => {
   return (dispatch, _getState, { protectedApiClient }) => {
     dispatch(deactivateAccount.loading());
     return protectedApiClient
