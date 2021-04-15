@@ -55,6 +55,11 @@ import eventsReducer, {
 } from './containers/upcoming-events/ducks/reducers';
 import { EventsReducerState } from './containers/upcoming-events/ducks/types';
 import { asyncRequestIsComplete } from './utils/asyncRequest';
+import { EventAnnouncementsActions } from './containers/singleEvent/ducks/actions';
+import eventAnnouncementsReducer, {
+  initialEventAnnouncementsState,
+} from './containers/singleEvent/ducks/reducers';
+import { EventAnnouncementsReducerState } from './containers/singleEvent/ducks/types';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -63,6 +68,7 @@ export interface C4CState {
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
   deactivateAccountState: DeactivateAccountReducerState;
+  eventAnnouncementsState: EventAnnouncementsReducerState;
   contactsState: ContactsReducerState;
   eventRegistrationsState: EventRegistrationsReducerState;
 }
@@ -80,6 +86,7 @@ export type C4CAction =
   | ContactsActions
   | PersonalRequestsActions
   | PersonalRequestsActions
+  | EventAnnouncementsActions
   | EventRegistrationsActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
@@ -93,6 +100,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
   deactivateAccountState: deactivateAccountReducer,
+  eventAnnouncementsState: eventAnnouncementsReducer,
   contactsState: contactsReducer,
   eventRegistrationsState: eventRegistrationsReducer,
 });
@@ -104,6 +112,7 @@ export const initialStoreState: C4CState = {
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,
+  eventAnnouncementsState: initialEventAnnouncementsState,
   contactsState: initialContactsState,
   eventRegistrationsState: initialEventRegistrationsState,
 };

@@ -24,7 +24,7 @@ const getUpcomingEvents = (): Promise<EventInformation[]> => {
 
 const getAnnouncements = (): Promise<Announcement[]> => {
   return AppAxiosInstance.get(PublicApiClientRoutes.ANNOUNCEMENTS).then(
-    (response) => response.data?.announcements,
+    (response) => response.data.announcements,
   );
 };
 

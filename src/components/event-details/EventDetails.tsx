@@ -3,6 +3,9 @@ import dateFormat from 'dateformat';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
+import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
+import { DEFAULT_IMAGE } from '../../utils/copy';
+import { AnnouncementCard } from '../AnnouncementCard';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 const { Title } = Typography;
 
@@ -52,19 +55,24 @@ const Info = styled.div`
 `;
 
 const AnnouncementBox = styled.div`
-  align-items: center;
-  border: 1px solid #d9d9d9;
-  min-height: 80px;
+  padding: 15px;
 `;
 
-const EventListing: React.FC<EventInformation> = ({
+const AnnouncementNoContent = styled(AnnouncementBox)`
+  border: 1px solid black;
+  text-align: center;
+`;
+
+export interface EventDetailsProps extends EventInformation {
+  announcements?: EventAnnouncement[];
+}
+
+const EventDetails: React.FC<EventDetailsProps> = ({
   thumbnail,
   title,
   details,
+  announcements,
 }) => {
-  const defaultImg =
-    'https://lucys-love-bus-public.s3.us-east-2.amazonaws.com/LLB_2019_Sq_rgb+1.png';
-
   const { description, location, start, end } = details;
 
   const computeDateString = (startDate: Date) => {
@@ -89,7 +97,7 @@ const EventListing: React.FC<EventInformation> = ({
       <TopRow>
         <CardContent>
           <Col span={14}>
-            <Thumbnail src={thumbnail || defaultImg}></Thumbnail>
+            <Thumbnail src={thumbnail || DEFAULT_IMAGE}></Thumbnail>
           </Col>
           <Col span={10}>
             <Info>
@@ -110,14 +118,37 @@ const EventListing: React.FC<EventInformation> = ({
           <GreenButton>Register</GreenButton>
         </Col>
         <Col span={10}>
-          <Title level={5}>Announcements</Title>
-          <AnnouncementBox>
-            There are no announcements for this event
-          </AnnouncementBox>
+          {announcements && (
+            <>
+              {announcements.length ? (
+                <AnnouncementBox>
+                  <Title level={5}>Updates for this Event</Title>
+                  {announcements.map((announcement, i) => {
+                    return (
+                      <AnnouncementCard
+                        key={i}
+                        imageSrc={announcement.imageSrc}
+                        title={announcement.title}
+                        created={announcement.created}
+                        description={announcement.description}
+                      />
+                    );
+                  })}
+                </AnnouncementBox>
+              ) : (
+                <>
+                  <Title level={5}>Updates for this Event</Title>
+                  <AnnouncementNoContent>
+                    There are no announcements for this event
+                  </AnnouncementNoContent>
+                </>
+              )}
+            </>
+          )}
         </Col>
       </BottomRow>
     </>
   );
 };
 
-export default EventListing;
+export default EventDetails;

@@ -10,16 +10,13 @@ import EventDetails from '../../components/event-details/EventDetails';
 import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
 import {
-  AsyncRequest,
   asyncRequestIsComplete,
   asyncRequestIsFailed,
-  asyncRequestIsNotStarted,
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
-import {
-  EventInformation,
-  EventsReducerState,
-} from '../upcoming-events/ducks/types';
+import { getEventAnnouncements } from './ducks/thunks';
+import { EventAnnouncementsReducerState } from './ducks/types';
+import { EventsReducerState } from '../upcoming-events/ducks/types';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -89,31 +86,35 @@ const GrayButton = styled(StyledButton)`
 
 interface SingleEventProps {
   readonly events: EventsReducerState['upcomingEvents'];
+  readonly eventAnnouncements: EventAnnouncementsReducerState['eventAnnouncements'];
 }
 
 interface SingleEventParams {
   id: string;
 }
 
-const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
+const SingleEvent: React.FC<SingleEventProps> = ({
+  events,
+  eventAnnouncements,
+}) => {
   const dispatch = useDispatch();
+  const id = Number(useParams<SingleEventParams>().id);
+
   useEffect(() => {
-    if (asyncRequestIsNotStarted(events) || asyncRequestIsFailed(events)) {
-      dispatch(getUpcomingEvents());
-    }
-  }, [dispatch, events]);
+    dispatch(getUpcomingEvents());
+    dispatch(getEventAnnouncements(id));
+  }, [dispatch, id]);
 
   const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
-  const id = Number(useParams<SingleEventParams>().id);
-
-  const conditionalRenderEventDetails = (
-    eventsList: AsyncRequest<EventInformation[], any>,
-  ) => {
-    if (asyncRequestIsComplete(eventsList)) {
-      const event = eventsList.result.filter((e) => e.id === id);
+  const conditionalRenderEventDetails = () => {
+    if (
+      asyncRequestIsComplete(events) &&
+      asyncRequestIsComplete(eventAnnouncements)
+    ) {
+      const event = events.result.filter((e) => e.id === id);
 
       if (event.length > 0) {
         return (
@@ -128,13 +129,16 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
                 <GrayButton to={BASE_EVENTS_ROUTE + id}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}
-            <EventDetails {...event[0]} />
+            <EventDetails
+              {...event[0]}
+              announcements={eventAnnouncements.result}
+            />
           </>
         );
       } else {
         return <p>That event does not exist!</p>;
       }
-    } else if (asyncRequestIsFailed(eventsList)) {
+    } else if (asyncRequestIsFailed(events)) {
       return <p>The request failed.</p>;
     } else {
       return (
@@ -154,9 +158,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
           content="An event hosted through Lucy's Love Bus Programs."
         />
       </Helmet>
-      <ContentContainer>
-        {conditionalRenderEventDetails(events)}
-      </ContentContainer>
+      <ContentContainer>{conditionalRenderEventDetails()}</ContentContainer>
     </>
   );
 };
@@ -164,6 +166,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({ events }) => {
 const mapStateToProps = (state: C4CState): SingleEventProps => {
   return {
     events: state.eventsState.upcomingEvents,
+    eventAnnouncements: state.eventAnnouncementsState.eventAnnouncements,
   };
 };
 

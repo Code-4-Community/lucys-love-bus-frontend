@@ -2,6 +2,7 @@ import AppAxiosInstance from '../auth/axios';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
+import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
@@ -19,6 +20,9 @@ export interface ProtectedApiClient {
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
+  readonly getEventAnnouncements: (
+    eventId: number,
+  ) => Promise<EventAnnouncement[]>;
   readonly getContactInfo: () => Promise<ContactInfo>;
   readonly getContactInfoById: (id: number) => Promise<ContactInfo>;
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
@@ -32,6 +36,7 @@ export enum ProtectedApiClientRoutes {
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
+  ANNOUNCEMENTS = 'api/v1/protected/announcements',
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
   CHANGE_EMAIL = '/api/v1/protected/user/change_email',
   EVENTS = 'api/v1/protected/events',
@@ -88,6 +93,16 @@ const makePFRequest = (): Promise<void> => {
     .catch((err) => err);
 };
 
+const getEventAnnouncements = (
+  eventId: number,
+): Promise<EventAnnouncement[]> => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${eventId}`,
+  )
+    .then((res) => res.data.announcements)
+    .catch((err) => err);
+};
+
 const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.CHANGE_EMAIL, request);
 };
@@ -106,6 +121,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getRequestStatuses,
   makePFRequest,
   deactivateAccount,
+  getEventAnnouncements,
   getContactInfo,
   setContactInfo,
   changeAccountEmail,
