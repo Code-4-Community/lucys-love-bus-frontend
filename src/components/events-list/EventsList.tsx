@@ -1,13 +1,13 @@
 import React from 'react';
 import EventListing from '../event-listing/EventListing';
-import { EventProps } from '../../containers/upcoming-events/ducks/types';
+import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import { useSelector } from 'react-redux';
 import { C4CState } from '../../store';
 
 export interface EventsListProps {
-  readonly events: EventProps[];
+  readonly events: EventInformation[];
 }
 
 const EventsList: React.FC<EventsListProps> = ({ events }) => {

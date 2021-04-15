@@ -17,6 +17,10 @@ import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { EventAnnouncementsReducerState } from './ducks/types';
+import {
+  EventInformation,
+  EventsReducerState,
+} from '../upcoming-events/ducks/types';
 
 const BASE_EVENTS_ROUTE = '/events/';
 

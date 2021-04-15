@@ -21,6 +21,7 @@ import {
 } from '../utils/asyncRequest';
 import FormContainer from './FormContainer';
 import FormInitialText from './FormInitialText';
+import LocationFormFragment from './LocationFormFragment';
 
 const { Title, Paragraph, Text } = Typography;
 const { Option } = Select;
@@ -81,7 +82,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="First Name"
           name="firstName"
-          className="inline-block-half"
           rules={[{ required: true, message: 'Please input your first name' }]}
         >
           <Input placeholder="First Name" />
@@ -90,7 +90,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Last Name"
           name="lastName"
-          className="inline-block-half"
           rules={[{ required: true, message: 'Please input your last name' }]}
         >
           <Input placeholder="Last Name" />
@@ -102,15 +101,9 @@ const SignupForm: React.FC<SignupFormProps> = ({
           rules={[{ message: 'Please select your pronouns' }]}
         >
           <Radio.Group>
-            <Radio className="radio-item" value="He/Him">
-              He/Him
-            </Radio>
-            <Radio className="radio-item" value="She/Her">
-              She/Her
-            </Radio>
-            <Radio className="radio-item" value="They/Them">
-              They/Them
-            </Radio>
+            <Radio value="He/Him">He/Him</Radio>
+            <Radio value="She/Her">She/Her</Radio>
+            <Radio value="They/Them">They/Them</Radio>
           </Radio.Group>
         </Form.Item>
 
@@ -131,7 +124,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Create Password"
           name="password"
-          className="block-half stacked-inputs"
           hasFeedback
           rules={[
             {
@@ -148,7 +140,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           name="confirmPassword"
           dependencies={['password']}
-          className="block-half"
           hasFeedback
           rules={[
             { required: true, message: 'Passwords must match' },
@@ -168,7 +159,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Phone Number"
           name="phoneNumber"
-          className="block-half"
           rules={[
             {
               required: true,
@@ -176,7 +166,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please input a valid phone number',
             },
           ]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <Input placeholder="Phone Number" />
         </Form.Item>
@@ -190,57 +179,15 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please input your date of birth.',
             },
           ]}
-          style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <DatePicker />
         </Form.Item>
 
-        <Form.Item
-          name="address"
-          label="Address"
-          className="stacked-inputs"
-          rules={[{ required: true, message: 'Please input your address' }]}
-        >
-          <Input placeholder="Address" />
-        </Form.Item>
-        <Form.Item
-          name="city"
-          className="inline-block-third"
-          rules={[{ required: true, message: 'Please input city' }]}
-        >
-          <Input placeholder="City" />
-        </Form.Item>
-        <Form.Item
-          name="state"
-          className="inline-block-third"
-          rules={[
-            {
-              required: true,
-              pattern: new RegExp(/^[A-Za-z]{2}/),
-              message: 'Please input state',
-            },
-          ]}
-        >
-          <Input placeholder="State" />
-        </Form.Item>
-        <Form.Item
-          name="zip"
-          className="block-third"
-          rules={[
-            {
-              required: true,
-              pattern: new RegExp(/^[^0-9]*(?:(\d)[^0-9]*){5}$/),
-              message: 'Please input a valid five-digit zip code',
-            },
-          ]}
-        >
-          <Input placeholder="Zip Code" />
-        </Form.Item>
+        <LocationFormFragment />
 
         <Form.Item label="Referrer (if applicable)" name="referrer">
           <Select
             showSearch
-            style={{ width: 200 }}
             placeholder="None"
             optionFilterProp="children"
             filterOption={(input, option) =>
@@ -293,17 +240,13 @@ const SignupForm: React.FC<SignupFormProps> = ({
           rules={[{ required: true, message: 'Please select one option.' }]}
         >
           <Radio.Group>
-            <Radio value={true} className="radio-style">
-              I consent to photo/video release
-            </Radio>
-            <Radio value={false} className="radio-style">
-              I do not consent to photo/video release
-            </Radio>
+            <Radio value={true}>I consent to photo/video release</Radio>
+            <Radio value={false}>I do not consent to photo/video release</Radio>
           </Radio.Group>
         </Form.Item>
         <Text strong>Required Conduct</Text>
 
-        <Paragraph className="centered-text">
+        <Paragraph>
           {' '}
           Please carefully read, review, and check the agreement boxes below in
           order to participate in programs through Lucy’s Love Bus to ensure the
@@ -320,7 +263,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             No family member or attendee will visit The Sajni Center if they
@@ -341,7 +283,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             All parents are to remain at The Sajni Center during programs
@@ -359,7 +300,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
               message: 'Please check all boxes',
             },
           ]}
-          style={{ display: 'inline-block' }}
         >
           <Checkbox>
             My children are up to date on all vaccinations and I will provide a
@@ -373,7 +313,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Head of Family Name"
           name="headOfFamilyName"
-          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
@@ -387,7 +326,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Head of Family Initials"
           name="headOfFamilyInitials"
-          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
@@ -401,7 +339,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
         <Form.Item
           label="Date of Signature"
           name="dateOfSignature"
-          className="stacked-input inline-block-half"
           rules={[
             {
               required: true,
@@ -423,7 +360,6 @@ const SignupForm: React.FC<SignupFormProps> = ({
           <Button
             type="primary"
             disabled={asyncRequestIsLoading(tokens)}
-            className="button-style"
             htmlType="submit"
           >
             Submit

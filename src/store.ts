@@ -8,6 +8,11 @@ import {
   Store,
 } from 'redux';
 import thunk from 'redux-thunk';
+import { MyEventsReducerState } from './containers/myEvents/ducks/types';
+import { MyEventsActions } from './containers/myEvents/ducks/actions';
+import myEventsReducer, {
+  initialMyEventsState,
+} from './containers/myEvents/ducks/reducers';
 import protectedApiClient, {
   ProtectedApiExtraArgs,
 } from './api/protectedApiClient';
@@ -39,6 +44,11 @@ import personalRequestsReducer, {
   initialPersonalRequestsState,
 } from './containers/personalRequests/ducks/reducers';
 import { PersonalRequestsReducerState } from './containers/personalRequests/ducks/types';
+import { ContactsActions } from './containers/setContacts/ducks/actions';
+import contactsReducer, {
+  initialContactsState,
+} from './containers/setContacts/ducks/reducers';
+import { ContactsReducerState } from './containers/setContacts/ducks/types';
 import { EventsActions } from './containers/upcoming-events/ducks/actions';
 import eventsReducer, {
   initialEventsState,
@@ -53,11 +63,13 @@ import { EventAnnouncementsReducerState } from './containers/singleEvent/ducks/t
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
+  myEventsState: MyEventsReducerState;
   eventsState: EventsReducerState;
   announcementsState: AnnouncementsReducerState;
   personalRequestsState: PersonalRequestsReducerState;
   deactivateAccountState: DeactivateAccountReducerState;
   eventAnnouncementsState: EventAnnouncementsReducerState;
+  contactsState: ContactsReducerState;
   eventRegistrationsState: EventRegistrationsReducerState;
 }
 
@@ -69,7 +81,10 @@ export interface Action<T, P> {
 export type C4CAction =
   | UserAuthenticationActions
   | EventsActions
+  | MyEventsActions
   | AnnouncementsActions
+  | ContactsActions
+  | PersonalRequestsActions
   | PersonalRequestsActions
   | EventAnnouncementsActions
   | EventRegistrationsActions;
@@ -80,21 +95,25 @@ export type ThunkExtraArgs = UserAuthenticationExtraArgs &
 
 const reducers = combineReducers<C4CState, C4CAction>({
   authenticationState: userReducer,
+  myEventsState: myEventsReducer,
   eventsState: eventsReducer,
   announcementsState: announcementsReducer,
   personalRequestsState: personalRequestsReducer,
   deactivateAccountState: deactivateAccountReducer,
   eventAnnouncementsState: eventAnnouncementsReducer,
+  contactsState: contactsReducer,
   eventRegistrationsState: eventRegistrationsReducer,
 });
 
 export const initialStoreState: C4CState = {
   authenticationState: initialUserState,
   eventsState: initialEventsState,
+  myEventsState: initialMyEventsState,
   announcementsState: initialAnnouncementsState,
   personalRequestsState: initialPersonalRequestsState,
   deactivateAccountState: initialDeactivateAccountState,
   eventAnnouncementsState: initialEventAnnouncementsState,
+  contactsState: initialContactsState,
   eventRegistrationsState: initialEventRegistrationsState,
 };
 
