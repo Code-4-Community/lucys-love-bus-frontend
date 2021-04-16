@@ -2,8 +2,8 @@ import AppAxiosInstance from '../auth/axios';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
-import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
+import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
 interface LineItem {
@@ -34,6 +34,7 @@ export interface ProtectedApiClient {
   ) => Promise<EventAnnouncement[]>;
   readonly getContactInfo: () => Promise<ContactInfo>;
   readonly getContactInfoById: (id: number) => Promise<ContactInfo>;
+  readonly getAllUsersContactInfo: () => Promise<ContactInfo[]>;
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
@@ -95,6 +96,11 @@ const getContactInfoById = (id: number): Promise<ContactInfo> => {
     `${ProtectedApiClientRoutes.CONTACT_INFO}/${id}`,
   ).then((res) => res.data);
 };
+const getAllUsersContactInfo = (): Promise<ContactInfo[]> => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.CONTACT_INFO}/all`,
+  ).then((res) => res.data);
+};
 
 const setContactInfo = (request: ContactInfo): Promise<void> => {
   return AppAxiosInstance.put(ProtectedApiClientRoutes.CONTACT_INFO, request);
@@ -149,6 +155,7 @@ const Client: ProtectedApiClient = Object.freeze({
   changeAccountEmail,
   getEventRegistrations,
   getContactInfoById,
+  getAllUsersContactInfo,
 });
 
 export default Client;
