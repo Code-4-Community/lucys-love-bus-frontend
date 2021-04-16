@@ -4,6 +4,11 @@ import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import {
+  PrivilegeLevel,
+  UserAuthenticationReducerState,
+} from '../../auth/ducks/types';
 import EventDetails from '../../components/event-details/EventDetails';
 import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
@@ -13,9 +18,6 @@ import {
 } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
-import { UserAuthenticationReducerState } from '../../auth/ducks/types';
-import { getPrivilegeLevel } from '../../auth/ducks/selectors';
-import { PrivilegeLevel } from '../../auth/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
 
@@ -55,6 +57,7 @@ const GreenButton = styled(StyledButton)`
 const RedButton = styled(StyledButton)`
   background-color: #ff4d4f;
   border-color: #ff4d4f;
+  color: white;
 
   &:hover {
     border-color: #ff4d4f;
@@ -129,7 +132,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                   Make Announcement
                 </GreenButton>
                 <RedButton to={BASE_EVENTS_ROUTE + id}>Delete Event</RedButton>
-                <GrayButton to={BASE_EVENTS_ROUTE + id}>View RSVP</GrayButton>
+                <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}
             <EventDetails

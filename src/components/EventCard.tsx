@@ -22,6 +22,7 @@ const EventsCard = styled(Card)`
     height: 250px;
     object-fit: cover;
   }
+  margin: 16px 16px;
 `;
 
 const DateText = styled(Text)`

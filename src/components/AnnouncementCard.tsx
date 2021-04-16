@@ -19,7 +19,6 @@ const AnnouncementCardCover = styled(Card)`
   min-width: 200px;
   max-width: 400px;
   margin: 16px 16px;
-  min-height: 400px;
 
   @media screen and (min-width: 800px) {
     min-width: 400px;
@@ -35,11 +34,16 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-export const AnnouncementCard: React.FC<Announcement> = ({
+interface AnnoucementCardProps extends Announcement {
+  condensed?: boolean;
+}
+
+export const AnnouncementCard: React.FC<AnnoucementCardProps> = ({
   imageSrc,
   title,
   created,
   description,
+  condensed,
 }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const cardContent: JSX.Element = (
@@ -59,11 +63,13 @@ export const AnnouncementCard: React.FC<Announcement> = ({
     <>
       <AnnouncementCardCover
         cover={
-          <img
-            className="cardImg"
-            alt="Announcement"
-            src={imageSrc || DEFAULT_IMAGE}
-          />
+          !condensed && (
+            <img
+              className="cardImg"
+              alt="Announcement"
+              src={imageSrc || DEFAULT_IMAGE}
+            />
+          )
         }
         onClick={() => setIsModalVisible((prevState) => !prevState)}
       >
