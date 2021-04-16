@@ -13,17 +13,13 @@ import {
   asyncRequestIsLoading,
   asyncRequestIsNotStarted,
   AsyncRequestLoading,
-  AsyncRequestNotStarted
+  AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
 import { ContactInfo } from '../setContacts/ducks/types';
 
 const { Title, Link } = Typography;
 
-
-
 const UserDirectory: React.FC<> = () => {
- 
-  
   const [contacts, setContacts] = useState<AsyncRequest<ContactInfo[], any>>(
     AsyncRequestNotStarted(),
   );
@@ -41,7 +37,7 @@ const UserDirectory: React.FC<> = () => {
         });
     }
   }, [contacts]);
- 
+
   return (
     <>
       <Helmet>
@@ -52,9 +48,7 @@ const UserDirectory: React.FC<> = () => {
         />
       </Helmet>
       <ChungusContentContainer>
-          <Title level={3}>
-            All Registered Members
-          </Title>
+        <Title level={3}>All Registered Members</Title>
 
         {/* {asyncRequestIsComplete(contacts) && (
           <UserInfoTable users={contacts.result.map(contact => ({
