@@ -48,7 +48,9 @@ const FamilyDetails: React.FC<ContactInfoSummaryProps> = ({ userId, info }) => {
     <>
       <SectionTitle>Account Owner</SectionTitle>
       <ContactRow>
-        <ProfilePicture src={DEFAULT_IMAGE} />
+        <ProfilePicture
+          src={info.mainContact.profilePicture || DEFAULT_IMAGE}
+        />
         <CopyContainer>
           <Row>
             <Col span={24}>
