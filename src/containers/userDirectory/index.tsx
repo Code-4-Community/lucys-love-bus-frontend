@@ -19,20 +19,20 @@ import {
 const { Title } = Typography;
 
 const UserDirectory: React.FC = () => {
-  const [users, setContacts] = useState<AsyncRequest<UserSummary[], any>>(
+  const [users, setUsers] = useState<AsyncRequest<UserSummary[], any>>(
     AsyncRequestNotStarted(),
   );
 
   useEffect(() => {
     if (asyncRequestIsNotStarted(users)) {
-      setContacts(AsyncRequestLoading());
+      setUsers(AsyncRequestLoading());
       protectedApiClient
         .getAllUsersContactInfo()
         .then((c) => {
-          setContacts(AsyncRequestCompleted(c));
+          setUsers(AsyncRequestCompleted(c));
         })
         .catch((error) => {
-          setContacts(AsyncRequestFailed(error));
+          setUsers(AsyncRequestFailed(error));
         });
     }
   }, [users]);
@@ -40,10 +40,10 @@ const UserDirectory: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Event RSVP</title>
+        <title>User Directory</title>
         <meta
           name="description"
-          content="List of users who have RSVP'ed to this event."
+          content="List of all users who have signed up."
         />
       </Helmet>
       <ChungusContentContainer>
@@ -62,7 +62,7 @@ const UserDirectory: React.FC = () => {
         {asyncRequestIsFailed(users) && (
           <Alert
             message="Error"
-            description={`There was an error loading registrations: ${users.error.message}`}
+            description={`There was an error loading users: ${users.error.message}`}
             type="error"
             showIcon
           />
