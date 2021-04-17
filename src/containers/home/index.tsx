@@ -25,7 +25,7 @@ const { Text, Paragraph } = Typography;
 
 const LandingContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 110px);
+  height: calc(95vh - 110px);
   object-fit: cover;
   background-image: url('${HOME_IMAGE}');
   background-position: center; /* Center the image */
@@ -125,7 +125,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
           <UpcomingEventsTitle>Upcoming Events</UpcomingEventsTitle>
           <ViewMoreButton to="upcoming-events">View All Events</ViewMoreButton>
         </Row>
-        <Row gutter={[24, 24]}>
+        <Row>
           {asyncRequestIsFailed(events) && (
             <p>The events could not be retrieved.</p>
           )}

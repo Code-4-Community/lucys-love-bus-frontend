@@ -120,7 +120,7 @@ const EventListing: React.FC<EventListingProps> = ({
               <GreenButton to={BASE_EVENTS_ROUTE + id}>
                 Make Announcement
               </GreenButton>
-              <GrayButton to={BASE_EVENTS_ROUTE + id}>View RSVP</GrayButton>
+              <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
             </AdminButtonWrapper>
           ) : (
             <GreenButton to={BASE_EVENTS_ROUTE + id}>Learn More</GreenButton>

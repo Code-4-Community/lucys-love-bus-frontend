@@ -3,12 +3,12 @@ import dateFormat from 'dateformat';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
-import { DEFAULT_IMAGE } from '../../utils/copy';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
-import { AnnouncementCard } from '../AnnouncementCard';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
+import { DEFAULT_IMAGE } from '../../utils/copy';
+import { AnnouncementCard } from '../AnnouncementCard';
+import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 const { Title } = Typography;
 
 const TopRow = styled(Row)`
@@ -48,7 +48,8 @@ const GreenButton = styled(Button)`
 
 const Thumbnail = styled.img`
   max-width: 100%;
-  max-height: 400px;
+  height: 400px;
+  object-fit: cover;
 `;
 
 const Info = styled.div`
@@ -56,14 +57,9 @@ const Info = styled.div`
   max-height: 350px;
 `;
 
-const AnnouncementBox = styled.div`
-  padding: 15px;
-`;
+const AnnouncementBox = styled.div``;
 
-const AnnouncementNoContent = styled(AnnouncementBox)`
-  border: 1px solid black;
-  text-align: center;
-`;
+const AnnouncementNoContent = styled(AnnouncementBox)``;
 
 export interface EventDetailsProps extends EventInformation {
   announcements?: EventAnnouncement[];
@@ -127,7 +123,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           </Col>
         </CardContent>
       </TopRow>
-      <BottomRow>
+      <BottomRow gutter={[24, 24]}>
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
@@ -146,6 +142,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                         title={announcement.title}
                         created={announcement.created}
                         description={announcement.description}
+                        condensed
                       />
                     );
                   })}

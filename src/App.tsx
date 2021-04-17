@@ -1,11 +1,13 @@
 import { Layout } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { PrivilegeLevel } from './auth/ducks/types';
 import NavBar from './components/navbar';
+import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
 import DeactivateAccount from './containers/deactivateAccount';
 import EventRSVP from './containers/eventRSVP';
@@ -13,7 +15,9 @@ import FamilyDetails from './containers/familyDetails';
 import ForgotPassword from './containers/forgotPasswordRequest';
 import ForgotPasswordReset from './containers/forgotPasswordReset';
 import Home from './containers/home';
+import MyEvents from './containers/myEvents';
 import NotFound from './containers/notFound/';
+import PersonalRequests from './containers/personalRequests';
 import SetContacts from './containers/setContacts';
 import Settings from './containers/settings';
 import Signup from './containers/signup';
@@ -21,10 +25,6 @@ import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
-import MyEvents from './containers/myEvents';
-import Announcements from './containers/announcements';
-import PersonalRequests from './containers/personalRequests';
-import { useSelector } from 'react-redux';
 import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
 import UserDirectory from './containers/userDirectory';
@@ -128,6 +128,11 @@ const App: React.FC = () => {
                         component={EventRSVP}
                       />
                       <Route
+                        path={Routes.SET_CONTACTS}
+                        exact
+                        component={SetContacts}
+                      />
+                      <Route
                         path={Routes.FAMILY_DETAILS}
                         exact
                         component={FamilyDetails}
@@ -136,6 +141,9 @@ const App: React.FC = () => {
                         path={Routes.USER_DIRECTORY}
                         exact
                         component={UserDirectory}
+                        path={Routes.MY_EVENTS}
+                        exact
+                        component={MyEvents}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
