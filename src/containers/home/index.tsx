@@ -1,8 +1,11 @@
 import { Card, Col, Row, Typography } from 'antd';
 import { default as React, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { Routes } from '../../App';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import AnnouncementsList from '../../components/announcementsList';
 import EventCard from '../../components/EventCard';
 import { LinkButton } from '../../components/LinkButton';
@@ -31,15 +34,6 @@ const LandingContainer = styled.div`
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-`;
-const LandingCard = styled(Card)`
-  position: relative;
-  top: 30%;
-  left: 15%;
-  width: 500px;
-  height: 280px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
 `;
 
 const LandingText = styled(Text)`
@@ -76,6 +70,10 @@ const ViewMoreButton = styled(LinkButton)`
   margin: 1em;
 `;
 
+const AdminCol = styled(Col)`
+  text-align: center;
+`;
+
 const CARD_ROW_LIMIT = 3;
 
 export interface HomeContainerProps {
@@ -85,6 +83,9 @@ export interface HomeContainerProps {
 
 const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
   const dispatch = useDispatch();
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
 
   useEffect(() => {
     dispatch(getAnnouncements());
@@ -94,6 +95,16 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const LandingCard = styled(Card)`
+    position: relative;
+    top: 30%;
+    left: 15%;
+    width: ${privilegeLevel === PrivilegeLevel.ADMIN ? '600px' : '500px'};
+    height: ${privilegeLevel === PrivilegeLevel.ADMIN ? '250px' : '280px'};
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+  `;
   return (
     <>
       <Helmet>
@@ -104,22 +115,54 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
         />
       </Helmet>
 
-      <LandingContainer>
-        <LandingCard bordered={false}>
-          <LandingTextContainer>
-            <LandingText>
-              Welcome to Lucy's Love Bus Event Registration!
-            </LandingText>
-          </LandingTextContainer>
-          <LandingBodyText>
-            The Sajni Center invites you to use this page as your portal to view
-            and register for events, and stay up to date with our community!
-          </LandingBodyText>
-          <LinkButton type="primary" to="/upcoming-events">
-            View Events
-          </LinkButton>
-        </LandingCard>
-      </LandingContainer>
+      {privilegeLevel === PrivilegeLevel.ADMIN ? (
+        <LandingContainer>
+          <LandingCard bordered={false}>
+            <LandingTextContainer>
+              <LandingText>Welcome Administrator!</LandingText>
+            </LandingTextContainer>
+            <LandingBodyText>
+              Explore and use these tools to help create a space of hope and
+              healing for the members of The Sajni Center.
+            </LandingBodyText>
+            <Row>
+              <AdminCol span={8}>
+                <LinkButton type="primary" to={Routes.CREATE_EVENT}>
+                  Create Event
+                </LinkButton>
+              </AdminCol>
+              <AdminCol span={8}>
+                <LinkButton type="primary" to={Routes.MAKE_ANNOUNCEMENT}>
+                  Make Announcement
+                </LinkButton>
+              </AdminCol>
+              <AdminCol span={8}>
+                <LinkButton type="primary" to={Routes.VIEW_REQUESTS}>
+                  View Requests
+                </LinkButton>
+              </AdminCol>
+            </Row>
+          </LandingCard>
+        </LandingContainer>
+      ) : (
+        <LandingContainer>
+          <LandingCard bordered={false}>
+            <LandingTextContainer>
+              <LandingText>
+                Welcome to Lucy's Love Bus Event Registration!
+              </LandingText>
+            </LandingTextContainer>
+            <LandingBodyText>
+              The Sajni Center invites you to use this page as your portal to
+              view and register for events, and stay up to date with our
+              community!
+            </LandingBodyText>
+            <LinkButton type="primary" to="/upcoming-events">
+              View Events
+            </LinkButton>
+          </LandingCard>
+        </LandingContainer>
+      )}
       <HomeContainer>
         <Row align="middle">
           <UpcomingEventsTitle>Upcoming Events</UpcomingEventsTitle>
