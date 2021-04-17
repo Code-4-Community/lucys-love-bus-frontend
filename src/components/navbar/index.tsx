@@ -110,8 +110,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
   };
 
   useEffect(() => {
-    dispatch(getRequestStatuses());
-  }, [dispatch]);
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getRequestStatuses());
+    }
+  }, [dispatch, tokens]);
 
   // Dropdown menu options for the logged in
   const userMenu = (
@@ -305,9 +307,11 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
                       {asyncRequestIsComplete(personalRequests) ? (
                         location.pathname === Routes.VIEW_REQUESTS ? (
                           <Badge
-                            count={personalRequests.result.filter(
-                              (request) => request.status === 'PENDING',
-                            )}
+                            count={
+                              personalRequests.result.filter(
+                                (request) => request.status === 'PENDING',
+                              ).length
+                            }
                           >
                             <ActiveNavBarButton
                               type="link"
