@@ -93,6 +93,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
     'My Events': Routes.MY_EVENTS,
   };
 
+  const adminLinks = {
+    'View Requests': Routes.VIEW_REQUESTS,
+  };
+
   // Dropdown menu options for the logged in
   const userMenu = (
     <Menu>
@@ -204,6 +208,34 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                 {privilegeLevel !== PrivilegeLevel.NONE && (
                   <>
                     {Object.entries(authLinks).map(([link, path], i) => (
+                      <Col key={i}>
+                        {path === location.pathname ? (
+                          <ActiveNavBarButton
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </ActiveNavBarButton>
+                        ) : (
+                          <NavBarButton
+                            tab-index="0"
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </NavBarButton>
+                        )}
+                      </Col>
+                    ))}{' '}
+                  </>
+                )}
+                {privilegeLevel === PrivilegeLevel.ADMIN && (
+                  <>
+                    {Object.entries(adminLinks).map(([link, path], i) => (
                       <Col key={i}>
                         {path === location.pathname ? (
                           <ActiveNavBarButton

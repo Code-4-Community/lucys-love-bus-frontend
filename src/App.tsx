@@ -26,6 +26,7 @@ import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
 import VerifyEmail from './containers/verifyEmail';
+import ViewRequests from './containers/viewRequests';
 import { C4CState } from './store';
 
 const { Content } = Layout;
@@ -54,6 +55,7 @@ export enum Routes {
   CHANGE_ACCOUNT_EMAIL = '/change-email',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
+  VIEW_REQUESTS = '/view-requests',
 }
 
 const App: React.FC = () => {
@@ -139,6 +141,11 @@ const App: React.FC = () => {
                         path={Routes.MY_EVENTS}
                         exact
                         component={MyEvents}
+                      />
+                      <Route
+                        path={Routes.VIEW_REQUESTS}
+                        exact
+                        component={ViewRequests}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
