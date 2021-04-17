@@ -25,7 +25,10 @@ import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { ORANGE } from '../../utils/colors';
 import LoginModal from '../modals/login-modal/LoginModal';
 import { getRequestStatuses } from '../../containers/personalRequests/ducks/thunks';
-import { PersonalRequestsReducerState } from '../../containers/personalRequests/ducks/types';
+import {
+  PersonalRequest,
+  PersonalRequestsReducerState,
+} from '../../containers/personalRequests/ducks/types';
 
 const { Text } = Typography;
 
@@ -189,6 +192,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
 
   const [displayLoginModal, setDisplayLoginModal] = useState(false);
 
+  const getNumPendingRequests = (requests: PersonalRequest[]) => {
+    return requests.filter((request) => request.status === 'PENDING').length;
+  };
+
   return (
     <>
       <NavBarContainer>
@@ -307,11 +314,9 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
                       {asyncRequestIsComplete(personalRequests) ? (
                         location.pathname === Routes.VIEW_REQUESTS ? (
                           <Badge
-                            count={
-                              personalRequests.result.filter(
-                                (request) => request.status === 'PENDING',
-                              ).length
-                            }
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
                           >
                             <ActiveNavBarButton
                               type="link"
@@ -324,11 +329,9 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
                           </Badge>
                         ) : (
                           <Badge
-                            count={
-                              personalRequests.result.filter(
-                                (request) => request.status === 'PENDING',
-                              ).length
-                            }
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
                           >
                             <NavBarButton
                               tab-index="0"

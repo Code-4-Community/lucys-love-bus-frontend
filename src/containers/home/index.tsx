@@ -71,7 +71,7 @@ const ViewMoreButton = styled(LinkButton)`
 `;
 
 const AdminCol = styled(Col)`
-  text-align: center;
+  margin-right: 10px;
 `;
 
 const CARD_ROW_LIMIT = 3;
@@ -126,17 +126,17 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
               healing for the members of The Sajni Center.
             </LandingBodyText>
             <Row>
-              <AdminCol span={8}>
+              <AdminCol>
                 <LinkButton type="primary" to={Routes.CREATE_EVENT}>
                   Create Event
                 </LinkButton>
               </AdminCol>
-              <AdminCol span={8}>
+              <AdminCol>
                 <LinkButton type="primary" to={Routes.MAKE_ANNOUNCEMENT}>
                   Make Announcement
                 </LinkButton>
               </AdminCol>
-              <AdminCol span={8}>
+              <AdminCol>
                 <LinkButton type="primary" to={Routes.VIEW_REQUESTS}>
                   View Requests
                 </LinkButton>
