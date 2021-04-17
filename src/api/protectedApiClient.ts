@@ -5,6 +5,7 @@ import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
+import { NewEventInformation } from '../containers/createEvent/ducks/types';
 
 interface LineItem {
   eventId: number;
@@ -37,6 +38,7 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
+  readonly createEvent: (request: NewEventInformation) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -136,6 +138,14 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
+const createEvent = (request: NewEventInformation): Promise<void> => {
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
+    .then((res) => {
+      return;
+    })
+    .catch((err) => err);
+};
+
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   registerTickets,
@@ -149,6 +159,7 @@ const Client: ProtectedApiClient = Object.freeze({
   changeAccountEmail,
   getEventRegistrations,
   getContactInfoById,
+  createEvent,
 });
 
 export default Client;
