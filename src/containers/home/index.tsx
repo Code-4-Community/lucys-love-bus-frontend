@@ -101,7 +101,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
     top: 30%;
     left: 15%;
     width: ${privilegeLevel === PrivilegeLevel.ADMIN ? '600px' : '500px'};
-    height: ${privilegeLevel === PrivilegeLevel.ADMIN ? '250px' : '280px'};
+    height: ${privilegeLevel === PrivilegeLevel.ADMIN ? '220px' : '280px'};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
   `;
