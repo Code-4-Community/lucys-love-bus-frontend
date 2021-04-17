@@ -25,9 +25,9 @@ import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
-import UserDirectory from './containers/userDirectory';
 
 const { Content } = Layout;
 
@@ -141,6 +141,8 @@ const App: React.FC = () => {
                         path={Routes.USER_DIRECTORY}
                         exact
                         component={UserDirectory}
+                      />
+                      <Route
                         path={Routes.MY_EVENTS}
                         exact
                         component={MyEvents}

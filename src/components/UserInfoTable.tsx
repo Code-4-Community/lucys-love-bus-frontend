@@ -191,7 +191,6 @@ const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
       dataIndex: 'photoRelease',
       key: 'photoRelease',
       render: TablePhotoConsent,
-      ...getColumnSearchProps('photoRelease'),
     },
     {
       title: 'Action',
