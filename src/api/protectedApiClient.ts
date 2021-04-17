@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { UserSummary } from '../components/UserInfoTable';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
@@ -34,7 +35,7 @@ export interface ProtectedApiClient {
   ) => Promise<EventAnnouncement[]>;
   readonly getContactInfo: () => Promise<ContactInfo>;
   readonly getContactInfoById: (id: number) => Promise<ContactInfo>;
-  readonly getAllUsersContactInfo: () => Promise<ContactInfo[]>;
+  readonly getAllUsersContactInfo: () => Promise<UserSummary[]>;
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
@@ -51,6 +52,7 @@ export enum ProtectedApiClientRoutes {
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
   CHANGE_EMAIL = '/api/v1/protected/user/change_email',
   EVENTS = 'api/v1/protected/events',
+  USER_DIRECTORY = 'api/v1/protected/user/user-directory',
 }
 
 const changePassword = (request: {
@@ -96,10 +98,10 @@ const getContactInfoById = (id: number): Promise<ContactInfo> => {
     `${ProtectedApiClientRoutes.CONTACT_INFO}/${id}`,
   ).then((res) => res.data);
 };
-const getAllUsersContactInfo = (): Promise<ContactInfo[]> => {
-  return AppAxiosInstance.get(
-    `${ProtectedApiClientRoutes.CONTACT_INFO}/all`,
-  ).then((res) => res.data);
+const getAllUsersContactInfo = (): Promise<UserSummary[]> => {
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.USER_DIRECTORY).then(
+    (res) => res.data.users,
+  );
 };
 
 const setContactInfo = (request: ContactInfo): Promise<void> => {

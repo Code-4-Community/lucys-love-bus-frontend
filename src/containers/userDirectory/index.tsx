@@ -1,9 +1,9 @@
-import { Alert, Spin, Table, Typography } from 'antd';
+import { Alert, Spin, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import protectedApiClient from '../../api/protectedApiClient';
 import { ChungusContentContainer } from '../../components';
-import UserInfoTable from '../../components/UserInfoTable';
+import UserInfoTable, { UserSummary } from '../../components/UserInfoTable';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -15,17 +15,16 @@ import {
   AsyncRequestLoading,
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
-import { ContactInfo } from '../setContacts/ducks/types';
 
-const { Title, Link } = Typography;
+const { Title } = Typography;
 
-const UserDirectory: React.FC<> = () => {
-  const [contacts, setContacts] = useState<AsyncRequest<ContactInfo[], any>>(
+const UserDirectory: React.FC = () => {
+  const [users, setContacts] = useState<AsyncRequest<UserSummary[], any>>(
     AsyncRequestNotStarted(),
   );
 
   useEffect(() => {
-    if (asyncRequestIsNotStarted(contacts)) {
+    if (asyncRequestIsNotStarted(users)) {
       setContacts(AsyncRequestLoading());
       protectedApiClient
         .getAllUsersContactInfo()
@@ -36,7 +35,7 @@ const UserDirectory: React.FC<> = () => {
           setContacts(AsyncRequestFailed(error));
         });
     }
-  }, [contacts]);
+  }, [users]);
 
   return (
     <>
@@ -50,25 +49,20 @@ const UserDirectory: React.FC<> = () => {
       <ChungusContentContainer>
         <Title level={3}>All Registered Members</Title>
 
-        {/* {asyncRequestIsComplete(contacts) && (
-          <UserInfoTable users={contacts.result.map(contact => ({
-            firstName: contact.mainContact.firstName,
-            lastName: contact.mainContact.firstName,
-            email: contact.mainContact.firstName,
-            userId: contact.mainContact.id,
-            privilegeLevel: contact.mainContact,
-            phoneNumber: string;
-            profilePicture: string | null;
-            photoRelease: boolean;
-            detailsLink: string;
-          }))} />
-        )} */}
+        {asyncRequestIsComplete(users) && (
+          <UserInfoTable
+            users={users.result.map((user) => ({
+              ...user,
+              detailsLink: `/family-details/${user.userId}`,
+            }))}
+          />
+        )}
 
-        {asyncRequestIsLoading(contacts) && <Spin />}
-        {asyncRequestIsFailed(contacts) && (
+        {asyncRequestIsLoading(users) && <Spin />}
+        {asyncRequestIsFailed(users) && (
           <Alert
             message="Error"
-            description={`There was an error loading registrations: ${contacts.error.message}`}
+            description={`There was an error loading registrations: ${users.error.message}`}
             type="error"
             showIcon
           />

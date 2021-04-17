@@ -27,6 +27,7 @@ import PersonalRequests from './containers/personalRequests';
 import { useSelector } from 'react-redux';
 import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
+import UserDirectory from './containers/userDirectory';
 
 const { Content } = Layout;
 
@@ -54,6 +55,7 @@ export enum Routes {
   CHANGE_ACCOUNT_EMAIL = '/change-email',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
+  USER_DIRECTORY = '/user-directory',
 }
 
 const App: React.FC = () => {
@@ -129,6 +131,11 @@ const App: React.FC = () => {
                         path={Routes.FAMILY_DETAILS}
                         exact
                         component={FamilyDetails}
+                      />
+                      <Route
+                        path={Routes.USER_DIRECTORY}
+                        exact
+                        component={UserDirectory}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
