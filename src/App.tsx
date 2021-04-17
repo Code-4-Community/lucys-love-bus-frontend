@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { PrivilegeLevel } from './auth/ducks/types';
+import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
@@ -263,6 +264,7 @@ const App: React.FC = () => {
             })()}
           </Content>
         </AppInnerContainer>
+        <BugReportFooter />
       </Router>
     </>
   );
