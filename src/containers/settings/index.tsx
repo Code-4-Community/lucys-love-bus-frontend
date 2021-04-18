@@ -5,7 +5,6 @@ import {
   MailOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons';
-import { Typography } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
@@ -14,7 +13,6 @@ import { ContentContainer } from '../../components';
 import { LinkButton } from '../../components/LinkButton';
 import { ORANGE } from '../../utils/colors';
 
-const { Title } = Typography;
 const CenteredOrangeTitle = styled.h1`
   text-align: center;
   font-weight: 800;

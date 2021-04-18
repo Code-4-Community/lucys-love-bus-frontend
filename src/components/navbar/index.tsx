@@ -109,7 +109,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
     if (asyncRequestIsComplete(tokens)) {
       dispatch(getContactInfo());
     }
-  }, [dispatch]);
+  }, [dispatch, tokens]);
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
@@ -247,7 +247,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
                 <UserDropdown overlay={userMenu}>
                   <Button>
                     <UserAvatar
-                      //size="large"
+                      // size="large"
                       src={
                         asyncRequestIsComplete(contacts) &&
                         contacts.result.mainContact.profilePicture
