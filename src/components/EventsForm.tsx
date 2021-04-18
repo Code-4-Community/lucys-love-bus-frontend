@@ -2,9 +2,10 @@ import {
     Alert,
     Button,
     DatePicker,
+    TimePicker,
     Form,
     Input,
-    Select,
+    InputNumber,
     Typography,
     Upload,
   } from 'antd';
@@ -18,9 +19,7 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
     asyncRequestIsLoading,
   } from '../utils/asyncRequest';
   import FormContainer from './FormContainer';
-  import FormInitialText from './FormInitialText';
   
-  const { Title, Paragraph, Text } = Typography;
   const { Dragger } = Upload;
   const { TextArea } = Input;
   
@@ -32,20 +31,19 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
   interface EventsFormProps {
     onFinish: (data: NewEventInformation) => void;
     tokens: UserAuthenticationReducerState['tokens'];
+    edit: boolean;
   }
 
   const EventsForm: React.FC<EventsFormProps> = ({
     onFinish,
     tokens,
+    edit
   }) => {
     return (
       <FormContainer>
         <Helmet>
           <title>Create Event</title>
         </Helmet>
-        <FormInitialText>
-          <Title level={5}>Create an Event</Title>
-        </FormInitialText>
         <Form
           name="basic"
           layout="vertical"
@@ -61,11 +59,11 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
           </Form.Item>
   
           <Form.Item
-            label="Location"
+            label="Event Location"
             name="location"
             rules={[{ required: true, message: 'Please input the location of the event' }]}
           >
-            <Input placeholder="Location" />
+            <Input placeholder="Event Location" />
           </Form.Item>
   
           <Form.Item
@@ -79,34 +77,35 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
               },
             ]}
           >
-            <DatePicker />
-          </Form.Item>
+            <DatePicker style={{ width: '50%' }}/>
+          </Form.Item> 
   
-          <Form.Item
-            label="Start Time"
-            name="startTime"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the start time of the event',
-              },
-            ]}
-          >
-            {/* Time Picker Here */}
-          </Form.Item>
-
-          <Form.Item
-            label="End Time"
-            name="endTime"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the end time of the event',
-              },
-            ]}
-          >
-            {/* Time Picker Here */}
-          </Form.Item>
+            <Form.Item    
+                label="Start Time"
+                name="startTime"
+                style={{ display: 'inline-block' }}
+                rules={[
+                    {
+                        required: false,
+                        message: 'Please input the start time of the event',
+                    },
+                    ]}
+            >
+                <TimePicker use12Hours style={{ marginRight: '8px' }}/> to
+            </Form.Item>
+            <Form.Item
+                label="End Time"
+                name="endTime"
+                style={{ display: 'inline-block' }}
+                rules={[
+                {
+                    required: true,
+                    message: 'Please input the end time of the event',
+                },
+                ]}
+            >
+                <TimePicker use12Hours style={{ marginLeft: '8px' }}/>
+            </Form.Item>
   
           <Form.Item
             label="Spots Available"
@@ -118,7 +117,10 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
               },
             ]}
           >
-            <Input placeholder="Spots Available" />
+            <InputNumber 
+                placeholder="Spots Available" 
+                min={0}
+                style={{ width: '50%' }}/>
           </Form.Item>
 
           <Form.Item
@@ -131,20 +133,10 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
               },
             ]}
           >
-            <Input placeholder="Price" />
-          </Form.Item>
-
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[
-              {
-                required: true,
-                message: 'Please input the price of the event',
-              },
-            ]}
-          >
-            <Input placeholder="Price" />
+            <InputNumber 
+                placeholder="Price"
+                min={0} 
+                style={{ width: '50%' }}/>
           </Form.Item>
 
           <Form.Item label="Description" name="description">
@@ -179,7 +171,7 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
               disabled={asyncRequestIsLoading(tokens)}
               htmlType="submit"
             >
-              Submit
+              Create Event
             </Button>
           </Form.Item>
         </Form>

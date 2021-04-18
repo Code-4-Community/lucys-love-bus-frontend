@@ -10,4 +10,5 @@ export interface NewEventInformation {
       end: Date;
     };
   }
+
   

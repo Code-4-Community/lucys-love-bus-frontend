@@ -6,6 +6,7 @@ import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 import { NewEventInformation } from '../containers/createEvent/ducks/types';
+import { reduce } from 'lodash';
 
 interface LineItem {
   eventId: number;
@@ -38,13 +39,14 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
-  readonly createEvent: (request: NewEventInformation) => Promise<void>;
+  readonly createEvent: (request: NewEventInformation) => Promise<EventInformation>;
+  readonly editEvent: (id: number, request: NewEventInformation) => Promise<EventInformation>;
+  readonly deleteEvent: (id: number) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
   REGISTER_TICKETS = '/api/v1/protected/checkout/register',
-  MY_EVENTS = '/api/v1/protected/events/signed_up',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   MAKE_PF_REQUEST = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
@@ -76,7 +78,7 @@ const registerTickets = (request: RegisterTicketsRequest) => {
 };
 
 const getMyEvents = (): Promise<EventInformation[]> => {
-  return AppAxiosInstance.get(ProtectedApiClientRoutes.MY_EVENTS).then(
+  return AppAxiosInstance.get(`${ProtectedApiClientRoutes.EVENTS}/signed-up`).then(
     (res) => res.data.events,
   );
 };
@@ -138,8 +140,20 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
-const createEvent = (request: NewEventInformation): Promise<void> => {
+const createEvent = (request: NewEventInformation): Promise<EventInformation> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
+    .then((res) => res.data.id)
+    .catch((err) => err);
+};
+
+const editEvent = (id: number, request: NewEventInformation): Promise<EventInformation> => {
+  return AppAxiosInstance.put(`${ProtectedApiClientRoutes.EVENTS}/${id}`, request)
+    .then((res) => res.data)
+    .catch((err) => err);
+};
+
+const deleteEvent = (id: number): Promise<void> => {
+  return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.EVENTS}/${id}`)
     .then((res) => {
       return;
     })
@@ -160,6 +174,8 @@ const Client: ProtectedApiClient = Object.freeze({
   getEventRegistrations,
   getContactInfoById,
   createEvent,
+  editEvent,
+  deleteEvent,
 });
 
 export default Client;

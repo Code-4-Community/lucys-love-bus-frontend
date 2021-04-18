@@ -1,4 +1,4 @@
-import { Spin } from 'antd';
+import { Spin, Button } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -20,6 +20,7 @@ import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
+import Client from '../../api/protectedApiClient';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -39,6 +40,16 @@ const AdminActionButtonList = styled.div`
   display: flex;
 `;
 
+const StyledRegButton = styled(Button)`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: #2d870d;
+  margin: 0 16px 32px 0;
+  padding: 8px 16px;
+`;
+
 const StyledButton = styled(LinkButton)`
   display: flex;
   flex-direction: column;
@@ -54,7 +65,7 @@ const GreenButton = styled(StyledButton)`
   color: #ffffff;
 `;
 
-const RedButton = styled(StyledButton)`
+const RedButton = styled(StyledRegButton)`
   background-color: #ff4d4f;
   border-color: #ff4d4f;
   color: white;
@@ -115,6 +126,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
+  const deleteEvent = async () => {
+    Client.deleteEvent(id);
+  };
+
   const conditionalRenderEventDetails = () => {
     if (
       asyncRequestIsComplete(events) &&
@@ -127,11 +142,11 @@ const SingleEvent: React.FC<SingleEventProps> = ({
           <>
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
-                <GreenButton to={BASE_EVENTS_ROUTE + id}>Edit</GreenButton>
+                <GreenButton to={`/events/${id}/edit`}>Edit</GreenButton>
                 <GreenButton to={BASE_EVENTS_ROUTE + id}>
                   Make Announcement
                 </GreenButton>
-                <RedButton to={BASE_EVENTS_ROUTE + id}>Delete Event</RedButton>
+                <RedButton onClick={deleteEvent}>Delete Event</RedButton>
                 <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}
