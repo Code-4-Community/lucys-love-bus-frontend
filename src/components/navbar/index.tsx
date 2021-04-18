@@ -254,7 +254,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
                       }
                       icon={<UserOutlined />}
                     />
-                    <Text>Ryan Jung</Text>
+                    <Text>
+                      {asyncRequestIsComplete(contacts)
+                        ? contacts.result.mainContact.firstName +
+                          ' ' +
+                          contacts.result.mainContact.lastName
+                        : 'Loading...'}
+                    </Text>
                     <DownOutlined />
                   </Button>
                 </UserDropdown>
