@@ -131,6 +131,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
           if (asyncRequestIsComplete(tokens)) {
             dispatch(logout());
             history.push(Routes.HOME);
+            history.go(0);
           }
         }}
       >
