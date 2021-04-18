@@ -1,6 +1,15 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
-import React, { useState } from 'react';
+import {
+  Avatar,
+  Button,
+  Col,
+  Dropdown,
+  Image,
+  Menu,
+  Row,
+  Typography,
+} from 'antd';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -11,6 +20,8 @@ import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
+import { getContactInfo } from '../../containers/setContacts/ducks/thunks';
+import { ContactsReducerState } from '../../containers/setContacts/ducks/types';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { ORANGE } from '../../utils/colors';
@@ -74,14 +85,31 @@ const UserContainer = styled.div`
   margin-right: 16px;
 `;
 
+const UserMenu = styled(Menu)`
+  min-width: 100px;
+`;
+const UserDropdown = styled(Dropdown)`
+  min-height: 50px;
+`;
+const UserAvatar = styled(Avatar)`
+  margin-right: 10px;
+`;
+
 interface NavBarProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
+  readonly contacts: ContactsReducerState['contacts'];
 }
 
-const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
+const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getContactInfo());
+    }
+  }, [dispatch]);
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
@@ -95,23 +123,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 
   // Dropdown menu options for the logged in
   const userMenu = (
-    <Menu>
-      <Menu.Item
-        onClick={() => {
-          history.push(Routes.CHANGE_ACCOUNT_EMAIL);
-        }}
-      >
-        Change Primary Account Email
-      </Menu.Item>
-      <Menu.Item>Account Details</Menu.Item>
-      <Menu.Item>Change Password</Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push(Routes.DEACTIVATE_ACCOUNT);
-        }}
-      >
-        Deactivate Account
-      </Menu.Item>
+    <UserMenu>
       <Menu.Item
         onClick={() => {
           history.push(Routes.SETTINGS);
@@ -119,13 +131,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
       >
         Settings
       </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push(Routes.SET_CONTACTS);
-        }}
-      >
-        Update Profile Information
-      </Menu.Item>
+
       <Menu.Item
         onClick={() => {
           if (asyncRequestIsComplete(tokens)) {
@@ -136,7 +142,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
       >
         Log Out
       </Menu.Item>
-    </Menu>
+    </UserMenu>
   );
 
   const [displayLoginModal, setDisplayLoginModal] = useState(false);
@@ -238,12 +244,20 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
           <Row gutter={[8, 0]}>
             {privilegeLevel !== PrivilegeLevel.NONE ? (
               <Col>
-                <Dropdown overlay={userMenu}>
+                <UserDropdown overlay={userMenu}>
                   <Button>
-                    <UserOutlined />
+                    <UserAvatar
+                      //size="large"
+                      src={
+                        asyncRequestIsComplete(contacts) &&
+                        contacts.result.mainContact.profilePicture
+                      }
+                      icon={<UserOutlined />}
+                    />
+                    <Text>Ryan Jung</Text>
                     <DownOutlined />
                   </Button>
-                </Dropdown>
+                </UserDropdown>
               </Col>
             ) : (
               <>
@@ -288,6 +302,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 const mapStateToProps = (state: C4CState): NavBarProps => {
   return {
     tokens: state.authenticationState.tokens,
+    contacts: state.contactsState.contacts,
   };
 };
 

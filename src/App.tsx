@@ -9,6 +9,7 @@ import { PrivilegeLevel } from './auth/ducks/types';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
+import ChangePassword from './containers/changePassword';
 import DeactivateAccount from './containers/deactivateAccount';
 import EventRSVP from './containers/eventRSVP';
 import FamilyDetails from './containers/familyDetails';
@@ -52,6 +53,7 @@ export enum Routes {
   SET_CONTACTS = '/set-contacts',
   SIGNUP_CONFIRMATION = '/signup/confirmation',
   CHANGE_ACCOUNT_EMAIL = '/change-email',
+  CHANGE_PASSWORD = '/change-password',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
 }
@@ -140,6 +142,16 @@ const App: React.FC = () => {
                         exact
                         component={MyEvents}
                       />
+                      <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -207,6 +219,11 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
