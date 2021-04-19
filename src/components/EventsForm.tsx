@@ -6,14 +6,12 @@ import {
   Form,
   Input,
   InputNumber,
-  Typography,
   Upload,
 } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { UserAuthenticationReducerState } from '../auth/ducks/types';
-import { NewEventInformation } from '../containers/createEvent/ducks/types';
 import {
   asyncRequestIsFailed,
   asyncRequestIsLoading,
@@ -28,8 +26,20 @@ const PaddedAlert = styled(Alert)`
   margin-bottom: 2em;
 `;
 
+export interface EventsFormData {
+  title: string,
+  capacity: number,
+  thumbnail?: string,
+  price: number,
+  description: string,
+  location: string,
+  date: Date,
+  startTime: Date,
+  endTime: Date,
+}
+
 interface EventsFormProps {
-  onFinish: (data: NewEventInformation) => Promise<void>;
+  onFinish: (data: EventsFormData) => Promise<void>;
   tokens: UserAuthenticationReducerState['tokens'];
   edit: boolean;
 }

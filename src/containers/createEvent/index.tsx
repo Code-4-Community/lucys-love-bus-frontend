@@ -7,12 +7,11 @@ import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import ProtectedApiClient from '../../api/protectedApiClient';
-import { NewEventInformation } from './ducks/types';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
 import { createEvent } from './ducks/thunks';
+import { EventsFormData } from '../../components/EventsForm'
 
 interface CreateEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -28,14 +27,20 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
   //       history.push(Routes.UPCOMING_EVENTS);
   //   }
 
-  const onFinish = async (data: NewEventInformation) => {
+  const onFinish = async (data: EventsFormData) => {
     dispatch(
       createEvent({
         title: data.title,
         capacity: data.capacity,
         thumbnail: data.thumbnail,
         price: data.price,
-        details: data.details,
+        details: {
+            description: data.description,
+            location: data.location,
+            //TODO: make these timestamps use the start and end times
+            start: data.date,
+            end: data.date,
+        }
       }),
     );
   };
