@@ -12,6 +12,7 @@ import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
 import { editEvent } from '../createEvent/ducks/thunks';
+import { EventsFormData } from '../../components/EventsForm'
 
 interface EditEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -32,14 +33,20 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
     history.push(`/events/${id}`);
   }
 
-  const onFinish = async (data: NewEventInformation) => {
+  const onFinish = async (data: EventsFormData) => {
     dispatch(
       editEvent(id, {
         title: data.title,
         capacity: data.capacity,
         thumbnail: data.thumbnail,
         price: data.price,
-        details: data.details,
+        details: {
+          description: data.description,
+          location: data.location,
+          //TODO: make these timestamps use the start and end times
+          start: data.date,
+          end: data.date,
+        }
       }),
     );
   };
