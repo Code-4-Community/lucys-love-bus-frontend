@@ -39,8 +39,13 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
-  readonly eventCreate: (request: NewEventInformation) => Promise<EventInformation>;
-  readonly eventEdit: (id: number, request: NewEventInformation) => Promise<EventInformation>;
+  readonly eventCreate: (
+    request: NewEventInformation,
+  ) => Promise<EventInformation>;
+  readonly eventEdit: (
+    id: number,
+    request: NewEventInformation,
+  ) => Promise<EventInformation>;
   readonly eventDelete: (id: number) => Promise<void>;
 }
 
@@ -78,9 +83,9 @@ const registerTickets = (request: RegisterTicketsRequest) => {
 };
 
 const getMyEvents = (): Promise<EventInformation[]> => {
-  return AppAxiosInstance.get(`${ProtectedApiClientRoutes.EVENTS}/signed-up`).then(
-    (res) => res.data.events,
-  );
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.EVENTS}/signed-up`,
+  ).then((res) => res.data.events);
 };
 const deactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
@@ -140,14 +145,22 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
-const eventCreate = (request: NewEventInformation): Promise<EventInformation> => {
+const eventCreate = (
+  request: NewEventInformation,
+): Promise<EventInformation> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
     .then((res) => res.data.id)
     .catch((err) => err);
 };
 
-const eventEdit = (id: number, request: NewEventInformation): Promise<EventInformation> => {
-  return AppAxiosInstance.put(`${ProtectedApiClientRoutes.EVENTS}/${id}`, request)
+const eventEdit = (
+  id: number,
+  request: NewEventInformation,
+): Promise<EventInformation> => {
+  return AppAxiosInstance.put(
+    `${ProtectedApiClientRoutes.EVENTS}/${id}`,
+    request,
+  )
     .then((res) => res.data)
     .catch((err) => err);
 };

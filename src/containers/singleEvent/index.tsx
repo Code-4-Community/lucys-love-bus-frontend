@@ -128,8 +128,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   });
 
   const deleteEvent = async () => {
-    Client.eventDelete(id)
-      .then(() => history.push('/events'));
+    Client.eventDelete(id).then(() => history.push('/events'));
   };
 
   const conditionalRenderEventDetails = () => {

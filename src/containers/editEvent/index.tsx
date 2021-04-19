@@ -20,29 +20,27 @@ interface EditEventProps {
 const { Title } = Typography;
 
 interface SingleEventParams {
-    id: string;
-  }
-  
-const EditEventContainer: React.FC<EditEventProps> = ({
-  tokens,
-}) => {
+  id: string;
+}
+
+const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
 
   if (asyncRequestIsComplete(tokens)) {
-      history.push(`/events/${id}`);
+    history.push(`/events/${id}`);
   }
 
   const onFinish = async (data: NewEventInformation) => {
-    dispatch(editEvent(id, {
-            title: data.title,
-            spotsAvailable: data.spotsAvailable,
-            capacity: data.capacity,
-            thumbnail: data.thumbnail,
-            price: data.price,
-            details: data.details,
-        }),
+    dispatch(
+      editEvent(id, {
+        title: data.title,
+        capacity: data.capacity,
+        thumbnail: data.thumbnail,
+        price: data.price,
+        details: data.details,
+      }),
     );
   };
 
@@ -50,20 +48,13 @@ const EditEventContainer: React.FC<EditEventProps> = ({
     <>
       <Helmet>
         <title>Edit Event</title>
-        <meta
-          name="description"
-          content="Edit an existing Event"
-        />
+        <meta name="description" content="Edit an existing Event" />
       </Helmet>
       <ContentContainer>
         <FormInitialText>
           <Title level={3}>Edit Event</Title>
         </FormInitialText>
-        <EventsForm
-          onFinish={onFinish}
-          tokens={tokens}
-          edit={true}
-        />
+        <EventsForm onFinish={onFinish} tokens={tokens} edit={true} />
       </ContentContainer>
     </>
   );

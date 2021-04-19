@@ -14,4 +14,3 @@ export type CreateEventActions =
   | ReturnType<typeof edit.failed>
   | ReturnType<typeof deleteEvent.loading>
   | ReturnType<typeof deleteEvent.failed>;
-

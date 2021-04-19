@@ -7,7 +7,7 @@ import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import ProtectedApiClient from '../../api/protectedApiClient'
+import ProtectedApiClient from '../../api/protectedApiClient';
 import { NewEventInformation } from './ducks/types';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
@@ -20,25 +20,23 @@ interface CreateEventProps {
 
 const { Title } = Typography;
 
-const CreateEventContainer: React.FC<CreateEventProps> = ({
-  tokens,
-}) => {
+const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-//   if (asyncRequestIsComplete(tokens)) {
-//       history.push(Routes.UPCOMING_EVENTS);
-//   }
+  //   if (asyncRequestIsComplete(tokens)) {
+  //       history.push(Routes.UPCOMING_EVENTS);
+  //   }
 
   const onFinish = async (data: NewEventInformation) => {
-    dispatch(createEvent({
-            title: data.title,
-            spotsAvailable: data.spotsAvailable,
-            capacity: data.capacity,
-            thumbnail: data.thumbnail,
-            price: data.price,
-            details: data.details
-        }),
+    dispatch(
+      createEvent({
+        title: data.title,
+        capacity: data.capacity,
+        thumbnail: data.thumbnail,
+        price: data.price,
+        details: data.details,
+      }),
     );
   };
 
@@ -46,20 +44,13 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({
     <>
       <Helmet>
         <title>Create Event</title>
-        <meta
-          name="description"
-          content="Create a new Event"
-        />
+        <meta name="description" content="Create a new Event" />
       </Helmet>
       <ContentContainer>
         <FormInitialText>
           <Title level={3}>Create an Event</Title>
         </FormInitialText>
-        <EventsForm
-          onFinish={onFinish}
-          tokens={tokens}
-          edit={false}
-        />
+        <EventsForm onFinish={onFinish} tokens={tokens} edit={false} />
       </ContentContainer>
     </>
   );

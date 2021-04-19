@@ -3,7 +3,7 @@ import { create, edit, deleteEvent } from './actions';
 import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export const createEvent = (
-    createEventRequest: NewEventInformation,
+  createEventRequest: NewEventInformation,
 ): CreateEventThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(create.loading());
@@ -19,8 +19,8 @@ export const createEvent = (
 };
 
 export const editEvent = (
-    id: number,
-    editEventRequest: NewEventInformation,
+  id: number,
+  editEventRequest: NewEventInformation,
 ): CreateEventThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(edit.loading());
@@ -35,9 +35,7 @@ export const editEvent = (
   };
 };
 
-export const deleteAnEvent = (
-    id: number,
-): CreateEventThunkAction<void> => {
+export const deleteAnEvent = (id: number): CreateEventThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(deleteEvent.loading());
     return protectedApiClient

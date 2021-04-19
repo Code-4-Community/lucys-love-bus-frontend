@@ -16,17 +16,14 @@ export type CreateEventThunkAction<R> = ThunkAction<
 >;
 
 export interface NewEventInformation {
-    title: string;
-    spotsAvailable: number;
-    capacity: number;
-    thumbnail?: string;
-    price: number,
-    details: {
-      description: string;
-      location: string;
-      start: Date;
-      end: Date;
-    };
-  }
-
-  
+  title: string;
+  capacity: number;
+  thumbnail?: string;
+  price: number;
+  details: {
+    description: string;
+    location: string;
+    start: Date;
+    end: Date;
+  };
+}
