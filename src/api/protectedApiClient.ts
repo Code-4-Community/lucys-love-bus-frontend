@@ -6,6 +6,25 @@ import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface PFRequest {
+  id: string;
+  user: User;
+}
+
+export interface PFRequestResponse {
+  data: {
+      requests: PFRequest[]
+  };
+}
+
 interface LineItem {
   eventId: number;
   quantity: number;
@@ -28,6 +47,7 @@ export interface ProtectedApiClient {
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
+  readonly getPFRequests: () => Promise<PFRequestResponse>;
   readonly deactivateAccount: () => Promise<void>;
   readonly getEventAnnouncements: (
     eventId: number,
@@ -44,7 +64,7 @@ export enum ProtectedApiClientRoutes {
   REGISTER_TICKETS = '/api/v1/protected/checkout/register',
   MY_EVENTS = '/api/v1/protected/events/signed_up',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
-  MAKE_PF_REQUEST = 'api/v1/protected/requests',
+  PF_REQUESTS = 'api/v1/protected/requests',
   USER = '/api/v1/protected/user',
   ANNOUNCEMENTS = 'api/v1/protected/announcements',
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
@@ -78,6 +98,7 @@ const getMyEvents = (): Promise<EventInformation[]> => {
     (res) => res.data.events,
   );
 };
+
 const deactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
     .then((res) => res)
@@ -107,11 +128,15 @@ const getRequestStatuses = (): Promise<PersonalRequest[]> => {
 };
 
 const makePFRequest = (): Promise<void> => {
-  return AppAxiosInstance.post(ProtectedApiClientRoutes.MAKE_PF_REQUEST)
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.PF_REQUESTS)
     .then((res) => {
       return;
     })
     .catch((err) => err);
+};
+
+const getPFRequests = (): Promise<PFRequestResponse> => {
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.PF_REQUESTS);
 };
 
 const getEventAnnouncements = (
@@ -142,6 +167,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getMyEvents,
   getRequestStatuses,
   makePFRequest,
+  getPFRequests,
   deactivateAccount,
   getEventAnnouncements,
   getContactInfo,

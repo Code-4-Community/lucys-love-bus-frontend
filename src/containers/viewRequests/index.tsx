@@ -1,41 +1,20 @@
 import React from 'react';
-import { Button, Table } from 'antd';
-import styled from 'styled-components';
-
-const RequestsTable = styled(Table)`
-  max-width: 960px;
-  margin-left: 75px;
-`;
-
-const columns = [
-  {
-    title: 'Account Owner',
-    width: 100,
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: 'Email',
-    width: 100,
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Phone Number',
-    dataIndex: 'address',
-    key: '1',
-    width: 150,
-  },
-  {
-    title: 'View Request',
-    dataIndex: 'address',
-    key: '2',
-    width: 150,
-  },
-];
+import { Helmet } from 'react-helmet';
+import PFRequestsTable from '../../components/PFRequestsTable';
 
 const ViewRequests = () => {
-  return <RequestsTable bordered dataSource={[]} columns={columns} />;
+  return (
+    <>
+      <Helmet>
+        <title>View Family Details</title>
+        <meta
+          name="description"
+          content="View all pending participating family requests and current registered families"
+        />
+      </Helmet>
+      <PFRequestsTable />
+    </>
+  );
 };
 
 export default ViewRequests;
