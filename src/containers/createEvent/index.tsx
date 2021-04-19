@@ -37,9 +37,8 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
         details: {
             description: data.description,
             location: data.location,
-            //TODO: make these timestamps use the start and end times
-            start: data.date,
-            end: data.date,
+            start: data.start,
+            end: data.end,
         }
       }),
     );

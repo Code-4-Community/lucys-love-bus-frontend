@@ -29,9 +29,9 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
 
-  if (asyncRequestIsComplete(tokens)) {
-    history.push(`/events/${id}`);
-  }
+  // if (asyncRequestIsComplete(tokens)) {
+  //   history.push(`/events/${id}`);
+  // }
 
   const onFinish = async (data: EventsFormData) => {
     dispatch(
@@ -43,9 +43,8 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
         details: {
           description: data.description,
           location: data.location,
-          //TODO: make these timestamps use the start and end times
-          start: data.date,
-          end: data.date,
+          start: data.start,
+          end: data.end,
         }
       }),
     );

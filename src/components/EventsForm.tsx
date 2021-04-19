@@ -8,6 +8,7 @@ import {
   InputNumber,
   Upload,
 } from 'antd';
+import Paragraph from 'antd/lib/skeleton/Paragraph';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
@@ -33,9 +34,8 @@ export interface EventsFormData {
   price: number,
   description: string,
   location: string,
-  date: Date,
-  startTime: Date,
-  endTime: Date,
+  start: Date,
+  end: Date,
 }
 
 interface EventsFormProps {
@@ -80,44 +80,34 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit }) => {
         </Form.Item>
 
         <Form.Item
-          name="date"
-          fieldKey="date"
-          label="Date"
+          name="start"
+          fieldKey="start"
+          style={{ display: 'inline-block' }}
+          label="Start Date"
           rules={[
             {
               required: true,
-              message: 'Please input the date of the event',
+              message: 'Please input the start date and timeof the event',
             },
           ]}
         >
-          <DatePicker style={{ width: '50%' }} />
+          <DatePicker style={{ marginRight: '8px' }} showTime use12Hours/>
         </Form.Item>
-
+        <p>
+          to</p>
         <Form.Item
-          label="Start Time"
-          name="startTime"
+          name="end"
+          fieldKey="end"
           style={{ display: 'inline-block' }}
-          rules={[
-            {
-              required: false,
-              message: 'Please input the start time of the event',
-            },
-          ]}
-        >
-          <TimePicker use12Hours style={{ marginRight: '8px' }} /> to
-        </Form.Item>
-        <Form.Item
-          label="End Time"
-          name="endTime"
-          style={{ display: 'inline-block' }}
+          label="End Date"
           rules={[
             {
               required: true,
-              message: 'Please input the end time of the event',
+              message: 'Please input the end date and time of the event',
             },
           ]}
         >
-          <TimePicker use12Hours style={{ marginLeft: '8px' }} />
+          <DatePicker style={{ marginLeft: '8px' }} showTime use12Hours/>
         </Form.Item>
 
         <Form.Item
