@@ -12,6 +12,7 @@ import { NewEventInformation } from './ducks/types';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
+import { createEvent } from './ducks/thunks';
 
 interface CreateEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -30,12 +31,12 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({
 //   }
 
   const onFinish = async (data: NewEventInformation) => {
-    dispatch(
-        ProtectedApiClient.createEvent({
+    dispatch(createEvent({
             title: data.title,
             spotsAvailable: data.spotsAvailable,
             capacity: data.capacity,
             thumbnail: data.thumbnail,
+            price: data.price,
             details: data.details
         }),
     );

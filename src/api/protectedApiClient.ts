@@ -39,9 +39,9 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
-  readonly createEvent: (request: NewEventInformation) => Promise<EventInformation>;
-  readonly editEvent: (id: number, request: NewEventInformation) => Promise<EventInformation>;
-  readonly deleteEvent: (id: number) => Promise<void>;
+  readonly eventCreate: (request: NewEventInformation) => Promise<EventInformation>;
+  readonly eventEdit: (id: number, request: NewEventInformation) => Promise<EventInformation>;
+  readonly eventDelete: (id: number) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -140,19 +140,19 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
-const createEvent = (request: NewEventInformation): Promise<EventInformation> => {
+const eventCreate = (request: NewEventInformation): Promise<EventInformation> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
     .then((res) => res.data.id)
     .catch((err) => err);
 };
 
-const editEvent = (id: number, request: NewEventInformation): Promise<EventInformation> => {
+const eventEdit = (id: number, request: NewEventInformation): Promise<EventInformation> => {
   return AppAxiosInstance.put(`${ProtectedApiClientRoutes.EVENTS}/${id}`, request)
     .then((res) => res.data)
     .catch((err) => err);
 };
 
-const deleteEvent = (id: number): Promise<void> => {
+const eventDelete = (id: number): Promise<void> => {
   return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.EVENTS}/${id}`)
     .then((res) => {
       return;
@@ -173,9 +173,9 @@ const Client: ProtectedApiClient = Object.freeze({
   changeAccountEmail,
   getEventRegistrations,
   getContactInfoById,
-  createEvent,
-  editEvent,
-  deleteEvent,
+  eventCreate,
+  eventEdit,
+  eventDelete,
 });
 
 export default Client;

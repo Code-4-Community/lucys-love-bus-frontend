@@ -14,6 +14,7 @@ import {
   import styled from 'styled-components';
   import { UserAuthenticationReducerState } from '../auth/ducks/types';
 import { NewEventInformation } from '../containers/createEvent/ducks/types';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
   import {
     asyncRequestIsFailed,
     asyncRequestIsLoading,
@@ -29,7 +30,7 @@ import { NewEventInformation } from '../containers/createEvent/ducks/types';
   `;
   
   interface EventsFormProps {
-    onFinish: (data: NewEventInformation) => void;
+    onFinish: (data: NewEventInformation) => Promise<void>;
     tokens: UserAuthenticationReducerState['tokens'];
     edit: boolean;
   }

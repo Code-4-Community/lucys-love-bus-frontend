@@ -7,11 +7,11 @@ import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import ProtectedApiClient from '../../api/protectedApiClient'
 import { NewEventInformation } from '../createEvent/ducks/types';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
+import { editEvent } from '../createEvent/ducks/thunks';
 
 interface EditEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -30,20 +30,20 @@ const EditEventContainer: React.FC<EditEventProps> = ({
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
 
-//   if (asyncRequestIsComplete(tokens)) {
-//       history.push(Routes.UPCOMING_EVENTS);
-//   }
+  if (asyncRequestIsComplete(tokens)) {
+      history.push(`/events/${id}`);
+  }
 
   const onFinish = async (data: NewEventInformation) => {
-    // dispatch(
-    //     ProtectedApiClient.editEvent({
-    //         title: data.title,
-    //         spotsAvailable: data.spotsAvailable,
-    //         capacity: data.capacity,
-    //         thumbnail: data.thumbnail,
-    //         details: data.details
-    //     }),
-    // );
+    dispatch(editEvent(id, {
+            title: data.title,
+            spotsAvailable: data.spotsAvailable,
+            capacity: data.capacity,
+            thumbnail: data.thumbnail,
+            price: data.price,
+            details: data.details,
+        }),
+    );
   };
 
   return (

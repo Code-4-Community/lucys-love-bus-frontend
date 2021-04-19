@@ -2,7 +2,7 @@ import { Spin, Button } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import {
@@ -115,6 +115,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   eventAnnouncements,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
 
   useEffect(() => {
@@ -127,7 +128,8 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   });
 
   const deleteEvent = async () => {
-    Client.deleteEvent(id);
+    Client.eventDelete(id)
+      .then(() => history.push('/events'));
   };
 
   const conditionalRenderEventDetails = () => {
