@@ -29,6 +29,7 @@ import VerifyEmail from './containers/verifyEmail';
 import CreateEventContainer from './containers/createEvent';
 import EditEventContainer from './containers/editEvent';
 import { C4CState } from './store';
+import DeleteEvent from './containers/deleteEvent';
 
 const { Content } = Layout;
 
@@ -58,6 +59,7 @@ export enum Routes {
   FAMILY_DETAILS = '/family-details/:id',
   CREATE_EVENT = '/create-event',
   EDIT_EVENT = '/events/:id/edit',
+  DELETE_EVENT = '/events/:id/delete'
 }
 
 const App: React.FC = () => {
@@ -154,6 +156,11 @@ const App: React.FC = () => {
                         exact
                         component={EditEventContainer}
                       />
+                      <Route
+                        path={Routes.DELETE_EVENT}
+                        exact
+                        component={DeleteEvent}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -221,17 +228,7 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
-                      />
-                      <Route
-                        path={Routes.CREATE_EVENT}
-                        exact
-                        component={CreateEventContainer}
-                      />
-                      <Route
-                        path={Routes.EDIT_EVENT}
-                        exact
-                        component={EditEventContainer}
-                      />
+                      /> 
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );

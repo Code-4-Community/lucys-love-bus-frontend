@@ -41,16 +41,6 @@ const AdminActionButtonList = styled.div`
   display: flex;
 `;
 
-const StyledRegButton = styled(Button)`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  justify-content: center;
-  background-color: #2d870d;
-  margin: 0 16px 32px 0;
-  padding: 8px 16px;
-`;
-
 const StyledButton = styled(LinkButton)`
   display: flex;
   flex-direction: column;
@@ -66,7 +56,7 @@ const GreenButton = styled(StyledButton)`
   color: #ffffff;
 `;
 
-const RedButton = styled(StyledRegButton)`
+const RedButton = styled(StyledButton)`
   background-color: #ff4d4f;
   border-color: #ff4d4f;
   color: white;
@@ -128,10 +118,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
-  const deleteEvent = async () => {
-    dispatch(deleteAnEvent(id));
-  };
-
   const conditionalRenderEventDetails = () => {
     if (
       asyncRequestIsComplete(events) &&
@@ -148,7 +134,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                 <GreenButton to={BASE_EVENTS_ROUTE + id}>
                   Make Announcement
                 </GreenButton>
-                <RedButton onClick={deleteEvent}>Delete Event</RedButton>
+                <RedButton to={`${BASE_EVENTS_ROUTE}${id}/delete`}>Delete Event</RedButton>
                 <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}

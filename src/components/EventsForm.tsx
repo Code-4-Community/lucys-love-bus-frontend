@@ -29,6 +29,16 @@ const PaddedAlert = styled(Alert)`
   margin-bottom: 2em;
 `;
 
+const StyledButton = styled(Button)`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  background-color: #2d870d;
+  margin: 0 16px 32px 0;
+  padding: 8px 16px;
+`;
+
 export interface EventsFormData {
   title: string,
   capacity: number,
@@ -191,13 +201,13 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
         )}
         <Form.Item>
           
-          <Button
+          <StyledButton
             type="primary"
             disabled={asyncRequestIsLoading(tokens)}
             htmlType="submit"
           >
             {edit ? "Edit Event" : "Create Event"}
-          </Button>
+          </StyledButton>
           
         </Form.Item>
       </Form>
