@@ -21,6 +21,7 @@ import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
 import Client from '../../api/protectedApiClient';
+import { deleteAnEvent } from '../createEvent/ducks/thunks';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -128,7 +129,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   });
 
   const deleteEvent = async () => {
-    Client.eventDelete(id).then(() => history.push('/upcoming-events'));
+    dispatch(deleteAnEvent(id));
   };
 
   const conditionalRenderEventDetails = () => {

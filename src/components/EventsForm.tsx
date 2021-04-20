@@ -110,10 +110,11 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
           <DatePicker 
             style={{ marginRight: '8px' }} 
             showTime 
-            use12Hours />
+            use12Hours 
+            format="MM/DD/YYYY hh:mm A"/>
         </Form.Item>
 
-        <p>to</p>
+        <p style={{ display: 'inline-block', marginLeft: '8px', marginRight: '8px', marginTop: '32px'}}>to</p>
         
         <Form.Item
           name="end"
@@ -130,7 +131,8 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
           <DatePicker 
             style={{ marginLeft: '8px' }} 
             showTime 
-            use12Hours />
+            use12Hours 
+            format="MM/DD/YYYY hh:mm A"/>
         </Form.Item>
 
         <Form.Item
@@ -188,23 +190,15 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
           />
         )}
         <Form.Item>
-          {edit ? 
+          
           <Button
             type="primary"
             disabled={asyncRequestIsLoading(tokens)}
             htmlType="submit"
           >
-            Edit Event
+            {edit ? "Edit Event" : "Create Event"}
           </Button>
-          :
-          <Button
-            type="primary"
-            disabled={asyncRequestIsLoading(tokens)}
-            htmlType="submit"
-          >
-            Create Event
-          </Button>
-          }
+          
         </Form.Item>
       </Form>
     </FormContainer>
