@@ -116,7 +116,7 @@ const EventListing: React.FC<EventListingProps> = ({
           {admin ? (
             <AdminButtonWrapper>
               <GreenButton to={BASE_EVENTS_ROUTE + id}>Learn More</GreenButton>
-              <GreenButton to={BASE_EVENTS_ROUTE + id}>Edit</GreenButton>
+              <GreenButton to={BASE_EVENTS_ROUTE + id + '/edit'}>Edit</GreenButton>
               <GreenButton to={BASE_EVENTS_ROUTE + id}>
                 Make Announcement
               </GreenButton>
