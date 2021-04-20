@@ -120,7 +120,10 @@ const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
     render: (text: string) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: TABLE_HIGHLIGHTED_WORDS, padding: 0 }}
+          highlightStyle={{
+            backgroundColor: TABLE_HIGHLIGHTED_WORDS,
+            padding: 0,
+          }}
           searchWords={[searchText || '']}
           autoEscape
           textToHighlight={text ? text.toString() : ''}
