@@ -3,13 +3,17 @@ import protectedApiClient, {
   PFRequestResponse,
 } from '../api/protectedApiClient';
 import { LinkButton } from './LinkButton';
-import { Table } from 'antd';
+import { Table, Typography} from 'antd';
 import styled from 'styled-components';
+const { Title } = Typography;
 
 const RequestsTable = styled(Table)`
-  display: flex;
-  justify-content: left;
-  align-items: center;
+  max-width: 60%;
+  margin-left: 16px;
+`;
+
+const StyledTitle = styled(Title)`
+  margin-top: 10px;
   margin-left: 16px;
 `;
 
@@ -22,27 +26,20 @@ interface PFRequestData {
 const columns = [
   {
     title: 'Account Owner',
-    width: 100,
     dataIndex: 'name',
-    key: 'name',
   },
   {
     title: 'Email',
-    width: 100,
     dataIndex: 'email',
-    key: 'email',
   },
   {
     title: 'Phone Number',
     dataIndex: 'phoneNumber',
-    key: '1',
-    width: 150,
   },
   {
     title: '',
     dataIndex: 'viewRequest',
-    key: '2',
-    width: 150,
+    width: '20px',
   },
 ];
 
@@ -59,7 +56,7 @@ const PFRequestsTable = () => {
             email: pfRequest.user.email,
             phoneNumber: pfRequest.user.phoneNumber,
             viewRequest: (
-              <LinkButton to={'/view-request/' + pfRequest.user.id}>
+              <LinkButton to={'/view-request/' + pfRequest.id}>
                 View Request
               </LinkButton>
             ),
@@ -70,7 +67,17 @@ const PFRequestsTable = () => {
     getPFRequestsData();
   }, []);
 
-  return <RequestsTable bordered dataSource={data} columns={columns} />;
+  return (
+    <>
+      <StyledTitle>Pending Requests</StyledTitle>
+      <RequestsTable
+        bordered
+        dataSource={data}
+        columns={columns}
+        pagination={{ pageSize: 5 }}
+      />
+    </>
+  );
 };
 
 export default PFRequestsTable;

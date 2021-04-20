@@ -57,7 +57,7 @@ export enum Routes {
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
   VIEW_REQUESTS = '/view-requests',
-  VIEW_PF_REQUEST = '/view-request/:id',
+  VIEW_PF_REQUEST = '/view-request/:request_id/:user-id',
 }
 
 const App: React.FC = () => {

@@ -21,7 +21,7 @@ export interface PFRequest {
 
 export interface PFRequestResponse {
   data: {
-      requests: PFRequest[]
+    requests: PFRequest[];
   };
 }
 
@@ -48,6 +48,8 @@ export interface ProtectedApiClient {
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
   readonly getPFRequests: () => Promise<PFRequestResponse>;
+  readonly approvePFRequest: (requestId: number) => Promise<void>;
+  readonly denyPFRequest: (requestId: number) => Promise<void>;
   readonly deactivateAccount: () => Promise<void>;
   readonly getEventAnnouncements: (
     eventId: number,
@@ -65,6 +67,8 @@ export enum ProtectedApiClientRoutes {
   MY_EVENTS = '/api/v1/protected/events/signed_up',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
   PF_REQUESTS = 'api/v1/protected/requests',
+  APPROVE_PF_REQUEST = 'api/v1/protected/requests/:request_id/approve',
+  DENY_PF_REQUEST = 'api/v1/protected/requests/:request_id/reject',
   USER = '/api/v1/protected/user',
   ANNOUNCEMENTS = 'api/v1/protected/announcements',
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
@@ -139,6 +143,24 @@ const getPFRequests = (): Promise<PFRequestResponse> => {
   return AppAxiosInstance.get(ProtectedApiClientRoutes.PF_REQUESTS);
 };
 
+const approvePFRequest = (requestId: number): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.APPROVE_PF_REQUEST.replace(
+      ':request_id',
+      String(requestId),
+    ),
+  );
+};
+
+const denyPFRequest = (requestId: number): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.DENY_PF_REQUEST.replace(
+      ':request_id',
+      String(requestId),
+    ),
+  );
+};
+
 const getEventAnnouncements = (
   eventId: number,
 ): Promise<EventAnnouncement[]> => {
@@ -168,6 +190,8 @@ const Client: ProtectedApiClient = Object.freeze({
   getRequestStatuses,
   makePFRequest,
   getPFRequests,
+  approvePFRequest,
+  denyPFRequest,
   deactivateAccount,
   getEventAnnouncements,
   getContactInfo,
