@@ -54,7 +54,7 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
         <FormInitialText>
           <Title level={3}>Create an Event</Title>
         </FormInitialText>
-        <EventsForm onFinish={onFinish} tokens={tokens} edit={false} />
+        <EventsForm onFinish={onFinish} tokens={tokens} edit={false}/>
       </ContentContainer>
     </>
   );

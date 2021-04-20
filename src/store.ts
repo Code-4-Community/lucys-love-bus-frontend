@@ -60,6 +60,10 @@ import eventAnnouncementsReducer, {
   initialEventAnnouncementsState,
 } from './containers/singleEvent/ducks/reducers';
 import { EventAnnouncementsReducerState } from './containers/singleEvent/ducks/types';
+import { CreateEventActions } from './containers/createEvent/ducks/actions';
+import { CreateEventReducerState } from './containers/createEvent/ducks/types';
+import createEventReducer, { initialCreateEventState } from './containers/createEvent/ducks/reducers';
+
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -71,6 +75,7 @@ export interface C4CState {
   eventAnnouncementsState: EventAnnouncementsReducerState;
   contactsState: ContactsReducerState;
   eventRegistrationsState: EventRegistrationsReducerState;
+  createEventState: CreateEventReducerState;
 }
 
 export interface Action<T, P> {
@@ -87,7 +92,9 @@ export type C4CAction =
   | PersonalRequestsActions
   | PersonalRequestsActions
   | EventAnnouncementsActions
-  | EventRegistrationsActions;
+  | EventRegistrationsActions
+  | CreateEventActions
+  ;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
   PublicApiExtraArgs &
@@ -103,6 +110,7 @@ const reducers = combineReducers<C4CState, C4CAction>({
   eventAnnouncementsState: eventAnnouncementsReducer,
   contactsState: contactsReducer,
   eventRegistrationsState: eventRegistrationsReducer,
+  createEventState: createEventReducer,
 });
 
 export const initialStoreState: C4CState = {
@@ -115,6 +123,7 @@ export const initialStoreState: C4CState = {
   eventAnnouncementsState: initialEventAnnouncementsState,
   contactsState: initialContactsState,
   eventRegistrationsState: initialEventRegistrationsState,
+  createEventState: initialCreateEventState,
 };
 
 export const LOCALSTORAGE_STATE_KEY = 'state';
