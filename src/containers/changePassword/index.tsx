@@ -16,8 +16,11 @@ const ChangePassword: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Settings</title>
-        <meta name="description" content="Description goes here." />
+        <title>Change Password</title>
+        <meta
+          name="description"
+          content="Change your password for Lucy's Love Bus programs."
+        />
       </Helmet>
       <ContentContainer>
         <Title>Settings</Title>

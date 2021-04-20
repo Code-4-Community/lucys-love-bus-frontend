@@ -247,7 +247,6 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
                 <UserDropdown overlay={userMenu}>
                   <Button>
                     <UserAvatar
-                      // size="large"
                       src={
                         asyncRequestIsComplete(contacts) &&
                         contacts.result.mainContact.profilePicture
