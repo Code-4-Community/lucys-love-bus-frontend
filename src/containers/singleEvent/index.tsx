@@ -1,4 +1,4 @@
-import { Spin, Button } from 'antd';
+import { Spin } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
@@ -20,8 +20,6 @@ import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
-import Client from '../../api/protectedApiClient';
-import { deleteAnEvent } from '../createEvent/ducks/thunks';
 
 const BASE_EVENTS_ROUTE = '/events/';
 
@@ -134,7 +132,9 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                 <GreenButton to={BASE_EVENTS_ROUTE + id}>
                   Make Announcement
                 </GreenButton>
-                <RedButton to={`${BASE_EVENTS_ROUTE}${id}/delete`}>Delete Event</RedButton>
+                <RedButton to={`${BASE_EVENTS_ROUTE}${id}/delete`}>
+                  Delete Event
+                </RedButton>
                 <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}

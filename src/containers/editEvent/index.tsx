@@ -6,16 +6,26 @@ import { Routes } from '../../App';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
-import { AsyncRequest, AsyncRequestCompleted, AsyncRequestFailed, asyncRequestIsComplete, asyncRequestIsFailed, asyncRequestIsLoading, asyncRequestIsNotStarted, AsyncRequestLoading, AsyncRequestNotStarted } from '../../utils/asyncRequest';
-import { NewEventInformation } from '../createEvent/ducks/types';
-import EventsForm, { EventsFormInitialValues } from '../../components/EventsForm';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  asyncRequestIsFailed,
+  asyncRequestIsLoading,
+  asyncRequestIsNotStarted,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
+import EventsForm, {
+  EventsFormInitialValues,
+} from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Alert, Spin, Typography } from 'antd';
 import { editEvent } from '../createEvent/ducks/thunks';
-import { EventsFormData } from '../../components/EventsForm'
+import { EventsFormData } from '../../components/EventsForm';
 import { EventInformation } from '../upcoming-events/ducks/types';
-import { indexOf } from 'lodash';
-import protectedApiClient from '../../api/protectedApiClient'
+import protectedApiClient from '../../api/protectedApiClient';
 import moment from 'moment';
 
 interface EditEventProps {
@@ -67,12 +77,14 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
           location: data.location,
           start: data.start,
           end: data.end,
-        }
+        },
       }),
     );
   };
 
-  const mapEventInfoToFormData = (info: EventInformation): EventsFormInitialValues => {
+  const mapEventInfoToFormData = (
+    info: EventInformation,
+  ): EventsFormInitialValues => {
     return {
       title: info.title,
       capacity: info.capacity,
@@ -82,8 +94,8 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
       location: info.details.location,
       start: moment(info.details.start),
       end: moment(info.details.end),
-    }
-  }
+    };
+  };
 
   return (
     <>
@@ -96,12 +108,13 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
           <Title level={3}>Edit Event</Title>
         </FormInitialText>
         {asyncRequestIsComplete(event) && (
-        <EventsForm 
-          onFinish={onFinish} 
-          tokens={tokens} 
-          edit={true}
-          initialValues={mapEventInfoToFormData(event.result)} />
-          )}
+          <EventsForm
+            onFinish={onFinish}
+            tokens={tokens}
+            edit={true}
+            initialValues={mapEventInfoToFormData(event.result)}
+          />
+        )}
         {asyncRequestIsLoading(event) && <Spin />}
         {asyncRequestIsFailed(event) && (
           <Alert

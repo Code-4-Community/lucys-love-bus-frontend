@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import { ContentContainer } from '../../components';
@@ -71,13 +71,12 @@ interface SingleEventParams {
 const BASE_EVENTS_ROUTE = '/events/';
 
 const DeleteEvent: React.FC = () => {
-    
-    const dispatch = useDispatch();
-    const id = Number(useParams<SingleEventParams>().id);
+  const dispatch = useDispatch();
+  const id = Number(useParams<SingleEventParams>().id);
 
-    const onClick = async () => {
-        dispatch(deleteAnEvent(id));
-      };
+  const onClick = async () => {
+    dispatch(deleteAnEvent(id));
+  };
 
   return (
     <>

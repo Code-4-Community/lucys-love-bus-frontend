@@ -6,8 +6,6 @@ import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 import { NewEventInformation } from '../containers/createEvent/ducks/types';
-import { reduce } from 'lodash';
-import { start } from 'node:repl';
 
 interface LineItem {
   eventId: number;
@@ -168,13 +166,13 @@ const eventEdit = (
 };
 
 const getEventInfoById = (id: number): Promise<EventInformation> => {
-  return AppAxiosInstance.get(
-    `${ProtectedApiClientRoutes.EVENTS}/${id}`,
-  ).then((res) => ({
-    ...res.data,
-    start: new Date(res.data.start), 
-    end: new Date(res.data.end), 
-  }));
+  return AppAxiosInstance.get(`${ProtectedApiClientRoutes.EVENTS}/${id}`).then(
+    (res) => ({
+      ...res.data,
+      start: new Date(res.data.start),
+      end: new Date(res.data.end),
+    }),
+  );
 };
 
 const eventDelete = (id: number): Promise<void> => {

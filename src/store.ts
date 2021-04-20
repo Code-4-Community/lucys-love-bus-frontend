@@ -62,8 +62,9 @@ import eventAnnouncementsReducer, {
 import { EventAnnouncementsReducerState } from './containers/singleEvent/ducks/types';
 import { CreateEventActions } from './containers/createEvent/ducks/actions';
 import { CreateEventReducerState } from './containers/createEvent/ducks/types';
-import createEventReducer, { initialCreateEventState } from './containers/createEvent/ducks/reducers';
-
+import createEventReducer, {
+  initialCreateEventState,
+} from './containers/createEvent/ducks/reducers';
 
 export interface C4CState {
   authenticationState: UserAuthenticationReducerState;
@@ -93,8 +94,7 @@ export type C4CAction =
   | PersonalRequestsActions
   | EventAnnouncementsActions
   | EventRegistrationsActions
-  | CreateEventActions
-  ;
+  | CreateEventActions;
 
 export type ThunkExtraArgs = UserAuthenticationExtraArgs &
   PublicApiExtraArgs &

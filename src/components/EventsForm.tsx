@@ -1,16 +1,13 @@
-import { init } from '@sentry/browser';
 import {
   Alert,
   Button,
   DatePicker,
-  TimePicker,
   Form,
   Input,
   InputNumber,
   Upload,
 } from 'antd';
-import Paragraph from 'antd/lib/skeleton/Paragraph';
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
@@ -30,25 +27,25 @@ const PaddedAlert = styled(Alert)`
 `;
 
 export interface EventsFormData {
-  title: string,
-  capacity: number,
-  thumbnail?: string,
-  price: number,
-  description: string,
-  location: string,
-  start: Date,
-  end: Date,
+  title: string;
+  capacity: number;
+  thumbnail?: string;
+  price: number;
+  description: string;
+  location: string;
+  start: Date;
+  end: Date;
 }
 
 export interface EventsFormInitialValues {
-  title: string,
-  capacity: number,
-  thumbnail?: string,
-  price: number,
-  description: string,
-  location: string,
-  start: Moment,
-  end: Moment,
+  title: string;
+  capacity: number;
+  thumbnail?: string;
+  price: number;
+  description: string;
+  location: string;
+  start: Moment;
+  end: Moment;
 }
 
 export interface EventsFormProps {
@@ -58,9 +55,12 @@ export interface EventsFormProps {
   edit: boolean;
 }
 
-const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initialValues }) => {
-
-  console.log(initialValues)
+const EventsForm: React.FC<EventsFormProps> = ({
+  onFinish,
+  tokens,
+  edit,
+  initialValues,
+}) => {
   return (
     <FormContainer>
       <Helmet>
@@ -107,15 +107,25 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
             },
           ]}
         >
-          <DatePicker 
-            style={{ marginRight: '8px' }} 
-            showTime 
-            use12Hours 
-            format="MM/DD/YYYY hh:mm A"/>
+          <DatePicker
+            style={{ marginRight: '8px' }}
+            showTime
+            use12Hours
+            format="MM/DD/YYYY hh:mm A"
+          />
         </Form.Item>
 
-        <p style={{ display: 'inline-block', marginLeft: '8px', marginRight: '8px', marginTop: '32px'}}>to</p>
-        
+        <p
+          style={{
+            display: 'inline-block',
+            marginLeft: '8px',
+            marginRight: '8px',
+            marginTop: '32px',
+          }}
+        >
+          to
+        </p>
+
         <Form.Item
           name="end"
           fieldKey="end"
@@ -128,11 +138,12 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
             },
           ]}
         >
-          <DatePicker 
-            style={{ marginLeft: '8px' }} 
-            showTime 
-            use12Hours 
-            format="MM/DD/YYYY hh:mm A"/>
+          <DatePicker
+            style={{ marginLeft: '8px' }}
+            showTime
+            use12Hours
+            format="MM/DD/YYYY hh:mm A"
+          />
         </Form.Item>
 
         <Form.Item
@@ -162,7 +173,7 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
             },
           ]}
         >
-          <InputNumber placeholder="Price" min={0} style={{ width: '50%' }} />
+          <InputNumber defaultValue={0} min={0} style={{ width: '50%' }} />
         </Form.Item>
 
         <Form.Item label="Description" name="description">
@@ -190,15 +201,13 @@ const EventsForm: React.FC<EventsFormProps> = ({ onFinish, tokens, edit, initial
           />
         )}
         <Form.Item>
-          
           <Button
             type="primary"
             disabled={asyncRequestIsLoading(tokens)}
             htmlType="submit"
           >
-            {edit ? "Save Changes" : "Create Event"}
+            {edit ? 'Save Changes' : 'Create Event'}
           </Button>
-          
         </Form.Item>
       </Form>
     </FormContainer>

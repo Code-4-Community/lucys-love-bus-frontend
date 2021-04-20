@@ -59,7 +59,7 @@ export enum Routes {
   FAMILY_DETAILS = '/family-details/:id',
   CREATE_EVENT = '/create-event',
   EDIT_EVENT = '/events/:id/edit',
-  DELETE_EVENT = '/events/:id/delete'
+  DELETE_EVENT = '/events/:id/delete',
 }
 
 const App: React.FC = () => {

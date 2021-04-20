@@ -11,7 +11,7 @@ import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
 import { createEvent } from './ducks/thunks';
-import { EventsFormData } from '../../components/EventsForm'
+import { EventsFormData } from '../../components/EventsForm';
 
 interface CreateEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -35,11 +35,11 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
         thumbnail: data.thumbnail,
         price: data.price,
         details: {
-            description: data.description,
-            location: data.location,
-            start: data.start,
-            end: data.end,
-        }
+          description: data.description,
+          location: data.location,
+          start: data.start,
+          end: data.end,
+        },
       }),
     );
   };
@@ -54,7 +54,7 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
         <FormInitialText>
           <Title level={3}>Create an Event</Title>
         </FormInitialText>
-        <EventsForm onFinish={onFinish} tokens={tokens} edit={false}/>
+        <EventsForm onFinish={onFinish} tokens={tokens} edit={false} />
       </ContentContainer>
     </>
   );
