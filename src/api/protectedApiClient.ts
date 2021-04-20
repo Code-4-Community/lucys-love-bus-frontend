@@ -86,7 +86,7 @@ const registerTickets = (request: RegisterTicketsRequest) => {
 
 const getMyEvents = (): Promise<EventInformation[]> => {
   return AppAxiosInstance.get(
-    `${ProtectedApiClientRoutes.EVENTS}/signed-up`,
+    `${ProtectedApiClientRoutes.EVENTS}/signed_up`,
   ).then((res) => res.data.events);
 };
 const deactivateAccount = (): Promise<void> => {

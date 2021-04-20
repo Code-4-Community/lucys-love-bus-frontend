@@ -228,7 +228,7 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
-                      /> 
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
