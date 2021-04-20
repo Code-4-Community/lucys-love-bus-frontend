@@ -47,8 +47,8 @@ interface UserInfoTableProps {
 }
 
 const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
-  const [searchText, setSearchText] = useState<string>();
-  const [searchedColumn, setSearchedColumn] = useState<string>();
+  const [searchText, setSearchText] = useState<string>('');
+  const [searchedColumn, setSearchedColumn] = useState<string>('');
 
   const getColumnSearchProps: (
     dataIndex: string,
