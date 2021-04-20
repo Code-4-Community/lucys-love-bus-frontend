@@ -17,6 +17,7 @@ import React, { useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Link as RouterLink } from 'react-router-dom';
 import { PrivilegeLevel } from '../auth/ducks/types';
+import { TABLE_HIGHLIGHTED_WORDS } from '../utils/colors';
 const { Link } = Typography;
 
 export interface UserSummary {
@@ -119,7 +120,7 @@ const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
     render: (text: string) =>
       searchedColumn === dataIndex ? (
         <Highlighter
-          highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+          highlightStyle={{ backgroundColor: TABLE_HIGHLIGHTED_WORDS, padding: 0 }}
           searchWords={[searchText || '']}
           autoEscape
           textToHighlight={text ? text.toString() : ''}
