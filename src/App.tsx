@@ -26,6 +26,7 @@ import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
 
@@ -55,6 +56,7 @@ export enum Routes {
   CHANGE_ACCOUNT_EMAIL = '/change-email',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
+  USER_DIRECTORY = '/user-directory',
 }
 
 const App: React.FC = () => {
@@ -135,6 +137,11 @@ const App: React.FC = () => {
                         path={Routes.FAMILY_DETAILS}
                         exact
                         component={FamilyDetails}
+                      />
+                      <Route
+                        path={Routes.USER_DIRECTORY}
+                        exact
+                        component={UserDirectory}
                       />
                       <Route
                         path={Routes.MY_EVENTS}
