@@ -46,7 +46,6 @@ const TablePrivilegeLevel = (text: UserSummary, record: UserSummary) =>
   mapPrivilegeLevelToDisplayName(record.privilegeLevel);
 
 const mapPrivilegeLevelToDisplayName = (p: PrivilegeLevel) => {
-  console.log(p);
   switch (p.toLowerCase()) {
     case PrivilegeLevel.ADMIN:
       return 'Admin';
