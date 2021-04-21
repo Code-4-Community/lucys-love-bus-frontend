@@ -39,6 +39,7 @@ interface AnnoucementCardProps extends Announcement {
 }
 
 export const AnnouncementCard: React.FC<AnnoucementCardProps> = ({
+  id,
   imageSrc,
   title,
   created,
@@ -77,6 +78,7 @@ export const AnnouncementCard: React.FC<AnnoucementCardProps> = ({
       </AnnouncementCardCover>
 
       <AnnouncementModal
+        id={id}
         imageSrc={imageSrc}
         title={title}
         created={created}
