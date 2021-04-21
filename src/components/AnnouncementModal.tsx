@@ -2,8 +2,13 @@ import { Typography } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import dateFormat from 'dateformat';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getPrivilegeLevel } from '../auth/ducks/selectors';
+import { PrivilegeLevel } from '../auth/ducks/types';
 import { Announcement } from '../containers/announcements/ducks/types';
+import { C4CState } from '../store';
+import { LinkButton } from './LinkButton';
 
 const { Text, Paragraph } = Typography;
 
@@ -37,6 +42,7 @@ export interface AnnouncementModalProps extends Announcement {
 }
 
 export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
+  id,
   imageSrc,
   title,
   created,
@@ -44,6 +50,9 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
   isVisible,
   setIsModalVisible,
 }) => {
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
   const modalContent: JSX.Element = (
     <>
       <div>
@@ -55,6 +64,11 @@ export const AnnouncementModal: React.FC<AnnouncementModalProps> = ({
       <div>
         <Paragraph>{description}</Paragraph>
       </div>
+      {privilegeLevel === PrivilegeLevel.ADMIN && (
+        <LinkButton danger to={`/delete-announcements/${id}`}>
+          Delete Announcement
+        </LinkButton>
+      )}
     </>
   );
 
