@@ -15,13 +15,11 @@ import { ContactInfo } from '../setContacts/ducks/types';
 import { Helmet } from 'react-helmet';
 import { ChungusContentContainer, ContentContainer } from '../../components';
 import ContactInfoSummary from '../../components/ContactInfoSummary';
-import { Alert, Spin, Button, Table, Typography } from 'antd';
+import { Alert, Spin, Button } from 'antd';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
 import protectedApiClient from '../../api/protectedApiClient';
-import { Routes } from '../../App';
-
-const { Title } = Typography;
+import DecisionConfirmation from '../../components/DecisionConfirmation';
 
 enum Status {
   PENDING,
@@ -39,8 +37,9 @@ const StyledButton = styled(Button)`
   margin: 5px;
 `;
 
-const StyledText = styled(Typography)`
-  align-items: center;
+const StyledAlert = styled(Alert)`
+  margin-left: 20%;
+  max-width: 60%;
 `;
 
 const ViewSingleRequest = () => {
@@ -53,18 +52,35 @@ const ViewSingleRequest = () => {
   const [contacts, setContacts] = useState<AsyncRequest<ContactInfo, any>>(
     AsyncRequestNotStarted(),
   );
+  const [decision, setDecision] = useState<AsyncRequest<void, any>>(
+    AsyncRequestNotStarted(),
+  );
   const [status, setStatus] = useState<Status>(Status.PENDING);
 
   const denyRequest = () => {
+    setDecision(AsyncRequestLoading());
     protectedApiClient
       .denyPFRequest(requestId)
-      .then((res) => setStatus(Status.DENIED));
+      .then((res) => {
+        setDecision(AsyncRequestCompleted(res));
+        setStatus(Status.DENIED);
+      })
+      .catch((error) => {
+        setDecision(AsyncRequestFailed(error));
+      });
   };
 
   const approveRequest = () => {
+    setDecision(AsyncRequestLoading());
     protectedApiClient
       .approvePFRequest(requestId)
-      .then((res) => setStatus(Status.APPROVED));
+      .then((res) => {
+        setDecision(AsyncRequestCompleted(res));
+        setStatus(Status.APPROVED);
+      })
+      .catch((error) => {
+        setDecision(AsyncRequestFailed(error));
+      });
   };
 
   useEffect(() => {
@@ -81,38 +97,58 @@ const ViewSingleRequest = () => {
     }
   }, [contacts, userId]);
 
-  switch (status) {
-    case Status.PENDING:
-      return (
-        <>
-          <Helmet>
-            <title>View Family Details</title>
-            <meta
-              name="description"
-              content="Specific details about a registered family."
+  if (status === Status.APPROVED && asyncRequestIsComplete(contacts)) {
+    return (
+      <DecisionConfirmation
+        approved={true}
+        contactInformation={contacts.result}
+      />
+    );
+  } else if (status === Status.DENIED && asyncRequestIsComplete(contacts)) {
+    return (
+      <DecisionConfirmation
+        approved={false}
+        contactInformation={contacts.result}
+      />
+    );
+  } else {
+    return (
+      <>
+        <Helmet>
+          <title>View Family Details</title>
+          <meta
+            name="description"
+            content="Specific details about a registered family."
+          />
+        </Helmet>
+        <ChungusContentContainer>
+          <LinkButton type="link" to={'/view-requests/'}>
+            &lt; Back to Requests
+          </LinkButton>
+          {asyncRequestIsComplete(contacts) && (
+            <ContactInfoSummary userId={userId} info={contacts.result} />
+          )}
+          {asyncRequestIsLoading(contacts) && <Spin />}
+          {asyncRequestIsFailed(contacts) && (
+            <StyledAlert
+              message="Error"
+              description={contacts.error.message}
+              type="error"
+              showIcon
             />
-          </Helmet>
-          <ChungusContentContainer>
-            <LinkButton type="link" to={'/view-requests/'}>
-              &lt; Back to Requests
-            </LinkButton>
-            {asyncRequestIsComplete(contacts) && (
-              <ContactInfoSummary userId={userId} info={contacts.result} />
-            )}
-            {asyncRequestIsLoading(contacts) && <Spin />}
-            {asyncRequestIsFailed(contacts) && (
-              <Alert
-                message="Error"
-                description={contacts.error.message}
-                type="error"
-                showIcon
-              />
-            )}
-          </ChungusContentContainer>
+          )}
+        </ChungusContentContainer>
+        {asyncRequestIsLoading(decision) ? (
+          <Spin />
+        ) : (
           <DecisionButtons>
             <StyledButton
               type="default"
               danger
+              disabled={
+                !asyncRequestIsComplete(contacts) ||
+                asyncRequestIsLoading(decision)
+              }
               onClick={() => {
                 denyRequest();
               }}
@@ -121,6 +157,10 @@ const ViewSingleRequest = () => {
             </StyledButton>
             <StyledButton
               type="primary"
+              disabled={
+                !asyncRequestIsComplete(contacts) ||
+                asyncRequestIsLoading(decision)
+              }
               onClick={() => {
                 approveRequest();
               }}
@@ -128,30 +168,17 @@ const ViewSingleRequest = () => {
               Approve
             </StyledButton>
           </DecisionButtons>
-        </>
-      );
-    case Status.APPROVED:
-      return (
-        <ContentContainer>
-          <Title>The {contacts.result.mainContact.lastName} Family has been approved</Title>
-          <StyledText>
-            An email to congratulate the new Participating Family is on its way.
-            Use the account owner’s details below for additional communications.
-          </StyledText>
-          <Button to={Routes.HOME}>Done</Button>
-        </ContentContainer>
-      );
-    case Status.DENIED:
-      return (
-        <ContentContainer>
-          <Title>The {user.lastName} Family has been denied</Title>
-          <StyledText>
-            Is more information needed? Did you spot a mistake? Use the account
-            owner’s details below to reach out and clarify, or inquire.
-          </StyledText>
-          <Button to={Routes.HOME}>Done</Button>
-        </ContentContainer>
-      );
+        )}
+        {asyncRequestIsFailed(decision) && (
+          <StyledAlert
+            message="Error"
+            description={decision.error.message}
+            type="error"
+            showIcon
+          />
+        )}
+      </>
+    );
   }
 };
 

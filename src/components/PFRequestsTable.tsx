@@ -3,7 +3,7 @@ import protectedApiClient, {
   PFRequestResponse,
 } from '../api/protectedApiClient';
 import { LinkButton } from './LinkButton';
-import { Table, Typography} from 'antd';
+import { Table, Typography } from 'antd';
 import styled from 'styled-components';
 const { Title } = Typography;
 
@@ -56,7 +56,9 @@ const PFRequestsTable = () => {
             email: pfRequest.user.email,
             phoneNumber: pfRequest.user.phoneNumber,
             viewRequest: (
-              <LinkButton to={'/view-request/' + pfRequest.id}>
+              <LinkButton
+                to={'/view-request/' + pfRequest.id + '/' + pfRequest.user.id}
+              >
                 View Request
               </LinkButton>
             ),
