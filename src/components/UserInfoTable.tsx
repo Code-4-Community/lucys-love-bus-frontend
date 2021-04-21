@@ -42,13 +42,29 @@ const TableActions = (text: UserSummary, record: UserSummary) => (
   </Space>
 );
 
+const TablePrivilegeLevel = (text: UserSummary, record: UserSummary) =>
+  mapPrivilegeLevelToDisplayName(record.privilegeLevel);
+
+const mapPrivilegeLevelToDisplayName = (p: PrivilegeLevel) => {
+  switch (p.toLowerCase()) {
+    case PrivilegeLevel.ADMIN:
+      return 'Admin';
+    case PrivilegeLevel.PF:
+      return 'Participating Family';
+    case PrivilegeLevel.STANDARD:
+      return 'General Member';
+    default:
+      return 'yikes';
+  }
+};
+
 interface UserInfoTableProps {
   users: UserSummary[];
 }
 
 const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
-  const [searchText, setSearchText] = useState<string>();
-  const [searchedColumn, setSearchedColumn] = useState<string>();
+  const [searchText, setSearchText] = useState<string>('');
+  const [searchedColumn, setSearchedColumn] = useState<string>('');
 
   const getColumnSearchProps: (
     dataIndex: string,
@@ -164,6 +180,7 @@ const UserInfoTable: React.FC<UserInfoTableProps> = ({ users }) => {
         a.privilegeLevel.localeCompare(b.privilegeLevel),
       sortDirections: ['ascend', 'descend'],
       ...getColumnSearchProps('privilegeLevel'),
+      render: TablePrivilegeLevel,
     },
     {
       title: 'First Name',
