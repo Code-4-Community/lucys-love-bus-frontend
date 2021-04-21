@@ -1,6 +1,15 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Col, Dropdown, Image, Menu, Row, Typography } from 'antd';
-import React, { useState } from 'react';
+import {
+  Button,
+  Col,
+  Dropdown,
+  Image,
+  Menu,
+  Row,
+  Typography,
+  Badge,
+} from 'antd';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -15,6 +24,11 @@ import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { ORANGE } from '../../utils/colors';
 import LoginModal from '../modals/login-modal/LoginModal';
+import { getRequestStatuses } from '../../containers/personalRequests/ducks/thunks';
+import {
+  PersonalRequest,
+  PersonalRequestsReducerState,
+} from '../../containers/personalRequests/ducks/types';
 
 const { Text } = Typography;
 
@@ -76,9 +90,10 @@ const UserContainer = styled.div`
 
 interface NavBarProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
+  readonly personalRequests: PersonalRequestsReducerState['personalRequests'];
 }
 
-const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
+const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -92,25 +107,68 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   const authLinks = {
     'My Events': Routes.MY_EVENTS,
   };
+  const adminLinks = {
+    'Create Event': Routes.CREATE_EVENT,
+    'Make Announcement': Routes.MAKE_ANNOUNCEMENT,
+  };
+
+  useEffect(() => {
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getRequestStatuses());
+    }
+  }, [dispatch, tokens]);
 
   // Dropdown menu options for the logged in
   const userMenu = (
     <Menu>
       <Menu.Item
         onClick={() => {
-          history.push(Routes.CHANGE_ACCOUNT_EMAIL);
+          history.push(Routes.HOME);
         }}
       >
-        Change Primary Account Email
+        Home
       </Menu.Item>
-      <Menu.Item>Account Details</Menu.Item>
-      <Menu.Item>Change Password</Menu.Item>
       <Menu.Item
         onClick={() => {
-          history.push(Routes.DEACTIVATE_ACCOUNT);
+          history.push(Routes.UPCOMING_EVENTS);
         }}
       >
-        Deactivate Account
+        Upcoming Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.ANNOUNCEMENTS);
+        }}
+      >
+        Announcements
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MY_EVENTS);
+        }}
+      >
+        My Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.CREATE_EVENT);
+        }}
+      >
+        Create Event
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MAKE_ANNOUNCEMENT);
+        }}
+      >
+        Make Announcement
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.VIEW_REQUESTS);
+        }}
+      >
+        View Requests
       </Menu.Item>
       <Menu.Item
         onClick={() => {
@@ -118,13 +176,6 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
         }}
       >
         Settings
-      </Menu.Item>
-      <Menu.Item
-        onClick={() => {
-          history.push(Routes.SET_CONTACTS);
-        }}
-      >
-        Update Profile Information
       </Menu.Item>
       <Menu.Item
         onClick={() => {
@@ -140,6 +191,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
   );
 
   const [displayLoginModal, setDisplayLoginModal] = useState(false);
+
+  const getNumPendingRequests = (requests: PersonalRequest[]) => {
+    return requests.filter((request) => request.status === 'PENDING').length;
+  };
 
   return (
     <>
@@ -229,6 +284,80 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
                     ))}{' '}
                   </>
                 )}
+                {privilegeLevel === PrivilegeLevel.ADMIN && (
+                  <>
+                    {Object.entries(adminLinks).map(([link, path], i) => (
+                      <Col key={i}>
+                        {path === location.pathname ? (
+                          <ActiveNavBarButton
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </ActiveNavBarButton>
+                        ) : (
+                          <NavBarButton
+                            tab-index="0"
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </NavBarButton>
+                        )}
+                      </Col>
+                    ))}{' '}
+                    <Col>
+                      {asyncRequestIsComplete(personalRequests) ? (
+                        location.pathname === Routes.VIEW_REQUESTS ? (
+                          <Badge
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
+                          >
+                            <ActiveNavBarButton
+                              type="link"
+                              onClick={() => {
+                                history.push(Routes.VIEW_REQUESTS);
+                              }}
+                            >
+                              View Requests
+                            </ActiveNavBarButton>
+                          </Badge>
+                        ) : (
+                          <Badge
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
+                          >
+                            <NavBarButton
+                              tab-index="0"
+                              type="link"
+                              onClick={() => {
+                                history.push(Routes.VIEW_REQUESTS);
+                              }}
+                            >
+                              View Requests
+                            </NavBarButton>
+                          </Badge>
+                        )
+                      ) : (
+                        <NavBarButton
+                          tab-index="0"
+                          type="link"
+                          onClick={() => {
+                            history.push(Routes.VIEW_REQUESTS);
+                          }}
+                        >
+                          View Requests
+                        </NavBarButton>
+                      )}
+                    </Col>
+                  </>
+                )}
               </Row>
             </Col>
           </Row>
@@ -288,6 +417,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens }) => {
 const mapStateToProps = (state: C4CState): NavBarProps => {
   return {
     tokens: state.authenticationState.tokens,
+    personalRequests: state.personalRequestsState.personalRequests,
   };
 };
 
