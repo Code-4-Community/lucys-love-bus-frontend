@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { PrivilegeLevel } from './auth/ducks/types';
+import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
@@ -25,6 +26,7 @@ import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
 import CreateEventContainer from './containers/createEvent';
 import EditEventContainer from './containers/editEvent';
@@ -60,6 +62,9 @@ export enum Routes {
   CREATE_EVENT = '/create-event',
   EDIT_EVENT = '/events/:id/edit',
   DELETE_EVENT = '/events/:id/delete',
+  MAKE_ANNOUNCEMENT = '/make-announcement',
+  VIEW_REQUESTS = '/view-requests',
+  USER_DIRECTORY = '/user-directory',
 }
 
 const App: React.FC = () => {
@@ -140,6 +145,11 @@ const App: React.FC = () => {
                         path={Routes.FAMILY_DETAILS}
                         exact
                         component={FamilyDetails}
+                      />
+                      <Route
+                        path={Routes.USER_DIRECTORY}
+                        exact
+                        component={UserDirectory}
                       />
                       <Route
                         path={Routes.MY_EVENTS}
@@ -284,6 +294,7 @@ const App: React.FC = () => {
             })()}
           </Content>
         </AppInnerContainer>
+        <BugReportFooter />
       </Router>
     </>
   );
