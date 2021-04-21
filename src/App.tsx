@@ -59,7 +59,7 @@ export enum Routes {
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
   USER_DIRECTORY = '/user-directory',
-  CREATE_ANNOUNCEMENTS = '/create-announcements/',
+  CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
   DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
 }
 

@@ -2,6 +2,7 @@ import { Alert } from 'antd';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import protectedApiClient from '../../api/protectedApiClient';
 import { ContentContainer } from '../../components';
 import AnnouncementForm, {
@@ -61,7 +62,8 @@ const CreateAnnouncement: React.FC = () => {
         )}
         {asyncRequestIsComplete(createAnnouncementRequest) && (
           <Alert
-            message="Announcement Created Successfully"
+            message={"Announcement Created Successfully"}
+            description={params.id && <Link to={`/events/${params.id}`}>View Event Announcements</Link>}
             type="success"
             showIcon
             closable

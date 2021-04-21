@@ -40,7 +40,10 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
-  readonly createAnnouncement: (request: AnnouncementFormData, eventId?: number) => Promise<void>;
+  readonly createAnnouncement: (
+    request: AnnouncementFormData,
+    eventId?: number,
+  ) => Promise<void>;
   readonly deleteAnnouncement: (id: number) => Promise<void>;
 }
 
@@ -147,12 +150,21 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
-const createAnnouncement = (request: AnnouncementFormData, eventId?: number): Promise<void> => {
-  return AppAxiosInstance.post(ProtectedApiClientRoutes.ANNOUNCEMENTS + (eventId !== undefined ? `/${eventId}` : ''), request);
+const createAnnouncement = (
+  request: AnnouncementFormData,
+  eventId?: number,
+): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.ANNOUNCEMENTS +
+      (eventId !== undefined ? `/${eventId}` : ''),
+    request,
+  );
 };
 
 const deleteAnnouncement = (id: number): Promise<void> => {
-  return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${id}`);
+  return AppAxiosInstance.delete(
+    `${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${id}`,
+  );
 };
 
 const Client: ProtectedApiClient = Object.freeze({
@@ -170,7 +182,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getContactInfoById,
   getAllUsersContactInfo,
   createAnnouncement,
-  deleteAnnouncement
+  deleteAnnouncement,
 });
 
 export default Client;

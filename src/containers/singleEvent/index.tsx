@@ -128,7 +128,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
                 <GreenButton to={BASE_EVENTS_ROUTE + id}>Edit</GreenButton>
-                <GreenButton to={BASE_EVENTS_ROUTE + id}>
+                <GreenButton to={`/create-announcements/${id}`}>
                   Make Announcement
                 </GreenButton>
                 <RedButton to={BASE_EVENTS_ROUTE + id}>Delete Event</RedButton>
