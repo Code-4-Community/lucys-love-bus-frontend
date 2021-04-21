@@ -37,10 +37,10 @@ const DeleteAnnouncement: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Create Announcement</title>
+        <title>Delete Announcement</title>
         <meta
           name="description"
-          content="Create an announcement for Lucy's Love Bus Events."
+          content="Delete an announcement for Lucy's Love Bus Events."
         />
       </Helmet>
       <ContentContainer>
@@ -48,7 +48,7 @@ const DeleteAnnouncement: React.FC = () => {
           <Alert
             message="Error"
             description={
-              'Announcement creation failed: ' +
+              'Announcement deletion failed: ' +
               deleteAnnouncementRequest.error.message
             }
             type="error"
