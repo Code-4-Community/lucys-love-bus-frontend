@@ -8,7 +8,14 @@ import { Routes } from '../../App';
 import { deleteAnEvent } from '../createEvent/ducks/thunks';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
-import { AsyncRequest, AsyncRequestCompleted, AsyncRequestFailed, asyncRequestIsComplete, AsyncRequestLoading, AsyncRequestNotStarted } from '../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
@@ -76,14 +83,14 @@ const DeleteEvent: React.FC = () => {
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
   const [deleteEventRequest, setDeleteEventRequest] = useState<
-  AsyncRequest<void, any>
+    AsyncRequest<void, any>
   >(AsyncRequestNotStarted());
 
   const onClick = async () => {
     try {
       setDeleteEventRequest(AsyncRequestLoading());
-        await (dispatch(deleteAnEvent(id)));
-        setDeleteEventRequest(AsyncRequestCompleted(undefined));
+      await dispatch(deleteAnEvent(id));
+      setDeleteEventRequest(AsyncRequestCompleted(undefined));
     } catch (err) {
       setDeleteEventRequest(AsyncRequestFailed(err));
     }

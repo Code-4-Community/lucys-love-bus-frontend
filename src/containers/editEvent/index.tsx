@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
-import { Route, useHistory, useParams } from 'react-router-dom';
-import { Routes } from '../../App';
+import { useHistory, useParams } from 'react-router-dom';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
@@ -52,28 +51,26 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   );
 
   const onFinish = async (data: EventsFormData) => {
-
     const eventPicture =
-      data.thumbnail &&
-      (await encodeProfileFieldFile(data.thumbnail));
-      
+      data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
+
     try {
       setEditEventRequest(AsyncRequestLoading());
-        await (dispatch(
-          editEvent(id, {
-            title: data.title,
-            capacity: data.capacity,
-            thumbnail: eventPicture,
-            price: data.price,
-            details: {
-              description: data.description,
-              location: data.location,
-              start: data.start,
-              end: data.end,
-            },
-          }),
-    ));
-    setEditEventRequest(AsyncRequestCompleted(undefined));
+      await dispatch(
+        editEvent(id, {
+          title: data.title,
+          capacity: data.capacity,
+          thumbnail: eventPicture,
+          price: data.price,
+          details: {
+            description: data.description,
+            location: data.location,
+            start: data.start,
+            end: data.end,
+          },
+        }),
+      );
+      setEditEventRequest(AsyncRequestCompleted(undefined));
     } catch (err) {
       setEditEventRequest(AsyncRequestFailed(err));
     }
@@ -108,12 +105,8 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   }, [event, id]);
 
   if (asyncRequestIsComplete(editEventRequest)) {
-    history.push('/events/' + id)
+    history.push('/events/' + id);
   }
-
-  // if (asyncRequestIsComplete(tokens)) {
-  //   history.push(`/events/${id}`);
-  // }
 
   return (
     <>
