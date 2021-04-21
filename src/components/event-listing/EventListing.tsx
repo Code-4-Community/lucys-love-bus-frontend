@@ -108,9 +108,9 @@ const EventListing: React.FC<EventListingProps> = ({
             </>
           )}
           <br />
-          <Text strong>{dateFormat(details.start, 'longDate', true)}</Text>
+          <Text strong>{dateFormat(details.start, 'longDate')}</Text>
           <br />
-          <Text strong>{dateFormat(details.start, 'shortTime', true)}</Text>
+          <Text strong>{dateFormat(details.start, 'shortTime')}</Text>
           <ThinDivider />
           <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
           {admin ? (
