@@ -110,7 +110,7 @@ const DeleteEvent: React.FC = () => {
         <Title level={2}>Are you sure you want to delete this event?</Title>
 
         <RedButton onClick={onClick}>Delete</RedButton>
-        <GrayButton to={`${BASE_EVENTS_ROUTE}/${id}`}>Cancel</GrayButton>
+        <GrayButton to={`${BASE_EVENTS_ROUTE}${id}`}>Cancel</GrayButton>
       </ContentContainer>
     </>
   );

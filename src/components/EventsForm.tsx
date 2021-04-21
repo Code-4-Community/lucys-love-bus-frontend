@@ -177,7 +177,15 @@ const EventsForm: React.FC<EventsFormProps> = ({
           <InputNumber defaultValue={0} min={0} style={{ width: '50%' }} />
         </Form.Item>
 
-        <Form.Item label="Description" name="description">
+        <Form.Item 
+          label="Description" 
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: 'Please input an event description',
+            },
+          ]}>
           <TextArea rows={3} placeholder="Description" />
         </Form.Item>
 
