@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Route, useHistory, useParams } from 'react-router-dom';
 import { Routes } from '../../App';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
@@ -27,6 +27,7 @@ import { EventsFormData } from '../../components/EventsForm';
 import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
 import moment from 'moment';
+import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 
 interface EditEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -42,14 +43,55 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-
-  // if (asyncRequestIsComplete(tokens)) {
-  //   history.push(`/events/${id}`);
-  // }
+  const [editEventRequest, setEditEventRequest] = useState<
+    AsyncRequest<void, any>
+  >(AsyncRequestNotStarted());
 
   const [event, setEvent] = useState<AsyncRequest<EventInformation, any>>(
     AsyncRequestNotStarted(),
   );
+
+  const onFinish = async (data: EventsFormData) => {
+
+    const eventPicture =
+      data.thumbnail &&
+      (await encodeProfileFieldFile(data.thumbnail));
+      
+    try {
+      setEditEventRequest(AsyncRequestLoading());
+        await (dispatch(
+          editEvent(id, {
+            title: data.title,
+            capacity: data.capacity,
+            thumbnail: eventPicture,
+            price: data.price,
+            details: {
+              description: data.description,
+              location: data.location,
+              start: data.start,
+              end: data.end,
+            },
+          }),
+    ));
+    setEditEventRequest(AsyncRequestCompleted(undefined));
+    } catch (err) {
+      setEditEventRequest(AsyncRequestFailed(err));
+    }
+  };
+  const mapEventInfoToFormData = (
+    info: EventInformation,
+  ): EventsFormInitialValues => {
+    return {
+      title: info.title,
+      capacity: info.capacity,
+      thumbnail: info.thumbnail,
+      price: info.price,
+      description: info.details.description,
+      location: info.details.location,
+      start: moment(info.details.start),
+      end: moment(info.details.end),
+    };
+  };
 
   useEffect(() => {
     if (asyncRequestIsNotStarted(event)) {
@@ -65,37 +107,13 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
     }
   }, [event, id]);
 
-  const onFinish = async (data: EventsFormData) => {
-    dispatch(
-      editEvent(id, {
-        title: data.title,
-        capacity: data.capacity,
-        thumbnail: data.thumbnail,
-        price: data.price,
-        details: {
-          description: data.description,
-          location: data.location,
-          start: data.start,
-          end: data.end,
-        },
-      }),
-    );
-  };
+  if (asyncRequestIsComplete(editEventRequest)) {
+    history.push('/events/' + id)
+  }
 
-  const mapEventInfoToFormData = (
-    info: EventInformation,
-  ): EventsFormInitialValues => {
-    return {
-      title: info.title,
-      capacity: info.capacity,
-      thumbnail: info.thumbnail,
-      price: info.price,
-      description: info.details.description,
-      location: info.details.location,
-      start: moment(info.details.start),
-      end: moment(info.details.end),
-    };
-  };
+  // if (asyncRequestIsComplete(tokens)) {
+  //   history.push(`/events/${id}`);
+  // }
 
   return (
     <>

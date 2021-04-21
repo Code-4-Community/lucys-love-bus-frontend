@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
 import { useDispatch } from 'react-redux';
 import { ContentContainer } from '../../components';
@@ -8,6 +8,7 @@ import { Routes } from '../../App';
 import { deleteAnEvent } from '../createEvent/ducks/thunks';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
+import { AsyncRequest, AsyncRequestCompleted, AsyncRequestFailed, asyncRequestIsComplete, AsyncRequestLoading, AsyncRequestNotStarted } from '../../utils/asyncRequest';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
@@ -72,11 +73,25 @@ const BASE_EVENTS_ROUTE = '/events/';
 
 const DeleteEvent: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
+  const [deleteEventRequest, setDeleteEventRequest] = useState<
+  AsyncRequest<void, any>
+  >(AsyncRequestNotStarted());
 
   const onClick = async () => {
-    dispatch(deleteAnEvent(id));
+    try {
+      setDeleteEventRequest(AsyncRequestLoading());
+        await (dispatch(deleteAnEvent(id)));
+        setDeleteEventRequest(AsyncRequestCompleted(undefined));
+    } catch (err) {
+      setDeleteEventRequest(AsyncRequestFailed(err));
+    }
   };
+
+  if (asyncRequestIsComplete(deleteEventRequest)) {
+    history.push(Routes.UPCOMING_EVENTS);
+  }
 
   return (
     <>

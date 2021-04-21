@@ -16,6 +16,7 @@ import {
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../utils/asyncRequest';
+import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
 
 const { Dragger } = Upload;
@@ -29,7 +30,7 @@ const PaddedAlert = styled(Alert)`
 export interface EventsFormData {
   title: string;
   capacity: number;
-  thumbnail?: string;
+  thumbnail?: FileField;
   price: number;
   description: string;
   location: string;

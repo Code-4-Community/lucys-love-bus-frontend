@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -6,12 +6,14 @@ import { Routes } from '../../App';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { AsyncRequest, AsyncRequestCompleted, AsyncRequestFailed, asyncRequestIsComplete, AsyncRequestLoading, AsyncRequestNotStarted } from '../../utils/asyncRequest';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
 import { createEvent } from './ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
+import { encodeProfileFieldFile } from '../../utils/fileEncoding';
+import { NewEventInformation } from './ducks/types';
 
 interface CreateEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
@@ -22,17 +24,26 @@ const { Title } = Typography;
 const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [createEventRequest, setCreateEventRequest] = useState<
+    AsyncRequest<void, any>
+  >(AsyncRequestNotStarted());
 
-  //   if (asyncRequestIsComplete(tokens)) {
-  //       history.push(Routes.UPCOMING_EVENTS);
-  //   }
+  if (asyncRequestIsComplete(createEventRequest)) {
+        history.push(Routes.UPCOMING_EVENTS);
+  }
 
   const onFinish = async (data: EventsFormData) => {
-    dispatch(
+    const eventPicture =
+      data.thumbnail &&
+      (await encodeProfileFieldFile(data.thumbnail));
+  
+    try {
+      setCreateEventRequest(AsyncRequestLoading());
+      await (dispatch(
       createEvent({
         title: data.title,
         capacity: data.capacity,
-        thumbnail: data.thumbnail,
+        thumbnail: eventPicture,
         price: data.price,
         details: {
           description: data.description,
@@ -41,7 +52,11 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
           end: data.end,
         },
       }),
-    );
+    ));
+    setCreateEventRequest(AsyncRequestCompleted(undefined));
+    } catch (err) {
+      setCreateEventRequest(AsyncRequestFailed(err));
+    }
   };
 
   return (
