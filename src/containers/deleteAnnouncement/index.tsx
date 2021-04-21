@@ -22,7 +22,7 @@ const DeleteAnnouncement: React.FC = () => {
     AsyncRequest<void, any>
   >(AsyncRequestNotStarted());
 
-  const id: number = Number(useParams<{ id: string }>().id);
+  const id = Number(useParams<{ id: string }>().id);
 
   const submitDeleteAnnouncement = async () => {
     try {

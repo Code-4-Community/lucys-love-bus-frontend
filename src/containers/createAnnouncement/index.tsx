@@ -62,8 +62,14 @@ const CreateAnnouncement: React.FC = () => {
         )}
         {asyncRequestIsComplete(createAnnouncementRequest) && (
           <Alert
-            message={"Announcement Created Successfully"}
-            description={params.id && <Link to={`/events/${params.id}`}>View Event Announcements</Link>}
+            message={'Announcement Created Successfully'}
+            description={
+              params.id && (
+                <Link to={`/events/${params.id}`}>
+                  View Event Announcements
+                </Link>
+              )
+            }
             type="success"
             showIcon
             closable
