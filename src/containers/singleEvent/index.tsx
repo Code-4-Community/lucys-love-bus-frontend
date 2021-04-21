@@ -104,7 +104,6 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   eventAnnouncements,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
 
   useEffect(() => {
