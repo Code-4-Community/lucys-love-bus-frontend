@@ -70,20 +70,20 @@ const SetContacts: React.FC<SetContactsProps> = ({ contacts, setContacts }) => {
     return {
       ...info.location,
       ...info.mainContact,
-      dateOfBirth: moment(new Date()),
+      dateOfBirth: moment(info.mainContact.dateOfBirth),
       profilePicture: undefined,
       additionalContacts:
         info.additionalContacts &&
         info.additionalContacts.map((c) => ({
           ...c,
-          dateOfBirth: moment(new Date()),
+          dateOfBirth: moment(c.dateOfBirth),
           profilePicture: undefined,
         })),
       children:
         info.children &&
         info.children.map((c) => ({
           ...c,
-          dateOfBirth: moment(new Date()),
+          dateOfBirth: moment(c.dateOfBirth),
           profilePicture: undefined,
         })),
     };
