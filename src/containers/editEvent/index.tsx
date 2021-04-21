@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
@@ -21,16 +21,12 @@ import EventsForm, {
 } from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Alert, Spin, Typography } from 'antd';
-import { editEvent } from '../createEvent/ducks/thunks';
+import { editAnEvent } from '../createEvent/ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
 import moment from 'moment';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
-
-interface EditEventProps {
-  readonly tokens: UserAuthenticationReducerState['tokens'];
-}
 
 const { Title } = Typography;
 
@@ -38,13 +34,11 @@ interface SingleEventParams {
   id: string;
 }
 
-const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
+const EditEventContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const [editEventRequest, setEditEventRequest] = useState<
-    AsyncRequest<void, any>
-  >(AsyncRequestNotStarted());
+  const editEventRequest = useSelector((state: C4CState) => state.createEventState.newEvent);
 
   const [event, setEvent] = useState<AsyncRequest<EventInformation, any>>(
     AsyncRequestNotStarted(),
@@ -54,10 +48,8 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
 
-    try {
-      setEditEventRequest(AsyncRequestLoading());
-      await dispatch(
-        editEvent(id, {
+      dispatch(
+        editAnEvent(id, {
           title: data.title,
           capacity: data.capacity,
           thumbnail: eventPicture,
@@ -70,11 +62,8 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
           },
         }),
       );
-      setEditEventRequest(AsyncRequestCompleted(undefined));
-    } catch (err) {
-      setEditEventRequest(AsyncRequestFailed(err));
-    }
   };
+
   const mapEventInfoToFormData = (
     info: EventInformation,
   ): EventsFormInitialValues => {
@@ -121,7 +110,7 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
         {asyncRequestIsComplete(event) && (
           <EventsForm
             onFinish={onFinish}
-            tokens={tokens}
+            eventRequest={editEventRequest}
             edit={true}
             initialValues={mapEventInfoToFormData(event.result)}
           />
@@ -140,10 +129,4 @@ const EditEventContainer: React.FC<EditEventProps> = ({ tokens }) => {
   );
 };
 
-const mapStateToProps = (state: C4CState): EditEventProps => {
-  return {
-    tokens: state.authenticationState.tokens,
-  };
-};
-
-export default connect(mapStateToProps)(EditEventContainer);
+export default EditEventContainer;

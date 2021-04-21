@@ -18,6 +18,8 @@ import {
 } from '../utils/asyncRequest';
 import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
+import {CreateEventReducerState} from '../containers/createEvent/ducks/types';
+import {create} from 'domain';
 
 const { Dragger } = Upload;
 const { TextArea } = Input;
@@ -27,40 +29,38 @@ const PaddedAlert = styled(Alert)`
   margin-bottom: 2em;
 `;
 
-export interface EventsFormData {
+export interface EventsForm {
   title: string;
   capacity: number;
-  thumbnail?: FileField;
   price: number;
   description: string;
   location: string;
+}
+
+export interface EventsFormData extends EventsForm {
+  thumbnail?: FileField;
   start: Date;
   end: Date;
 }
 
-export interface EventsFormInitialValues {
-  title: string;
-  capacity: number;
+export interface EventsFormInitialValues extends EventsForm{
   thumbnail?: string;
-  price: number;
-  description: string;
-  location: string;
   start: Moment;
   end: Moment;
 }
 
 export interface EventsFormProps {
   onFinish: (data: EventsFormData) => Promise<void>;
-  tokens: UserAuthenticationReducerState['tokens'];
   initialValues?: EventsFormInitialValues;
   edit: boolean;
+  eventRequest: CreateEventReducerState['newEvent']
 }
 
 const EventsForm: React.FC<EventsFormProps> = ({
   onFinish,
-  tokens,
   edit,
   initialValues,
+    eventRequest,
 }) => {
   return (
     <FormContainer>
@@ -202,10 +202,10 @@ const EventsForm: React.FC<EventsFormProps> = ({
           </Dragger>
         </Form.Item>
 
-        {asyncRequestIsFailed(tokens) && (
+        {asyncRequestIsFailed(eventRequest) && (
           <PaddedAlert
             message="Error"
-            description={tokens.error}
+            description={eventRequest.error.message}
             type="error"
             showIcon
           />
@@ -213,7 +213,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
         <Form.Item>
           <Button
             type="primary"
-            disabled={asyncRequestIsLoading(tokens)}
+            disabled={asyncRequestIsLoading(eventRequest)}
             htmlType="submit"
           >
             {edit ? 'Save Changes' : 'Create Event'}

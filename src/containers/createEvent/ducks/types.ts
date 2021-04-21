@@ -1,19 +1,24 @@
 import { AsyncRequest } from '../../../utils/asyncRequest';
 import { C4CState } from '../../../store';
 import { ThunkAction } from 'redux-thunk';
-import { CreateEventActions } from './actions';
+import { EventControlActions } from './actions';
 import { ProtectedApiExtraArgs } from '../../../api/protectedApiClient';
+import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export interface CreateEventReducerState {
-  readonly newEvent: AsyncRequest<NewEventInformation, any>;
+  readonly newEvent: AsyncRequest<EventInformation, any>;
 }
 
 export type CreateEventThunkAction<R> = ThunkAction<
   R,
   C4CState,
   ProtectedApiExtraArgs,
-  CreateEventActions
+  EventControlActions
 >;
+
+export interface DeleteEventResponse {
+  id: number
+}
 
 export interface NewEventInformation {
   title: string;

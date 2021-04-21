@@ -1,36 +1,36 @@
 import { CreateEventThunkAction, NewEventInformation } from './types';
-import { create, edit, deleteEvent } from './actions';
+import { createEvent, editEvent, deleteEvent } from './actions';
 import { EventInformation } from '../../upcoming-events/ducks/types';
 
-export const createEvent = (
+export const createAnEvent = (
   createEventRequest: NewEventInformation,
 ): CreateEventThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
-    dispatch(create.loading());
+    dispatch(createEvent.loading());
     return protectedApiClient
       .eventCreate(createEventRequest)
       .then((response: EventInformation) => {
-        dispatch(create.loaded(response));
+        dispatch(createEvent.loaded(response));
       })
       .catch((error: any) => {
-        dispatch(create.failed(error));
+        dispatch(createEvent.failed(error));
       });
   };
 };
 
-export const editEvent = (
+export const editAnEvent = (
   id: number,
   editEventRequest: NewEventInformation,
 ): CreateEventThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
-    dispatch(edit.loading());
+    dispatch(editEvent.loading());
     return protectedApiClient
       .eventEdit(id, editEventRequest)
       .then((response: EventInformation) => {
-        dispatch(edit.loaded(response));
+        dispatch(editEvent.loaded(response));
       })
       .catch((error: any) => {
-        dispatch(edit.failed(error));
+        dispatch(editEvent.failed(error));
       });
   };
 };

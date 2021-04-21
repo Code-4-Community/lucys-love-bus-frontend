@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Routes } from '../../App';
 import { UserAuthenticationReducerState } from '../../auth/ducks/types';
@@ -17,35 +17,26 @@ import {
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
-import { createEvent } from './ducks/thunks';
+import { createAnEvent } from './ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 
-interface CreateEventProps {
-  readonly tokens: UserAuthenticationReducerState['tokens'];
-}
-
 const { Title } = Typography;
 
-const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
+const CreateEventContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [createEventRequest, setCreateEventRequest] = useState<
-    AsyncRequest<void, any>
-  >(AsyncRequestNotStarted());
+  const createEventRequest = useSelector((state : C4CState) => state.createEventState.newEvent);
 
   if (asyncRequestIsComplete(createEventRequest)) {
-    history.push(Routes.UPCOMING_EVENTS);
+    history.push('/events/' + createEventRequest.result.id);
   }
 
   const onFinish = async (data: EventsFormData) => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
-
-    try {
-      setCreateEventRequest(AsyncRequestLoading());
-      await dispatch(
-        createEvent({
+      dispatch(
+        createAnEvent({
           title: data.title,
           capacity: data.capacity,
           thumbnail: eventPicture,
@@ -58,10 +49,6 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
           },
         }),
       );
-      setCreateEventRequest(AsyncRequestCompleted(undefined));
-    } catch (err) {
-      setCreateEventRequest(AsyncRequestFailed(err));
-    }
   };
 
   return (
@@ -74,16 +61,10 @@ const CreateEventContainer: React.FC<CreateEventProps> = ({ tokens }) => {
         <FormInitialText>
           <Title level={3}>Create an Event</Title>
         </FormInitialText>
-        <EventsForm onFinish={onFinish} tokens={tokens} edit={false} />
+        <EventsForm onFinish={onFinish} eventRequest={createEventRequest} edit={false} />
       </ContentContainer>
     </>
   );
 };
 
-const mapStateToProps = (state: C4CState): CreateEventProps => {
-  return {
-    tokens: state.authenticationState.tokens,
-  };
-};
-
-export default connect(mapStateToProps)(CreateEventContainer);
+export default CreateEventContainer;

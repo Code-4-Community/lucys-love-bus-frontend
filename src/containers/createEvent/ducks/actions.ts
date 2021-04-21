@@ -1,16 +1,16 @@
 import { genericAsyncActions } from '../../../utils/asyncRequest';
-import { NewEventInformation } from './types';
+import { EventInformation } from '../../upcoming-events/ducks/types';
 
-export const create = genericAsyncActions<NewEventInformation, any>();
-export const edit = genericAsyncActions<NewEventInformation, any>();
+export const createEvent = genericAsyncActions<EventInformation, any>();
+export const editEvent = genericAsyncActions<EventInformation, any>();
 export const deleteEvent = genericAsyncActions<number, any>();
 
-export type CreateEventActions =
-  | ReturnType<typeof create.loading>
-  | ReturnType<typeof create.loaded>
-  | ReturnType<typeof create.failed>
-  | ReturnType<typeof edit.loading>
-  | ReturnType<typeof edit.loaded>
-  | ReturnType<typeof edit.failed>
+export type EventControlActions =
+  | ReturnType<typeof createEvent.loading>
+  | ReturnType<typeof createEvent.loaded>
+  | ReturnType<typeof createEvent.failed>
+  | ReturnType<typeof editEvent.loading>
+  | ReturnType<typeof editEvent.loaded>
+  | ReturnType<typeof editEvent.failed>
   | ReturnType<typeof deleteEvent.loading>
   | ReturnType<typeof deleteEvent.failed>;

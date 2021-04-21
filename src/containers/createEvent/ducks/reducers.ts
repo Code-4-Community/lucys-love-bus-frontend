@@ -6,18 +6,19 @@ import {
   AsyncRequestNotStarted,
   generateAsyncRequestReducer,
 } from '../../../utils/asyncRequest';
-import { create } from './actions';
+import { createEvent } from './actions';
 import { C4CAction } from '../../../store';
+import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export const initialCreateEventState: CreateEventReducerState = {
-  newEvent: AsyncRequestNotStarted<NewEventInformation, any>(),
+  newEvent: AsyncRequestNotStarted<EventInformation, any>(),
 };
 
 const createEventReducer = generateAsyncRequestReducer<
   CreateEventReducerState,
-  NewEventInformation,
+  EventInformation,
   void
->(create.key);
+>(createEvent.key);
 
 const reducers = (
   state: CreateEventReducerState = initialCreateEventState,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
 import { deleteAnEvent } from '../createEvent/ducks/thunks';
@@ -16,6 +16,7 @@ import {
   AsyncRequestLoading,
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
+import {C4CState} from '../../store';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
@@ -82,18 +83,10 @@ const DeleteEvent: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const [deleteEventRequest, setDeleteEventRequest] = useState<
-    AsyncRequest<void, any>
-  >(AsyncRequestNotStarted());
+  const deleteEventRequest = useSelector((state: C4CState) => state.createEventState.newEvent);
 
-  const onClick = async () => {
-    try {
-      setDeleteEventRequest(AsyncRequestLoading());
-      await dispatch(deleteAnEvent(id));
-      setDeleteEventRequest(AsyncRequestCompleted(undefined));
-    } catch (err) {
-      setDeleteEventRequest(AsyncRequestFailed(err));
-    }
+  const onClick = () => {
+     dispatch(deleteAnEvent(id));
   };
 
   if (asyncRequestIsComplete(deleteEventRequest)) {
