@@ -16,6 +16,9 @@ interface LineItem {
 interface RegisterTicketsRequest {
   lineItemRequests: LineItem[];
 }
+interface UpdateTicketsRequest {
+  quantity: number;
+}
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
@@ -27,6 +30,10 @@ export interface ProtectedApiClient {
     newPassword: string;
   }) => Promise<void>;
   readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
+  readonly updateTickets: (
+    eventId: number,
+    request: UpdateTicketsRequest,
+  ) => Promise<void>;
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
@@ -76,6 +83,15 @@ const changePassword = (request: {
 const registerTickets = (request: RegisterTicketsRequest) => {
   return AppAxiosInstance.post(
     ProtectedApiClientRoutes.REGISTER_TICKETS,
+    request,
+  ).then((res) => {
+    return;
+  });
+};
+
+const updateTickets = (eventId: number, request: UpdateTicketsRequest) => {
+  return AppAxiosInstance.put(
+    `${ProtectedApiClientRoutes.REGISTER_TICKETS}/${eventId}`,
     request,
   ).then((res) => {
     return;
@@ -170,6 +186,7 @@ const deleteAnnouncement = (id: number): Promise<void> => {
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   registerTickets,
+  updateTickets,
   getMyEvents,
   getRequestStatuses,
   makePFRequest,

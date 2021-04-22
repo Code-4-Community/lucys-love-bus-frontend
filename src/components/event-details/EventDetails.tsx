@@ -1,4 +1,4 @@
-import { Button, Col, Row, Typography } from 'antd';
+import { Button, Col, Row, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -29,6 +29,7 @@ const CardContent = styled.div`
 `;
 
 const StyledTitle = styled(Title)`
+  display: inline;
   margin-top: 15px;
 `;
 
@@ -52,6 +53,10 @@ const Thumbnail = styled.img`
   object-fit: cover;
 `;
 
+const EventsTag = styled(Tag)`
+  margin: 1em;
+`;
+
 const Info = styled.div`
   margin-left: 40px;
   max-height: 350px;
@@ -64,6 +69,7 @@ const AnnouncementNoContent = styled(AnnouncementBox)``;
 export interface EventDetailsProps extends EventInformation {
   announcements?: EventAnnouncement[];
   privilegeLevel: PrivilegeLevel;
+  hasRegistered: boolean;
 }
 
 const EventDetails: React.FC<EventDetailsProps> = ({
@@ -73,6 +79,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   details,
   privilegeLevel,
   announcements,
+  hasRegistered,
+  ticketCount,
 }) => {
   const [
     displayEventRegistrationModal,
@@ -107,17 +115,21 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           </Col>
           <Col span={10}>
             <Info>
-              <StyledTitle level={3}>{title}</StyledTitle>
+              <StyledTitle level={3}>{title}</StyledTitle>{' '}
+              {ticketCount && (
+                <EventsTag color={'green'}>
+                  Registered {ticketCount} tickets
+                </EventsTag>
+              )}
               <Time>{computeDateString(start)}</Time>
               <Time>{computeTimeString(start, end)}</Time>
-
               <Location>Location: {location}</Location>
               <GreenButton
                 onClick={() => {
                   setDisplayEventRegistrationModal(true);
                 }}
               >
-                Register
+                {hasRegistered ? 'Update Registration' : 'Register'}
               </GreenButton>
             </Info>
           </Col>
@@ -160,6 +172,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         onCloseEventRegistrationModal={() => {
           setDisplayEventRegistrationModal(false);
         }}
+        hasRegistered={hasRegistered}
+        ticketCount={ticketCount}
       />
     </>
   );

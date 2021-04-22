@@ -16,6 +16,8 @@ import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
 } from '../../utils/asyncRequest';
+import { getMyEvents } from '../myEvents/ducks/thunks';
+import { MyEventsReducerState } from '../myEvents/ducks/types';
 import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
@@ -91,6 +93,7 @@ const GrayButton = styled(StyledButton)`
 interface SingleEventProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
   readonly events: EventsReducerState['upcomingEvents'];
+  readonly myEvents: MyEventsReducerState['myEvents'];
   readonly eventAnnouncements: EventAnnouncementsReducerState['eventAnnouncements'];
 }
 
@@ -101,6 +104,7 @@ interface SingleEventParams {
 const SingleEvent: React.FC<SingleEventProps> = ({
   tokens,
   events,
+  myEvents,
   eventAnnouncements,
 }) => {
   const dispatch = useDispatch();
@@ -108,6 +112,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
   useEffect(() => {
     dispatch(getUpcomingEvents());
+    dispatch(getMyEvents());
     dispatch(getEventAnnouncements(id));
   }, [dispatch, id]);
 
@@ -115,14 +120,24 @@ const SingleEvent: React.FC<SingleEventProps> = ({
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
+  const hasRegistered: boolean = useSelector((state: C4CState) => {
+    return (
+      asyncRequestIsComplete(state.myEventsState.myEvents) &&
+      state.myEventsState.myEvents.result.some((e) => e.id === id)
+    );
+  });
+
   const conditionalRenderEventDetails = () => {
     if (
       asyncRequestIsComplete(events) &&
+      asyncRequestIsComplete(myEvents) &&
       asyncRequestIsComplete(eventAnnouncements)
     ) {
-      const event = events.result.filter((e) => e.id === id);
+      const event =
+        myEvents.result.find((e) => e.id === id) ||
+        events.result.find((e) => e.id === id);
 
-      if (event.length > 0) {
+      if (event) {
         return (
           <>
             {privilegeLevel === PrivilegeLevel.ADMIN && (
@@ -136,9 +151,10 @@ const SingleEvent: React.FC<SingleEventProps> = ({
               </AdminActionButtonList>
             )}
             <EventDetails
-              {...event[0]}
+              {...event}
               privilegeLevel={getPrivilegeLevel(tokens)}
               announcements={eventAnnouncements.result}
+              hasRegistered={hasRegistered}
             />
           </>
         );
@@ -174,6 +190,7 @@ const mapStateToProps = (state: C4CState): SingleEventProps => {
   return {
     tokens: state.authenticationState.tokens,
     events: state.eventsState.upcomingEvents,
+    myEvents: state.myEventsState.myEvents,
     eventAnnouncements: state.eventAnnouncementsState.eventAnnouncements,
   };
 };
