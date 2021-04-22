@@ -114,15 +114,23 @@ const EventListing: React.FC<EventListingProps> = ({
           <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
           {admin ? (
             <AdminButtonWrapper>
-              <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>Learn More</GreenButton>
-              <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>Edit</GreenButton>
+              <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>
+                Learn More
+              </GreenButton>
+              <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>
+                Edit
+              </GreenButton>
               <GreenButton to={`/create-announcements/${id}`}>
                 Make Announcement
               </GreenButton>
-              <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>View RSVP</GrayButton>
+              <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>
+                View RSVP
+              </GrayButton>
             </AdminButtonWrapper>
           ) : (
-            <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>Learn More</GreenButton>
+            <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>
+              Learn More
+            </GreenButton>
           )}
         </Info>
       </CardContent>

@@ -165,6 +165,7 @@ const App: React.FC = () => {
                         exact
                         component={MyEvents}
                       />
+                      <Route
                         path={Routes.CREATE_EVENT}
                         exact
                         component={CreateEventContainer}
@@ -178,6 +179,8 @@ const App: React.FC = () => {
                         path={Routes.DELETE_EVENT}
                         exact
                         component={DeleteEvent}
+                      />
+                      <Route
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
