@@ -1,8 +1,10 @@
 import { Alert, InputNumber, Modal, Typography } from 'antd';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import protectedApiClient from '../../../api/protectedApiClient';
 import { PrivilegeLevel } from '../../../auth/ducks/types';
+import { getMyEvents } from '../../../containers/myEvents/ducks/thunks';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -67,6 +69,7 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
   hasRegistered,
   ticketCount,
 }) => {
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = React.useState<number>(ticketCount || 1);
   const [registrationRequest, setRegistrationRequest] = React.useState<
     AsyncRequest<void, any>
@@ -100,6 +103,7 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
 
       onCloseEventRegistrationModal();
       setRegistrationRequest(AsyncRequestCompleted(undefined));
+      dispatch(getMyEvents());
     } catch (e) {
       setRegistrationRequest(AsyncRequestFailed(e));
     }
