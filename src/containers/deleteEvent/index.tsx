@@ -1,21 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
 import {useDispatch, useSelector} from 'react-redux';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
-import { deleteAnEvent } from '../createEvent/ducks/thunks';
+import { clearEventRequest, deleteAnEvent } from '../createEvent/ducks/thunks';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
-import {
-  AsyncRequest,
-  AsyncRequestCompleted,
-  AsyncRequestFailed,
-  asyncRequestIsComplete,
-  AsyncRequestLoading,
-  AsyncRequestNotStarted,
-} from '../../utils/asyncRequest';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import {C4CState} from '../../store';
 const { Title } = Typography;
 
@@ -85,11 +78,12 @@ const DeleteEvent: React.FC = () => {
   const id = Number(useParams<SingleEventParams>().id);
   const deleteEventRequest = useSelector((state: C4CState) => state.createEventState.newEvent);
 
-  const onClick = () => {
+  const onClick = async () => {
      dispatch(deleteAnEvent(id));
   };
 
   if (asyncRequestIsComplete(deleteEventRequest)) {
+    dispatch(clearEventRequest());
     history.push(Routes.UPCOMING_EVENTS);
   }
 

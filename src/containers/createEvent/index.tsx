@@ -1,23 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Routes } from '../../App';
-import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import {
-  AsyncRequest,
-  AsyncRequestCompleted,
-  AsyncRequestFailed,
   asyncRequestIsComplete,
-  AsyncRequestLoading,
-  AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
-import { createAnEvent } from './ducks/thunks';
+import { clearEventRequest, createAnEvent } from './ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 
@@ -29,6 +22,7 @@ const CreateEventContainer: React.FC = () => {
   const createEventRequest = useSelector((state : C4CState) => state.createEventState.newEvent);
 
   if (asyncRequestIsComplete(createEventRequest)) {
+    dispatch(clearEventRequest());
     history.push('/events/' + createEventRequest.result.id);
   }
 

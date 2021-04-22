@@ -5,22 +5,19 @@ import {
   Form,
   Input,
   InputNumber,
+  Typography,
   Upload,
 } from 'antd';
 import { Moment } from 'moment';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { UserAuthenticationReducerState } from '../auth/ducks/types';
-import {
-  asyncRequestIsFailed,
-  asyncRequestIsLoading,
-} from '../utils/asyncRequest';
+import { asyncRequestIsFailed } from '../utils/asyncRequest';
 import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
-import {CreateEventReducerState} from '../containers/createEvent/ducks/types';
-import {create} from 'domain';
+import { CreateEventReducerState } from '../containers/createEvent/ducks/types';
 
+const { Paragraph } = Typography;
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -28,6 +25,21 @@ const PaddedAlert = styled(Alert)`
   margin-top: 1em;
   margin-bottom: 2em;
 `;
+
+const InlineFormItem = styled(Form.Item)`
+  display: inline-block;
+`;
+
+const HalfWidthInput = styled(InputNumber)`
+  width: '50%';
+`;
+
+const DateText = styled(Paragraph)`
+  display: 'inline-block';
+  margin-left: '8px';
+  margin-right: '8px';
+  margin-top: '32px';
+`
 
 export interface EventsForm {
   title: string;
@@ -60,7 +72,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
   onFinish,
   edit,
   initialValues,
-    eventRequest,
+  eventRequest,
 }) => {
   return (
     <FormContainer>
@@ -96,10 +108,9 @@ const EventsForm: React.FC<EventsFormProps> = ({
           <Input placeholder="Event Location" />
         </Form.Item>
 
-        <Form.Item
+        <InlineFormItem
           name="start"
           fieldKey="start"
-          style={{ display: 'inline-block' }}
           label="Start Date"
           rules={[
             {
@@ -109,28 +120,17 @@ const EventsForm: React.FC<EventsFormProps> = ({
           ]}
         >
           <DatePicker
-            style={{ marginRight: '8px' }}
             showTime
             use12Hours
             format="MM/DD/YYYY hh:mm A"
           />
-        </Form.Item>
+        </InlineFormItem>
 
-        <p
-          style={{
-            display: 'inline-block',
-            marginLeft: '8px',
-            marginRight: '8px',
-            marginTop: '32px',
-          }}
-        >
-          to
-        </p>
+        <DateText>to</DateText>
 
-        <Form.Item
+        <InlineFormItem
           name="end"
           fieldKey="end"
-          style={{ display: 'inline-block' }}
           label="End Date"
           rules={[
             {
@@ -140,12 +140,11 @@ const EventsForm: React.FC<EventsFormProps> = ({
           ]}
         >
           <DatePicker
-            style={{ marginLeft: '8px' }}
             showTime
             use12Hours
             format="MM/DD/YYYY hh:mm A"
           />
-        </Form.Item>
+        </InlineFormItem>
 
         <Form.Item
           label="Spots Available"
@@ -157,10 +156,9 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <InputNumber
+          <HalfWidthInput
             placeholder="Spots Available"
             min={0}
-            style={{ width: '50%' }}
           />
         </Form.Item>
 
@@ -174,7 +172,10 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <InputNumber defaultValue={0} min={0} style={{ width: '50%' }} />
+          <HalfWidthInput 
+            defaultValue={0} 
+            min={0} 
+          />
         </Form.Item>
 
         <Form.Item
@@ -213,7 +214,6 @@ const EventsForm: React.FC<EventsFormProps> = ({
         <Form.Item>
           <Button
             type="primary"
-            disabled={asyncRequestIsLoading(eventRequest)}
             htmlType="submit"
           >
             {edit ? 'Save Changes' : 'Create Event'}

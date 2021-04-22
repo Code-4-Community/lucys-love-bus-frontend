@@ -6,10 +6,7 @@ import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
-import {
-  DeleteEventResponse,
-  NewEventInformation
-} from '../containers/createEvent/ducks/types';
+import { NewEventInformation } from '../containers/createEvent/ducks/types';
 
 interface LineItem {
   eventId: number;
@@ -51,7 +48,7 @@ export interface ProtectedApiClient {
     request: NewEventInformation,
   ) => Promise<EventInformation>;
   readonly getEventInfoById: (id: number) => Promise<EventInformation>;
-  readonly eventDelete: (id: number) => Promise<DeleteEventResponse>;
+  readonly eventDelete: (id: number) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -186,7 +183,7 @@ const getEventInfoById = (id: number): Promise<EventInformation> => {
   );
 };
 
-const eventDelete = (id: number): Promise<DeleteEventResponse> => {
+const eventDelete = (id: number): Promise<void> => {
   return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.EVENTS}/${id}`)
     .catch((err) => err);
 };

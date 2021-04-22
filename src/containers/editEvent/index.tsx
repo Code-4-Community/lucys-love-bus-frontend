@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { UserAuthenticationReducerState } from '../../auth/ducks/types';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
 import {
@@ -21,7 +20,7 @@ import EventsForm, {
 } from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Alert, Spin, Typography } from 'antd';
-import { editAnEvent } from '../createEvent/ducks/thunks';
+import { clearEventRequest, editAnEvent } from '../createEvent/ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
@@ -44,6 +43,25 @@ const EditEventContainer: React.FC = () => {
     AsyncRequestNotStarted(),
   );
 
+  useEffect(() => {
+    if (asyncRequestIsNotStarted(event)) {
+      setEvent(AsyncRequestLoading());
+      protectedApiClient
+        .getEventInfoById(id)
+        .then((res) => {
+          setEvent(AsyncRequestCompleted(res));
+        })
+        .catch((error: any) => {
+          setEvent(AsyncRequestFailed(error));
+        });
+    }
+  }, [event, id]);
+
+  if (asyncRequestIsComplete(editEventRequest)) {
+    dispatch(clearEventRequest());
+    history.push('/events/' + id);
+  }
+  
   const onFinish = async (data: EventsFormData) => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
@@ -78,24 +96,6 @@ const EditEventContainer: React.FC = () => {
       end: moment(info.details.end),
     };
   };
-
-  useEffect(() => {
-    if (asyncRequestIsNotStarted(event)) {
-      setEvent(AsyncRequestLoading());
-      protectedApiClient
-        .getEventInfoById(id)
-        .then((res) => {
-          setEvent(AsyncRequestCompleted(res));
-        })
-        .catch((error: any) => {
-          setEvent(AsyncRequestFailed(error));
-        });
-    }
-  }, [event, id]);
-
-  if (asyncRequestIsComplete(editEventRequest)) {
-    history.push('/events/' + id);
-  }
 
   return (
     <>

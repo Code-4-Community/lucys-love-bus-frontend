@@ -3,7 +3,7 @@ import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export const createEvent = genericAsyncActions<EventInformation, any>();
 export const editEvent = genericAsyncActions<EventInformation, any>();
-export const deleteEvent = genericAsyncActions<number, any>();
+export const deleteEvent = genericAsyncActions<void, any>();
 
 export type EventControlActions =
   | ReturnType<typeof createEvent.loading>
@@ -13,4 +13,5 @@ export type EventControlActions =
   | ReturnType<typeof editEvent.loaded>
   | ReturnType<typeof editEvent.failed>
   | ReturnType<typeof deleteEvent.loading>
+  | ReturnType<typeof deleteEvent.loaded>
   | ReturnType<typeof deleteEvent.failed>;

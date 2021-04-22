@@ -16,10 +16,6 @@ export type CreateEventThunkAction<R> = ThunkAction<
   EventControlActions
 >;
 
-export interface DeleteEventResponse {
-  id: number
-}
-
 export interface NewEventInformation {
   title: string;
   capacity: number;

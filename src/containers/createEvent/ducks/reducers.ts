@@ -1,4 +1,4 @@
-import { NewEventInformation, CreateEventReducerState } from './types';
+import { CreateEventReducerState } from './types';
 import {
   ASYNC_REQUEST_FAILED_ACTION,
   ASYNC_REQUEST_LOADED_ACTION,

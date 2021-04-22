@@ -40,9 +40,19 @@ export const deleteAnEvent = (id: number): CreateEventThunkAction<void> => {
     dispatch(deleteEvent.loading());
     return protectedApiClient
       .eventDelete(id)
-      .then(() => {})
+      .then(() => {
+        dispatch(deleteEvent.loaded(undefined));
+      })
       .catch((error: any) => {
         dispatch(deleteEvent.failed(error));
       });
+  };
+};
+
+export const clearEventRequest = (): CreateEventThunkAction<void> => {
+  return (dispatch, getState, { protectedApiClient }) => {
+    dispatch(deleteEvent.loading());
+    dispatch(createEvent.loading());
+    dispatch(editEvent.loading());
   };
 };
