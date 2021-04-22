@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
-import { clearEventRequest, deleteAnEvent } from '../createEvent/ducks/thunks';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { C4CState } from '../../store';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
+import protectedApiClient from '../../api/protectedApiClient';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
@@ -73,19 +78,23 @@ interface SingleEventParams {
 const BASE_EVENTS_ROUTE = '/events/';
 
 const DeleteEvent: React.FC = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const deleteEventRequest = useSelector(
-    (state: C4CState) => state.eventControlState.event,
-  );
+  const [deleteEventRequest, setDeleteEventRequest] = useState<
+    AsyncRequest<void, any>
+  >(AsyncRequestNotStarted());
 
-  const onClick = async () => {
-    dispatch(deleteAnEvent(id));
+  const onDelete = async () => {
+    try {
+      setDeleteEventRequest(AsyncRequestLoading());
+      await protectedApiClient.deleteEvent(id);
+      setDeleteEventRequest(AsyncRequestCompleted(undefined));
+    } catch (err) {
+      setDeleteEventRequest(AsyncRequestFailed(err));
+    }
   };
 
   if (asyncRequestIsComplete(deleteEventRequest)) {
-    dispatch(clearEventRequest());
     history.push(Routes.UPCOMING_EVENTS);
   }
 
@@ -98,7 +107,7 @@ const DeleteEvent: React.FC = () => {
       <ContentContainer>
         <Title level={2}>Are you sure you want to delete this event?</Title>
 
-        <RedButton onClick={onClick}>Delete</RedButton>
+        <RedButton onClick={onDelete}>Delete</RedButton>
         <GrayButton to={`${BASE_EVENTS_ROUTE}${id}`}>Cancel</GrayButton>
       </ContentContainer>
     </>

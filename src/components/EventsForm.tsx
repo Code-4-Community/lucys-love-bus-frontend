@@ -12,10 +12,10 @@ import { Moment } from 'moment';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
-import { asyncRequestIsFailed } from '../utils/asyncRequest';
+import { EventInformation } from '../containers/upcoming-events/ducks/types';
+import { AsyncRequest, asyncRequestIsFailed } from '../utils/asyncRequest';
 import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
-import { EventControlReducerState } from '../containers/createEvent/ducks/types';
 
 const { Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -31,14 +31,14 @@ const InlineFormItem = styled(Form.Item)`
 `;
 
 const HalfWidthInput = styled(InputNumber)`
-  width: '50%';
+  width: 50%;
 `;
 
 const DateText = styled(Paragraph)`
-  display: 'inline-block';
-  margin-left: '8px';
-  margin-right: '8px';
-  margin-top: '32px';
+  display: inline-block;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-top: 32px;
 `;
 
 export interface EventsForm {
@@ -65,13 +65,13 @@ export interface EventsFormProps {
   onFinish: (data: EventsFormData) => Promise<void>;
   initialValues?: EventsFormInitialValues;
   edit: boolean;
-  eventRequest: EventControlReducerState['event'];
+  eventRequest: AsyncRequest<EventInformation, any>;
 }
 
 const EventsForm: React.FC<EventsFormProps> = ({
   onFinish,
-  edit,
   initialValues,
+  edit,
   eventRequest,
 }) => {
   return (

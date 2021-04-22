@@ -41,15 +41,15 @@ export interface ProtectedApiClient {
   readonly setContactInfo: (request: ContactInfo) => Promise<void>;
   readonly changeAccountEmail: (request: ChangeEmailRequest) => Promise<void>;
   readonly getEventRegistrations: (eventId: number) => Promise<Registration[]>;
-  readonly eventCreate: (
+  readonly createEvent: (
     request: NewEventInformation,
   ) => Promise<EventInformation>;
-  readonly eventEdit: (
+  readonly editEvent: (
     id: number,
     request: NewEventInformation,
   ) => Promise<EventInformation>;
   readonly getEventInfoById: (id: number) => Promise<EventInformation>;
-  readonly eventDelete: (id: number) => Promise<void>;
+  readonly deleteEvent: (id: number) => Promise<void>;
   readonly createAnnouncement: (
     request: AnnouncementFormData,
     eventId?: number,
@@ -159,7 +159,7 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
   ).then((res) => res.data.registrations);
 };
 
-const eventCreate = (
+const createEvent = (
   request: NewEventInformation,
 ): Promise<EventInformation> => {
   return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
@@ -167,7 +167,7 @@ const eventCreate = (
     .catch((err) => err);
 };
 
-const eventEdit = (
+const editEvent = (
   id: number,
   request: NewEventInformation,
 ): Promise<EventInformation> => {
@@ -189,7 +189,7 @@ const getEventInfoById = (id: number): Promise<EventInformation> => {
   );
 };
 
-const eventDelete = (id: number): Promise<void> => {
+const deleteEvent = (id: number): Promise<void> => {
   return AppAxiosInstance.delete(
     `${ProtectedApiClientRoutes.EVENTS}/${id}`,
   ).catch((err) => err);
@@ -225,10 +225,10 @@ const Client: ProtectedApiClient = Object.freeze({
   changeAccountEmail,
   getEventRegistrations,
   getContactInfoById,
-  eventCreate,
-  eventEdit,
+  createEvent,
+  editEvent,
   getEventInfoById,
-  eventDelete,
+  deleteEvent,
   getAllUsersContactInfo,
   createAnnouncement,
   deleteAnnouncement,

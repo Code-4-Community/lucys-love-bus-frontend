@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ContentContainer } from '../../components';
-import { C4CState } from '../../store';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -20,7 +18,6 @@ import EventsForm, {
 } from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Alert, Spin, Typography } from 'antd';
-import { clearEventRequest, editAnEvent } from '../createEvent/ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
@@ -34,12 +31,11 @@ interface SingleEventParams {
 }
 
 const EditEventContainer: React.FC = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const editEventRequest = useSelector(
-    (state: C4CState) => state.eventControlState.event,
-  );
+  const [editEventRequest, setEditEventRequest] = useState<
+    AsyncRequest<EventInformation, any>
+  >(AsyncRequestNotStarted());
 
   const [event, setEvent] = useState<AsyncRequest<EventInformation, any>>(
     AsyncRequestNotStarted(),
@@ -60,7 +56,6 @@ const EditEventContainer: React.FC = () => {
   }, [event, id]);
 
   if (asyncRequestIsComplete(editEventRequest)) {
-    dispatch(clearEventRequest());
     history.push('/events/' + id);
   }
 
@@ -68,8 +63,10 @@ const EditEventContainer: React.FC = () => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
 
-    dispatch(
-      editAnEvent(id, {
+    let response: EventInformation | undefined;
+    try {
+      setEditEventRequest(AsyncRequestLoading());
+      response = await protectedApiClient.editEvent(id, {
         title: data.title,
         capacity: data.capacity,
         thumbnail: eventPicture,
@@ -80,8 +77,11 @@ const EditEventContainer: React.FC = () => {
           start: data.start,
           end: data.end,
         },
-      }),
-    );
+      });
+      setEditEventRequest(AsyncRequestCompleted(response));
+    } catch (err) {
+      setEditEventRequest(AsyncRequestFailed(err));
+    }
   };
 
   const mapEventInfoToFormData = (

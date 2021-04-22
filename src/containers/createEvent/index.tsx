@@ -1,36 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ContentContainer } from '../../components';
-import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import {
+  AsyncRequest,
+  AsyncRequestCompleted,
+  AsyncRequestFailed,
+  asyncRequestIsComplete,
+  AsyncRequestLoading,
+  AsyncRequestNotStarted,
+} from '../../utils/asyncRequest';
 import EventsForm from '../../components/EventsForm';
 import FormInitialText from '../../components/FormInitialText';
 import { Typography } from 'antd';
-import { clearEventRequest, createAnEvent } from './ducks/thunks';
 import { EventsFormData } from '../../components/EventsForm';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
+import { EventInformation } from '../upcoming-events/ducks/types';
+import protectedApiClient from '../../api/protectedApiClient';
 
 const { Title } = Typography;
 
 const CreateEventContainer: React.FC = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
-  const createEventRequest = useSelector(
-    (state: C4CState) => state.eventControlState.event,
-  );
+  const [createEventRequest, setCreateEventRequest] = useState<
+    AsyncRequest<EventInformation, any>
+  >(AsyncRequestNotStarted());
 
   if (asyncRequestIsComplete(createEventRequest)) {
-    dispatch(clearEventRequest());
     history.push('/events/' + createEventRequest.result.id);
   }
 
   const onFinish = async (data: EventsFormData) => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
-    dispatch(
-      createAnEvent({
+    let response: EventInformation | undefined;
+    try {
+      setCreateEventRequest(AsyncRequestLoading());
+      response = await protectedApiClient.createEvent({
         title: data.title,
         capacity: data.capacity,
         thumbnail: eventPicture,
@@ -41,8 +47,11 @@ const CreateEventContainer: React.FC = () => {
           start: data.start,
           end: data.end,
         },
-      }),
-    );
+      });
+      setCreateEventRequest(AsyncRequestCompleted(response));
+    } catch (err) {
+      setCreateEventRequest(AsyncRequestFailed(err));
+    }
   };
 
   return (
