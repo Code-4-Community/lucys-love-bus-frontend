@@ -86,17 +86,18 @@ const EventDetails: React.FC<EventDetailsProps> = ({
     const endDate = dateFormat(end, 'longDate');
     const startTime = dateFormat(start, 'shortTime');
     const endTime = dateFormat(end, 'shortTime');
-    return (startDate === endDate) ? 
-        <>
-          <Time>{startDate}</Time>
-          <Time>
-            {startTime} - {endTime}
-          </Time>
-        </>
-      :
+    return startDate === endDate ? (
+      <>
+        <Time>{startDate}</Time>
         <Time>
-          {startDate}, {startTime} - {endDate}, {endTime}
+          {startTime} - {endTime}
         </Time>
+      </>
+    ) : (
+      <Time>
+        {startDate}, {startTime} - {endDate}, {endTime}
+      </Time>
+    );
   };
 
   return (

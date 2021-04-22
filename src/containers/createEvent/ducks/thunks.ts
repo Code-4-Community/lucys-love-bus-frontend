@@ -1,10 +1,10 @@
-import { CreateEventThunkAction, NewEventInformation } from './types';
+import { EventControlThunkAction, NewEventInformation } from './types';
 import { createEvent, editEvent, deleteEvent } from './actions';
 import { EventInformation } from '../../upcoming-events/ducks/types';
 
 export const createAnEvent = (
   createEventRequest: NewEventInformation,
-): CreateEventThunkAction<void> => {
+): EventControlThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(createEvent.loading());
     return protectedApiClient
@@ -21,7 +21,7 @@ export const createAnEvent = (
 export const editAnEvent = (
   id: number,
   editEventRequest: NewEventInformation,
-): CreateEventThunkAction<void> => {
+): EventControlThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(editEvent.loading());
     return protectedApiClient
@@ -35,7 +35,7 @@ export const editAnEvent = (
   };
 };
 
-export const deleteAnEvent = (id: number): CreateEventThunkAction<void> => {
+export const deleteAnEvent = (id: number): EventControlThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(deleteEvent.loading());
     return protectedApiClient
@@ -49,7 +49,7 @@ export const deleteAnEvent = (id: number): CreateEventThunkAction<void> => {
   };
 };
 
-export const clearEventRequest = (): CreateEventThunkAction<void> => {
+export const clearEventRequest = (): EventControlThunkAction<void> => {
   return (dispatch, getState, { protectedApiClient }) => {
     dispatch(deleteEvent.loading());
     dispatch(createEvent.loading());

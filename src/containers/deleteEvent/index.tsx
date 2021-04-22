@@ -2,14 +2,14 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Typography } from 'antd';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContentContainer } from '../../components';
 import { Routes } from '../../App';
 import { clearEventRequest, deleteAnEvent } from '../createEvent/ducks/thunks';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import {C4CState} from '../../store';
+import { C4CState } from '../../store';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
@@ -76,10 +76,12 @@ const DeleteEvent: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const deleteEventRequest = useSelector((state: C4CState) => state.createEventState.newEvent);
+  const deleteEventRequest = useSelector(
+    (state: C4CState) => state.eventControlState.event,
+  );
 
   const onClick = async () => {
-     dispatch(deleteAnEvent(id));
+    dispatch(deleteAnEvent(id));
   };
 
   if (asyncRequestIsComplete(deleteEventRequest)) {

@@ -5,11 +5,11 @@ import { EventControlActions } from './actions';
 import { ProtectedApiExtraArgs } from '../../../api/protectedApiClient';
 import { EventInformation } from '../../upcoming-events/ducks/types';
 
-export interface CreateEventReducerState {
-  readonly newEvent: AsyncRequest<EventInformation, any>;
+export interface EventControlReducerState {
+  readonly event: AsyncRequest<EventInformation, any>;
 }
 
-export type CreateEventThunkAction<R> = ThunkAction<
+export type EventControlThunkAction<R> = ThunkAction<
   R,
   C4CState,
   ProtectedApiExtraArgs,

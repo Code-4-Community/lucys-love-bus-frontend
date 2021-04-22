@@ -131,9 +131,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
                 <GreenButton to={BASE_EVENTS_ROUTE + id}>
                   Make Announcement
                 </GreenButton>
-                <RedButton to={`/delete-event/${id}`}>
-                  Delete Event
-                </RedButton>
+                <RedButton to={`/delete-event/${id}`}>Delete Event</RedButton>
                 <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
               </AdminActionButtonList>
             )}

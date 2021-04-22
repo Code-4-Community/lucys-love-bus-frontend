@@ -184,8 +184,9 @@ const getEventInfoById = (id: number): Promise<EventInformation> => {
 };
 
 const eventDelete = (id: number): Promise<void> => {
-  return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.EVENTS}/${id}`)
-    .catch((err) => err);
+  return AppAxiosInstance.delete(
+    `${ProtectedApiClientRoutes.EVENTS}/${id}`,
+  ).catch((err) => err);
 };
 
 const Client: ProtectedApiClient = Object.freeze({

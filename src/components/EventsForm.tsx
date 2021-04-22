@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import { asyncRequestIsFailed } from '../utils/asyncRequest';
 import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
-import { CreateEventReducerState } from '../containers/createEvent/ducks/types';
+import { EventControlReducerState } from '../containers/createEvent/ducks/types';
 
 const { Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -39,7 +39,7 @@ const DateText = styled(Paragraph)`
   margin-left: '8px';
   margin-right: '8px';
   margin-top: '32px';
-`
+`;
 
 export interface EventsForm {
   title: string;
@@ -55,7 +55,7 @@ export interface EventsFormData extends EventsForm {
   end: Date;
 }
 
-export interface EventsFormInitialValues extends EventsForm{
+export interface EventsFormInitialValues extends EventsForm {
   thumbnail?: string;
   start: Moment;
   end: Moment;
@@ -65,7 +65,7 @@ export interface EventsFormProps {
   onFinish: (data: EventsFormData) => Promise<void>;
   initialValues?: EventsFormInitialValues;
   edit: boolean;
-  eventRequest: CreateEventReducerState['newEvent']
+  eventRequest: EventControlReducerState['event'];
 }
 
 const EventsForm: React.FC<EventsFormProps> = ({
@@ -119,11 +119,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <DatePicker
-            showTime
-            use12Hours
-            format="MM/DD/YYYY hh:mm A"
-          />
+          <DatePicker showTime use12Hours format="MM/DD/YYYY hh:mm A" />
         </InlineFormItem>
 
         <DateText>to</DateText>
@@ -139,11 +135,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <DatePicker
-            showTime
-            use12Hours
-            format="MM/DD/YYYY hh:mm A"
-          />
+          <DatePicker showTime use12Hours format="MM/DD/YYYY hh:mm A" />
         </InlineFormItem>
 
         <Form.Item
@@ -156,10 +148,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <HalfWidthInput
-            placeholder="Spots Available"
-            min={0}
-          />
+          <HalfWidthInput placeholder="Spots Available" min={0} />
         </Form.Item>
 
         <Form.Item
@@ -172,10 +161,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
             },
           ]}
         >
-          <HalfWidthInput 
-            defaultValue={0} 
-            min={0} 
-          />
+          <HalfWidthInput defaultValue={0} min={0} />
         </Form.Item>
 
         <Form.Item
@@ -212,10 +198,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
           />
         )}
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-          >
+          <Button type="primary" htmlType="submit">
             {edit ? 'Save Changes' : 'Create Event'}
           </Button>
         </Form.Item>

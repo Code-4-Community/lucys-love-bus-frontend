@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { ContentContainer } from '../../components';
 import { C4CState } from '../../store';
@@ -37,7 +37,9 @@ const EditEventContainer: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
-  const editEventRequest = useSelector((state: C4CState) => state.createEventState.newEvent);
+  const editEventRequest = useSelector(
+    (state: C4CState) => state.eventControlState.event,
+  );
 
   const [event, setEvent] = useState<AsyncRequest<EventInformation, any>>(
     AsyncRequestNotStarted(),
@@ -61,25 +63,25 @@ const EditEventContainer: React.FC = () => {
     dispatch(clearEventRequest());
     history.push('/events/' + id);
   }
-  
+
   const onFinish = async (data: EventsFormData) => {
     const eventPicture =
       data.thumbnail && (await encodeProfileFieldFile(data.thumbnail));
 
-      dispatch(
-        editAnEvent(id, {
-          title: data.title,
-          capacity: data.capacity,
-          thumbnail: eventPicture,
-          price: data.price,
-          details: {
-            description: data.description,
-            location: data.location,
-            start: data.start,
-            end: data.end,
-          },
-        }),
-      );
+    dispatch(
+      editAnEvent(id, {
+        title: data.title,
+        capacity: data.capacity,
+        thumbnail: eventPicture,
+        price: data.price,
+        details: {
+          description: data.description,
+          location: data.location,
+          start: data.start,
+          end: data.end,
+        },
+      }),
+    );
   };
 
   const mapEventInfoToFormData = (
