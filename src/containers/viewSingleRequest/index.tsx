@@ -13,13 +13,15 @@ import {
 } from '../../utils/asyncRequest';
 import { ContactInfo } from '../setContacts/ducks/types';
 import { Helmet } from 'react-helmet';
-import { ChungusContentContainer, ContentContainer } from '../../components';
+import { ChungusContentContainer } from '../../components';
 import ContactInfoSummary from '../../components/ContactInfoSummary';
-import { Alert, Spin, Button } from 'antd';
+import { Alert, Button, Spin } from 'antd';
 import styled from 'styled-components';
 import { LinkButton } from '../../components/LinkButton';
 import protectedApiClient from '../../api/protectedApiClient';
 import DecisionConfirmation from '../../components/DecisionConfirmation';
+import { PrivilegeLevel } from '../../auth/ducks/types';
+import { useHistory } from 'react-router';
 
 enum Status {
   PENDING,
@@ -43,6 +45,7 @@ const StyledAlert = styled(Alert)`
 `;
 
 const ViewSingleRequest = () => {
+  const history = useHistory();
   const requestId = Number(
     useParams<{ request_id: string; user_id: string }>().request_id,
   );
@@ -90,6 +93,11 @@ const ViewSingleRequest = () => {
         .getContactInfoById(userId)
         .then((c) => {
           setContacts(AsyncRequestCompleted(c));
+          // redirect to NotFound component if this request has already been dealt with
+          if (c.privilegeLevel.toLowerCase() !== PrivilegeLevel.STANDARD) {
+            // TODO: idk how react-router works, is there a better way to do this?
+            history.push('/not-found');
+          }
         })
         .catch((error) => {
           setContacts(AsyncRequestFailed(error));
