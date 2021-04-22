@@ -10,7 +10,9 @@ import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
+import CreateAnnouncement from './containers/createAnnouncement';
 import DeactivateAccount from './containers/deactivateAccount';
+import DeleteAnnouncement from './containers/deleteAnnouncement';
 import EventRSVP from './containers/eventRSVP';
 import FamilyDetails from './containers/familyDetails';
 import ForgotPassword from './containers/forgotPasswordRequest';
@@ -65,6 +67,8 @@ export enum Routes {
   MAKE_ANNOUNCEMENT = '/make-announcement',
   VIEW_REQUESTS = '/view-requests',
   USER_DIRECTORY = '/user-directory',
+  CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
+  DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
 }
 
 const App: React.FC = () => {
@@ -170,6 +174,16 @@ const App: React.FC = () => {
                         path={Routes.DELETE_EVENT}
                         exact
                         component={DeleteEvent}
+                      />
+                      <Route
+                        path={Routes.CREATE_ANNOUNCEMENTS}
+                        exact
+                        component={CreateAnnouncement}
+                      />
+                      <Route
+                        path={Routes.DELETE_ANNOUNCEMENTS}
+                        exact
+                        component={DeleteAnnouncement}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
