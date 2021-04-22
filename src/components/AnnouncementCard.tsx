@@ -34,11 +34,12 @@ const DateText = styled(Text)`
   font-size: 16px;
 `;
 
-interface AnnoucementCardProps extends Announcement {
+interface AnnouncementCardProps extends Announcement {
   condensed?: boolean;
 }
 
-export const AnnouncementCard: React.FC<AnnoucementCardProps> = ({
+export const AnnouncementCard: React.FC<AnnouncementCardProps> = ({
+  id,
   imageSrc,
   title,
   created,
@@ -77,6 +78,7 @@ export const AnnouncementCard: React.FC<AnnoucementCardProps> = ({
       </AnnouncementCardCover>
 
       <AnnouncementModal
+        id={id}
         imageSrc={imageSrc}
         title={title}
         created={created}

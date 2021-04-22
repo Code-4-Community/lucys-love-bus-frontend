@@ -140,14 +140,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                   <Title level={5}>Updates for this Event</Title>
                   {announcements.map((announcement, i) => {
                     return (
-                      <AnnouncementCard
-                        key={i}
-                        imageSrc={announcement.imageSrc}
-                        title={announcement.title}
-                        created={announcement.created}
-                        description={announcement.description}
-                        condensed
-                      />
+                      <AnnouncementCard {...announcement} key={i} condensed />
                     );
                   })}
                 </AnnouncementBox>

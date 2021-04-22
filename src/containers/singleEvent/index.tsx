@@ -21,8 +21,6 @@ import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
 
-const BASE_EVENTS_ROUTE = '/events/';
-
 const ContentContainer = styled.div`
   padding: 24px;
   margin: auto;
@@ -128,7 +126,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
                 <GreenButton to={`/edit-event/${id}`}>Edit</GreenButton>
-                <GreenButton to={BASE_EVENTS_ROUTE + id}>
+                <GreenButton to={`/create-announcements/${id}`}>
                   Make Announcement
                 </GreenButton>
                 <RedButton to={`/delete-event/${id}`}>Delete Event</RedButton>

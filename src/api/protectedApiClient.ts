@@ -1,4 +1,5 @@
 import AppAxiosInstance from '../auth/axios';
+import { AnnouncementFormData } from '../components/AnnouncementForm';
 import { UserSummary } from '../components/UserInfoTable';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
@@ -49,6 +50,11 @@ export interface ProtectedApiClient {
   ) => Promise<EventInformation>;
   readonly getEventInfoById: (id: number) => Promise<EventInformation>;
   readonly eventDelete: (id: number) => Promise<void>;
+  readonly createAnnouncement: (
+    request: AnnouncementFormData,
+    eventId?: number,
+  ) => Promise<void>;
+  readonly deleteAnnouncement: (id: number) => Promise<void>;
 }
 
 export enum ProtectedApiClientRoutes {
@@ -189,6 +195,23 @@ const eventDelete = (id: number): Promise<void> => {
   ).catch((err) => err);
 };
 
+const createAnnouncement = (
+  request: AnnouncementFormData,
+  eventId?: number,
+): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.ANNOUNCEMENTS +
+      (eventId !== undefined ? `/${eventId}` : ''),
+    request,
+  );
+};
+
+const deleteAnnouncement = (id: number): Promise<void> => {
+  return AppAxiosInstance.delete(
+    `${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${id}`,
+  );
+};
+
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   registerTickets,
@@ -207,6 +230,8 @@ const Client: ProtectedApiClient = Object.freeze({
   getEventInfoById,
   eventDelete,
   getAllUsersContactInfo,
+  createAnnouncement,
+  deleteAnnouncement,
 });
 
 export default Client;
