@@ -10,6 +10,7 @@ import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
+import ChangePassword from './containers/changePassword';
 import CreateAnnouncement from './containers/createAnnouncement';
 import DeactivateAccount from './containers/deactivateAccount';
 import DeleteAnnouncement from './containers/deleteAnnouncement';
@@ -56,6 +57,7 @@ export enum Routes {
   SET_CONTACTS = '/set-contacts',
   SIGNUP_CONFIRMATION = '/signup/confirmation',
   CHANGE_ACCOUNT_EMAIL = '/change-email',
+  CHANGE_PASSWORD = '/change-password',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
   CREATE_EVENT = '/create-event',
@@ -156,6 +158,16 @@ const App: React.FC = () => {
                         component={MyEvents}
                       />
                       <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
+                      />
+                      <Route
                         path={Routes.CREATE_ANNOUNCEMENTS}
                         exact
                         component={CreateAnnouncement}
@@ -232,6 +244,11 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
