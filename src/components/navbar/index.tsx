@@ -1,5 +1,7 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import {
+  Avatar,
+  Badge,
   Button,
   Col,
   Dropdown,
@@ -7,7 +9,6 @@ import {
   Menu,
   Row,
   Typography,
-  Badge,
 } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
@@ -20,15 +21,17 @@ import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
-import { C4CState } from '../../store';
-import { asyncRequestIsComplete } from '../../utils/asyncRequest';
-import { ORANGE } from '../../utils/colors';
-import LoginModal from '../modals/login-modal/LoginModal';
 import { getRequestStatuses } from '../../containers/personalRequests/ducks/thunks';
 import {
   PersonalRequest,
   PersonalRequestsReducerState,
 } from '../../containers/personalRequests/ducks/types';
+import { getContactInfo } from '../../containers/setContacts/ducks/thunks';
+import { ContactsReducerState } from '../../containers/setContacts/ducks/types';
+import { C4CState } from '../../store';
+import { asyncRequestIsComplete } from '../../utils/asyncRequest';
+import { ORANGE } from '../../utils/colors';
+import LoginModal from '../modals/login-modal/LoginModal';
 
 const { Text } = Typography;
 
@@ -88,15 +91,36 @@ const UserContainer = styled.div`
   margin-right: 16px;
 `;
 
+const UserMenu = styled(Menu)`
+  min-width: 100px;
+`;
+const UserDropdown = styled(Dropdown)`
+  min-height: 50px;
+`;
+const UserAvatar = styled(Avatar)`
+  margin-right: 10px;
+`;
+
 interface NavBarProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
+  readonly contacts: ContactsReducerState['contacts'];
   readonly personalRequests: PersonalRequestsReducerState['personalRequests'];
 }
 
-const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
+const NavBar: React.FC<NavBarProps> = ({
+  tokens,
+  contacts,
+  personalRequests,
+}) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getContactInfo());
+    }
+  }, [dispatch, tokens]);
 
   const privilegeLevel: PrivilegeLevel = getPrivilegeLevel(tokens);
   const links = {
@@ -120,7 +144,60 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
 
   // Dropdown menu options for the logged in
   const userMenu = (
-    <Menu>
+    <UserMenu>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.HOME);
+        }}
+      >
+        Home
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.UPCOMING_EVENTS);
+        }}
+      >
+        Upcoming Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.ANNOUNCEMENTS);
+        }}
+      >
+        Announcements
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MY_EVENTS);
+        }}
+      >
+        My Events
+      </Menu.Item>
+
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.SETTINGS);
+        }}
+      >
+        Settings
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          if (asyncRequestIsComplete(tokens)) {
+            dispatch(logout());
+            history.push(Routes.HOME);
+            history.go(0);
+          }
+        }}
+      >
+        Log Out
+      </Menu.Item>
+    </UserMenu>
+  );
+
+  // Dropdown menu options for the logged in
+  const adminMenu = (
+    <UserMenu>
       <Menu.Item
         onClick={() => {
           history.push(Routes.HOME);
@@ -163,6 +240,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
       >
         Make Announcement
       </Menu.Item>
+
       <Menu.Item
         onClick={() => {
           history.push(Routes.VIEW_REQUESTS);
@@ -188,7 +266,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
       >
         Log Out
       </Menu.Item>
-    </Menu>
+    </UserMenu>
   );
 
   const [displayLoginModal, setDisplayLoginModal] = useState(false);
@@ -368,12 +446,31 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
           <Row gutter={[8, 0]}>
             {privilegeLevel !== PrivilegeLevel.NONE ? (
               <Col>
-                <Dropdown overlay={userMenu}>
+                <UserDropdown
+                  overlay={
+                    privilegeLevel === PrivilegeLevel.ADMIN
+                      ? adminMenu
+                      : userMenu
+                  }
+                >
                   <Button>
-                    <UserOutlined />
+                    <UserAvatar
+                      src={
+                        asyncRequestIsComplete(contacts) &&
+                        contacts.result.mainContact.profilePicture
+                      }
+                      icon={<UserOutlined />}
+                    />
+                    <Text>
+                      {asyncRequestIsComplete(contacts)
+                        ? contacts.result.mainContact.firstName +
+                          ' ' +
+                          contacts.result.mainContact.lastName
+                        : 'Loading...'}
+                    </Text>
                     <DownOutlined />
                   </Button>
-                </Dropdown>
+                </UserDropdown>
               </Col>
             ) : (
               <>
@@ -418,6 +515,7 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, personalRequests }) => {
 const mapStateToProps = (state: C4CState): NavBarProps => {
   return {
     tokens: state.authenticationState.tokens,
+    contacts: state.contactsState.contacts,
     personalRequests: state.personalRequestsState.personalRequests,
   };
 };
