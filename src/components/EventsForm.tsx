@@ -177,7 +177,7 @@ const EventsForm: React.FC<EventsFormProps> = ({
           <TextArea rows={3} placeholder="Description" />
         </Form.Item>
 
-        {/* We will come back to this in a second PR because it requires backend changes too :)
+        {/* TODO: come back to this in a second PR because it requires backend changes too :)
         <Form.Item label="Meeting Link" name="meetingLink">
           <Input placeholder="Meeting Link" />
         </Form.Item> */}
