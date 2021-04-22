@@ -7,14 +7,14 @@ import styled from 'styled-components';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import {
   PrivilegeLevel,
-  UserAuthenticationReducerState
+  UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
 import EventDetails from '../../components/event-details/EventDetails';
 import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
-  asyncRequestIsFailed
+  asyncRequestIsFailed,
 } from '../../utils/asyncRequest';
 import { getMyEvents } from '../myEvents/ducks/thunks';
 import { MyEventsReducerState } from '../myEvents/ducks/types';
@@ -129,7 +129,8 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       const event =
         myEvents.result.find((e) => e.id === id) ||
         events.result.find((e) => e.id === id);
-      const hasRegistered = (event && event.ticketCount && event.ticketCount > 0) !== undefined;
+      const hasRegistered =
+        (event && event.ticketCount && event.ticketCount > 0) !== undefined;
       if (event) {
         return (
           <>
