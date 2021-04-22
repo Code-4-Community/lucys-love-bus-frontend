@@ -16,6 +16,7 @@ export type AnnouncementsThunkAction<R> = ThunkAction<
 >;
 
 export interface Announcement {
+  id: number;
   imageSrc?: string;
   title: string;
   created: Date;

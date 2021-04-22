@@ -1,6 +1,7 @@
 import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import {
   Avatar,
+  Badge,
   Button,
   Col,
   Dropdown,
@@ -20,6 +21,11 @@ import {
   PrivilegeLevel,
   UserAuthenticationReducerState,
 } from '../../auth/ducks/types';
+import { getRequestStatuses } from '../../containers/personalRequests/ducks/thunks';
+import {
+  PersonalRequest,
+  PersonalRequestsReducerState,
+} from '../../containers/personalRequests/ducks/types';
 import { getContactInfo } from '../../containers/setContacts/ducks/thunks';
 import { ContactsReducerState } from '../../containers/setContacts/ducks/types';
 import { C4CState } from '../../store';
@@ -98,9 +104,14 @@ const UserAvatar = styled(Avatar)`
 interface NavBarProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
   readonly contacts: ContactsReducerState['contacts'];
+  readonly personalRequests: PersonalRequestsReducerState['personalRequests'];
 }
 
-const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
+const NavBar: React.FC<NavBarProps> = ({
+  tokens,
+  contacts,
+  personalRequests,
+}) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -120,10 +131,49 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
   const authLinks = {
     'My Events': Routes.MY_EVENTS,
   };
+  const adminLinks = {
+    'Create Event': Routes.CREATE_EVENT,
+    'Make Announcement': Routes.MAKE_ANNOUNCEMENT,
+  };
+
+  useEffect(() => {
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getRequestStatuses());
+    }
+  }, [dispatch, tokens]);
 
   // Dropdown menu options for the logged in
   const userMenu = (
     <UserMenu>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.HOME);
+        }}
+      >
+        Home
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.UPCOMING_EVENTS);
+        }}
+      >
+        Upcoming Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.ANNOUNCEMENTS);
+        }}
+      >
+        Announcements
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MY_EVENTS);
+        }}
+      >
+        My Events
+      </Menu.Item>
+
       <Menu.Item
         onClick={() => {
           history.push(Routes.SETTINGS);
@@ -131,12 +181,86 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
       >
         Settings
       </Menu.Item>
-
       <Menu.Item
         onClick={() => {
           if (asyncRequestIsComplete(tokens)) {
             dispatch(logout());
             history.push(Routes.HOME);
+            history.go(0);
+          }
+        }}
+      >
+        Log Out
+      </Menu.Item>
+    </UserMenu>
+  );
+
+  // Dropdown menu options for the logged in
+  const adminMenu = (
+    <UserMenu>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.HOME);
+        }}
+      >
+        Home
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.UPCOMING_EVENTS);
+        }}
+      >
+        Upcoming Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.ANNOUNCEMENTS);
+        }}
+      >
+        Announcements
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MY_EVENTS);
+        }}
+      >
+        My Events
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.CREATE_EVENT);
+        }}
+      >
+        Create Event
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.MAKE_ANNOUNCEMENT);
+        }}
+      >
+        Make Announcement
+      </Menu.Item>
+
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.VIEW_REQUESTS);
+        }}
+      >
+        View Requests
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.SETTINGS);
+        }}
+      >
+        Settings
+      </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          if (asyncRequestIsComplete(tokens)) {
+            dispatch(logout());
+            history.push(Routes.HOME);
+            history.go(0);
           }
         }}
       >
@@ -146,6 +270,10 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
   );
 
   const [displayLoginModal, setDisplayLoginModal] = useState(false);
+
+  const getNumPendingRequests = (requests: PersonalRequest[]) => {
+    return requests.filter((request) => request.status === 'PENDING').length;
+  };
 
   return (
     <>
@@ -235,6 +363,80 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
                     ))}{' '}
                   </>
                 )}
+                {privilegeLevel === PrivilegeLevel.ADMIN && (
+                  <>
+                    {Object.entries(adminLinks).map(([link, path], i) => (
+                      <Col key={i}>
+                        {path === location.pathname ? (
+                          <ActiveNavBarButton
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </ActiveNavBarButton>
+                        ) : (
+                          <NavBarButton
+                            tab-index="0"
+                            type="link"
+                            onClick={() => {
+                              history.push(path);
+                            }}
+                          >
+                            {link}
+                          </NavBarButton>
+                        )}
+                      </Col>
+                    ))}{' '}
+                    <Col>
+                      {asyncRequestIsComplete(personalRequests) ? (
+                        location.pathname === Routes.VIEW_REQUESTS ? (
+                          <Badge
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
+                          >
+                            <ActiveNavBarButton
+                              type="link"
+                              onClick={() => {
+                                history.push(Routes.VIEW_REQUESTS);
+                              }}
+                            >
+                              View Requests
+                            </ActiveNavBarButton>
+                          </Badge>
+                        ) : (
+                          <Badge
+                            count={getNumPendingRequests(
+                              personalRequests.result,
+                            )}
+                          >
+                            <NavBarButton
+                              tab-index="0"
+                              type="link"
+                              onClick={() => {
+                                history.push(Routes.VIEW_REQUESTS);
+                              }}
+                            >
+                              View Requests
+                            </NavBarButton>
+                          </Badge>
+                        )
+                      ) : (
+                        <NavBarButton
+                          tab-index="0"
+                          type="link"
+                          onClick={() => {
+                            history.push(Routes.VIEW_REQUESTS);
+                          }}
+                        >
+                          View Requests
+                        </NavBarButton>
+                      )}
+                    </Col>
+                  </>
+                )}
               </Row>
             </Col>
           </Row>
@@ -244,7 +446,13 @@ const NavBar: React.FC<NavBarProps> = ({ tokens, contacts }) => {
           <Row gutter={[8, 0]}>
             {privilegeLevel !== PrivilegeLevel.NONE ? (
               <Col>
-                <UserDropdown overlay={userMenu}>
+                <UserDropdown
+                  overlay={
+                    privilegeLevel === PrivilegeLevel.ADMIN
+                      ? adminMenu
+                      : userMenu
+                  }
+                >
                   <Button>
                     <UserAvatar
                       src={
@@ -308,6 +516,7 @@ const mapStateToProps = (state: C4CState): NavBarProps => {
   return {
     tokens: state.authenticationState.tokens,
     contacts: state.contactsState.contacts,
+    personalRequests: state.personalRequestsState.personalRequests,
   };
 };
 

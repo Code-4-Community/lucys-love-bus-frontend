@@ -6,11 +6,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPrivilegeLevel } from './auth/ducks/selectors';
 import { PrivilegeLevel } from './auth/ducks/types';
+import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
 import ChangePassword from './containers/changePassword';
+import CreateAnnouncement from './containers/createAnnouncement';
 import DeactivateAccount from './containers/deactivateAccount';
+import DeleteAnnouncement from './containers/deleteAnnouncement';
 import EventRSVP from './containers/eventRSVP';
 import FamilyDetails from './containers/familyDetails';
 import ForgotPassword from './containers/forgotPasswordRequest';
@@ -26,6 +29,7 @@ import SignupConfirmation from './containers/signupConfirmation';
 import SignupFormContainer from './containers/signupForm';
 import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
+import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
 import { C4CState } from './store';
 
@@ -56,6 +60,12 @@ export enum Routes {
   CHANGE_PASSWORD = '/change-password',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
+  CREATE_EVENT = '/create-event',
+  MAKE_ANNOUNCEMENT = '/make-announcement',
+  VIEW_REQUESTS = '/view-requests',
+  USER_DIRECTORY = '/user-directory',
+  CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
+  DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
 }
 
 const App: React.FC = () => {
@@ -138,6 +148,11 @@ const App: React.FC = () => {
                         component={FamilyDetails}
                       />
                       <Route
+                        path={Routes.USER_DIRECTORY}
+                        exact
+                        component={UserDirectory}
+                      />
+                      <Route
                         path={Routes.MY_EVENTS}
                         exact
                         component={MyEvents}
@@ -151,6 +166,16 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_PASSWORD}
                         exact
                         component={ChangePassword}
+                      />
+                      <Route
+                        path={Routes.CREATE_ANNOUNCEMENTS}
+                        exact
+                        component={CreateAnnouncement}
+                      />
+                      <Route
+                        path={Routes.DELETE_ANNOUNCEMENTS}
+                        exact
+                        component={DeleteAnnouncement}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
@@ -280,6 +305,7 @@ const App: React.FC = () => {
             })()}
           </Content>
         </AppInnerContainer>
+        <BugReportFooter />
       </Router>
     </>
   );
