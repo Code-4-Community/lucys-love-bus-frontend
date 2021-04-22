@@ -31,7 +31,10 @@ import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
 import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
+import CreateEventContainer from './containers/createEvent';
+import EditEventContainer from './containers/editEvent';
 import { C4CState } from './store';
+import DeleteEvent from './containers/deleteEvent';
 
 const { Content } = Layout;
 
@@ -49,6 +52,7 @@ export enum Routes {
   VERIFY_EMAIL = '/verify/:key',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
+  EVENT_BASE_ROUTE = '/events/',
   ANNOUNCEMENTS = '/announcements',
   MY_EVENTS = '/my-events',
   PERSONAL_REQUESTS = '/personal-requests',
@@ -61,6 +65,10 @@ export enum Routes {
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
   CREATE_EVENT = '/create-event',
+  EDIT_EVENT = '/edit-event/:id',
+  DELETE_EVENT = '/delete-event/:id',
+  EDIT_EVENT_BASE_ROUTE = '/edit-event/',
+  DELETE_EVENT_BASE_ROUTE = '/delete-event/',
   MAKE_ANNOUNCEMENT = '/make-announcement',
   VIEW_REQUESTS = '/view-requests',
   USER_DIRECTORY = '/user-directory',
@@ -156,6 +164,21 @@ const App: React.FC = () => {
                         path={Routes.MY_EVENTS}
                         exact
                         component={MyEvents}
+                      />
+                      <Route
+                        path={Routes.CREATE_EVENT}
+                        exact
+                        component={CreateEventContainer}
+                      />
+                      <Route
+                        path={Routes.EDIT_EVENT}
+                        exact
+                        component={EditEventContainer}
+                      />
+                      <Route
+                        path={Routes.DELETE_EVENT}
+                        exact
+                        component={DeleteEvent}
                       />
                       <Route
                         path={Routes.CHANGE_ACCOUNT_EMAIL}

@@ -81,17 +81,23 @@ const EventDetails: React.FC<EventDetailsProps> = ({
 
   const { description, location, start, end } = details;
 
-  const computeDateString = (startDate: Date) => {
-    const fullDate = dateFormat(startDate, 'fullDate');
-
-    return fullDate;
-  };
-
-  const computeTimeString = (startDate: Date, endDate: Date) => {
-    const startTime = dateFormat(startDate, 'shortTime');
-    const endTime = dateFormat(endDate, 'shortTime');
-
-    return `${startTime} - ${endTime}`;
+  const computeDateString = () => {
+    const startDate = dateFormat(start, 'longDate');
+    const endDate = dateFormat(end, 'longDate');
+    const startTime = dateFormat(start, 'shortTime');
+    const endTime = dateFormat(end, 'shortTime');
+    return startDate === endDate ? (
+      <>
+        <Time>{startDate}</Time>
+        <Time>
+          {startTime} - {endTime}
+        </Time>
+      </>
+    ) : (
+      <Time>
+        {startDate}, {startTime} - {endDate}, {endTime}
+      </Time>
+    );
   };
 
   return (
@@ -108,9 +114,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           <Col span={10}>
             <Info>
               <StyledTitle level={3}>{title}</StyledTitle>
-              <Time>{computeDateString(start)}</Time>
-              <Time>{computeTimeString(start, end)}</Time>
-
+              {computeDateString()}
               <Location>Location: {location}</Location>
               <GreenButton
                 onClick={() => {
