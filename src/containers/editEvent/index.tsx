@@ -23,6 +23,7 @@ import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
 import moment from 'moment';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
+import { Routes } from '../../App';
 
 const { Title } = Typography;
 
@@ -56,7 +57,7 @@ const EditEventContainer: React.FC = () => {
   }, [event, id]);
 
   if (asyncRequestIsComplete(editEventRequest)) {
-    history.push('/events/' + id);
+    history.push(Routes.EVENT_BASE_ROUTE + id);
   }
 
   const onFinish = async (data: EventsFormData) => {

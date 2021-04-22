@@ -2,13 +2,12 @@ import { Card, Divider, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
+import { Routes } from '../../App';
 import { LinkButton } from '../../components/LinkButton';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 
 const { Title, Text, Paragraph } = Typography;
-
-const BASE_EVENTS_ROUTE = '/events/';
 
 const StyledCard = styled(Card)`
   margin-bottom: 32px;
@@ -115,15 +114,15 @@ const EventListing: React.FC<EventListingProps> = ({
           <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
           {admin ? (
             <AdminButtonWrapper>
-              <GreenButton to={BASE_EVENTS_ROUTE + id}>Learn More</GreenButton>
-              <GreenButton to={'/edit-event/' + id}>Edit</GreenButton>
+              <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>Learn More</GreenButton>
+              <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>Edit</GreenButton>
               <GreenButton to={`/create-announcements/${id}`}>
                 Make Announcement
               </GreenButton>
-              <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
+              <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>View RSVP</GrayButton>
             </AdminButtonWrapper>
           ) : (
-            <GreenButton to={BASE_EVENTS_ROUTE + id}>Learn More</GreenButton>
+            <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>Learn More</GreenButton>
           )}
         </Info>
       </CardContent>

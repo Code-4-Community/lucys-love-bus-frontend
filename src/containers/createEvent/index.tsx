@@ -17,6 +17,7 @@ import { EventsFormData } from '../../components/EventsForm';
 import { encodeProfileFieldFile } from '../../utils/fileEncoding';
 import { EventInformation } from '../upcoming-events/ducks/types';
 import protectedApiClient from '../../api/protectedApiClient';
+import { Routes } from '../../App';
 
 const { Title } = Typography;
 
@@ -27,7 +28,7 @@ const CreateEventContainer: React.FC = () => {
   >(AsyncRequestNotStarted());
 
   if (asyncRequestIsComplete(createEventRequest)) {
-    history.push('/events/' + createEventRequest.result.id);
+    history.push(Routes.EVENT_BASE_ROUTE + createEventRequest.result.id);
   }
 
   const onFinish = async (data: EventsFormData) => {

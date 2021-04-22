@@ -75,8 +75,6 @@ interface SingleEventParams {
   id: string;
 }
 
-const BASE_EVENTS_ROUTE = '/events/';
-
 const DeleteEvent: React.FC = () => {
   const history = useHistory();
   const id = Number(useParams<SingleEventParams>().id);
@@ -108,7 +106,7 @@ const DeleteEvent: React.FC = () => {
         <Title level={2}>Are you sure you want to delete this event?</Title>
 
         <RedButton onClick={onDelete}>Delete</RedButton>
-        <GrayButton to={`${BASE_EVENTS_ROUTE}${id}`}>Cancel</GrayButton>
+        <GrayButton to={Routes.EVENT_BASE_ROUTE + id}>Cancel</GrayButton>
       </ContentContainer>
     </>
   );
