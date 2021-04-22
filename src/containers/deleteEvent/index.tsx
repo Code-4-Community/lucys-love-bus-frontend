@@ -15,13 +15,14 @@ import {
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
 import protectedApiClient from '../../api/protectedApiClient';
+import { MED_GRAY, PRIMARY, RED } from '../../utils/colors';
 const { Title } = Typography;
 
 const StyledButton = styled(Button)`
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  background-color: #2d870d;
+  background-color: ${PRIMARY};
   margin: 0 16px 32px 0;
   padding: 8px 16px;
 `;
@@ -30,44 +31,44 @@ const StyledLinkButton = styled(LinkButton)`
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  background-color: #2d870d;
+  background-color: ${PRIMARY};
   margin: 0 16px 32px 0;
   padding: 8px 16px;
 `;
 
 const RedButton = styled(StyledButton)`
-  background-color: #ff4d4f;
-  border-color: #ff4d4f;
+  background-color: ${RED};
+  border-color: ${RED};
   color: white;
   display: 'inline' 
 
   &:hover {
-    border-color: #ff4d4f;
-    color: #ff4d4f;
+    border-color: ${RED};
+    color: ${RED};
   }
 
   &:focus {
     background-color: white;
-    color: #ff4d4f;
-    border-color: #ff4d4f;
+    color: ${RED};
+    border-color: ${RED};
   }
 `;
 
 const GrayButton = styled(StyledLinkButton)`
   background-color: white;
-  color: #595959;
+  color: ${MED_GRAY};
   display: 'inline' 
 
   &:hover {
-    border-color: #595959;
+    border-color: ${MED_GRAY};
     color: white;
-    background-color: #595959;
+    background-color: ${MED_GRAY};
   }
 
   &:focus {
     background-color: white;
-    color: #595959;
-    border-color: #595959;
+    color: ${MED_GRAY};
+    border-color: ${MED_GRAY};
   }
 `;
 
