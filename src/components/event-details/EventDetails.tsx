@@ -37,6 +37,10 @@ const Time = styled.div`
   margin-bottom: 0.5em;
 `;
 
+const SeatsRemaining = styled.div`
+  margin-bottom: 0.5em;
+`;
+
 const Location = styled.div`
   margin-bottom: 120px;
 `;
@@ -81,6 +85,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   announcements,
   hasRegistered,
   ticketCount,
+  spotsAvailable,
+  capacity,
 }) => {
   const [
     displayEventRegistrationModal,
@@ -128,6 +134,9 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 </EventsTag>
               )}
               {computeDateString()}
+              <SeatsRemaining>
+                Seats Remaining: {spotsAvailable}/{capacity}
+              </SeatsRemaining>
               <Location>Location: {location}</Location>
               <GreenButton
                 onClick={() => {

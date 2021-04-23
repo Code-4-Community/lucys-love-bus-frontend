@@ -47,6 +47,13 @@ const UserMenu: React.FC<{
       >
         My Events
       </Menu.Item>
+      <Menu.Item
+        onClick={() => {
+          history.push(Routes.PERSONAL_REQUESTS);
+        }}
+      >
+        My Requests
+      </Menu.Item>
 
       <Menu.Item
         onClick={() => {

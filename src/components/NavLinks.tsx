@@ -59,6 +59,7 @@ const NavLinks: React.FC<{ privilegeLevel: PrivilegeLevel }> = ({
   };
   const userLinks = {
     'My Events': Routes.MY_EVENTS,
+    'My Requests': Routes.PERSONAL_REQUESTS,
   };
   const adminLinks = {
     'Create Event': Routes.CREATE_EVENT,
@@ -123,35 +124,35 @@ const NavLinks: React.FC<{ privilegeLevel: PrivilegeLevel }> = ({
                 )}
               </Col>
             ))}
-            {privilegeLevel === PrivilegeLevel.STANDARD ||
-              (privilegeLevel === PrivilegeLevel.PF && (
-                <>
-                  {Object.entries(userLinks).map(([link, path], i) => (
-                    <Col key={i}>
-                      {path === location.pathname ? (
-                        <ActiveNavBarButton
-                          type="link"
-                          onClick={() => {
-                            history.push(path);
-                          }}
-                        >
-                          {link}
-                        </ActiveNavBarButton>
-                      ) : (
-                        <NavBarButton
-                          tab-index="0"
-                          type="link"
-                          onClick={() => {
-                            history.push(path);
-                          }}
-                        >
-                          {link}
-                        </NavBarButton>
-                      )}
-                    </Col>
-                  ))}{' '}
-                </>
-              ))}
+            {(privilegeLevel === PrivilegeLevel.STANDARD ||
+              privilegeLevel === PrivilegeLevel.PF) && (
+              <>
+                {Object.entries(userLinks).map(([link, path], i) => (
+                  <Col key={i}>
+                    {path === location.pathname ? (
+                      <ActiveNavBarButton
+                        type="link"
+                        onClick={() => {
+                          history.push(path);
+                        }}
+                      >
+                        {link}
+                      </ActiveNavBarButton>
+                    ) : (
+                      <NavBarButton
+                        tab-index="0"
+                        type="link"
+                        onClick={() => {
+                          history.push(path);
+                        }}
+                      >
+                        {link}
+                      </NavBarButton>
+                    )}
+                  </Col>
+                ))}{' '}
+              </>
+            )}
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <>
                 {Object.entries(adminLinks).map(([link, path], i) => (
