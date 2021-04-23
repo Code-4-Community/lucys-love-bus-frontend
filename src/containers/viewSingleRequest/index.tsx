@@ -102,7 +102,7 @@ const ViewSingleRequest = () => {
           setContacts(AsyncRequestFailed(error));
         });
     }
-  }, [contacts, requestId]);
+  }, [contacts, requestId, history]);
 
   if (status === Status.APPROVED && asyncRequestIsComplete(contacts)) {
     return (

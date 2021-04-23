@@ -48,7 +48,7 @@ const PFRequestsTable = () => {
     const getPFRequestsData = async () => {
       const pfRequests: PFRequestResponse = await protectedApiClient.getPFRequests();
       setData(
-        pfRequests.data.requests.map((pfRequest) => {
+        pfRequests.requests.map((pfRequest) => {
           return {
             name: pfRequest.user.firstName.concat(' ', pfRequest.user.lastName),
             email: pfRequest.user.email,

@@ -23,9 +23,7 @@ export interface PFRequest {
 }
 
 export interface PFRequestResponse {
-  data: {
-    requests: PFRequest[];
-  };
+  requests: PFRequest[];
 }
 
 interface LineItem {
@@ -166,7 +164,9 @@ const makePFRequest = (): Promise<void> => {
 };
 
 const getPFRequests = (): Promise<PFRequestResponse> => {
-  return AppAxiosInstance.get(ProtectedApiClientRoutes.PF_REQUESTS);
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.PF_REQUESTS).then(
+    (res) => res.data,
+  );
 };
 
 const approvePFRequest = (requestId: number): Promise<void> => {
