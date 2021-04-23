@@ -10,6 +10,7 @@ import BugReportFooter from './components/BugReportFooter';
 import NavBar from './components/navbar';
 import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
+import ChangePassword from './containers/changePassword';
 import CreateAnnouncement from './containers/createAnnouncement';
 import DeactivateAccount from './containers/deactivateAccount';
 import DeleteAnnouncement from './containers/deleteAnnouncement';
@@ -30,7 +31,12 @@ import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
 import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
+import ViewRequests from './containers/viewRequests';
+import ViewSingleRequest from './containers/viewSingleRequest';
+import CreateEventContainer from './containers/createEvent';
+import EditEventContainer from './containers/editEvent';
 import { C4CState } from './store';
+import DeleteEvent from './containers/deleteEvent';
 
 const { Content } = Layout;
 
@@ -48,6 +54,7 @@ export enum Routes {
   VERIFY_EMAIL = '/verify/:key',
   UPCOMING_EVENTS = '/upcoming-events',
   EVENT = '/events/:id',
+  EVENT_BASE_ROUTE = '/events/',
   ANNOUNCEMENTS = '/announcements',
   MY_EVENTS = '/my-events',
   PERSONAL_REQUESTS = '/personal-requests',
@@ -56,11 +63,16 @@ export enum Routes {
   SET_CONTACTS = '/set-contacts',
   SIGNUP_CONFIRMATION = '/signup/confirmation',
   CHANGE_ACCOUNT_EMAIL = '/change-email',
+  CHANGE_PASSWORD = '/change-password',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
-  CREATE_EVENT = '/create-event',
-  MAKE_ANNOUNCEMENT = '/make-announcement',
   VIEW_REQUESTS = '/view-requests',
+  VIEW_PF_REQUEST = '/view-request/:request_id',
+  CREATE_EVENT = '/create-event',
+  EDIT_EVENT = '/edit-event/:id',
+  DELETE_EVENT = '/delete-event/:id',
+  EDIT_EVENT_BASE_ROUTE = '/edit-event/',
+  DELETE_EVENT_BASE_ROUTE = '/delete-event/',
   USER_DIRECTORY = '/user-directory',
   CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
   DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
@@ -156,6 +168,41 @@ const App: React.FC = () => {
                         component={MyEvents}
                       />
                       <Route
+                        path={Routes.VIEW_REQUESTS}
+                        exact
+                        component={ViewRequests}
+                      />
+                      <Route
+                        path={Routes.VIEW_PF_REQUEST}
+                        exact
+                        component={ViewSingleRequest}
+                      />
+                      <Route
+                        path={Routes.CREATE_EVENT}
+                        exact
+                        component={CreateEventContainer}
+                      />
+                      <Route
+                        path={Routes.EDIT_EVENT}
+                        exact
+                        component={EditEventContainer}
+                      />
+                      <Route
+                        path={Routes.DELETE_EVENT}
+                        exact
+                        component={DeleteEvent}
+                      />
+                      <Route
+                        path={Routes.CHANGE_ACCOUNT_EMAIL}
+                        exact
+                        component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
+                      />
+                      <Route
                         path={Routes.CREATE_ANNOUNCEMENTS}
                         exact
                         component={CreateAnnouncement}
@@ -232,6 +279,11 @@ const App: React.FC = () => {
                         path={Routes.CHANGE_ACCOUNT_EMAIL}
                         exact
                         component={ChangeAccountEmail}
+                      />
+                      <Route
+                        path={Routes.CHANGE_PASSWORD}
+                        exact
+                        component={ChangePassword}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>

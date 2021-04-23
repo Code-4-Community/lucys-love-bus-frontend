@@ -85,7 +85,6 @@ export type C4CAction =
   | AnnouncementsActions
   | ContactsActions
   | PersonalRequestsActions
-  | PersonalRequestsActions
   | EventAnnouncementsActions
   | EventRegistrationsActions;
 
