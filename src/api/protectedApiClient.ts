@@ -44,7 +44,9 @@ export interface ProtectedApiExtraArgs {
 }
 
 export interface ProtectedApiClient {
-  readonly changePassword: (request: ChangePasswordRequestData) => Promise<void>;
+  readonly changePassword: (
+    request: ChangePasswordRequestData,
+  ) => Promise<void>;
   readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
   readonly updateTickets: (
     eventId: number,

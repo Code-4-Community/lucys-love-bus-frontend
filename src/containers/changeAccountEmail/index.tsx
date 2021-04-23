@@ -1,12 +1,11 @@
+import { Alert, Button, Form, Input, Typography } from 'antd';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Alert, Button, Form, Input, Typography } from 'antd';
-import { ContentContainer } from '../../components';
-import ConfirmationMessage from '../../components/ConfirmationMessage';
 import { Link as RouterLink } from 'react-router-dom';
-import ProtectedApiClient from '../../api/protectedApiClient';
 import styled from 'styled-components';
-import { ChangeEmailRequest } from './ducks/types';
+import ProtectedApiClient from '../../api/protectedApiClient';
+import ConfirmationMessage from '../../components/ConfirmationMessage';
+import FormContainer from '../../components/FormContainer';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -17,6 +16,7 @@ import {
   AsyncRequestLoading,
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
+import { ChangeEmailRequest } from './ducks/types';
 
 const { Title, Link } = Typography;
 
@@ -45,10 +45,10 @@ const ChangeAccountEmail: React.FC = () => {
         <title>Change Account Email</title>
         <meta name="description" content="Change primary account email" />
       </Helmet>
-      <ContentContainer>
+      <FormContainer>
         <Title>Change Account Email</Title>
         {!asyncRequestIsComplete(changeEmail) ? (
-          <Form name="basic" onFinish={onFinishChangeEmail}>
+          <Form name="basic" layout="vertical" onFinish={onFinishChangeEmail}>
             <Form.Item
               label="New Email"
               name="newEmail"
@@ -113,7 +113,7 @@ const ChangeAccountEmail: React.FC = () => {
             }
           />
         )}
-      </ContentContainer>
+      </FormContainer>
     </>
   );
 };
