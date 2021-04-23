@@ -6,9 +6,21 @@ import { ContentContainer } from '../../components';
 
 const { Title } = Typography;
 
+export interface ChangePasswordRequestData {
+  currentPassword: string; 
+  newPassword: string;
+}
+
+interface ChangePasswordFormData extends ChangePasswordRequestData{
+  confirm: string; 
+}
+
 const ChangePassword: React.FC = () => {
-  const onFinishChangePassword = (values: any) => {
-    ProtectedApiClient.changePassword(values)
+  const onFinishChangePassword = (values: ChangePasswordFormData) => {
+    ProtectedApiClient.changePassword({
+      currentPassword: values.currentPassword,
+      newPassword: values.newPassword,
+    })
       .then((res) => res)
       .catch((e) => e);
   };

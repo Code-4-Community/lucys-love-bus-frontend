@@ -2,6 +2,7 @@ import AppAxiosInstance from '../auth/axios';
 import { AnnouncementFormData } from '../components/AnnouncementForm';
 import { UserSummary } from '../components/UserInfoTable';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
+import { ChangePasswordRequestData } from '../containers/changePassword';
 import { NewEventInformation } from '../containers/createEvent/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
@@ -43,10 +44,7 @@ export interface ProtectedApiExtraArgs {
 }
 
 export interface ProtectedApiClient {
-  readonly changePassword: (request: {
-    currentPassword: string;
-    newPassword: string;
-  }) => Promise<void>;
+  readonly changePassword: (request: ChangePasswordRequestData) => Promise<void>;
   readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
   readonly updateTickets: (
     eventId: number,
