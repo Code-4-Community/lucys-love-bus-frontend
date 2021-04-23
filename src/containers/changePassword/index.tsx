@@ -7,12 +7,12 @@ import { ContentContainer } from '../../components';
 const { Title } = Typography;
 
 export interface ChangePasswordRequestData {
-  currentPassword: string; 
+  currentPassword: string;
   newPassword: string;
 }
 
-interface ChangePasswordFormData extends ChangePasswordRequestData{
-  confirm: string; 
+interface ChangePasswordFormData extends ChangePasswordRequestData {
+  confirm: string;
 }
 
 const ChangePassword: React.FC = () => {
