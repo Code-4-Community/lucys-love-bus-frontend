@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import protectedApiClient, {
   PFRequestResponse,
 } from '../api/protectedApiClient';
-import { LinkButton } from './LinkButton';
+import { Link } from 'react-router-dom';
 import { Table, Typography } from 'antd';
 import styled from 'styled-components';
 const { Title } = Typography;
 
 const RequestsTable = styled(Table)`
-  max-width: 60%;
   margin-left: 16px;
 `;
 
@@ -37,9 +36,8 @@ const columns = [
     dataIndex: 'phoneNumber',
   },
   {
-    title: '',
+    title: 'Actions',
     dataIndex: 'viewRequest',
-    width: '20px',
   },
 ];
 
@@ -56,11 +54,7 @@ const PFRequestsTable = () => {
             email: pfRequest.user.email,
             phoneNumber: pfRequest.user.phoneNumber,
             viewRequest: (
-              <LinkButton
-                to={'/view-request/' + pfRequest.id + '/' + pfRequest.user.id}
-              >
-                View Request
-              </LinkButton>
+              <Link to={'/view-request/' + pfRequest.id}>View Request</Link>
             ),
           };
         }),

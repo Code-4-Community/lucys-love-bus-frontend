@@ -1,6 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import PFRequestsTable from '../../components/PFRequestsTable';
+import { ChungusContentContainer } from '../../components';
 
 const ViewRequests = () => {
   return (
@@ -12,7 +13,9 @@ const ViewRequests = () => {
           content="View all pending participating family requests and current registered families"
         />
       </Helmet>
-      <PFRequestsTable />
+      <ChungusContentContainer>
+        <PFRequestsTable />
+      </ChungusContentContainer>
     </>
   );
 };

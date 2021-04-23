@@ -49,9 +49,6 @@ const ViewSingleRequest = () => {
   const requestId = Number(
     useParams<{ request_id: string; user_id: string }>().request_id,
   );
-  const userId = Number(
-    useParams<{ request_id: string; user_id: string }>().user_id,
-  );
   const [contacts, setContacts] = useState<AsyncRequest<ContactInfo, any>>(
     AsyncRequestNotStarted(),
   );
@@ -90,20 +87,22 @@ const ViewSingleRequest = () => {
     if (asyncRequestIsNotStarted(contacts)) {
       setContacts(AsyncRequestLoading());
       protectedApiClient
-        .getContactInfoById(userId)
+        .getRequestContactInfoById(requestId)
         .then((c) => {
           setContacts(AsyncRequestCompleted(c));
           // redirect to NotFound component if this request has already been dealt with
-          if (c.privilegeLevel.toLowerCase() !== PrivilegeLevel.STANDARD) {
-            // TODO: idk how react-router works, is there a better way to do this?
-            history.push('/not-found');
+          if (
+            !c.privilegeLevel ||
+            c.privilegeLevel.toLowerCase() !== PrivilegeLevel.STANDARD
+          ) {
+            history.push('/404');
           }
         })
         .catch((error) => {
           setContacts(AsyncRequestFailed(error));
         });
     }
-  }, [contacts, userId]);
+  }, [contacts, requestId]);
 
   if (status === Status.APPROVED && asyncRequestIsComplete(contacts)) {
     return (
@@ -134,7 +133,10 @@ const ViewSingleRequest = () => {
             &lt; Back to Requests
           </LinkButton>
           {asyncRequestIsComplete(contacts) && (
-            <ContactInfoSummary userId={userId} info={contacts.result} />
+            <ContactInfoSummary
+              userId={contacts.result.mainContact.id || -1}
+              info={contacts.result}
+            />
           )}
           {asyncRequestIsLoading(contacts) && <Spin />}
           {asyncRequestIsFailed(contacts) && (
@@ -180,7 +182,11 @@ const ViewSingleRequest = () => {
         {asyncRequestIsFailed(decision) && (
           <StyledAlert
             message="Error"
-            description={decision.error.message}
+            description={
+              decision.error.response
+                ? decision.error.response.data
+                : decision.error.message
+            }
             type="error"
             showIcon
           />

@@ -5,17 +5,21 @@ import { Button, Typography } from 'antd';
 import { Routes } from '../App';
 import styled from 'styled-components';
 import { ChungusContentContainer } from './index';
+import { LIGHT_GREY } from '../utils/colors';
 
 const { Paragraph } = Typography;
 
 const StyledDiv = styled.div`
-  outline: 1px solid black;
+  outline: 1px solid ${LIGHT_GREY};
+  border-radius: 5px;
+  padding: 0.5rem;
   width: 30%;
   margin-left: 35%;
 `;
 
 const StyledParagraph = styled(Paragraph)`
   text-align: center;
+  margin-bottom: 0;
 `;
 
 const StyledButton = styled(Button)`

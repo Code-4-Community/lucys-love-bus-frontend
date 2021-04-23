@@ -20,6 +20,7 @@ export type ContactsThunkAction<R> = ThunkAction<
 >;
 
 interface AbstractContact<D, P> {
+  id?: number;
   firstName: string;
   lastName: string;
   phoneNumber: string;
@@ -49,7 +50,7 @@ export interface ContactInfo {
   additionalContacts: AdditionalContact[];
   children: Child[];
   location: Location;
-  privilegeLevel: PrivilegeLevel;
+  privilegeLevel?: PrivilegeLevel;
 }
 
 export type Contact = GenericContact<Date, string>;

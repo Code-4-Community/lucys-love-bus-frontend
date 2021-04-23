@@ -50,6 +50,9 @@ export interface ProtectedApiClient {
   readonly getPFRequests: () => Promise<PFRequestResponse>;
   readonly approvePFRequest: (requestId: number) => Promise<void>;
   readonly denyPFRequest: (requestId: number) => Promise<void>;
+  readonly getRequestContactInfoById: (
+    requestId: number,
+  ) => Promise<ContactInfo>;
   readonly deactivateAccount: () => Promise<void>;
   readonly getEventAnnouncements: (
     eventId: number,
@@ -161,6 +164,12 @@ const denyPFRequest = (requestId: number): Promise<void> => {
   );
 };
 
+const getRequestContactInfoById = (requestId: number): Promise<ContactInfo> => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.PF_REQUESTS}/${requestId}`,
+  ).then((res) => res.data);
+};
+
 const getEventAnnouncements = (
   eventId: number,
 ): Promise<EventAnnouncement[]> => {
@@ -192,6 +201,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getPFRequests,
   approvePFRequest,
   denyPFRequest,
+  getRequestContactInfoById,
   deactivateAccount,
   getEventAnnouncements,
   getContactInfo,
