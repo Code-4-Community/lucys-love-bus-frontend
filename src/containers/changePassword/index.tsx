@@ -1,8 +1,8 @@
+import { Button, Form, Input, Typography } from 'antd';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Button, Form, Input, Typography } from 'antd';
 import ProtectedApiClient from '../../api/protectedApiClient';
-import { ContentContainer } from '../../components';
+import FormContainer from '../../components/FormContainer';
 
 const { Title } = Typography;
 
@@ -34,10 +34,10 @@ const ChangePassword: React.FC = () => {
           content="Change your password for Lucy's Love Bus programs."
         />
       </Helmet>
-      <ContentContainer>
-        <Title>Settings</Title>
+      <FormContainer>
+        <Title>Change Password</Title>
 
-        <Form name="basic" onFinish={onFinishChangePassword}>
+        <Form name="basic" layout="vertical" onFinish={onFinishChangePassword}>
           <Form.Item
             label="Current Password"
             name="currentPassword"
@@ -89,7 +89,7 @@ const ChangePassword: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-      </ContentContainer>
+      </FormContainer>
     </>
   );
 };
