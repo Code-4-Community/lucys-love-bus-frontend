@@ -1,6 +1,10 @@
-import React from 'react';
 import { Alert, InputNumber, Modal, Typography } from 'antd';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import protectedApiClient from '../../../api/protectedApiClient';
+import { PrivilegeLevel } from '../../../auth/ducks/types';
+import { getMyEvents } from '../../../containers/myEvents/ducks/thunks';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -10,8 +14,6 @@ import {
   AsyncRequestLoading,
   AsyncRequestNotStarted,
 } from '../../../utils/asyncRequest';
-import { PrivilegeLevel } from '../../../auth/ducks/types';
-import protectedApiClient from '../../../api/protectedApiClient';
 
 const { Text } = Typography;
 
@@ -21,6 +23,8 @@ interface EventRegistrationModalProps {
   privilegeLevel: PrivilegeLevel;
   showEventRegistrationModal: boolean;
   onCloseEventRegistrationModal: () => void;
+  hasRegistered: boolean;
+  ticketCount?: number;
 }
 
 const StyledModal = styled(Modal)`
@@ -62,8 +66,11 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
   privilegeLevel,
   onCloseEventRegistrationModal,
   showEventRegistrationModal,
+  hasRegistered,
+  ticketCount,
 }) => {
-  const [quantity, setQuantity] = React.useState<number>(1);
+  const dispatch = useDispatch();
+  const [quantity, setQuantity] = React.useState<number>(ticketCount || 1);
   const [registrationRequest, setRegistrationRequest] = React.useState<
     AsyncRequest<void, any>
   >(AsyncRequestNotStarted());
@@ -79,16 +86,24 @@ const EventRegistrationModal: React.FC<EventRegistrationModalProps> = ({
   const handleOk = async () => {
     try {
       setRegistrationRequest(AsyncRequestLoading());
-      const result: void = await protectedApiClient.registerTickets({
-        lineItemRequests: [
-          {
-            eventId,
-            quantity,
-          },
-        ],
-      });
+      if (hasRegistered) {
+        await protectedApiClient.updateTickets(eventId, {
+          quantity,
+        });
+      } else {
+        await protectedApiClient.registerTickets({
+          lineItemRequests: [
+            {
+              eventId,
+              quantity,
+            },
+          ],
+        });
+      }
+
       onCloseEventRegistrationModal();
-      setRegistrationRequest(AsyncRequestCompleted(result));
+      setRegistrationRequest(AsyncRequestCompleted(undefined));
+      dispatch(getMyEvents());
     } catch (e) {
       setRegistrationRequest(AsyncRequestFailed(e));
     }

@@ -1,5 +1,15 @@
-import { useParams } from 'react-router-dom';
+import { Alert, Button, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import protectedApiClient from '../../api/protectedApiClient';
+import { PrivilegeLevel } from '../../auth/ducks/types';
+import { ChungusContentContainer } from '../../components';
+import ContactInfoSummary from '../../components/ContactInfoSummary';
+import DecisionConfirmation from '../../components/DecisionConfirmation';
+import { LinkButton } from '../../components/LinkButton';
 import {
   AsyncRequest,
   AsyncRequestCompleted,
@@ -12,16 +22,6 @@ import {
   AsyncRequestNotStarted,
 } from '../../utils/asyncRequest';
 import { ContactInfo } from '../setContacts/ducks/types';
-import { Helmet } from 'react-helmet';
-import { ChungusContentContainer } from '../../components';
-import ContactInfoSummary from '../../components/ContactInfoSummary';
-import { Alert, Button, Spin } from 'antd';
-import styled from 'styled-components';
-import { LinkButton } from '../../components/LinkButton';
-import protectedApiClient from '../../api/protectedApiClient';
-import DecisionConfirmation from '../../components/DecisionConfirmation';
-import { PrivilegeLevel } from '../../auth/ducks/types';
-import { useHistory } from 'react-router';
 
 enum Status {
   PENDING,
@@ -33,6 +33,7 @@ const DecisionButtons = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3em;
 `;
 
 const StyledButton = styled(Button)`
@@ -95,7 +96,7 @@ const ViewSingleRequest = () => {
             !c.privilegeLevel ||
             c.privilegeLevel.toLowerCase() !== PrivilegeLevel.STANDARD
           ) {
-            history.push('/404');
+            history.replace('/not-found');
           }
         })
         .catch((error) => {

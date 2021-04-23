@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import Paragraph from 'antd/lib/typography/Paragraph';
 import { Button } from 'antd';
+import Paragraph from 'antd/lib/typography/Paragraph';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Routes } from '../../App';
+import styled from 'styled-components';
 import ProtectedApiClient from '../../api/protectedApiClient';
-import { ORANGE, DEEP_GREEN } from '../../utils/colors';
+import { Routes } from '../../App';
+import { DEEP_GREEN, ORANGE } from '../../utils/colors';
 
 export interface SubmitPFRequestProps {
   onNewRequest: () => void;
@@ -52,8 +52,8 @@ export const SubmitPFRequest: React.FC<SubmitPFRequestProps> = ({
 }) => {
   const history = useHistory();
 
-  const onApplyToBePF = () => {
-    ProtectedApiClient.makePFRequest();
+  const onApplyToBePF = async () => {
+    await ProtectedApiClient.makePFRequest();
     onNewRequest();
   };
 
@@ -68,7 +68,7 @@ export const SubmitPFRequest: React.FC<SubmitPFRequestProps> = ({
           Add your family information by editing your account details. This will
           act as your application.
         </StyledText>
-        <StyledButton onClick={() => history.push(Routes.EDIT_FAMILY_INFO)}>
+        <StyledButton onClick={() => history.push(Routes.SET_CONTACTS)}>
           Edit Account Details
         </StyledButton>
         <StyledText>
