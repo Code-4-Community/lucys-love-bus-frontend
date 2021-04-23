@@ -5,6 +5,7 @@ import { C4CState } from '../../../store';
 import { AsyncRequest } from '../../../utils/asyncRequest';
 import { FileField } from '../../../utils/fileEncoding';
 import { ContactsActions } from './actions';
+import { PrivilegeLevel } from '../../../auth/ducks/types';
 
 export interface ContactsReducerState {
   readonly contacts: AsyncRequest<ContactInfo, any>;
@@ -19,6 +20,7 @@ export type ContactsThunkAction<R> = ThunkAction<
 >;
 
 interface AbstractContact<D, P> {
+  id?: number;
   firstName: string;
   lastName: string;
   phoneNumber: string;
@@ -48,6 +50,7 @@ export interface ContactInfo {
   additionalContacts: AdditionalContact[];
   children: Child[];
   location: Location;
+  privilegeLevel?: PrivilegeLevel;
 }
 
 export type Contact = GenericContact<Date, string>;

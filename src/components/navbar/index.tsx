@@ -67,7 +67,6 @@ const NavBarContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   max-width: 1440px;
-  flex-wrap: row-wrap;
 `;
 
 const LogoContainer = styled.div`
@@ -133,7 +132,7 @@ const NavBar: React.FC<NavBarProps> = ({
   };
   const adminLinks = {
     'Create Event': Routes.CREATE_EVENT,
-    'Make Announcement': Routes.MAKE_ANNOUNCEMENT,
+    'Make Announcement': Routes.CREATE_ANNOUNCEMENTS,
   };
 
   useEffect(() => {
@@ -235,7 +234,7 @@ const NavBar: React.FC<NavBarProps> = ({
       </Menu.Item>
       <Menu.Item
         onClick={() => {
-          history.push(Routes.MAKE_ANNOUNCEMENT);
+          history.push(Routes.CREATE_ANNOUNCEMENTS);
         }}
       >
         Make Announcement
@@ -388,7 +387,7 @@ const NavBar: React.FC<NavBarProps> = ({
                           </NavBarButton>
                         )}
                       </Col>
-                    ))}{' '}
+                    ))}
                     <Col>
                       {asyncRequestIsComplete(personalRequests) ? (
                         location.pathname === Routes.VIEW_REQUESTS ? (
@@ -456,8 +455,9 @@ const NavBar: React.FC<NavBarProps> = ({
                   <Button>
                     <UserAvatar
                       src={
-                        asyncRequestIsComplete(contacts) &&
-                        contacts.result.mainContact.profilePicture
+                        asyncRequestIsComplete(contacts)
+                          ? contacts.result.mainContact.profilePicture
+                          : undefined
                       }
                       icon={<UserOutlined />}
                     />

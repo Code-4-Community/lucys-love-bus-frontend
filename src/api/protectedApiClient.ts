@@ -9,6 +9,23 @@ import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
 import { NewEventInformation } from '../containers/createEvent/ducks/types';
 
+export interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface PFRequest {
+  id: string;
+  user: User;
+}
+
+export interface PFRequestResponse {
+  requests: PFRequest[];
+}
+
 interface LineItem {
   eventId: number;
   quantity: number;
@@ -31,6 +48,12 @@ export interface ProtectedApiClient {
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
+  readonly getPFRequests: () => Promise<PFRequestResponse>;
+  readonly approvePFRequest: (requestId: number) => Promise<void>;
+  readonly denyPFRequest: (requestId: number) => Promise<void>;
+  readonly getRequestContactInfoById: (
+    requestId: number,
+  ) => Promise<ContactInfo>;
   readonly deactivateAccount: () => Promise<void>;
   readonly getEventAnnouncements: (
     eventId: number,
@@ -61,7 +84,9 @@ export enum ProtectedApiClientRoutes {
   CHANGE_PASSWORD = '/api/v1/protected/user/change_password',
   REGISTER_TICKETS = '/api/v1/protected/checkout/register',
   REQUEST_STATUSES = '/api/v1/protected/requests/status',
-  MAKE_PF_REQUEST = 'api/v1/protected/requests',
+  PF_REQUESTS = 'api/v1/protected/requests',
+  APPROVE_PF_REQUEST = 'api/v1/protected/requests/:request_id/approve',
+  DENY_PF_REQUEST = 'api/v1/protected/requests/:request_id/reject',
   USER = '/api/v1/protected/user',
   ANNOUNCEMENTS = 'api/v1/protected/announcements',
   CONTACT_INFO = '/api/v1/protected/user/contact_info',
@@ -96,6 +121,7 @@ const getMyEvents = (): Promise<EventInformation[]> => {
     `${ProtectedApiClientRoutes.EVENTS}/signed_up`,
   ).then((res) => res.data.events);
 };
+
 const deactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
     .then((res) => res)
@@ -130,11 +156,41 @@ const getRequestStatuses = (): Promise<PersonalRequest[]> => {
 };
 
 const makePFRequest = (): Promise<void> => {
-  return AppAxiosInstance.post(ProtectedApiClientRoutes.MAKE_PF_REQUEST)
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.PF_REQUESTS)
     .then((res) => {
       return;
     })
     .catch((err) => err);
+};
+
+const getPFRequests = (): Promise<PFRequestResponse> => {
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.PF_REQUESTS).then(
+    (res) => res.data,
+  );
+};
+
+const approvePFRequest = (requestId: number): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.APPROVE_PF_REQUEST.replace(
+      ':request_id',
+      String(requestId),
+    ),
+  );
+};
+
+const denyPFRequest = (requestId: number): Promise<void> => {
+  return AppAxiosInstance.post(
+    ProtectedApiClientRoutes.DENY_PF_REQUEST.replace(
+      ':request_id',
+      String(requestId),
+    ),
+  );
+};
+
+const getRequestContactInfoById = (requestId: number): Promise<ContactInfo> => {
+  return AppAxiosInstance.get(
+    `${ProtectedApiClientRoutes.PF_REQUESTS}/${requestId}`,
+  ).then((res) => res.data);
 };
 
 const getEventAnnouncements = (
@@ -218,6 +274,10 @@ const Client: ProtectedApiClient = Object.freeze({
   getMyEvents,
   getRequestStatuses,
   makePFRequest,
+  getPFRequests,
+  approvePFRequest,
+  denyPFRequest,
+  getRequestContactInfoById,
   deactivateAccount,
   getEventAnnouncements,
   getContactInfo,

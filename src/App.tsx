@@ -31,6 +31,8 @@ import SingleEvent from './containers/singleEvent';
 import UpcomingEvents from './containers/upcoming-events';
 import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
+import ViewRequests from './containers/viewRequests';
+import ViewSingleRequest from './containers/viewSingleRequest';
 import CreateEventContainer from './containers/createEvent';
 import EditEventContainer from './containers/editEvent';
 import { C4CState } from './store';
@@ -64,13 +66,13 @@ export enum Routes {
   CHANGE_PASSWORD = '/change-password',
   EVENT_REGISTRATIONS = '/events/:id/rsvp',
   FAMILY_DETAILS = '/family-details/:id',
+  VIEW_REQUESTS = '/view-requests',
+  VIEW_PF_REQUEST = '/view-request/:request_id',
   CREATE_EVENT = '/create-event',
   EDIT_EVENT = '/edit-event/:id',
   DELETE_EVENT = '/delete-event/:id',
   EDIT_EVENT_BASE_ROUTE = '/edit-event/',
   DELETE_EVENT_BASE_ROUTE = '/delete-event/',
-  MAKE_ANNOUNCEMENT = '/make-announcement',
-  VIEW_REQUESTS = '/view-requests',
   USER_DIRECTORY = '/user-directory',
   CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
   DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
@@ -164,6 +166,16 @@ const App: React.FC = () => {
                         path={Routes.MY_EVENTS}
                         exact
                         component={MyEvents}
+                      />
+                      <Route
+                        path={Routes.VIEW_REQUESTS}
+                        exact
+                        component={ViewRequests}
+                      />
+                      <Route
+                        path={Routes.VIEW_PF_REQUEST}
+                        exact
+                        component={ViewSingleRequest}
                       />
                       <Route
                         path={Routes.CREATE_EVENT}
