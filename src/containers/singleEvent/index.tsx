@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { Routes } from '../../App';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import {
   PrivilegeLevel,
@@ -20,8 +21,6 @@ import { getUpcomingEvents } from '../upcoming-events/ducks/thunks';
 import { EventsReducerState } from '../upcoming-events/ducks/types';
 import { getEventAnnouncements } from './ducks/thunks';
 import { EventAnnouncementsReducerState } from './ducks/types';
-
-const BASE_EVENTS_ROUTE = '/events/';
 
 const ContentContainer = styled.div`
   padding: 24px;
@@ -127,12 +126,18 @@ const SingleEvent: React.FC<SingleEventProps> = ({
           <>
             {privilegeLevel === PrivilegeLevel.ADMIN && (
               <AdminActionButtonList>
-                <GreenButton to={BASE_EVENTS_ROUTE + id}>Edit</GreenButton>
-                <GreenButton to={BASE_EVENTS_ROUTE + id}>
+                <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>
+                  Edit
+                </GreenButton>
+                <GreenButton to={`/create-announcements/${id}`}>
                   Make Announcement
                 </GreenButton>
-                <RedButton to={BASE_EVENTS_ROUTE + id}>Delete Event</RedButton>
-                <GrayButton to={`/events/${id}/rsvp`}>View RSVP</GrayButton>
+                <RedButton to={Routes.DELETE_EVENT_BASE_ROUTE + id}>
+                  Delete Event
+                </RedButton>
+                <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>
+                  View RSVP
+                </GrayButton>
               </AdminActionButtonList>
             )}
             <EventDetails

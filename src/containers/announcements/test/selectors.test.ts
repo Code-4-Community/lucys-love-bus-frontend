@@ -3,6 +3,7 @@ import { Announcement } from '../ducks/types';
 
 const COLUMNS_PER_ROW = 3;
 const a1: Announcement = {
+  id: 1,
   title: 'title 1',
   created: new Date('2021-03-08 17:30:30 +0000'),
   description: 'description1',
@@ -10,6 +11,7 @@ const a1: Announcement = {
     'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg',
 };
 const a2: Announcement = {
+  id: 1,
   title: 'title 1',
   created: new Date('2021-03-08 17:30:30 +0000'),
   description: 'description1',
@@ -17,6 +19,7 @@ const a2: Announcement = {
     'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg',
 };
 const a3: Announcement = {
+  id: 1,
   title: 'title 1',
   created: new Date('2021-03-08 17:30:30 +0000'),
   description: 'description1',
@@ -24,6 +27,7 @@ const a3: Announcement = {
     'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg',
 };
 const a4: Announcement = {
+  id: 1,
   title: 'title 1',
   created: new Date('2021-03-08 17:30:30 +0000'),
   description: 'description1',
@@ -31,6 +35,7 @@ const a4: Announcement = {
     'https://facts.net/wp-content/uploads/2020/07/monarch-butterfly-facts.jpg',
 };
 const a5: Announcement = {
+  id: 1,
   title: 'title 1',
   created: new Date('2021-03-08 17:30:30 +0000'),
   description: 'description1',
