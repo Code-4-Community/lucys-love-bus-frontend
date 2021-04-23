@@ -108,7 +108,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
   return (
     <>
       <Helmet>
-        <title>Lucy's Love Bus Event Registration</title>
+        <title>Lucy's Love Bus Programs</title>
         <meta
           name="description"
           content="Register for Lucy's Love Bus events."
