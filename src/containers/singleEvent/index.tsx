@@ -182,7 +182,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       <Helmet>
         <title>Event</title>
         <meta
-          name="Lucy's Love Bus Events"
+          name="description"
           content="An event hosted through Lucy's Love Bus Programs."
         />
       </Helmet>

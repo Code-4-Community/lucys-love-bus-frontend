@@ -49,7 +49,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
     <>
       <Helmet>
         <title>Events</title>
-        <meta name="Upcoming Events" content="Upcoming events for LLB." />
+        <meta name="description" content="Upcoming events for LLB." />
       </Helmet>
       <ChungusContentContainer>
         <Content>

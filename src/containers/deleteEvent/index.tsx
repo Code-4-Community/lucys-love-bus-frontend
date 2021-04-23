@@ -101,7 +101,7 @@ const DeleteEvent: React.FC = () => {
     <>
       <Helmet>
         <title>Confirm Delete Event</title>
-        <meta name="Delete Event" content="Are you sure?" />
+        <meta name="description" content="Delete event" />
       </Helmet>
       <ContentContainer>
         <Title level={2}>Are you sure you want to delete this event?</Title>

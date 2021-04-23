@@ -32,7 +32,7 @@ const ForgotPasswordReset: React.FC = () => {
     <>
       <Helmet>
         <title>Forgot Password</title>
-        <meta name="description" content="Description goes here." />
+        <meta name="description" content="Reset your password." />
       </Helmet>
       <div className="content-container">
         <Title>Forgot Password</Title>

@@ -37,7 +37,7 @@ const VerifyEmail: React.FC = () => {
     <>
       <Helmet>
         <title>Verify Email</title>
-        <meta name="verifyEmail" content="Email verification page." />
+        <meta name="description" content="Email verification page." />
       </Helmet>
       <ContentContainer>
         {(() => {
