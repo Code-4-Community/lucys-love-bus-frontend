@@ -116,7 +116,7 @@ const SignupDirectory: React.FC = () => {
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
-                src={`https://blog.nwf.org/wp-content/blogs.dir/11/files/2018/03/Insect-Monarch-Butterflies-Minnesota-Jennifer-Strom.jpg`}
+                src={`https://lucys-love-bus-site-images.s3.us-east-2.amazonaws.com/pf.jpg`}
               />
               <CardTitle>Participating Family</CardTitle>
               <CardText>
@@ -138,7 +138,7 @@ const SignupDirectory: React.FC = () => {
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
-                src={`https://butterfly-conservation.org/sites/default/files/styles/large/public/2019-02/6935162911-monarch-butterfly-danaus-plexippus-male.jpg`}
+                src={`https://lucys-love-bus-site-images.s3.us-east-2.amazonaws.com/gm.jpg`}
               />
               <CardTitle>General Member</CardTitle>
               <CardText>
