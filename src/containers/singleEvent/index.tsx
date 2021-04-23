@@ -111,26 +111,25 @@ const SingleEvent: React.FC<SingleEventProps> = ({
 
   useEffect(() => {
     dispatch(getUpcomingEvents());
-    dispatch(getMyEvents());
-    dispatch(getEventAnnouncements(id));
-  }, [dispatch, id]);
+    if (asyncRequestIsComplete(tokens)) {
+      dispatch(getMyEvents());
+      dispatch(getEventAnnouncements(id));
+    }
+  }, [dispatch, id, tokens]);
 
   const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
     return getPrivilegeLevel(state.authenticationState.tokens);
   });
 
   const conditionalRenderEventDetails = () => {
-    if (
-      asyncRequestIsComplete(events) &&
-      asyncRequestIsComplete(eventAnnouncements)
-    ) {
+    if (asyncRequestIsComplete(events)) {
       let event;
       if (asyncRequestIsComplete(myEvents)) {
         event = myEvents.result.find((e) => e.id === id);
-      } else {
+      }
+      if (!event) {
         event = events.result.find((e) => e.id === id);
       }
-
       const hasRegistered =
         (event && event.ticketCount && event.ticketCount > 0) !== undefined;
       if (event) {
@@ -155,7 +154,11 @@ const SingleEvent: React.FC<SingleEventProps> = ({
             <EventDetails
               {...event}
               privilegeLevel={getPrivilegeLevel(tokens)}
-              announcements={eventAnnouncements.result}
+              announcements={
+                asyncRequestIsComplete(eventAnnouncements)
+                  ? eventAnnouncements.result
+                  : undefined
+              }
               hasRegistered={hasRegistered}
             />
           </>
