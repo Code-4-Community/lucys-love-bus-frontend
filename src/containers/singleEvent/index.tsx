@@ -122,12 +122,15 @@ const SingleEvent: React.FC<SingleEventProps> = ({
   const conditionalRenderEventDetails = () => {
     if (
       asyncRequestIsComplete(events) &&
-      asyncRequestIsComplete(myEvents) &&
       asyncRequestIsComplete(eventAnnouncements)
     ) {
-      const event =
-        myEvents.result.find((e) => e.id === id) ||
-        events.result.find((e) => e.id === id);
+      let event;
+      if (asyncRequestIsComplete(myEvents)) {
+        event = myEvents.result.find((e) => e.id === id);
+      } else {
+        event = events.result.find((e) => e.id === id);
+      }
+
       const hasRegistered =
         (event && event.ticketCount && event.ticketCount > 0) !== undefined;
       if (event) {
