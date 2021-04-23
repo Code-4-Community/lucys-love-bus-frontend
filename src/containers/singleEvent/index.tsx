@@ -124,7 +124,7 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       asyncRequestIsComplete(events) &&
       asyncRequestIsComplete(eventAnnouncements)
     ) {
-      let event = undefined;
+      let event;
       if (asyncRequestIsComplete(myEvents)) {
         event = myEvents.result.find((e) => e.id === id);
       } else {
