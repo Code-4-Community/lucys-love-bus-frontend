@@ -2,12 +2,12 @@ import AppAxiosInstance from '../auth/axios';
 import { AnnouncementFormData } from '../components/AnnouncementForm';
 import { UserSummary } from '../components/UserInfoTable';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
+import { NewEventInformation } from '../containers/createEvent/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
-import { NewEventInformation } from '../containers/createEvent/ducks/types';
 
 export interface User {
   id: string;
