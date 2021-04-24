@@ -86,7 +86,6 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   hasRegistered,
   ticketCount,
   spotsAvailable,
-  capacity,
 }) => {
   const [
     displayEventRegistrationModal,
@@ -134,9 +133,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 </EventsTag>
               )}
               {computeDateString()}
-              <SeatsRemaining>
-                Seats Remaining: {spotsAvailable}/{capacity}
-              </SeatsRemaining>
+              <SeatsRemaining>Seats Remaining: {spotsAvailable}</SeatsRemaining>
               <Location>Location: {location}</Location>
               <GreenButton
                 onClick={() => {
