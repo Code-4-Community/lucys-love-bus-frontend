@@ -184,19 +184,18 @@ const EventsForm: React.FC<EventsFormProps> = ({
           <Input placeholder="Meeting Link" />
         </Form.Item> */}
 
-        <Form.Item 
-          label="For PF Only?" 
-          name="forPFOnly" 
+        <Form.Item
+          label="For PF Only?"
+          name="forPFOnly"
           valuePropName="checked"
           rules={[
             {
               type: 'enum',
               enum: [true],
             },
-          ]}>
-          <Checkbox>
-            Make this event for Participating Families only?
-          </Checkbox>
+          ]}
+        >
+          <Checkbox>Make this event for Participating Families only?</Checkbox>
         </Form.Item>
 
         <Form.Item label="Add Image" name="thumbnail">
