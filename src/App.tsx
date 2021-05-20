@@ -12,8 +12,12 @@ import Announcements from './containers/announcements';
 import ChangeAccountEmail from './containers/changeAccountEmail';
 import ChangePassword from './containers/changePassword';
 import CreateAnnouncement from './containers/createAnnouncement';
+import CreateEventContainer from './containers/createEvent';
 import DeactivateAccount from './containers/deactivateAccount';
 import DeleteAnnouncement from './containers/deleteAnnouncement';
+import DeleteEvent from './containers/deleteEvent';
+import EditEventContainer from './containers/editEvent';
+import ErrorPage from './containers/error';
 import EventRSVP from './containers/eventRSVP';
 import FamilyDetails from './containers/familyDetails';
 import ForgotPassword from './containers/forgotPasswordRequest';
@@ -33,10 +37,7 @@ import UserDirectory from './containers/userDirectory';
 import VerifyEmail from './containers/verifyEmail';
 import ViewRequests from './containers/viewRequests';
 import ViewSingleRequest from './containers/viewSingleRequest';
-import CreateEventContainer from './containers/createEvent';
-import EditEventContainer from './containers/editEvent';
 import { C4CState } from './store';
-import DeleteEvent from './containers/deleteEvent';
 
 const { Content } = Layout;
 
@@ -76,6 +77,7 @@ export enum Routes {
   USER_DIRECTORY = '/user-directory',
   CREATE_ANNOUNCEMENTS = '/create-announcements/:id?',
   DELETE_ANNOUNCEMENTS = '/delete-announcements/:id',
+  ERROR_PAGE = '/dev/error',
 }
 
 const App: React.FC = () => {
@@ -212,6 +214,11 @@ const App: React.FC = () => {
                         exact
                         component={DeleteAnnouncement}
                       />
+                      <Route
+                        path={Routes.ERROR_PAGE}
+                        exact
+                        component={ErrorPage}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -285,6 +292,11 @@ const App: React.FC = () => {
                         exact
                         component={ChangePassword}
                       />
+                      <Route
+                        path={Routes.ERROR_PAGE}
+                        exact
+                        component={ErrorPage}
+                      />
                       <Route path="*" exact component={NotFound} />
                     </Switch>
                   );
@@ -332,6 +344,11 @@ const App: React.FC = () => {
                         path={Routes.VERIFY_EMAIL}
                         exact
                         component={VerifyEmail}
+                      />
+                      <Route
+                        path={Routes.ERROR_PAGE}
+                        exact
+                        component={ErrorPage}
                       />
                       <Route path="*" exact component={NotFound} />
                     </Switch>

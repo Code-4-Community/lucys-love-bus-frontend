@@ -9,6 +9,10 @@ import {
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
 
+const NoAnnouncementsContainer = styled.div`
+  min-height: 300px;
+`;
+
 const NoAnnouncementsSubText = styled.span`
   display: block;
   text-align: center;
@@ -31,6 +35,7 @@ const PageNumbersWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-bottom: 3em;
 `;
 
 const PageNumber = styled.li`
@@ -54,12 +59,12 @@ const ArrowButton = styled(PageNumber)`
 `;
 
 const noAnnouncementsTexts: JSX.Element = (
-  <>
+  <NoAnnouncementsContainer>
     <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
     <NoAnnouncementsSubText>
       {NO_ANNOUNCEMENTS_SUBHEADER}
     </NoAnnouncementsSubText>
-  </>
+  </NoAnnouncementsContainer>
 );
 
 export interface AnnouncementsListProps {

@@ -30,6 +30,7 @@ const RoundImage = styled(Image)`
   border-radius: 50%;
   width: 160px;
   height: 160px;
+  object-fit: cover;
 
   img {
     border-radius: 50%;
@@ -115,7 +116,7 @@ const SignupDirectory: React.FC = () => {
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
-                src={`https://www.mtdemocrat.com/files/2020/05/A8_KittenWEB.jpg`}
+                src={`https://lucys-love-bus-site-images.s3.us-east-2.amazonaws.com/pf.jpg`}
               />
               <CardTitle>Participating Family</CardTitle>
               <CardText>
@@ -137,7 +138,7 @@ const SignupDirectory: React.FC = () => {
             <SignupDirectoryCardBody>
               <RoundImage
                 preview={false}
-                src={`https://i.redd.it/daxkwd4ymtd21.jpg`}
+                src={`https://lucys-love-bus-site-images.s3.us-east-2.amazonaws.com/gm.jpg`}
               />
               <CardTitle>General Member</CardTitle>
               <CardText>

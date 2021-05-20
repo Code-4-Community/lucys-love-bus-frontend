@@ -1,18 +1,18 @@
+import { Alert, Spin, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Typography } from 'antd';
-import AnnouncementsList from '../../components/announcementsList';
+import { connect, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { ChungusContentContainer } from '../../components';
-import { getAnnouncements } from './ducks/thunks';
+import AnnouncementsList from '../../components/announcementsList';
+import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
-import { connect, useDispatch } from 'react-redux';
+import { getAnnouncements } from './ducks/thunks';
 import { AnnouncementsReducerState } from './ducks/types';
-import { C4CState } from '../../store';
 
 const { Title } = Typography;
 
@@ -39,27 +39,32 @@ const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
 
   return (
     <>
-      {asyncRequestIsFailed(announcements) && (
-        <p>The announcements could not be retrieved.</p>
-      )}
-      {asyncRequestIsLoading(announcements) && <p>Loading announcements...</p>}
-      {asyncRequestIsComplete(announcements) && (
-        <>
-          <Helmet>
-            <title>Announcements</title>
-            <meta
-              name="Announcements"
-              content="All announcements about upcoming Lucy's Love Bus events!"
-            />
-          </Helmet>
-          <ChungusContentContainer>
+      <Helmet>
+        <title>Announcements</title>
+        <meta
+          name="Announcements"
+          content="All announcements about upcoming Lucy's Love Bus events!"
+        />
+      </Helmet>
+      <ChungusContentContainer>
+        {asyncRequestIsFailed(announcements) && (
+          <Alert
+            message="Error"
+            description={'Announcements could not be retrieved.'}
+            type="error"
+            showIcon
+          />
+        )}
+        {asyncRequestIsLoading(announcements) && <Spin />}
+        {asyncRequestIsComplete(announcements) && (
+          <>
             <Content>
               <StyledTitle>Announcements</StyledTitle>
             </Content>
             <AnnouncementsList announcements={announcements.result} />
-          </ChungusContentContainer>
-        </>
-      )}
+          </>
+        )}
+      </ChungusContentContainer>
     </>
   );
 };

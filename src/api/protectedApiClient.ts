@@ -2,12 +2,13 @@ import AppAxiosInstance from '../auth/axios';
 import { AnnouncementFormData } from '../components/AnnouncementForm';
 import { UserSummary } from '../components/UserInfoTable';
 import { ChangeEmailRequest } from '../containers/changeAccountEmail/ducks/types';
+import { ChangePasswordRequestData } from '../containers/changePassword';
+import { NewEventInformation } from '../containers/createEvent/ducks/types';
 import { Registration } from '../containers/eventRSVP/ducks/types';
 import { PersonalRequest } from '../containers/personalRequests/ducks/types';
 import { ContactInfo } from '../containers/setContacts/ducks/types';
 import { EventAnnouncement } from '../containers/singleEvent/ducks/types';
 import { EventInformation } from '../containers/upcoming-events/ducks/types';
-import { NewEventInformation } from '../containers/createEvent/ducks/types';
 
 export interface User {
   id: string;
@@ -34,17 +35,23 @@ interface LineItem {
 interface RegisterTicketsRequest {
   lineItemRequests: LineItem[];
 }
+interface UpdateTicketsRequest {
+  quantity: number;
+}
 
 export interface ProtectedApiExtraArgs {
   readonly protectedApiClient: ProtectedApiClient;
 }
 
 export interface ProtectedApiClient {
-  readonly changePassword: (request: {
-    currentPassword: string;
-    newPassword: string;
-  }) => Promise<void>;
+  readonly changePassword: (
+    request: ChangePasswordRequestData,
+  ) => Promise<void>;
   readonly registerTickets: (request: RegisterTicketsRequest) => Promise<void>;
+  readonly updateTickets: (
+    eventId: number,
+    request: UpdateTicketsRequest,
+  ) => Promise<void>;
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
@@ -110,6 +117,15 @@ const changePassword = (request: {
 const registerTickets = (request: RegisterTicketsRequest) => {
   return AppAxiosInstance.post(
     ProtectedApiClientRoutes.REGISTER_TICKETS,
+    request,
+  ).then((res) => {
+    return;
+  });
+};
+
+const updateTickets = (eventId: number, request: UpdateTicketsRequest) => {
+  return AppAxiosInstance.put(
+    `${ProtectedApiClientRoutes.REGISTER_TICKETS}/${eventId}`,
     request,
   ).then((res) => {
     return;
@@ -271,6 +287,7 @@ const deleteAnnouncement = (id: number): Promise<void> => {
 const Client: ProtectedApiClient = Object.freeze({
   changePassword,
   registerTickets,
+  updateTickets,
   getMyEvents,
   getRequestStatuses,
   makePFRequest,

@@ -2,7 +2,7 @@ import { BugOutlined } from '@ant-design/icons';
 import { Typography } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
-import { PRIMARY } from '../utils/colors';
+import { LIGHT_GREY, PRIMARY } from '../utils/colors';
 const { Text, Link } = Typography;
 const LittleBugIcon = styled(BugOutlined)`
   margin: 3px;
@@ -18,8 +18,9 @@ const StickyFooter = styled.footer`
   display: flex;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.95);
-  border-top: 1px lightgray solid;
+  border-top: 1px ${LIGHT_GREY} solid;
   padding-top: 5px;
+  border-radius: 5px;
 `;
 
 const BugReportFooter: React.FC = () => {

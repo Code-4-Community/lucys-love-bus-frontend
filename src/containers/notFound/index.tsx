@@ -10,8 +10,8 @@ const NotFound: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Title goes here</title>
-        <meta name="description" content="Description goes here." />
+        <title>Page Not Found</title>
+        <meta name="description" content="Page not found." />
       </Helmet>
       <ContentContainer>
         <Title>Oops! We can't find the page you're looking for.</Title>

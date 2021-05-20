@@ -89,7 +89,7 @@ describe('Authentication Client Tests', () => {
     it('makes the right request', async () => {
       const secretKey: string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9';
 
-      nock(BASE_URL).get(`${API_ROUTE.VERIFY_EMAIL}${secretKey}`).reply(200);
+      nock(BASE_URL).get(`${API_ROUTE.VERIFY_EMAIL}/${secretKey}`).reply(200);
 
       try {
         await AuthClient.verifyEmail(secretKey);

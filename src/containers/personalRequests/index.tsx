@@ -1,25 +1,25 @@
+import { Button, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Button, Typography } from 'antd';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Routes } from '../../App';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import { ChungusContentContainer } from '../../components';
-import { getRequestStatuses } from './ducks/thunks';
+import { InfoModal } from '../../components/InfoModal';
+import { PreviousRequests } from '../../components/personalRequests/PreviousRequests';
+import { SubmitPFRequest } from '../../components/personalRequests/SubmitPFRequest';
+import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
   asyncRequestIsFailed,
   asyncRequestIsLoading,
 } from '../../utils/asyncRequest';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { PersonalRequestsReducerState } from './ducks/types';
-import { C4CState } from '../../store';
-import { InfoModal } from '../../components/InfoModal';
-import { Routes } from '../../App';
-import { Link } from 'react-router-dom';
-import { getPrivilegeLevel } from '../../auth/ducks/selectors';
-import { PrivilegeLevel } from '../../auth/ducks/types';
-import { PreviousRequests } from '../../components/personalRequests/PreviousRequests';
-import { SubmitPFRequest } from '../../components/personalRequests/SubmitPFRequest';
 import { hasPendingRequest } from './ducks/selectors';
+import { getRequestStatuses } from './ducks/thunks';
+import { PersonalRequestsReducerState } from './ducks/types';
 
 const { Title } = Typography;
 
@@ -160,7 +160,7 @@ const PersonalRequests: React.FC<PersonalRequestsProps> = ({
               </StyledSubTitle>
               {asyncRequestIsComplete(personalRequests) && (
                 <>
-                  {personalRequests.result.length && (
+                  {personalRequests.result.length > 0 && (
                     <PreviousRequests requests={personalRequests.result} />
                   )}
                   {!hasPendingRequest(personalRequests.result) && (
