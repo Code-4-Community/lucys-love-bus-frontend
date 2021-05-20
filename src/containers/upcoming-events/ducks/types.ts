@@ -27,6 +27,7 @@ export interface EventInformation {
     start: Date;
     end: Date;
   };
+  forPFOnly?: boolean;
   price: number;
   ticketCount?: number;
 }

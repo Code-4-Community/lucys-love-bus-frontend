@@ -9,4 +9,5 @@ export interface NewEventInformation {
     start: Date;
     end: Date;
   };
+  forPFOnly: boolean;
 }

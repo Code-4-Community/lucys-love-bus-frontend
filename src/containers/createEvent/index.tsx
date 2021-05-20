@@ -48,6 +48,7 @@ const CreateEventContainer: React.FC = () => {
           start: data.start,
           end: data.end,
         },
+        forPFOnly: data.forPFOnly,
       });
       setCreateEventRequest(AsyncRequestCompleted(response));
     } catch (err) {

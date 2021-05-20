@@ -1,6 +1,7 @@
 import {
   Alert,
   Button,
+  Checkbox,
   DatePicker,
   Form,
   Input,
@@ -47,6 +48,7 @@ export interface EventsForm {
   price: number;
   description: string;
   location: string;
+  forPFOnly: boolean;
 }
 
 export interface EventsFormData extends EventsForm {
@@ -181,6 +183,21 @@ const EventsForm: React.FC<EventsFormProps> = ({
         <Form.Item label="Meeting Link" name="meetingLink">
           <Input placeholder="Meeting Link" />
         </Form.Item> */}
+
+        <Form.Item 
+          label="For PF Only?" 
+          name="forPFOnly" 
+          valuePropName="checked"
+          rules={[
+            {
+              type: 'enum',
+              enum: [true],
+            },
+          ]}>
+          <Checkbox>
+            Make this event for Participating Families only?
+          </Checkbox>
+        </Form.Item>
 
         <Form.Item label="Add Image" name="thumbnail">
           <Dragger multiple={false} beforeUpload={() => false}>
