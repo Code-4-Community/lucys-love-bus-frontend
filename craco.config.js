@@ -18,6 +18,7 @@ module.exports = {
           namespace: 'scaffold',
         },
       ],
+      "@babel/plugin-transform-arrow-functions"
     ],
   },
 };
