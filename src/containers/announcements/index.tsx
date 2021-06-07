@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { Routes } from '../../App';
 import { getPrivilegeLevel } from '../../auth/ducks/selectors';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import { ChungusContentContainer } from '../../components';
