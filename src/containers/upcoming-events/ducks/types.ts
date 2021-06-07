@@ -29,4 +29,5 @@ export interface EventInformation {
   };
   price: number;
   ticketCount?: number;
+  forPFOnly: boolean;
 }

@@ -78,6 +78,7 @@ const EditEventContainer: React.FC = () => {
           start: data.start,
           end: data.end,
         },
+        forPFOnly: data.forPFOnly,
       });
       setEditEventRequest(AsyncRequestCompleted(response));
     } catch (err) {
@@ -97,6 +98,7 @@ const EditEventContainer: React.FC = () => {
       location: info.details.location,
       start: moment(info.details.start),
       end: moment(info.details.end),
+      forPFOnly: info.forPFOnly,
     };
   };
 

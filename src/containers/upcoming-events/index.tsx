@@ -1,15 +1,17 @@
 import { Radio, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import { ChungusContentContainer } from '../../components';
 import Calendar from '../../components/Calendar';
 import EventsList from '../../components/events-list/EventsList';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from './ducks/thunks';
-import { EventsReducerState } from './ducks/types';
+import { EventInformation, EventsReducerState } from './ducks/types';
 const { Title } = Typography;
 
 const Content = styled.div`
@@ -45,6 +47,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
 
   const [view, setView] = useState<EventView>(EventView.List);
 
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
+
   return (
     <>
       <Helmet>
@@ -72,9 +78,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
 
         {asyncRequestIsComplete(events) &&
           (view === EventView.List ? (
-            <EventsList events={events.result} />
+            <EventsList events={(privilegeLevel === PrivilegeLevel.ADMIN) || (privilegeLevel === PrivilegeLevel.PF) ? 
+              events.result : 
+              events.result.filter((e: EventInformation) => !e.forPFOnly)} />
           ) : (
-            <Calendar events={events.result} />
+            <Calendar events={(privilegeLevel === PrivilegeLevel.ADMIN) || (privilegeLevel === PrivilegeLevel.PF) ? 
+              events.result : 
+              events.result.filter((e: EventInformation) => !e.forPFOnly)} />
           ))}
       </ChungusContentContainer>
     </>
@@ -83,7 +93,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
 
 const mapStateToProps = (state: C4CState): UpcomingEventsProps => {
   return {
-    events: state.eventsState.upcomingEvents,
+    events: state.eventsState.upcomingEvents
   };
 };
 

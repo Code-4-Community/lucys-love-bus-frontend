@@ -8,6 +8,7 @@ import {
   Typography,
   Upload,
 } from 'antd';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 import { Moment } from 'moment';
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -47,6 +48,7 @@ export interface EventsForm {
   price: number;
   description: string;
   location: string;
+  forPFOnly: boolean
 }
 
 export interface EventsFormData extends EventsForm {
@@ -175,6 +177,13 @@ const EventsForm: React.FC<EventsFormProps> = ({
           ]}
         >
           <TextArea rows={3} placeholder="Description" />
+        </Form.Item>
+
+        <Form.Item
+          name="forPFOnly"
+          valuePropName="checked"
+        >
+          <Checkbox defaultChecked={false}>For Participating Families Only?</Checkbox>
         </Form.Item>
 
         {/* TODO: come back to this in a second PR because it requires backend changes too :)

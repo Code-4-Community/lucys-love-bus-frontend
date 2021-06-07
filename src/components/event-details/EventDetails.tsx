@@ -33,11 +33,7 @@ const StyledTitle = styled(Title)`
   margin-top: 15px;
 `;
 
-const Time = styled.div`
-  margin-bottom: 0.5em;
-`;
-
-const SeatsRemaining = styled.div`
+const EventInfo = styled.div`
   margin-bottom: 0.5em;
 `;
 
@@ -81,6 +77,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
   id,
   title,
   details,
+  forPFOnly,
   privilegeLevel,
   announcements,
   hasRegistered,
@@ -101,15 +98,15 @@ const EventDetails: React.FC<EventDetailsProps> = ({
     const endTime = dateFormat(end, 'shortTime');
     return startDate === endDate ? (
       <>
-        <Time>{startDate}</Time>
-        <Time>
+        <EventInfo>{startDate}</EventInfo>
+        <EventInfo>
           {startTime} - {endTime}
-        </Time>
+        </EventInfo>
       </>
     ) : (
-      <Time>
+      <EventInfo>
         {startDate}, {startTime} - {endDate}, {endTime}
-      </Time>
+      </EventInfo>
     );
   };
 
@@ -133,7 +130,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 </EventsTag>
               )}
               {computeDateString()}
-              <SeatsRemaining>Seats Remaining: {spotsAvailable}</SeatsRemaining>
+              <EventInfo>Seats Remaining: {spotsAvailable}</EventInfo>
+              {forPFOnly && <EventInfo>Participating Families Only</EventInfo> }
               <Location>Location: {location}</Location>
               <GreenButton
                 onClick={() => {
