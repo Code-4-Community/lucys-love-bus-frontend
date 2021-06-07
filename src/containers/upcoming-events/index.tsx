@@ -1,4 +1,4 @@
-import { Radio, Typography, Button } from 'antd';
+import { Radio, Typography } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, useDispatch, useSelector } from 'react-redux';
