@@ -1,11 +1,15 @@
-import { Radio, Typography } from 'antd';
+import { Radio, Typography, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { Routes } from '../../App';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import { ChungusContentContainer } from '../../components';
 import Calendar from '../../components/Calendar';
 import EventsList from '../../components/events-list/EventsList';
+import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
 import { asyncRequestIsComplete } from '../../utils/asyncRequest';
 import { getUpcomingEvents } from './ducks/thunks';
@@ -44,6 +48,9 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
   }, [dispatch]);
 
   const [view, setView] = useState<EventView>(EventView.List);
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
 
   return (
     <>
@@ -68,6 +75,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
               Calendar
             </Radio.Button>
           </StyledRadio>
+          {privilegeLevel === PrivilegeLevel.ADMIN && (
+            <LinkButton type="primary" to={Routes.CREATE_EVENT}>
+              Create Event
+            </LinkButton>
+          )}
         </Content>
 
         {asyncRequestIsComplete(events) &&

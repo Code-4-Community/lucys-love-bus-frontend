@@ -81,6 +81,11 @@ const EventRSVP: React.FC<EventRSVPProps> = ({ events, registrations }) => {
       render: TablePhotoConsent,
     },
     {
+      title: 'Tickets Registered',
+      dataIndex: 'ticketCount',
+      key: 'ticketCount',
+    },
+    {
       title: 'Action',
       key: 'action',
       render: TableActions,
