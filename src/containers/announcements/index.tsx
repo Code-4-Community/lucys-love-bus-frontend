@@ -67,7 +67,7 @@ const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
             <Content>
               <StyledTitle>Announcements</StyledTitle>
               {privilegeLevel === PrivilegeLevel.ADMIN && (
-                <LinkButton type="primary" to={Routes.CREATE_ANNOUNCEMENTS}>
+                <LinkButton type="primary" to={'/create-announcements'}>
                   Make Announcement
                 </LinkButton>
               )}
