@@ -57,15 +57,18 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "IE 11"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "IE 11"
     ]
   },
   "devDependencies": {
+    "@babel/plugin-transform-arrow-functions": "^7.13.0",
     "@types/react": "^16.14.4",
     "@types/react-highlight-words": "^0.16.2",
     "@typescript-eslint/eslint-plugin": "^3.10.1",
