@@ -14,6 +14,7 @@ export interface Registration {
   phoneNumber: string;
   profilePicture: string | null;
   photoRelease: boolean;
+  ticketCount?: number;
 }
 
 export type EventRegistrationsReducerState = {

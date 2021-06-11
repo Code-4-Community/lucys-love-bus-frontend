@@ -1,10 +1,13 @@
 import { Alert, Spin, Typography } from 'antd';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { getPrivilegeLevel } from '../../auth/ducks/selectors';
+import { PrivilegeLevel } from '../../auth/ducks/types';
 import { ChungusContentContainer } from '../../components';
 import AnnouncementsList from '../../components/announcementsList';
+import { LinkButton } from '../../components/LinkButton';
 import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
@@ -36,7 +39,9 @@ const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
   useEffect(() => {
     dispatch(getAnnouncements());
   }, [dispatch]);
-
+  const privilegeLevel: PrivilegeLevel = useSelector((state: C4CState) => {
+    return getPrivilegeLevel(state.authenticationState.tokens);
+  });
   return (
     <>
       <Helmet>
@@ -60,6 +65,11 @@ const Announcements: React.FC<AnnouncementsDataProps> = ({ announcements }) => {
           <>
             <Content>
               <StyledTitle>Announcements</StyledTitle>
+              {privilegeLevel === PrivilegeLevel.ADMIN && (
+                <LinkButton type="primary" to={'/create-announcements'}>
+                  Make Announcement
+                </LinkButton>
+              )}
             </Content>
             <AnnouncementsList announcements={announcements.result} />
           </>

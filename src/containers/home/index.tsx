@@ -132,7 +132,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
                 </LinkButton>
               </AdminCol>
               <AdminCol>
-                <LinkButton type="primary" to={Routes.CREATE_ANNOUNCEMENTS}>
+                <LinkButton type="primary" to={'/create-announcements'}>
                   Make Announcement
                 </LinkButton>
               </AdminCol>

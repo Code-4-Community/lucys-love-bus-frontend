@@ -62,9 +62,8 @@ const NavLinks: React.FC<{ privilegeLevel: PrivilegeLevel }> = ({
     'My Requests': Routes.PERSONAL_REQUESTS,
   };
   const adminLinks = {
-    'Create Event': Routes.CREATE_EVENT,
-    'Make Announcement': Routes.CREATE_ANNOUNCEMENTS,
     'View Requests': Routes.VIEW_REQUESTS,
+    'View All Users': Routes.USER_DIRECTORY,
   };
   return (
     <LogoContainer>
