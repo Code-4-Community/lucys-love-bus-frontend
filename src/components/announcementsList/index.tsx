@@ -2,18 +2,13 @@ import { range } from 'lodash';
 import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
-import { LIGHT_GREY, LINK, ORANGE } from '../../utils/colors';
+import { LIGHT_GREY, LINK } from '../../utils/colors';
 import {
   NO_ANNOUNCEMENTS_HEADER,
   NO_ANNOUNCEMENTS_SUBHEADER,
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
 import { NoContent } from '../NoContent';
-
-const NoAnnouncementsSubText = styled.span`
-  display: block;
-  text-align: center;
-`;
 
 const AnnouncementsListWrapper = styled.div`
   display: flex;
