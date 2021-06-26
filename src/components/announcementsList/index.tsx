@@ -10,19 +10,9 @@ import {
 import { AnnouncementCard } from '../AnnouncementCard';
 import { NoContent } from '../NoContent';
 
-const NoAnnouncementsContainer = styled.div`
-  min-height: 300px;
-`;
-
 const NoAnnouncementsSubText = styled.span`
   display: block;
   text-align: center;
-`;
-
-const NoAnnouncementsText = styled(NoAnnouncementsSubText)`
-  color: ${ORANGE};
-  font-size: 36px;
-  font-weight: 800;
 `;
 
 const AnnouncementsListWrapper = styled.div`
