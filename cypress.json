@@ -1,4 +1,4 @@
 {
     "baseUrl":"http://localhost:3000",
-    "retries": 	{ "runMode": 3, "openMode": 3 }
+    "retries": 	{ "runMode": 2, "openMode": 2 }
 }
