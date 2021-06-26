@@ -9,6 +9,7 @@ import { PrivilegeLevel } from '../../auth/ducks/types';
 import AnnouncementsList from '../../components/announcementsList';
 import EventCard from '../../components/EventCard';
 import { LinkButton } from '../../components/LinkButton';
+import { NoContent } from '../../components/NoContent';
 import { C4CState } from '../../store';
 import {
   asyncRequestIsComplete,
@@ -57,6 +58,12 @@ const HomeContainer = styled.div`
   margin: auto;
   padding: 24px;
 `;
+
+const CenterEventsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`
 
 const UpcomingEventsTitle = styled(Text)`
   font-size: 36px;
@@ -188,6 +195,14 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
                 />
               </Col>
             ))}
+          {asyncRequestIsComplete(events) && events.result.length === 0 && (
+            <CenterEventsContainer>
+              <NoContent
+                header={'There are currently no events!'}
+                subheader={'Come back later for future updates!'}
+              />
+            </CenterEventsContainer>
+          )}
         </Row>
         <Row align="middle">
           <UpcomingEventsTitle>Announcements</UpcomingEventsTitle>

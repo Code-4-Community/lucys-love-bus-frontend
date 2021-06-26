@@ -8,6 +8,7 @@ import {
   NO_ANNOUNCEMENTS_SUBHEADER,
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
+import { NoContent } from '../NoContent';
 
 const NoAnnouncementsContainer = styled.div`
   min-height: 300px;
@@ -58,15 +59,6 @@ const ArrowButton = styled(PageNumber)`
   color: ${LIGHT_GREY};
 `;
 
-const noAnnouncementsTexts: JSX.Element = (
-  <NoAnnouncementsContainer>
-    <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
-    <NoAnnouncementsSubText>
-      {NO_ANNOUNCEMENTS_SUBHEADER}
-    </NoAnnouncementsSubText>
-  </NoAnnouncementsContainer>
-);
-
 export interface AnnouncementsListProps {
   announcements: Announcement[];
 }
@@ -108,7 +100,10 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   return (
     <>
       {noAnnouncements ? (
-        noAnnouncementsTexts
+        <NoContent 
+          header={NO_ANNOUNCEMENTS_HEADER} 
+          subheader={NO_ANNOUNCEMENTS_SUBHEADER}
+        />
       ) : (
         <>
           <AnnouncementsListWrapper>
