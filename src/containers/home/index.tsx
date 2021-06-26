@@ -63,7 +63,7 @@ const CenterEventsContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-`
+`;
 
 const UpcomingEventsTitle = styled(Text)`
   font-size: 36px;

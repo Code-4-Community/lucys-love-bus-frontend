@@ -100,8 +100,8 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   return (
     <>
       {noAnnouncements ? (
-        <NoContent 
-          header={NO_ANNOUNCEMENTS_HEADER} 
+        <NoContent
+          header={NO_ANNOUNCEMENTS_HEADER}
           subheader={NO_ANNOUNCEMENTS_SUBHEADER}
         />
       ) : (
