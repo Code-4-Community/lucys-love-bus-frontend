@@ -92,7 +92,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
     setDisplayEventRegistrationModal,
   ] = useState<boolean>(false);
 
-  const { description, location, start, end } = details;
+  const { description, privateDescription, location, start, end } = details;
 
   const computeDateString = () => {
     const startDate = dateFormat(start, 'longDate');
@@ -150,6 +150,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
+          {privateDescription !== undefined && (
+            <>
+              <Title level={5}>Private Description</Title>
+              <Typography>{privateDescription}</Typography>
+            </>
+          )}
         </Col>
         <Col span={10}>
           {announcements && (

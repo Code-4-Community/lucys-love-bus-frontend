@@ -44,6 +44,7 @@ const CreateEventContainer: React.FC = () => {
         price: data.price,
         details: {
           description: data.description,
+          privateDescription: data.privateDescription,
           location: data.location,
           start: data.start,
           end: data.end,

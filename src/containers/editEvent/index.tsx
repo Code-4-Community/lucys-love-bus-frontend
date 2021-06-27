@@ -74,6 +74,7 @@ const EditEventContainer: React.FC = () => {
         price: data.price,
         details: {
           description: data.description,
+          privateDescription: data.privateDescription,
           location: data.location,
           start: data.start,
           end: data.end,
@@ -94,6 +95,7 @@ const EditEventContainer: React.FC = () => {
       thumbnail: info.thumbnail,
       price: info.price,
       description: info.details.description,
+      privateDescription: info.details.privateDescription,
       location: info.details.location,
       start: moment(info.details.start),
       end: moment(info.details.end),
