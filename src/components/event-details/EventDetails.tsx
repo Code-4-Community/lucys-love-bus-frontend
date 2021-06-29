@@ -70,12 +70,11 @@ const EventsTag = styled(Tag)`
   margin: 1em;
 `;
 
-const Info = styled.div`
-`;
+const Info = styled.div``;
 
 const CardWrapper = styled.div`
   margin-bottom: 12px;
-`
+`;
 
 const ThumbnailWrapper = styled.div`
   display: flex;
@@ -96,7 +95,7 @@ const ThumbnailWrapper = styled.div`
     overflow: hidden;
     margin-bottom: 16px;
   }
-`
+`;
 
 const InfoWrapper = styled.div`
   display: flex;
@@ -107,7 +106,7 @@ const InfoWrapper = styled.div`
   @media screen and (max-width: 1450px) {
     width: 100%;
   }
-`
+`;
 
 const AnnouncementBox = styled.div``;
 
