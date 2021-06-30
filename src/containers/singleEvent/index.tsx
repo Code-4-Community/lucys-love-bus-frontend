@@ -29,6 +29,10 @@ const ContentContainer = styled.div`
   margin: auto;
   max-width: 1200px;
   width: 80%;
+
+  @media screen and (max-width: 450px) {
+    width: 100%
+  }
 `;
 
 const CenteredContainer = styled.div`
@@ -38,6 +42,7 @@ const CenteredContainer = styled.div`
 
 const AdminActionButtonList = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const StyledButton = styled(LinkButton)`

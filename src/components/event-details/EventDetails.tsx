@@ -11,27 +11,46 @@ import { AnnouncementCard } from '../AnnouncementCard';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 const { Title } = Typography;
 
-const BottomRow = styled(Row)`
+const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
   margin-bottom: 12px;
 `;
+
+const DescriptionWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  text-align: left;
+  margin-bottom: 16px;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
+`
+
+const AnnouncementsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
+`
 
 const CardContent = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   border: 1px solid #d9d9d9;
-
-  @media screen and (max-width: 1450px) {
-    flex-direction: column;
-    width: min-content;
-    align-items: flex-start;
-  }
+  width: 100%;
 
   @media screen and (max-width: 900px) {
-    max-width: 85%;
-    min-width: 70%;
+    flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -51,7 +70,7 @@ const SeatsRemaining = styled.div`
 const Location = styled.div`
   margin-bottom: 120px;
 
-  @media screen and (max-width: 1450px) {
+  @media screen and (max-width: 900px) {
     margin-bottom: 40px;
   }
 `;
@@ -64,6 +83,8 @@ const GreenButton = styled(Button)`
 
 const Thumbnail = styled.img`
   display: flex;
+  object-fit: cover;
+  width: 100%;
 `;
 
 const EventsTag = styled(Tag)`
@@ -74,25 +95,22 @@ const Info = styled.div``;
 
 const CardWrapper = styled.div`
   margin-bottom: 12px;
+  width: 100%;
+  display: flex;
 `;
 
 const ThumbnailWrapper = styled.div`
   display: flex;
+  max-width: 65%;
   width: 55%;
-  height: 400px;
-  object-fit: cover;
-  justify-content: center;
-
-  @media screen and (max-width: 1450px) and (min-height: 900px) {
-    width: 100%;
-    min-height: max-content;
-    margin-bottom: 16px;
-  }
+  min-height: 400px;
+  max-height: 500px;
+  justify-content: left;
+  overflow: hidden;
 
   @media screen and (max-width: 900px) {
-    width: 100%;
-    min-height: 30%;
-    overflow: hidden;
+    min-width: 100%;
+    justify-content: center;
     margin-bottom: 16px;
   }
 `;
@@ -101,9 +119,8 @@ const InfoWrapper = styled.div`
   display: flex;
   width: 45%;
   margin-left: 40px;
-  max-height: 350px;
 
-  @media screen and (max-width: 1450px) {
+  @media screen and (max-width: 900px) {
     width: 100%;
   }
 `;
@@ -188,12 +205,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           </InfoWrapper>
         </CardContent>
       </CardWrapper>
-      <BottomRow gutter={[24, 24]}>
-        <Col span={14}>
+      <BottomWrapper>
+        <DescriptionWrapper>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
-        </Col>
-        <Col span={10}>
+        </DescriptionWrapper>
+        <AnnouncementsWrapper>
           {announcements && (
             <>
               {announcements.length ? (
@@ -215,8 +232,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               )}
             </>
           )}
-        </Col>
-      </BottomRow>
+        </AnnouncementsWrapper>
+      </BottomWrapper>
       <EventRegistrationModal
         eventId={id}
         eventTitle={title}
