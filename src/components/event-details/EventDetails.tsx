@@ -1,4 +1,4 @@
-import { Button, Col, Row, Tag, Typography } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
