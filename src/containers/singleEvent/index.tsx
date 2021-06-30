@@ -29,10 +29,6 @@ const ContentContainer = styled.div`
   margin: auto;
   max-width: 1200px;
   width: 80%;
-
-  @media screen and (max-width: 450px) {
-    width: 100%
-  }
 `;
 
 const CenteredContainer = styled.div`

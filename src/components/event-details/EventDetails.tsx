@@ -25,11 +25,12 @@ const DescriptionWrapper = styled.div`
   width: 50%;
   text-align: left;
   margin-bottom: 16px;
+  height: min-content;
 
   @media screen and (max-width: 900px) {
     width: 100%;
   }
-`
+`;
 
 const AnnouncementsWrapper = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ const AnnouncementsWrapper = styled.div`
   @media screen and (max-width: 900px) {
     width: 100%;
   }
-`
+`;
 
 const CardContent = styled.div`
   display: flex;
