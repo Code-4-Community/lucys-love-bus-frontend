@@ -38,6 +38,7 @@ const CenteredContainer = styled.div`
 
 const AdminActionButtonList = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 const StyledButton = styled(LinkButton)`
