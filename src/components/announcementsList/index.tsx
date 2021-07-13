@@ -2,27 +2,13 @@ import { range } from 'lodash';
 import { default as React, useState } from 'react';
 import styled from 'styled-components';
 import { Announcement } from '../../containers/announcements/ducks/types';
-import { LIGHT_GREY, LINK, ORANGE } from '../../utils/colors';
+import { LIGHT_GREY, LINK } from '../../utils/colors';
 import {
   NO_ANNOUNCEMENTS_HEADER,
   NO_ANNOUNCEMENTS_SUBHEADER,
 } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
-
-const NoAnnouncementsContainer = styled.div`
-  min-height: 300px;
-`;
-
-const NoAnnouncementsSubText = styled.span`
-  display: block;
-  text-align: center;
-`;
-
-const NoAnnouncementsText = styled(NoAnnouncementsSubText)`
-  color: ${ORANGE};
-  font-size: 36px;
-  font-weight: 800;
-`;
+import { NoContent } from '../NoContent';
 
 const AnnouncementsListWrapper = styled.div`
   display: flex;
@@ -57,15 +43,6 @@ const SelectedPageNumber = styled(PageNumber)`
 const ArrowButton = styled(PageNumber)`
   color: ${LIGHT_GREY};
 `;
-
-const noAnnouncementsTexts: JSX.Element = (
-  <NoAnnouncementsContainer>
-    <NoAnnouncementsText>{NO_ANNOUNCEMENTS_HEADER}</NoAnnouncementsText>
-    <NoAnnouncementsSubText>
-      {NO_ANNOUNCEMENTS_SUBHEADER}
-    </NoAnnouncementsSubText>
-  </NoAnnouncementsContainer>
-);
 
 export interface AnnouncementsListProps {
   announcements: Announcement[];
@@ -108,7 +85,10 @@ const AnnouncementsList: React.FC<AnnouncementsListProps> = ({
   return (
     <>
       {noAnnouncements ? (
-        noAnnouncementsTexts
+        <NoContent
+          header={NO_ANNOUNCEMENTS_HEADER}
+          subheader={NO_ANNOUNCEMENTS_SUBHEADER}
+        />
       ) : (
         <>
           <AnnouncementsListWrapper>
