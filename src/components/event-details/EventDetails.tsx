@@ -150,7 +150,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         <Col span={14}>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
-          {privateDescription !== undefined && (
+          {privateDescription !== null && (
             <>
               <Title level={5}>Private Description</Title>
               <Typography>{privateDescription}</Typography>
