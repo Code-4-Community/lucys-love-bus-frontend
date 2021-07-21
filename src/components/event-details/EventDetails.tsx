@@ -1,4 +1,4 @@
-import { Button, Col, Row, Tag, Typography } from 'antd';
+import { Button, Tag, Typography } from 'antd';
 import dateFormat from 'dateformat';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
@@ -11,21 +11,48 @@ import { AnnouncementCard } from '../AnnouncementCard';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
 const { Title } = Typography;
 
-const TopRow = styled(Row)`
-  margin-bottom: 12px;
-  border: 1px solid #d9d9d9;
-`;
-
-const BottomRow = styled(Row)`
+const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
   margin-bottom: 12px;
+`;
+
+const DescriptionWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  text-align: left;
+  margin-bottom: 16px;
+  height: min-content;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
+`;
+
+const AnnouncementsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const CardContent = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 const StyledTitle = styled(Title)`
@@ -43,6 +70,10 @@ const SeatsRemaining = styled.div`
 
 const Location = styled.div`
   margin-bottom: 120px;
+
+  @media screen and (max-width: 900px) {
+    margin-bottom: 40px;
+  }
 `;
 
 const GreenButton = styled(Button)`
@@ -52,18 +83,47 @@ const GreenButton = styled(Button)`
 `;
 
 const Thumbnail = styled.img`
-  max-width: 100%;
-  height: 400px;
+  display: flex;
   object-fit: cover;
+  width: 100%;
 `;
 
 const EventsTag = styled(Tag)`
   margin: 1em;
 `;
 
-const Info = styled.div`
+const Info = styled.div``;
+
+const CardWrapper = styled.div`
+  margin-bottom: 12px;
+  width: 100%;
+  display: flex;
+`;
+
+const ThumbnailWrapper = styled.div`
+  display: flex;
+  max-width: 65%;
+  width: 55%;
+  min-height: 400px;
+  max-height: 500px;
+  justify-content: left;
+  overflow: hidden;
+
+  @media screen and (max-width: 900px) {
+    min-width: 100%;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  width: 45%;
   margin-left: 40px;
-  max-height: 350px;
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 `;
 
 const AnnouncementBox = styled.div``;
@@ -119,12 +179,12 @@ const EventDetails: React.FC<EventDetailsProps> = ({
         <title>{title}</title>
         <meta name={title} content={details.description} />
       </Helmet>
-      <TopRow>
+      <CardWrapper>
         <CardContent>
-          <Col span={14}>
+          <ThumbnailWrapper>
             <Thumbnail src={thumbnail || DEFAULT_IMAGE}></Thumbnail>
-          </Col>
-          <Col span={10}>
+          </ThumbnailWrapper>
+          <InfoWrapper>
             <Info>
               <StyledTitle level={3}>{title}</StyledTitle>
               {ticketCount && (
@@ -143,11 +203,11 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 {hasRegistered ? 'Update Registration' : 'Register'}
               </GreenButton>
             </Info>
-          </Col>
+          </InfoWrapper>
         </CardContent>
-      </TopRow>
-      <BottomRow gutter={[24, 24]}>
-        <Col span={14}>
+      </CardWrapper>
+      <BottomWrapper>
+        <DescriptionWrapper>
           <Title level={5}>Description</Title>
           <Typography>{description}</Typography>
           {privateDescription !== null && (
@@ -156,8 +216,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               <Typography>{privateDescription}</Typography>
             </>
           )}
-        </Col>
-        <Col span={10}>
+        </DescriptionWrapper>
+        <AnnouncementsWrapper>
           {announcements && (
             <>
               {announcements.length ? (
@@ -179,8 +239,8 @@ const EventDetails: React.FC<EventDetailsProps> = ({
               )}
             </>
           )}
-        </Col>
-      </BottomRow>
+        </AnnouncementsWrapper>
+      </BottomWrapper>
       <EventRegistrationModal
         eventId={id}
         eventTitle={title}
