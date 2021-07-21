@@ -23,6 +23,7 @@ export interface EventInformation {
   thumbnail?: string;
   details: {
     description: string;
+    privateDescription?: string;
     location: string;
     start: Date;
     end: Date;

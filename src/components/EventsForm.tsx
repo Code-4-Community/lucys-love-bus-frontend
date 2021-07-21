@@ -51,12 +51,14 @@ export interface EventsForm {
 
 export interface EventsFormData extends EventsForm {
   thumbnail?: FileField;
+  privateDescription?: string;
   start: Date;
   end: Date;
 }
 
 export interface EventsFormInitialValues extends EventsForm {
   thumbnail?: string;
+  privateDescription?: string;
   start: Moment;
   end: Moment;
 }
@@ -177,10 +179,19 @@ const EventsForm: React.FC<EventsFormProps> = ({
           <TextArea rows={3} placeholder="Description" />
         </Form.Item>
 
-        {/* TODO: come back to this in a second PR because it requires backend changes too :)
-        <Form.Item label="Meeting Link" name="meetingLink">
-          <Input placeholder="Meeting Link" />
-        </Form.Item> */}
+        <Form.Item
+          label="Private Description"
+          name="privateDescription"
+          rules={[
+            {
+              required: false,
+              message:
+                'Input an event description intended only for registered members (i.e. Zoom meeting link)',
+            },
+          ]}
+        >
+          <TextArea rows={3} placeholder="Private Description" />
+        </Form.Item>
 
         <Form.Item label="Add Image" name="thumbnail">
           <Dragger multiple={false} beforeUpload={() => false}>
