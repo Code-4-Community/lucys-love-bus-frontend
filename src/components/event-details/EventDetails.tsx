@@ -130,11 +130,11 @@ const InfoWrapper = styled.div`
 
 const DescriptionTitle = styled(Title)`
   width: 100%;
-`
+`;
 
 const AnnouncementsTitle = styled(Title)`
   width: 100%;
-`
+`;
 
 const AnnouncementBox = styled.div``;
 
@@ -235,7 +235,9 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 </AnnouncementBox>
               ) : (
                 <>
-                  <AnnouncementsTitle level={5}>Updates for this Event</AnnouncementsTitle>
+                  <AnnouncementsTitle level={5}>
+                    Updates for this Event
+                  </AnnouncementsTitle>
                   <AnnouncementNoContent>
                     There are no announcements for this event
                   </AnnouncementNoContent>

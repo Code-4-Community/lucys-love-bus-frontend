@@ -20,7 +20,6 @@ const AnnouncementCardCover = styled(Card)`
   max-width: 400px;
   margin: 16px 16px;
 
-
   .cardImg {
     height: 250px;
     object-fit: cover;

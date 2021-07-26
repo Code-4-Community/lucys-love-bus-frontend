@@ -29,23 +29,41 @@ const { Text, Paragraph } = Typography;
 
 const LandingContainer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+const LandingImage = styled.div`
+  width: 100%;
   height: calc(95vh - 110px);
   object-fit: cover;
   background-image: url('${HOME_IMAGE}');
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
-`;
+
+  @media screen and (max-width: 900px) {
+    height: 35vh;
+  }
+`
 
 const LandingText = styled(Text)`
   font-weight: 800;
   color: ${ORANGE};
   font-size: 36px;
   line-height: 48px;
+
+  @media screen and (max-width: 900px) {
+    font-size: 24px;
+  }
 `;
 
 const LandingBodyText = styled(Paragraph)`
   font-size: 16px;
+
+  @media screen and (max-width: 900px) {
+    font-size: 14px;
+  }
 `;
 
 const LandingTextContainer = styled.div`
@@ -79,6 +97,7 @@ const ViewMoreButton = styled(LinkButton)`
 
 const AdminCol = styled(Col)`
   margin-right: 10px;
+  margin-bottom: 16px;
 `;
 
 const CARD_ROW_LIMIT = 3;
@@ -104,13 +123,24 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
   }, []);
 
   const LandingCard = styled(Card)`
-    position: relative;
-    top: 30%;
+    position: absolute;
+    top: 40%;
     left: 15%;
     width: ${privilegeLevel === PrivilegeLevel.ADMIN ? '600px' : '500px'};
     height: ${privilegeLevel === PrivilegeLevel.ADMIN ? '220px' : '280px'};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
+
+    @media screen and (max-width: 900px) {
+      height: max-content;
+      position: relative;
+      width: 100%;
+      left: 0%;
+      justify-content: center;
+      border-radius: 0px;
+      box-shadow: none;
+
+  }
   `;
   return (
     <>
@@ -124,6 +154,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
 
       {privilegeLevel === PrivilegeLevel.ADMIN ? (
         <LandingContainer>
+          <LandingImage/>
           <LandingCard bordered={false}>
             <LandingTextContainer>
               <LandingText>Welcome Administrator!</LandingText>
@@ -153,6 +184,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
         </LandingContainer>
       ) : (
         <LandingContainer>
+          <LandingImage/>
           <LandingCard bordered={false}>
             <LandingTextContainer>
               <LandingText>
