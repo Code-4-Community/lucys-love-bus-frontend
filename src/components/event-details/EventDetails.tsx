@@ -126,6 +126,14 @@ const InfoWrapper = styled.div`
   }
 `;
 
+const DescriptionTitle = styled(Title)`
+  width: 100%;
+`
+
+const AnnouncementsTitle = styled(Title)`
+  width: 100%;
+`
+
 const AnnouncementBox = styled.div``;
 
 const AnnouncementNoContent = styled(AnnouncementBox)``;
@@ -208,7 +216,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
       </CardWrapper>
       <BottomWrapper>
         <DescriptionWrapper>
-          <Title level={5}>Description</Title>
+          <DescriptionTitle level={5}>Description</DescriptionTitle>
           <Typography>{description}</Typography>
         </DescriptionWrapper>
         <AnnouncementsWrapper>
@@ -225,7 +233,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                 </AnnouncementBox>
               ) : (
                 <>
-                  <Title level={5}>Updates for this Event</Title>
+                  <AnnouncementsTitle level={5}>Updates for this Event</AnnouncementsTitle>
                   <AnnouncementNoContent>
                     There are no announcements for this event
                   </AnnouncementNoContent>
