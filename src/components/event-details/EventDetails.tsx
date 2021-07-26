@@ -113,13 +113,15 @@ const ThumbnailWrapper = styled.div`
     min-width: 100%;
     justify-content: center;
     margin-bottom: 16px;
+    min-height: 200px;
+    max-height: 300px;
   }
 `;
 
 const InfoWrapper = styled.div`
   display: flex;
   width: 45%;
-  margin-left: 40px;
+  padding: 0px 20px;
 
   @media screen and (max-width: 900px) {
     width: 100%;
