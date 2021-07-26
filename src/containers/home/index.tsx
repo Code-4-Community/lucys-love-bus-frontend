@@ -45,7 +45,7 @@ const LandingImage = styled.div`
   @media screen and (max-width: 900px) {
     height: 35vh;
   }
-`
+`;
 
 const LandingText = styled(Text)`
   font-weight: 800;
@@ -139,8 +139,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
       justify-content: center;
       border-radius: 0px;
       box-shadow: none;
-
-  }
+    }
   `;
   return (
     <>
@@ -154,7 +153,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
 
       {privilegeLevel === PrivilegeLevel.ADMIN ? (
         <LandingContainer>
-          <LandingImage/>
+          <LandingImage />
           <LandingCard bordered={false}>
             <LandingTextContainer>
               <LandingText>Welcome Administrator!</LandingText>
@@ -184,7 +183,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
         </LandingContainer>
       ) : (
         <LandingContainer>
-          <LandingImage/>
+          <LandingImage />
           <LandingCard bordered={false}>
             <LandingTextContainer>
               <LandingText>
@@ -217,15 +216,13 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
               ? events.result.slice(0, CARD_ROW_LIMIT)
               : events.result
             ).map((event: EventInformation, i) => (
-              <Col key={i}>
-                <EventCard
-                  imageSrc={event.thumbnail}
-                  title={event.title}
-                  date={event.details.start}
-                  description={event.details.description}
-                  to={`/events/${event.id}`}
-                />
-              </Col>
+              <EventCard
+                imageSrc={event.thumbnail}
+                title={event.title}
+                date={event.details.start}
+                description={event.details.description}
+                to={`/events/${event.id}`}
+              />
             ))}
           {asyncRequestIsComplete(events) && events.result.length === 0 && (
             <CenterEventsContainer>
