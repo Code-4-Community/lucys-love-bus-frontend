@@ -24,7 +24,7 @@ const AnnouncementCardCover = styled(Card)`
     object-fit: cover;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 700px) {
     width: 85%;
   }
 `;

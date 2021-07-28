@@ -24,7 +24,7 @@ const EventsCard = styled(Card)`
   }
   margin: 16px 16px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 700px) {
     width: 85%;
   }
 `;
