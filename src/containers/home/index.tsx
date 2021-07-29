@@ -25,6 +25,7 @@ import {
   EventInformation,
   EventsReducerState,
 } from '../upcoming-events/ducks/types';
+import { PRIMARY_BREAKPOINT } from '../../utils/breakpoints';
 const { Text, Paragraph } = Typography;
 
 const LandingContainer = styled.div`
@@ -42,7 +43,7 @@ const LandingImage = styled.div`
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     height: 35vh;
   }
 `;
@@ -53,7 +54,7 @@ const LandingText = styled(Text)`
   font-size: 36px;
   line-height: 48px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     font-size: 24px;
   }
 `;
@@ -61,7 +62,7 @@ const LandingText = styled(Text)`
 const LandingBodyText = styled(Paragraph)`
   font-size: 16px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     font-size: 14px;
   }
 `;
@@ -131,7 +132,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
       height: max-content;
       position: relative;
       width: 100%;

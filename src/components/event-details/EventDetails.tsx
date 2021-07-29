@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { PrivilegeLevel } from '../../auth/ducks/types';
 import { EventAnnouncement } from '../../containers/singleEvent/ducks/types';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
+import { PRIMARY_BREAKPOINT } from '../../utils/breakpoints';
 import { DEFAULT_IMAGE } from '../../utils/copy';
 import { AnnouncementCard } from '../AnnouncementCard';
 import EventRegistrationModal from '../modals/event-registration-modal/EventRegistrationModal';
@@ -27,7 +28,7 @@ const DescriptionWrapper = styled.div`
   margin-bottom: 16px;
   height: min-content;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 100%;
   }
 `;
@@ -37,7 +38,7 @@ const AnnouncementsWrapper = styled.div`
   flex-wrap: wrap;
   width: 50%;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 100%;
   }
 `;
@@ -49,7 +50,7 @@ const CardContent = styled.div`
   border: 1px solid #d9d9d9;
   width: 100%;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     flex-direction: column;
     width: 100%;
   }
@@ -71,7 +72,7 @@ const SeatsRemaining = styled.div`
 const Location = styled.div`
   margin-bottom: 120px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     margin-bottom: 40px;
   }
 `;
@@ -109,7 +110,7 @@ const ThumbnailWrapper = styled.div`
   justify-content: left;
   overflow: hidden;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     min-width: 100%;
     justify-content: center;
     margin-bottom: 16px;
@@ -123,7 +124,7 @@ const InfoWrapper = styled.div`
   width: 45%;
   padding: 0px 20px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 100%;
   }
 `;
