@@ -16,17 +16,16 @@ const CardTitle = styled(Text)`
 const AnnouncementCardCover = styled(Card)`
   cursor: pointer;
   height: fit-content;
-  min-width: 200px;
-  max-width: 400px;
+  width: 400px;
   margin: 16px 16px;
-
-  @media screen and (min-width: 800px) {
-    min-width: 400px;
-  }
 
   .cardImg {
     height: 250px;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 85%;
   }
 `;
 

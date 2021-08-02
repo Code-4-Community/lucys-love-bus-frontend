@@ -23,6 +23,10 @@ const EventsCard = styled(Card)`
     object-fit: cover;
   }
   margin: 16px 16px;
+
+  @media screen and (max-width: 700px) {
+    width: 85%;
+  }
 `;
 
 const DateText = styled(Text)`

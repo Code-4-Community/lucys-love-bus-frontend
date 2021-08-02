@@ -39,6 +39,7 @@ const CenteredContainer = styled.div`
 const AdminActionButtonList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 16px;
 `;
 
 const StyledButton = styled(LinkButton)`
@@ -47,7 +48,7 @@ const StyledButton = styled(LinkButton)`
   text-align: center;
   justify-content: center;
   background-color: #2d870d;
-  margin: 0 16px 32px 0;
+  margin: 0 16px 16px 0;
   padding: 8px 16px;
 `;
 
