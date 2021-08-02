@@ -23,20 +23,22 @@ const BottomWrapper = styled.div`
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  width: 47%;
   text-align: left;
   margin-bottom: 16px;
+  margin-right: 32px;
   height: min-content;
 
   @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 100%;
+    margin-right: 0px;
   }
 `;
 
 const AnnouncementsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  width: 47%;
 
   @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 100%;
@@ -137,9 +139,10 @@ const AnnouncementsTitle = styled(Title)`
   width: 100%;
 `;
 
-const AnnouncementBox = styled.div``;
-
-const AnnouncementNoContent = styled(AnnouncementBox)``;
+const AnnouncementBox = styled.div`
+  height: min-content;
+  width: 100%;
+`;
 
 export interface EventDetailsProps extends EventInformation {
   announcements?: EventAnnouncement[];
@@ -223,7 +226,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           <Typography>{description}</Typography>
           {privateDescription !== null && (
             <>
-              <Title level={5}>Private Description</Title>
+              <DescriptionTitle level={5}>Private Description</DescriptionTitle>
               <Typography>{privateDescription}</Typography>
             </>
           )}
@@ -233,7 +236,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
             <>
               {announcements.length ? (
                 <AnnouncementBox>
-                  <Title level={5}>Updates for this Event</Title>
+                  <AnnouncementsTitle level={5}>Updates for this Event</AnnouncementsTitle>
                   {announcements.map((announcement, i) => {
                     return (
                       <AnnouncementCard {...announcement} key={i} condensed />
@@ -241,14 +244,14 @@ const EventDetails: React.FC<EventDetailsProps> = ({
                   })}
                 </AnnouncementBox>
               ) : (
-                <>
+                <AnnouncementBox>
                   <AnnouncementsTitle level={5}>
                     Updates for this Event
                   </AnnouncementsTitle>
-                  <AnnouncementNoContent>
+                  <Typography>
                     There are no announcements for this event
-                  </AnnouncementNoContent>
-                </>
+                  </Typography>
+                </AnnouncementBox>
               )}
             </>
           )}
