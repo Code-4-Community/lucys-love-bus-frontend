@@ -107,8 +107,8 @@ const ThumbnailWrapper = styled.div`
   display: flex;
   max-width: 65%;
   width: 55%;
-  min-height: 300px;
-  max-height: 400px;
+  min-height: 400px;
+  max-height: 500px;
   justify-content: left;
   overflow: hidden;
 
