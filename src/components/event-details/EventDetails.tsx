@@ -107,8 +107,8 @@ const ThumbnailWrapper = styled.div`
   display: flex;
   max-width: 65%;
   width: 55%;
-  min-height: 400px;
-  max-height: 500px;
+  min-height: 300px;
+  max-height: 400px;
   justify-content: left;
   overflow: hidden;
 
@@ -236,7 +236,9 @@ const EventDetails: React.FC<EventDetailsProps> = ({
             <>
               {announcements.length ? (
                 <AnnouncementBox>
-                  <AnnouncementsTitle level={5}>Updates for this Event</AnnouncementsTitle>
+                  <AnnouncementsTitle level={5}>
+                    Updates for this Event
+                  </AnnouncementsTitle>
                   {announcements.map((announcement, i) => {
                     return (
                       <AnnouncementCard {...announcement} key={i} condensed />
