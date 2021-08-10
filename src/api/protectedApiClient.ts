@@ -109,9 +109,7 @@ const changePassword = (request: {
   return AppAxiosInstance.post(
     ProtectedApiClientRoutes.CHANGE_PASSWORD,
     request,
-  )
-    .then((r) => r.data)
-    .catch((e) => e);
+  ).then((r) => r.data);
 };
 
 const registerTickets = (request: RegisterTicketsRequest) => {
@@ -139,9 +137,9 @@ const getMyEvents = (): Promise<EventInformation[]> => {
 };
 
 const deactivateAccount = (): Promise<void> => {
-  return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER)
-    .then((res) => res)
-    .catch((err) => err);
+  return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER).then(
+    (res) => res,
+  );
 };
 
 const getContactInfo = (): Promise<ContactInfo> => {
@@ -166,17 +164,17 @@ const setContactInfo = (request: ContactInfo): Promise<void> => {
 };
 
 const getRequestStatuses = (): Promise<PersonalRequest[]> => {
-  return AppAxiosInstance.get(ProtectedApiClientRoutes.REQUEST_STATUSES)
-    .then((res) => res.data)
-    .catch((err) => err);
+  return AppAxiosInstance.get(ProtectedApiClientRoutes.REQUEST_STATUSES).then(
+    (res) => res.data,
+  );
 };
 
 const makePFRequest = (): Promise<void> => {
-  return AppAxiosInstance.post(ProtectedApiClientRoutes.PF_REQUESTS)
-    .then((res) => {
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.PF_REQUESTS).then(
+    (res) => {
       return;
-    })
-    .catch((err) => err);
+    },
+  );
 };
 
 const getPFRequests = (): Promise<PFRequestResponse> => {
@@ -214,9 +212,7 @@ const getEventAnnouncements = (
 ): Promise<EventAnnouncement[]> => {
   return AppAxiosInstance.get(
     `${ProtectedApiClientRoutes.ANNOUNCEMENTS}/${eventId}`,
-  )
-    .then((res) => res.data.announcements)
-    .catch((err) => err);
+  ).then((res) => res.data.announcements);
 };
 
 const changeAccountEmail = (request: ChangeEmailRequest): Promise<void> => {
@@ -234,9 +230,9 @@ const getEventRegistrations: (eventId: number) => Promise<Registration[]> = (
 const createEvent = (
   request: NewEventInformation,
 ): Promise<EventInformation> => {
-  return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request)
-    .then((res) => res.data)
-    .catch((err) => err);
+  return AppAxiosInstance.post(ProtectedApiClientRoutes.EVENTS, request).then(
+    (res) => res.data,
+  );
 };
 
 const editEvent = (
@@ -246,9 +242,7 @@ const editEvent = (
   return AppAxiosInstance.put(
     `${ProtectedApiClientRoutes.EVENTS}/${id}`,
     request,
-  )
-    .then((res) => res.data)
-    .catch((err) => err);
+  ).then((res) => res.data);
 };
 
 const getEventInfoById = (id: number): Promise<EventInformation> => {
@@ -262,9 +256,7 @@ const getEventInfoById = (id: number): Promise<EventInformation> => {
 };
 
 const deleteEvent = (id: number): Promise<void> => {
-  return AppAxiosInstance.delete(
-    `${ProtectedApiClientRoutes.EVENTS}/${id}`,
-  ).catch((err) => err);
+  return AppAxiosInstance.delete(`${ProtectedApiClientRoutes.EVENTS}/${id}`);
 };
 
 const createAnnouncement = (
