@@ -138,7 +138,7 @@ const getMyEvents = (): Promise<EventInformation[]> => {
 
 const deactivateAccount = (): Promise<void> => {
   return AppAxiosInstance.delete(ProtectedApiClientRoutes.USER).then(
-    (res) => res,
+    (res) => res.data,
   );
 };
 
