@@ -316,7 +316,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getAllUsersContactInfo,
   createAnnouncement,
   deleteAnnouncement,
-  getProtectedEvents
+  getProtectedEvents,
 });
 
 export default Client;
