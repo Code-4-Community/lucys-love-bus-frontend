@@ -218,6 +218,7 @@ const Home: React.FC<HomeContainerProps> = ({ events, announcements }) => {
               : events.result
             ).map((event: EventInformation, i) => (
               <EventCard
+                key={i}
                 imageSrc={event.thumbnail}
                 title={event.title}
                 date={event.details.start}
