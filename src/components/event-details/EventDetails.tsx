@@ -201,7 +201,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({
           <InfoWrapper>
             <Info>
               <StyledTitle level={3}>{title}</StyledTitle>
-              {ticketCount && (
+              {ticketCount !== undefined && ticketCount > 0 && (
                 <EventsTag color={'green'}>
                   Registered {ticketCount} tickets
                 </EventsTag>

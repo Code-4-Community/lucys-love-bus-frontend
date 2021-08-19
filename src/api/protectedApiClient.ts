@@ -52,6 +52,7 @@ export interface ProtectedApiClient {
     eventId: number,
     request: UpdateTicketsRequest,
   ) => Promise<void>;
+  readonly getProtectedEvents: () => Promise<EventInformation[]>;
   readonly getMyEvents: () => Promise<EventInformation[]>;
   readonly getRequestStatuses: () => Promise<PersonalRequest[]>;
   readonly makePFRequest: () => Promise<void>;
@@ -130,6 +131,12 @@ const updateTickets = (eventId: number, request: UpdateTicketsRequest) => {
   ).then((res) => {
     return;
   });
+};
+
+const getProtectedEvents = (): Promise<EventInformation[]> => {
+  return AppAxiosInstance.get(`${ProtectedApiClientRoutes.EVENTS}`).then(
+    (res) => res.data.events,
+  );
 };
 
 const getMyEvents = (): Promise<EventInformation[]> => {
@@ -309,6 +316,7 @@ const Client: ProtectedApiClient = Object.freeze({
   getAllUsersContactInfo,
   createAnnouncement,
   deleteAnnouncement,
+  getProtectedEvents
 });
 
 export default Client;

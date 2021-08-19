@@ -99,7 +99,7 @@ const EventListing: React.FC<EventListingProps> = ({
         <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
           <InlineTitle level={3}>{title}</InlineTitle>
-          {ticketCount && (
+          {ticketCount !== undefined && ticketCount > 0 && (
             <>
               <EventTag color="green">
                 Registered {ticketCount} tickets
