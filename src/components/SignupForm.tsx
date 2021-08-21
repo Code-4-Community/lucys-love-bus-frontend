@@ -265,11 +265,10 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-            No family member or attendee will attend a Sajni Center program 
-            (either at The Sajni Center or off site) if they
-            have been sick in the past 24 hours, are feeling ill, have been
-            exposed to a virus, or do not have the appropriate age required
-            immunizations.
+            No family member or attendee will attend a Sajni Center program
+            (either at The Sajni Center or off site) if they have been sick in
+            the past 24 hours, are feeling ill, have been exposed to a virus, or
+            do not have the appropriate age required immunizations.
           </Checkbox>
         </Form.Item>
 
@@ -286,7 +285,8 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-            All parents are to remain at The Sajni Center or partner facility during programs
+            All parents are to remain at The Sajni Center or partner facility
+            during programs
           </Checkbox>
         </Form.Item>
 
@@ -303,17 +303,13 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-            My children are up to date on all vaccinations and I will provide a
-            copy of my children’s immunization records prior to attending any
-            programs. (Children who are being treated for cancer often have
-            severely compromised immune systems, so we are required to collect
-            this information for their safety. All medical information will be
-            stored in a HIPPA-compliant manner.)
+            By submitting this form, I agree that all the above information is
+            true to the best of my knowledge.
           </Checkbox>
         </Form.Item>
 
         <Form.Item
-          name="check2"
+          name="check4"
           valuePropName="checked"
           rules={[
             {
@@ -325,7 +321,10 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-              By submitting this form, I agree that all the above information is true to the best of my knowledge. 
+          By submitting this form and attending a program held by Lucy's Love Bus, I
+          release Lucy's Love Bus and associated practitioners from all liability,
+          costs, and damages, which could arise from participation in an
+          event or activity. 
           </Checkbox>
         </Form.Item>
 
