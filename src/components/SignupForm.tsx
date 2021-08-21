@@ -265,7 +265,8 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-            No family member or attendee will visit The Sajni Center if they
+            No family member or attendee will attend a Sajni Center program 
+            (either at The Sajni Center or off site) if they
             have been sick in the past 24 hours, are feeling ill, have been
             exposed to a virus, or do not have the appropriate age required
             immunizations.
@@ -285,7 +286,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-            All parents are to remain at The Sajni Center during programs
+            All parents are to remain at The Sajni Center or partner facility during programs
           </Checkbox>
         </Form.Item>
 
@@ -310,6 +311,24 @@ const SignupForm: React.FC<SignupFormProps> = ({
             stored in a HIPPA-compliant manner.)
           </Checkbox>
         </Form.Item>
+
+        <Form.Item
+          name="check2"
+          valuePropName="checked"
+          rules={[
+            {
+              required: true,
+              type: 'enum',
+              enum: [true],
+              message: 'Please check all boxes',
+            },
+          ]}
+        >
+          <Checkbox>
+              By submitting this form, I agree that all the above information is true to the best of my knowledge. 
+          </Checkbox>
+        </Form.Item>
+
         <Form.Item
           label="Head of Family Name"
           name="headOfFamilyName"
