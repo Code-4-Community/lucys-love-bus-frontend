@@ -286,7 +286,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         >
           <Checkbox>
             All parents are to remain at The Sajni Center or partner facility
-            during programs
+            during programs.
           </Checkbox>
         </Form.Item>
 
@@ -321,10 +321,10 @@ const SignupForm: React.FC<SignupFormProps> = ({
           ]}
         >
           <Checkbox>
-          By submitting this form and attending a program held by Lucy's Love Bus, I
-          release Lucy's Love Bus and associated practitioners from all liability,
-          costs, and damages, which could arise from participation in an
-          event or activity. 
+            By submitting this form and attending a program held by Lucy's Love
+            Bus, I release Lucy's Love Bus and associated practitioners from all
+            liability, costs, and damages, which could arise from participation
+            in an event or activity.
           </Checkbox>
         </Form.Item>
 
