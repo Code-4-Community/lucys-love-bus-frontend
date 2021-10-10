@@ -8,7 +8,7 @@ import { Routes } from '../../App';
 import { LinkButton } from '../../components/LinkButton';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
-import { PRIMARY_BREAKPOINT } from '../../utils/breakpoints'
+import { PRIMARY_BREAKPOINT } from '../../utils/breakpoints';
 
 const { Text, Paragraph } = Typography;
 
@@ -61,7 +61,7 @@ const Thumbnail = styled.img`
   width: 33%;
   object-fit: cover;
   height: 312px;
-  
+
   @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     width: 45%;
     height: 214px;
@@ -101,7 +101,7 @@ const DateText = styled(Text)`
   @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
     font-size: 16px;
   }
-`
+`;
 
 interface EventListingProps extends EventInformation {
   admin?: boolean;
@@ -116,25 +116,27 @@ const EventListing: React.FC<EventListingProps> = ({
   admin,
 }) => {
   const history = useHistory();
-  const onMobile = useMediaQuery({ query: ('(max-width: ' + PRIMARY_BREAKPOINT + ')') });
+  const onMobile = useMediaQuery({
+    query: '(max-width: ' + PRIMARY_BREAKPOINT + ')',
+  });
 
   const handleMobileOnClick = () => {
-    onMobile && history.push(Routes.EVENT_BASE_ROUTE + id)
-  }
+    onMobile && history.push(Routes.EVENT_BASE_ROUTE + id);
+  };
 
   const StyledCard = styled(Card)`
-  margin-bottom: 32px;
-  height: ${onMobile ? '216px' : '314px'};
-  .ant-card-body {
-    padding: 0px;
-  }
-  cursor: ${onMobile && `pointer`};
-`;
+    margin-bottom: 32px;
+    height: ${onMobile ? '216px' : '314px'};
+    .ant-card-body {
+      padding: 0px;
+    }
+    cursor: ${onMobile && `pointer`};
+  `;
 
   return (
     <StyledCard onClick={handleMobileOnClick}>
       <CardContent>
-        <Thumbnail src={thumbnail || DEFAULT_IMAGE}/>
+        <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
         <Info>
           <InlineTitle>{title}</InlineTitle>
           {ticketCount && (
