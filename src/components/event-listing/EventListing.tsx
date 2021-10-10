@@ -121,7 +121,7 @@ const EventListing: React.FC<EventListingProps> = ({
   });
 
   const handleMobileOnClick = () => {
-    onMobile && history.push(Routes.EVENT_BASE_ROUTE + id);
+    return onMobile && history.push(Routes.EVENT_BASE_ROUTE + id);
   };
 
   const StyledCard = styled(Card)`
