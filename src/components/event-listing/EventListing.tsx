@@ -1,4 +1,6 @@
 import { Card, Divider, Tag, Typography } from 'antd';
+import { useMediaQuery } from 'react-responsive';
+import { useHistory } from 'react-router-dom';
 import dateFormat from 'dateformat';
 import React from 'react';
 import styled from 'styled-components';
@@ -6,16 +8,9 @@ import { Routes } from '../../App';
 import { LinkButton } from '../../components/LinkButton';
 import { EventInformation } from '../../containers/upcoming-events/ducks/types';
 import { DEFAULT_IMAGE } from '../../utils/copy';
+import { PRIMARY_BREAKPOINT } from '../../utils/breakpoints'
 
-const { Title, Text, Paragraph } = Typography;
-
-const StyledCard = styled(Card)`
-  margin-bottom: 32px;
-  height: 314px;
-  .ant-card-body {
-    padding: 0px;
-  }
-`;
+const { Text, Paragraph } = Typography;
 
 const CardContent = styled.div`
   display: flex;
@@ -26,6 +21,10 @@ const ThinDivider = styled(Divider)`
   margin-top: 12px;
   margin-bottom: 12px;
   width: 100%;
+
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
+    display: none;
+  }
 `;
 
 const StyledButton = styled(LinkButton)`
@@ -62,6 +61,11 @@ const Thumbnail = styled.img`
   width: 33%;
   object-fit: cover;
   height: 312px;
+  
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
+    width: 45%;
+    height: 214px;
+  }
 `;
 
 const Info = styled.div`
@@ -69,8 +73,14 @@ const Info = styled.div`
   width: 67%;
 `;
 
-const InlineTitle = styled(Title)`
+const InlineTitle = styled(Text)`
+  font-size: 24px;
   display: inline;
+
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
+    font-size: 32px;
+    font-weight: bold;
+  }
 `;
 
 const EventTag = styled(Tag)`
@@ -80,6 +90,18 @@ const EventTag = styled(Tag)`
 const AdminButtonWrapper = styled.div`
   display: flex;
 `;
+
+const BottomHalfWrapper = styled.div`
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
+    display: none;
+  }
+`;
+
+const DateText = styled(Text)`
+  @media screen and (max-width: ${PRIMARY_BREAKPOINT}) {
+    font-size: 16px;
+  }
+`
 
 interface EventListingProps extends EventInformation {
   admin?: boolean;
@@ -93,12 +115,28 @@ const EventListing: React.FC<EventListingProps> = ({
   ticketCount,
   admin,
 }) => {
+  const history = useHistory();
+  const onMobile = useMediaQuery({ query: ('(max-width: ' + PRIMARY_BREAKPOINT + ')') });
+
+  const handleMobileOnClick = () => {
+    onMobile && history.push(Routes.EVENT_BASE_ROUTE + id)
+  }
+
+  const StyledCard = styled(Card)`
+  margin-bottom: 32px;
+  height: ${onMobile ? '216px' : '314px'};
+  .ant-card-body {
+    padding: 0px;
+  }
+  cursor: ${onMobile && `pointer`};
+`;
+
   return (
-    <StyledCard>
+    <StyledCard onClick={handleMobileOnClick}>
       <CardContent>
-        <Thumbnail src={thumbnail || DEFAULT_IMAGE} />
+        <Thumbnail src={thumbnail || DEFAULT_IMAGE}/>
         <Info>
-          <InlineTitle level={3}>{title}</InlineTitle>
+          <InlineTitle>{title}</InlineTitle>
           {ticketCount && (
             <>
               <EventTag color="green">
@@ -107,31 +145,33 @@ const EventListing: React.FC<EventListingProps> = ({
             </>
           )}
           <br />
-          <Text strong>{dateFormat(details.start, 'longDate')}</Text>
+          <DateText strong>{dateFormat(details.start, 'longDate')}</DateText>
           <br />
-          <Text strong>{dateFormat(details.start, 'shortTime')}</Text>
+          <DateText strong>{dateFormat(details.start, 'shortTime')}</DateText>
           <ThinDivider />
-          <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
-          {admin ? (
-            <AdminButtonWrapper>
+          <BottomHalfWrapper>
+            <Paragraph ellipsis={{ rows: 5 }}>{details.description}</Paragraph>
+            {admin ? (
+              <AdminButtonWrapper>
+                <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>
+                  Learn More
+                </GreenButton>
+                <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>
+                  Edit
+                </GreenButton>
+                <GreenButton to={`/create-announcements/${id}`}>
+                  Make Announcement
+                </GreenButton>
+                <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>
+                  View RSVP
+                </GrayButton>
+              </AdminButtonWrapper>
+            ) : (
               <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>
                 Learn More
               </GreenButton>
-              <GreenButton to={Routes.EDIT_EVENT_BASE_ROUTE + id}>
-                Edit
-              </GreenButton>
-              <GreenButton to={`/create-announcements/${id}`}>
-                Make Announcement
-              </GreenButton>
-              <GrayButton to={`${Routes.EVENT_BASE_ROUTE}${id}/rsvp`}>
-                View RSVP
-              </GrayButton>
-            </AdminButtonWrapper>
-          ) : (
-            <GreenButton to={Routes.EVENT_BASE_ROUTE + id}>
-              Learn More
-            </GreenButton>
-          )}
+            )}
+          </BottomHalfWrapper>
         </Info>
       </CardContent>
     </StyledCard>
