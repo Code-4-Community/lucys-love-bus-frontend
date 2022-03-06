@@ -1,6 +1,7 @@
 import { Reducer } from 'redux';
 import { v4 } from 'uuid';
 import { Action } from '../store';
+import * as Sentry from '@sentry/browser';
 
 export enum AsyncRequestKinds {
   NotStarted = 'NotStarted',
@@ -69,6 +70,7 @@ export function AsyncRequestLoading<R, E = void>(): AsyncRequest<R, E> {
 }
 
 export function AsyncRequestFailed<R, E = void>(error: E): AsyncRequest<R, E> {
+  Sentry.captureException(error);
   return {
     kind: AsyncRequestKinds.Failed,
     error,
