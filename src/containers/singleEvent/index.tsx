@@ -132,8 +132,9 @@ const SingleEvent: React.FC<SingleEventProps> = ({
       if (!event) {
         event = events.result.find((e) => e.id === id);
       }
-      const hasRegistered =
-        (event && event.ticketCount && event.ticketCount > 0) !== undefined;
+      const hasRegistered = Boolean(
+        event && event.ticketCount && event.ticketCount > 0,
+      );
       if (event) {
         return (
           <>
