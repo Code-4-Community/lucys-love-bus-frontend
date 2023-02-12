@@ -85,7 +85,7 @@
     "eslint-plugin-react": "^7.22.0",
     "husky": "^5.2.0",
     "nock": "^13.0.9",
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.20",
     "prettier": "^2.2.1",
     "redux-devtools": "^3.7.0",
     "tslint": "^6.1.3",
