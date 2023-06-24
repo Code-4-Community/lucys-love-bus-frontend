@@ -61,11 +61,7 @@ export const signup = (
   signupRequest: SignupRequest,
   onError: (msg: string) => void,
 ): UserAuthenticationThunkAction<void> => {
-  return (
-    dispatch,
-    getState,
-    { authClient, protectedApiClient },
-  ): Promise<void> => {
+  return (dispatch, getState, { authClient }): Promise<void> => {
     dispatch(authenticateUser.loading());
     return authClient
       .signup(signupRequest)

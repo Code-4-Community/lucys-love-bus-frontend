@@ -1,5 +1,5 @@
 import { genericAsyncActions } from '../../utils/asyncRequest';
-import { TokenPayload, UserData } from './types';
+import { TokenPayload } from './types';
 
 export const authenticateUser = genericAsyncActions<TokenPayload, any>();
 

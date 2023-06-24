@@ -16,6 +16,7 @@ import {
   participatingFamilySearchQueryFlag,
 } from '../../utils/signupFlow';
 import { SignupData } from './ducks/types';
+import { message } from 'antd';
 interface SignupFormContainerProps {
   readonly tokens: UserAuthenticationReducerState['tokens'];
 }
@@ -45,29 +46,35 @@ const SignupFormContainer: React.FC<SignupFormContainerProps> = ({
     const profilePicture =
       data.profilePicture &&
       (await encodeProfileFieldFile(data.profilePicture));
+
+    const onError = (msg: string) => message.error(msg);
+
     dispatch(
-      signup({
-        email: data.email,
-        password: data.password,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        phoneNumber: data.phoneNumber,
-        location: {
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          zipCode: data.zipCode,
+      signup(
+        {
+          email: data.email,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          location: {
+            address: data.address,
+            city: data.city,
+            state: data.state,
+            zipCode: data.zipCode,
+          },
+          photoRelease: data.photoRelease,
+          referrer: data.referrer,
+          profilePicture,
+          allergies: data.allergies,
+          medication: data.medications,
+          notes: data.otherNotes,
+          dateOfBirth: convertToYearMonthDateString(data.dateOfBirth),
+          pronouns: data.pronouns,
+          diagnosis: data.diagnosis,
         },
-        photoRelease: data.photoRelease,
-        referrer: data.referrer,
-        profilePicture,
-        allergies: data.allergies,
-        medication: data.medications,
-        notes: data.otherNotes,
-        dateOfBirth: convertToYearMonthDateString(data.dateOfBirth),
-        pronouns: data.pronouns,
-        diagnosis: data.diagnosis,
-      }),
+        onError,
+      ),
     );
   };
 

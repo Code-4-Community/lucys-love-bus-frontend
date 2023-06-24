@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Input, Modal, Typography } from 'antd';
+import { Alert, Input, Modal, Typography, message } from 'antd';
 import styled from 'styled-components';
 import { login } from '../../../auth/ducks/thunks';
 import { connect, useDispatch } from 'react-redux';
@@ -148,9 +148,13 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
 
   const handleOk = (): void => {
     switch (currentPage) {
-      case ModalContent.LoginContent:
-        dispatch(login({ email, password }));
+      case ModalContent.LoginContent: {
+        const onError = () =>
+          message.error('The email or password you entered was incorrect.');
+
+        dispatch(login({ email, password }, onError));
         break;
+      }
       case ModalContent.ForgotPassword:
         authClient
           .forgotPassword({ email })
