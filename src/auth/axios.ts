@@ -1,9 +1,12 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import store, { LOCALSTORAGE_STATE_KEY } from '../store';
 import { asyncRequestIsComplete } from '../utils/asyncRequest';
 import { UserAuthenticationReducerState } from './ducks/types';
 import { isTokenValid } from './ducks/selectors';
-import AuthClient from './authClient';
+import { logout, refresh } from './ducks/thunks';
+import authClient from './authClient';
+import protectedApiClient from '../api/protectedApiClient';
+import history from '../history';
 
 const AppAxiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_DOMAIN,
@@ -13,16 +16,28 @@ const AppAxiosInstance: AxiosInstance = axios.create({
   },
 });
 
-const INVALID_ACCESS_TOKEN: string = 'Given access token is expired or invalid';
+const userAuthenticationExtraArgs = {
+  authClient,
+  protectedApiClient,
+};
 
-const responseErrorInterceptor = (error: AxiosError) => {
+const INVALID_ACCESS_TOKEN = 'Given access token is expired or invalid';
+
+// TODO Use throughout application
+export interface AppError extends Omit<AxiosError, 'response'> {
+  readonly response: AxiosResponse<string>;
+}
+
+export const responseErrorInterceptor = async (
+  error: AxiosError,
+): Promise<AxiosResponse> => {
   const originalRequest = {
     ...error.config,
     _retry: true,
   };
 
-  const tokens: UserAuthenticationReducerState['tokens'] = store.getState()
-    .authenticationState.tokens;
+  const tokens: UserAuthenticationReducerState['tokens'] =
+    store.getState().authenticationState.tokens;
 
   if (
     asyncRequestIsComplete(tokens) &&
@@ -31,13 +46,12 @@ const responseErrorInterceptor = (error: AxiosError) => {
     isTokenValid(tokens.result.refreshToken) &&
     !(error.config as any)?._retry
   ) {
-    return AuthClient.refresh(tokens.result.refreshToken).then(
-      ({ freshAccessToken }) => {
-        AppAxiosInstance.defaults.headers['X-Access-Token'] = freshAccessToken;
-        originalRequest.headers['X-Access-Token'] = freshAccessToken;
-        return AppAxiosInstance(originalRequest);
-      },
+    await refresh(tokens.result.refreshToken)(
+      store.dispatch,
+      store.getState,
+      userAuthenticationExtraArgs,
     );
+    return AppAxiosInstance(originalRequest);
   }
   if (
     asyncRequestIsComplete(tokens) &&
@@ -45,9 +59,9 @@ const responseErrorInterceptor = (error: AxiosError) => {
     error?.response?.data === INVALID_ACCESS_TOKEN &&
     !isTokenValid(tokens.result.refreshToken)
   ) {
-    AuthClient.logout(tokens.result.refreshToken).then(() => {
-      localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
-    });
+    await logout()(store.dispatch, store.getState, userAuthenticationExtraArgs);
+    localStorage.removeItem(LOCALSTORAGE_STATE_KEY);
+    history.go(0);
   }
   return Promise.reject(error);
 };
@@ -56,5 +70,14 @@ AppAxiosInstance.interceptors.response.use(
   (response) => response,
   responseErrorInterceptor,
 );
+
+AppAxiosInstance.interceptors.request.use((config) => {
+  const tokens: UserAuthenticationReducerState['tokens'] =
+    store.getState().authenticationState.tokens;
+  if (asyncRequestIsComplete(tokens)) {
+    config.headers['X-Access-Token'] = tokens.result.accessToken;
+  }
+  return config;
+});
 
 export default AppAxiosInstance;

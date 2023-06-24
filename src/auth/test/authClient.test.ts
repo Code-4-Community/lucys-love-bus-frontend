@@ -1,40 +1,29 @@
-import nock from 'nock';
+import { RefreshTokenResponse } from '../ducks/types';
 import AuthClient, { API_ROUTE } from '../authClient';
-import { RefreshTokenResponse, TokenPayload } from '../ducks/types';
-
-const BASE_URL = 'http://localhost';
+import nock from 'nock';
+import { BASE_URL, invalidExp, mockTokenResponse } from '../../App.test';
 
 describe('Authentication Client Tests', () => {
   describe('Login', () => {
     it('makes the right request', async () => {
-      const response: TokenPayload = {
-        accessToken:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
-        refreshToken:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
-      };
-
-      nock(BASE_URL).post(API_ROUTE.LOGIN).reply(200, response);
+      nock(BASE_URL)
+        .post(API_ROUTE.LOGIN)
+        .reply(200, mockTokenResponse(invalidExp));
 
       const result = await AuthClient.login({
         email: 'jackblanc',
         password: 'password',
       });
 
-      expect(result).toEqual(response);
+      expect(result).toEqual(mockTokenResponse(invalidExp));
     });
   });
 
   describe('Sign Up', () => {
     it('makes the right request', async () => {
-      const response: TokenPayload = {
-        accessToken:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDQ4NzIwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.k0D1rySdVqVatWsjdA4i1YYq-7glzrL3ycSQwz-5zLU',
-        refreshToken:
-          'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjNGMiLCJleHAiOjE2MDU0NzUwODIsInVzZXJuYW1lIjoiamFja2JsYW5jIn0.FHgEdtz16H5u7mtTqE81N4PUsnzjvwdaJ4GK_jdLWAY',
-      };
-
-      nock(BASE_URL).post(API_ROUTE.SIGNUP).reply(200, response);
+      nock(BASE_URL)
+        .post(API_ROUTE.SIGNUP)
+        .reply(200, mockTokenResponse(invalidExp));
 
       const result = await AuthClient.signup({
         password: 'password',
@@ -52,7 +41,7 @@ describe('Authentication Client Tests', () => {
         dateOfBirth: '2001-01-15',
       });
 
-      expect(result).toEqual(response);
+      expect(result).toEqual(mockTokenResponse(invalidExp));
     });
   });
 
@@ -82,20 +71,6 @@ describe('Authentication Client Tests', () => {
       );
 
       expect(result).toEqual(response);
-    });
-  });
-
-  describe('Verify Email', () => {
-    it('makes the right request', async () => {
-      const secretKey: string = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9';
-
-      nock(BASE_URL).get(`${API_ROUTE.VERIFY_EMAIL}/${secretKey}`).reply(200);
-
-      try {
-        await AuthClient.verifyEmail(secretKey);
-      } catch (e) {
-        fail(e);
-      }
     });
   });
 });

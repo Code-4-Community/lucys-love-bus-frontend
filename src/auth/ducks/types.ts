@@ -3,6 +3,7 @@ import { C4CState } from '../../store';
 import { AsyncRequest } from '../../utils/asyncRequest';
 import { AuthClient } from '../authClient';
 import { UserAuthenticationActions } from './actions';
+import { ProtectedApiClient } from '../../api/protectedApiClient';
 
 export interface UserAuthenticationReducerState {
   readonly tokens: AsyncRequest<TokenPayload, any>;
@@ -10,6 +11,7 @@ export interface UserAuthenticationReducerState {
 
 export interface UserAuthenticationExtraArgs {
   readonly authClient: AuthClient;
+  readonly protectedApiClient: ProtectedApiClient;
 }
 
 export type UserAuthenticationThunkAction<R> = ThunkAction<
