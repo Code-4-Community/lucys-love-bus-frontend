@@ -29,7 +29,7 @@ const BugReportFooter: React.FC = () => {
       <LittleBugIcon />{' '}
       <Text>
         Notice an issue with the site?{' '}
-        <Link href="https://docs.google.com/forms/d/e/1FAIpQLSdaAuvzDfV4fb_SDbsfY3TSTwHKAyDa5dMgTnr1okE9COUTdA/viewform">
+        <Link href="https://docs.google.com/forms/d/e/1FAIpQLSfIoY4BjopZpZqkyaP8d6wjaD2bcSVIxh-BY1YSb7-7OhPz2g/viewform">
           Let us know!
         </Link>
       </Text>

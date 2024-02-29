@@ -17,6 +17,7 @@ const StyledTitle = styled(Title)`
 `;
 
 interface PFRequestData {
+  id: string;
   name: string;
   email: string;
   phoneNumber: string;
@@ -50,6 +51,7 @@ const PFRequestsTable = () => {
       setData(
         pfRequests.requests.map((pfRequest) => {
           return {
+            id: pfRequest.id,
             name: pfRequest.user.firstName.concat(' ', pfRequest.user.lastName),
             email: pfRequest.user.email,
             phoneNumber: pfRequest.user.phoneNumber,
@@ -71,6 +73,7 @@ const PFRequestsTable = () => {
         dataSource={data}
         columns={columns}
         pagination={{ pageSize: 5 }}
+        rowKey="id"
       />
     </>
   );

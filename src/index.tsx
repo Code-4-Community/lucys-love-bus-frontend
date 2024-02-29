@@ -5,14 +5,21 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import * as Sentry from '@sentry/react';
-import { Integrations } from '@sentry/tracing';
 import { Provider } from 'react-redux';
+import { createBrowserHistory } from 'history';
 import store from './store';
+
+const history = createBrowserHistory();
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
-  integrations: [new Integrations.BrowserTracing()],
+  integrations: [
+    Sentry.reactRouterV5BrowserTracingIntegration({ history }),
+    Sentry.replayIntegration(),
+  ],
   tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
 });
 
 ReactDOM.render(
