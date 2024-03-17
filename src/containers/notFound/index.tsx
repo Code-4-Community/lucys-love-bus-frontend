@@ -16,9 +16,7 @@ const NotFound: React.FC = () => {
       <ContentContainer>
         <Title>Oops! We can't find the page you're looking for.</Title>
 
-        <Link to={Routes.HOME}>
-          <Typography.Link>Take me back home!</Typography.Link>
-        </Link>
+        <Link to={Routes.HOME}>Take me back home!</Link>
       </ContentContainer>
     </>
   );

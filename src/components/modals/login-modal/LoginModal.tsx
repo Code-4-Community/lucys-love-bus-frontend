@@ -101,7 +101,11 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
               </Link>
             </Text>
             {tokens.kind === AsyncRequestKinds.Failed && (
-              <Text>{tokens.error}</Text>
+              <Text>
+                {tokens.error === 'Unauthorized user'
+                  ? 'Email and/or password is incorrect'
+                  : tokens.error}
+              </Text>
             )}
           </ContentDiv>
         );

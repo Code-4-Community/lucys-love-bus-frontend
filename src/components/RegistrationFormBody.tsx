@@ -1,6 +1,8 @@
 import { DatePicker, Form, Input, Radio, Upload } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import React from 'react';
+import moment from 'moment';
+
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -102,7 +104,7 @@ const RegistrationFormBody: React.FC<{
           },
         ]}
       >
-        <DatePicker />
+        <DatePicker defaultPickerValue={moment()} format={'YYYY-MM-DD'} />
       </Form.Item>
 
       <Form.Item
