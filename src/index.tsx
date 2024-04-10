@@ -15,7 +15,7 @@ Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
     Sentry.reactRouterV5BrowserTracingIntegration({ history }),
-    Sentry.replayIntegration(),
+    Sentry.replayIntegration({ maskAllText: false }),
   ],
   tracesSampleRate: 1.0,
   replaysSessionSampleRate: 0.1,
