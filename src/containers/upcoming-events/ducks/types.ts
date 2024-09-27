@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 import { PublicApiExtraArgs } from '../../../api/publicApiClient';
-import { C4CState } from '../../../store';
+import { C4CState, ThunkExtraArgs } from '../../../store';
 import { AsyncRequest } from '../../../utils/asyncRequest';
 import { EventsActions } from './actions';
 
@@ -11,7 +11,7 @@ export interface EventsReducerState {
 export type EventsThunkAction<R> = ThunkAction<
   R,
   C4CState,
-  PublicApiExtraArgs,
+  ThunkExtraArgs,
   EventsActions
 >;
 
@@ -23,6 +23,7 @@ export interface EventInformation {
   thumbnail?: string;
   details: {
     description: string;
+    privateDescription?: string;
     location: string;
     start: Date;
     end: Date;

@@ -5,6 +5,7 @@ export interface NewEventInformation {
   price: number;
   details: {
     description: string;
+    privateDescription?: string;
     location: string;
     start: Date;
     end: Date;
