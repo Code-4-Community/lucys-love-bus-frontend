@@ -1,6 +1,7 @@
 import { DatePicker, Form, Input, Radio, Upload } from 'antd';
 import { FormListFieldData } from 'antd/lib/form/FormList';
 import React from 'react';
+import { validateImage } from '../utils/signupFlow';
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
@@ -114,9 +115,15 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
         fieldKey={[field.fieldKey, 'profilePicture']}
         label="Upload Profile Picture"
       >
-        <Dragger multiple={false} beforeUpload={() => false}>
+        <Dragger
+          multiple={false}
+          beforeUpload={validateImage}
+          maxCount={1}
+          accept=".jpeg,.png"
+        >
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
+          <p>NOTE: files must be smaller than 1 megabyte!</p>
         </Dragger>
       </Form.Item>
     </>

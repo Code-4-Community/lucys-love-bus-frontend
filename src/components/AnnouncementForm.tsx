@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { encodeProfileFieldFile, FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
 import FormInitialText from './FormInitialText';
+import { validateImage } from '../utils/signupFlow';
 
 const { Title } = Typography;
 const { Dragger } = Upload;
@@ -73,9 +74,15 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ onFinish }) => {
         </Form.Item>
 
         <Form.Item label="Upload Announcement Image (Optional)" name="imageSrc">
-          <Dragger multiple={false} beforeUpload={() => false}>
+          <Dragger
+            multiple={false}
+            beforeUpload={validateImage}
+            maxCount={1}
+            accept=".jpeg,.png"
+          >
             <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
             <u>Or Browse Your Computer</u>
+            <p>NOTE: files must be smaller than 1 megabyte!</p>
           </Dragger>
         </Form.Item>
         <Button htmlType="submit">Submit</Button>
