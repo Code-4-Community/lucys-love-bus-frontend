@@ -119,7 +119,7 @@ const ChildFormFragment: React.FC<{ field: FormListFieldData }> = ({
           multiple={false}
           beforeUpload={validateImage}
           maxCount={1}
-          accept=".jpeg,.png"
+          accept=".jpeg,.jpg,.png"
         >
           <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
           <u>Or Browse Your Computer</u>
