@@ -16,6 +16,7 @@ import { EventInformation } from '../containers/upcoming-events/ducks/types';
 import { AsyncRequest, asyncRequestIsFailed } from '../utils/asyncRequest';
 import { FileField } from '../utils/fileEncoding';
 import FormContainer from './FormContainer';
+import { validateImage } from '../utils/signupFlow';
 
 const { Paragraph } = Typography;
 const { Dragger } = Upload;
@@ -183,9 +184,15 @@ const EventsForm: React.FC<EventsFormProps> = ({
         </Form.Item> */}
 
         <Form.Item label="Add Image" name="thumbnail">
-          <Dragger multiple={false} beforeUpload={() => false}>
+          <Dragger
+            multiple={false}
+            beforeUpload={validateImage}
+            maxCount={1}
+            accept=".jpeg,.png"
+          >
             <p>Drag and Drop Image File to Upload (.jpeg, .png)</p>
             <u>Or Browse Your Computer</u>
+            <p>NOTE: files must be smaller than 1 megabyte!</p>
           </Dragger>
         </Form.Item>
 
