@@ -132,8 +132,17 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
             <Text>
               Keep an eye on your inbox (and check your spam folder as well). If
               you still haven’t received an email,{' '}
-              <Typography.Link>click here</Typography.Link> to resend it.
+              <Typography.Link onClick={handleForgotPassword}>
+                click here
+              </Typography.Link>{' '}
+              to resend it.
             </Text>
+            {error && (
+              <Alert
+                message={'Unable to send forgot password email'}
+                type="error"
+              />
+            )}
           </ContentDiv>
         );
     }
@@ -150,6 +159,19 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
     }
   };
 
+  const handleForgotPassword = (): void => {
+    authClient
+      .forgotPassword({ email })
+      .then(() => {
+        message.success('Sent your password reset link!');
+        setError(false);
+        setPage(ModalContent.ResetPassword);
+      })
+      .catch((err) => {
+        setError(true);
+      });
+  };
+
   const handleOk = (): void => {
     switch (currentPage) {
       case ModalContent.LoginContent: {
@@ -160,15 +182,7 @@ const LoginModal: React.FC<LoginModalProps & StateProps> = ({
         break;
       }
       case ModalContent.ForgotPassword:
-        authClient
-          .forgotPassword({ email })
-          .then(() => {
-            setError(false);
-            setPage(ModalContent.ResetPassword);
-          })
-          .catch((err) => {
-            setError(true);
-          });
+        handleForgotPassword();
         break;
       case ModalContent.ResetPassword:
         onCloseLoginModal();
